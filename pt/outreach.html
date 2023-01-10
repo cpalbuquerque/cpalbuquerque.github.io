@@ -1,0 +1,510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="pt-br">
+
+
+<head>
+
+  <meta name="description" content="Caetano Pereira Pedroso de Albuquerque">
+
+  <meta name="keywords" content="hydrology,hydrologic modeling,model calibration,optimization,debora yumi de oliveira,labhidro">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Caetano Pereira Pedroso de Albuquerque</title>
+
+  <link rel="icon" type="image/png" href="/static/logo/labhidro.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <style type="text/css">
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 auto;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+  }
+
+  a, a:hover, a:active{
+    color: black;
+  }
+
+  td {
+    vertical-align: bottom;
+  }
+
+  .topo {
+    font-color: #d8d8d8;
+    font-size: 15px;
+    font-weight: 500;
+    width: 1000px;
+    max-width: 100%;
+    padding: 6px 0px;
+    height: 59px;
+    margin-left:auto;
+    margin-right:auto;
+    /*position: fixed; /* Set the navbar to fixed position */
+    /*top: 0; /* Position the navbar at the top of the page */
+    /*width: 100%; /* Full width */
+  }
+
+  .topo img{
+    display: inline-block;
+  }
+
+  .topo .language{
+    display: inline-block;
+    float: right;
+    font-size: 13px;
+    padding-top: 23px;
+  }
+
+  #menu {
+    width:100%;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 2px;
+    margin-top:2px;
+    text-align: center;
+  }
+
+  #menu ul {
+    /*width:1000px;
+    max-width: 100%;*/
+    width:100%;
+    margin: 8px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color: #fff;
+    /*text-align: right;*/
+  }
+
+  #menu ul li {
+    display: inline;
+    padding: 8px 16px;
+    margin: 0px 0px;
+  }
+
+  .dropdown a:hover,
+  #menu ul li:hover {
+    background-color:#f6f6f6;
+  }
+
+  #menu ul li a {
+    color:#203033;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 10px;
+  }
+
+  #menu ul li.active > a{
+    color: #203033;
+    font-weight: 600;
+  }
+
+  .foto {
+    width:100%;
+    height:300px;
+    background-image: url("/static/base/jon-flobrant-rB7-LCa_diU-unsplash.jpg"),url("/static/base/jon-flobrant-rB7-LCa_diU-unsplash_lowres.jpg");
+    background-size: cover;
+    margin-top:auto;
+    margin-left:auto;
+    margin-right:auto;
+    position: relative;
+    /* margin-top: 110px; */
+  }
+
+  .foto-home {
+    width:100%;
+    height:800px;
+    background-image: url("/static/base/caetano_home.jpg"),url("/static/base/caetano_home.jpg");
+    background-position: center;
+    background-size: cover;
+    margin-top:auto;
+    margin-left:auto;
+    margin-right:auto;
+    position: relative;
+    /* margin-top: 110px; */
+  }
+
+  .foto-publications {
+    width: 1029px;
+    height:300px;
+    background-image: url("/static/base/caetano_publications2.png"),url("/static/base/caetano_publications2.png");
+    background-size: cover;
+    margin-top:auto;
+    margin-left:auto;
+    margin-right:auto;
+    position: relative;
+    /* margin-top: 110px; */
+  }
+
+  .img-text{
+    position: absolute;
+    /* width: 250px; */
+    width: 100%;
+    height:300px;
+    line-height: 300px;
+    /* bottom: 30px;*/
+    /* left: 13%; */
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+    /*padding: 6px;*/
+  }
+
+  .img-text-home{
+    position: absolute;
+    /* width: 250px; */
+    width: 100%;
+    height:800px;
+    line-height: 50px;
+    /* bottom: 30px;*/
+    /* left: 13%; */
+    text-align: center;
+    font-size: 54px;
+    font-weight: 500;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+    /*padding: 6px;*/
+  }
+
+  .rodape {
+    width: 100%;
+    border-top: 1px solid #ddd;
+    background-color: #eee;
+    padding: 14px 0px;
+  }
+
+  .conteudo {
+    width:1000px;
+    max-width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:auto;
+    text-align: justify;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-color: #203033;
+    font-weight:300;
+    min-height: calc(100vh - 500px);
+  }
+
+  .tab_conteudo {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-color: #808080;
+    color:black;
+    text-align: justify;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:auto;
+    font-weight:300;
+  }
+
+  .tab_conteudo_rodape {
+    width: 1000px;
+    max-width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+    color: black;
+    font-weight:300;
+  }
+
+  .tab_conteudo1 {
+    width: 1000px;
+    max-width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 13px;
+    color: black;
+    font-weight:300;
+  }
+
+  .tab_conteudo2 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    font-color: #203033;
+    font-weight:600;
+  }
+
+  .tab_conteudo_p {
+  text-align: justify;
+  margin-left: auto;
+  margin-top: auto;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-color: #203033;
+  font-weight:300;
+  }
+
+  .home td:hover {
+    transform: scale(1.15);
+  }
+  .img-circle {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  .home-circle {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    background-color: #fff;
+    border: 4px solid #222;
+  }
+
+  .home-circle i {
+    font-size: 30px;
+    padding-top: 20px;
+    line-height: 1;
+    color: #222;
+  }
+
+  .circle-title {
+    font-size: 14px;
+    font-weight:600;
+    color: #222;
+  }
+
+  a:link {
+    text-decoration: none;
+    color:#203033;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color:#203033;
+    font-weight:bold;
+  }
+
+  .undeline {
+    border-bottom: 1px solid #d9d9d9;
+    height: 1px;
+    display: block;
+  }
+
+  .publicacoes {
+    position: relative;
+  }
+
+  .equipe {
+    position: relative;
+  }
+
+  .projetos {
+    position: relative;
+  }
+
+  .dropdown {
+    opacity: 0;
+    width: 175%;
+    display: block;
+    position: absolute;
+    text-align: left;
+    top: 38px;
+    left: 0%;
+    background-color: #ffffff;
+    transition: opacity .1s linear;
+    z-index: 1000;
+  }
+
+  .dropdown a {
+    display: block;
+    padding: 6px;
+    border: 1px solid #ddd;
+  }
+
+  .dropdown a:not(:first-child) {
+    border-top: none;
+  }
+
+  .publicacoes:hover > .dropdown {
+    opacity: 1;
+  }
+
+  .equipe:hover > .dropdown {
+    opacity: 1;
+  }
+
+  .projetos:hover > .dropdown {
+    opacity: 1;
+  }
+
+</style>
+
+
+  
+
+<style type="text/css">
+
+.conteudo {
+width:1000px;
+max-width: 100%;
+margin-left:auto;
+margin-right:auto;
+margin-top:auto;
+text-align: justify;
+font-family: 'Open Sans', sans-serif;
+font-size: 13px;
+font-color: #203033;
+font-weight:300;
+}
+
+</style>
+
+
+
+
+</head>
+
+
+<body>
+
+  
+
+<div class="topo">
+  <!--img src="/static/base/topo.png" height="100%"-->
+
+  <div class="language">
+    <a href="/en/software"><img src="/static/flags/flag_uk.png" width="20px"></a>
+    <a href="/pt/software"><img src="/static/flags/flag_brasil.png" width="20px"></a>
+  </div>
+
+</div>
+
+
+
+<div id="menu">
+
+<ul>
+
+  <li class=""><a href="/pt/home">HOME</a></li>
+
+  <!--li class="sobre"><a href="/pt/sobre">SOBRE</a></li-->
+
+  <li class="publicacoes"><a href="/pt/publicacoes">PUBLICATIONS</a></li>
+
+  <!--li class="conferencias"><a href="/pt/conferencias">CONFERÊNCIAS</a></li-->
+
+  <li class="ensino"><a href="/pt/ensino">TEACHING</a></li>
+
+  <li class="active outreach"><a href="/pt/outreach">COMMUNICATION AND OUTREACH</a></li>
+
+  <!--li class=""><a href="/pt/eventos">EVENTOS</a></li-->
+
+  <!--li class=""><a href="/pt/contato">CONTATO</a></li-->
+
+  <!--li class=""><a href="/pt/links">LINKS</a></li-->
+
+
+
+  <!--<li class=""><a href="/pt/noticias">NOTÍCIAS</a></li>-->
+
+</ul>
+
+</div>
+
+
+<div class="foto">
+  <span class="img-text">
+    
+    
+  </span>
+</div>
+
+<div class="conteudo">
+  <br>
+
+  <font size="4">SOFTWARES</font>
+  <span class="undeline"></span><br>
+
+  <table class="tab_conteudo" width="50%">
+
+    <tbody>
+
+      <font size="2"><a href="/static/software/MRCPtool.rar">
+      > MRCPtool</a><br>
+
+      <br>
+
+  </table>
+
+  <table class="tab_conteudo" width="50%">
+
+    <tbody>
+
+      <font size="2"><a href="/static/software/WEB/index.html">
+      > YARA</a><br>
+
+      <br>
+
+  </table>
+
+  <br>
+
+  <br>
+
+</div>
+
+
+
+  
+
+<div class="rodape">
+  <table class="tab_conteudo_rodape">
+  <tbody>
+  	<tr>
+	  	<td>
+		    Caetano Pereira Pedroso de Albuquerque<br>
+        Postdoctoral Researcher, California State University, Los Angeles<br>
+		    cpereir8@csula.edu<br>
+		  </td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-216725185-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-216725185-1');
+  </script>
+
+  <!--<script async="" src="//www.google-analytics.com/analytics.js"></script>
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66652826-1', 'auto');
+    ga('send', 'pageview');
+  </script>-->
+
+</body>
+
+
+</html>
