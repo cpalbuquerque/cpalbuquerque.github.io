@@ -149,12 +149,6 @@
       color: #111827;
     }
 
-    .section h3 {
-      font-size: 16px;
-      margin-bottom: 6px;
-      color: #111827;
-    }
-
     .section-intro {
       margin-bottom: 18px;
       color: #4b5563;
@@ -167,7 +161,6 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
       margin-top: 12px;
-      margin-bottom: 4px;
     }
 
     .photo-grid img {
@@ -177,12 +170,6 @@
       border-radius: 10px;
       border: 1px solid #e5e7eb;
       box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
-    }
-
-    .photo-caption {
-      font-size: 12px;
-      color: #6b7280;
-      margin-top: 4px;
     }
 
     /* Campus/course sections */
@@ -205,13 +192,7 @@
       font-size: 15px;
       font-weight: 600;
       color: #111827;
-      margin-bottom: 4px;
-    }
-
-    .campus-subtitle {
-      font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .course-list {
@@ -226,7 +207,7 @@
       margin-bottom: 6px;
     }
 
-    /* Two-column layout for mentoring / previous teaching */
+    /* Two-column layout for mentoring / TA */
     .two-column {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -329,7 +310,7 @@
 
   <div class="conteudo">
 
-    <!-- Teaching philosophy in your voice -->
+    <!-- Teaching philosophy -->
     <div class="section">
       <h2>How I teach</h2>
       <p class="section-intro">
@@ -361,95 +342,54 @@
           <img src="/static/img/teaching_field.jpg" alt="Students collecting data in a lettuce field near Monterey Bay">
         </div>
       </div>
-      <div class="photo-caption">
-        Examples of recent classes and activities with students in the classroom, lab, and field. You can replace or
-        update these images by editing the files in <code>/static/img/</code>.
-      </div>
     </div>
 
-    <!-- Courses by campus -->
+    <!-- Courses -->
     <div class="section">
       <h2>Courses</h2>
-      <p class="section-intro">
-        I currently teach at California State University, Monterey Bay, and previously taught at California State
-        University Los Angeles, with additional teaching assistant experience at the Federal University of Rio Grande do Sul
-        (Brazil) and UC Davis.
-      </p>
 
       <div class="campus-grid">
         <!-- CSUMB -->
         <div class="campus-card">
           <div class="campus-name">California State University, Monterey Bay</div>
-          <div class="campus-subtitle">Department of Biology &amp; Agricultural Plant and Soil Sciences</div>
           <ul class="course-list">
-            <li>
-              <strong>AGPS 415 – Advanced Irrigation &amp; Management</strong><br>
-              Principles and practices of irrigation management for crop production, including sensor-based scheduling
-              and regulatory context for Central Coast vegetable growers.
-            </li>
-            <li>
-              <strong>AGPS 350 – Research Methods for Crop &amp; Soil Science</strong><br>
-              Experimental design, field and lab methods, and data analysis using real datasets from vegetable fields and soils.
-            </li>
-            <li>
-              <strong>BIO 332 – Plant Physiology</strong><br>
-              Fundamental plant physiology from cells to whole plants, with emphasis on how water relations, photosynthesis,
-              and mineral nutrition underpin crop performance.
-            </li>
-            <li>
-              <strong>AGPS 397 – Independent Research in Agriculture</strong><br>
-              Undergraduate research projects in collaboration with faculty and local partners, focusing on vegetable cropping
-              systems, soil–plant interactions, and water management.
-            </li>
-            <li>
-              <strong>AGPS 213 – Principles of Viticulture</strong><br>
-              Introduction to grapevine biology, canopy and crop management, and basic viticulture practices with connections
-              to plant physiology.
-            </li>
+            <li>AGPS 415 – Advanced Irrigation &amp; Management</li>
+            <li>AGPS 350 – Research Methods for Crop &amp; Soil Science</li>
+            <li>BIO 332 – Plant Physiology</li>
+            <li>AGPS 397 – Independent Research in Agriculture</li>
+            <li>AGPS 213 – Principles of Viticulture</li>
           </ul>
         </div>
 
         <!-- Cal State LA -->
         <div class="campus-card">
           <div class="campus-name">California State University, Los Angeles</div>
-          <div class="campus-subtitle">Previous teaching</div>
           <ul class="course-list">
-            <li>
-              <strong>BIOL 5430 – Seminar in Ecology: Environmental Biology</strong><br>
-              Graduate seminar exploring current literature in ecology and environmental biology, with discussion-based
-              analysis of primary research articles.
-            </li>
+            <li>BIOL 5430 – Seminar in Ecology: Environmental Biology</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- Mentoring + TA experience -->
+    <!-- Mentoring + TA -->
     <div class="section">
       <div class="two-column">
         <!-- Mentoring -->
         <div>
           <h2>Mentoring</h2>
-          <p class="section-intro">
-            Undergraduate research and mentoring are central to my work. Students at CSUMB contribute to projects on
-            lettuce and tomato physiology, irrigation management, soil amendments (including biochar), and plant–disease
-            interactions, often presenting their findings in posters and talks.
-          </p>
           <ul class="bullet-list">
-            <li>Mentoring multiple undergraduate research students in vegetable cropping systems at CSUMB.</li>
-            <li>Student projects span plant water relations, salinity, soil physical properties, and disease stress.</li>
+            <li>Mentoring undergraduate research students in vegetable cropping systems at CSUMB.</li>
+            <li>Projects span plant water relations, salinity, soil physical properties, and disease stress.</li>
             <li>Students participate in regional conferences and connect with growers and industry partners in the Salinas Valley.</li>
-            <li>Co-mentoring graduate students in collaboration with the Scoffoni Lab and other partners.</li>
           </ul>
         </div>
 
-        <!-- Previous teaching & TA roles -->
+        <!-- Teaching assistantships -->
         <div>
-          <h2>Previous teaching &amp; TA experience</h2>
+          <h2>Teaching assistantships</h2>
           <ul class="bullet-list">
-            <li>Teaching assistant in farm planning and pasture/cropping systems courses at the Federal University of Rio Grande do Sul (UFRGS), Brazil.</li>
-            <li>Teaching assistant for Grapevine Growth and Physiology (VEN 110) at UC Davis, integrating plant physiology concepts with viticulture practice.</li>
-            <li>Guest lectures in graduate and undergraduate courses on leaf water relations, xylem hydraulics, and drought responses at UC Davis and UC Riverside.</li>
+            <li>Grapevine Growth and Physiology (VEN 110), University of California, Davis.</li>
+            <li>Farm management and pasture/cropping systems courses, Federal University of Rio Grande do Sul (UFRGS).</li>
           </ul>
         </div>
       </div>
