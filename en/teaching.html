@@ -3,10 +3,10 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Caetano Albuquerque – Teaching &amp; Mentoring</title>
+  <title>Caetano Albuquerque – Teaching</title>
 
-  <meta name="description" content="Teaching and mentoring by Caetano Albuquerque at California State University, Monterey Bay.">
-  <meta name="keywords" content="teaching, plant physiology, irrigation, crop and soil science, CSUMB, mentoring, student research, Salinas Valley, vegetable crops">
+  <meta name="description" content="Teaching by Caetano Albuquerque at California State University, Monterey Bay.">
+  <meta name="keywords" content="teaching, plant physiology, irrigation, crop and soil science, CSUMB, courses">
 
   <link rel="icon" type="image/png" href="/static/logo/labhidro.png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css">
@@ -149,12 +149,6 @@
       color: #111827;
     }
 
-    .section-intro {
-      margin-bottom: 18px;
-      color: #4b5563;
-      font-size: 14px;
-    }
-
     /* Teaching photo grid */
     .photo-grid {
       display: grid;
@@ -172,65 +166,25 @@
       box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
     }
 
-    /* Campus/course sections */
-    .campus-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+    /* Simple lists */
+    .list-block {
+      margin-bottom: 16px;
     }
 
-    .campus-card {
-      background-color: #f9fafb;
-      border-radius: 10px;
-      padding: 12px 12px 14px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-      font-size: 14px;
-    }
-
-    .campus-name {
-      font-size: 15px;
+    .list-title {
       font-weight: 600;
-      color: #111827;
       margin-bottom: 6px;
     }
 
-    .course-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-      font-size: 13px;
-      color: #111827;
-    }
-
-    .course-list li {
-      margin-bottom: 6px;
-    }
-
-    /* Two-column layout for mentoring / TA */
-    .two-column {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 22px;
-      align-items: flex-start;
-    }
-
-    .bullet-list {
+    ul.simple-list {
       list-style: none;
       padding-left: 0;
       margin: 0;
       font-size: 14px;
-      color: #111827;
     }
 
-    .bullet-list li {
-      margin-bottom: 6px;
-    }
-
-    .bullet-list li::before {
-      content: "• ";
-      color: #0f766e;
-      font-weight: bold;
+    ul.simple-list li {
+      margin-bottom: 4px;
     }
 
     /* Footer */
@@ -255,14 +209,6 @@
     @media (max-width: 900px) {
       .photo-grid {
         grid-template-columns: 1fr 1fr;
-      }
-
-      .campus-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .two-column {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -304,94 +250,56 @@
 
   <div class="foto-teaching">
     <span class="img-text-teaching">
-      Teaching &amp; Mentoring
+      Teaching
     </span>
   </div>
 
   <div class="conteudo">
 
-    <!-- Teaching philosophy -->
+    <!-- Teaching photos only -->
     <div class="section">
-      <h2>How I teach</h2>
-      <p class="section-intro">
-        In my classes I work to connect fundamental concepts in plant physiology with the complexity of real
-        agricultural systems. I bring examples from lettuce, tomato, and other crops that students see in the Salinas
-        Valley and use those systems to explore how plants move water, respond to stress, and allocate resources. I rely
-        heavily on hands-on learning, curated datasets, and discussions around figures and graphs so that students
-        practice interpreting evidence rather than just memorizing terms. My goal is for students to leave with a strong
-        conceptual framework and the confidence to apply it in different crops, environments, and career paths.
-      </p>
-      <p class="section-intro">
-        I also draw on evidence-based pedagogy – mixing short lectures with think–pair–share, group problem solving, and
-        reflective assignments – to create a classroom where students feel comfortable asking questions, making mistakes,
-        and building understanding together.
-      </p>
-    </div>
-
-    <!-- Teaching photos -->
-    <div class="section">
-      <h2>In the classroom, lab, and field</h2>
+      <h2>Teaching photos</h2>
       <div class="photo-grid">
         <div>
-          <img src="/static/img/teaching_classroom.jpg" alt="Caetano teaching plant physiology in the classroom">
+          <img src="/static/img/teaching_classroom.jpg" alt="Classroom teaching">
         </div>
         <div>
-          <img src="/static/img/teaching_lab.jpg" alt="Students working with plant physiology measurements in the lab">
+          <img src="/static/img/teaching_lab.jpg" alt="Lab teaching">
         </div>
         <div>
-          <img src="/static/img/teaching_field.jpg" alt="Students collecting data in a lettuce field near Monterey Bay">
+          <img src="/static/img/teaching_field.jpg" alt="Field teaching">
         </div>
       </div>
     </div>
 
-    <!-- Courses -->
+    <!-- Courses only -->
     <div class="section">
       <h2>Courses</h2>
 
-      <div class="campus-grid">
-        <!-- CSUMB -->
-        <div class="campus-card">
-          <div class="campus-name">California State University, Monterey Bay</div>
-          <ul class="course-list">
-            <li>AGPS 415 – Advanced Irrigation &amp; Management</li>
-            <li>AGPS 350 – Research Methods for Crop &amp; Soil Science</li>
-            <li>BIO 332 – Plant Physiology</li>
-            <li>AGPS 397 – Independent Research in Agriculture</li>
-            <li>AGPS 213 – Principles of Viticulture</li>
-          </ul>
-        </div>
-
-        <!-- Cal State LA -->
-        <div class="campus-card">
-          <div class="campus-name">California State University, Los Angeles</div>
-          <ul class="course-list">
-            <li>BIOL 5430 – Seminar in Ecology: Environmental Biology</li>
-          </ul>
-        </div>
+      <div class="list-block">
+        <div class="list-title">California State University, Monterey Bay</div>
+        <ul class="simple-list">
+          <li>AGPS 415 – Advanced Irrigation &amp; Management</li>
+          <li>AGPS 350 – Research Methods for Crop &amp; Soil Science</li>
+          <li>BIO 332 – Plant Physiology</li>
+          <li>AGPS 397 – Independent Research in Agriculture</li>
+          <li>AGPS 213 – Principles of Viticulture</li>
+        </ul>
       </div>
-    </div>
 
-    <!-- Mentoring + TA -->
-    <div class="section">
-      <div class="two-column">
-        <!-- Mentoring -->
-        <div>
-          <h2>Mentoring</h2>
-          <ul class="bullet-list">
-            <li>Mentoring undergraduate research students in vegetable cropping systems at CSUMB.</li>
-            <li>Projects span plant water relations, salinity, soil physical properties, and disease stress.</li>
-            <li>Students participate in regional conferences and connect with growers and industry partners in the Salinas Valley.</li>
-          </ul>
-        </div>
+      <div class="list-block">
+        <div class="list-title">California State University, Los Angeles</div>
+        <ul class="simple-list">
+          <li>BIOL 5430 – Seminar in Ecology: Environmental Biology</li>
+        </ul>
+      </div>
 
-        <!-- Teaching assistantships -->
-        <div>
-          <h2>Teaching assistantships</h2>
-          <ul class="bullet-list">
-            <li>Grapevine Growth and Physiology (VEN 110), University of California, Davis.</li>
-            <li>Farm management and pasture/cropping systems courses, Federal University of Rio Grande do Sul (UFRGS).</li>
-          </ul>
-        </div>
+      <div class="list-block">
+        <div class="list-title">Teaching assistantships</div>
+        <ul class="simple-list">
+          <li>Grapevine Growth and Physiology (VEN 110), UC Davis</li>
+          <li>Farm management and cropping systems courses, UFRGS</li>
+        </ul>
       </div>
     </div>
 
