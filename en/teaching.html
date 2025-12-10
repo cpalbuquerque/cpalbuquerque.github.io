@@ -1,585 +1,414 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="pt-br">
-
+<html lang="en">
 
 <head>
-
-  <meta name="description" content="Caetano Pereira Pedroso de Albuquerque">
-
-  <meta name="keywords" content="hydrology,hydrologic modeling,model calibration,optimization,debora yumi de oliveira,labhidro">
-
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Caetano Albuquerque</title>
+  <title>Caetano Albuquerque – Teaching &amp; Mentoring</title>
+
+  <meta name="description" content="Teaching and mentoring by Caetano Albuquerque at California State University, Monterey Bay.">
+  <meta name="keywords" content="teaching, plant ecophysiology, irrigation, crop and soil science, CSUMB, mentoring, student research, Salinas Valley, vegetable crops">
 
   <link rel="icon" type="image/png" href="/static/logo/labhidro.png">
-
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600" rel="stylesheet" type="text/css">
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <style type="text/css">
+    /* Base layout */
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0 auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background-color: #f5f5f7;
+      color: #111827;
+      line-height: 1.6;
+    }
 
-  body {
-    font-family: 'Merriweather'
-    /* font-family: 'Open Sans', sans-serif; */
-    margin: 0 auto;
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for Firefox */
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
+    body::-webkit-scrollbar {
+      display: none;
+    }
 
-  body::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Opera */
-  }
+    a,
+    a:hover,
+    a:active {
+      color: #0f766e;
+    }
 
-  a, a:hover, a:active{
-    color: black;
-  }
+    .topo {
+      font-size: 15px;
+      font-weight: 500;
+      width: 1000px;
+      max-width: 100%;
+      padding: 6px 0px;
+      height: 59px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-  td {
-    vertical-align: bottom;
-  }
+    #menu {
+      width: 100%;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 2px;
+      margin-top: 2px;
+      text-align: center;
+      background-color: #ffffff;
+    }
 
-  .topo {
-    font-color: #d8d8d8;
-    font-size: 15px;
-    font-weight: 500;
-    width: 1000px;
-    max-width: 100%;
-    padding: 6px 0px;
-    height: 59px;
-    margin-left:auto;
-    margin-right:auto;
-    /*position: fixed; /* Set the navbar to fixed position */
-    /*top: 0; /* Position the navbar at the top of the page */
-    /*width: 100%; /* Full width */
-  }
+    #menu ul {
+      margin: 8px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #fff;
+      text-align: center;
+      padding-left: 0;
+      list-style: none;
+    }
 
-  .topo img{
-    display: inline-block;
-  }
+    #menu ul li {
+      display: inline;
+      padding: 8px 16px;
+      margin: 0px 0px;
+    }
 
-  .topo .language{
-    display: inline-block;
-    float: right;
-    font-size: 13px;
-    padding-top: 23px;
-  }
+    #menu ul li a {
+      color: #203033;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 400;
+      padding: 10px;
+      letter-spacing: 0.06em;
+    }
 
-  #menu {
-    width:100%;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 2px;
-    margin-top:2px;
-    text-align: center;
-  }
+    #menu ul li a:hover {
+      background-color: #f6f6f6;
+    }
 
-  #menu ul {
-    /* width:1000px; */
-    /* max-width: 100%; */
-    /* width: 100%; */
-    margin: 8px;
-    margin-left:auto;
-    margin-right:auto;
-    background-color: #fff;
-    text-align: center;
-  }
+    #menu ul li.active>a {
+      color: #0f766e;
+      font-weight: 600;
+      border-bottom: 2px solid #0f766e;
+    }
 
-  #menu ul li {
-    display: inline;
-    padding: 8px 16px;
-    margin: 0px 0px;
-  }
+    /* Banner */
+    .foto-teaching {
+      width: 100%;
+      max-width: 1000px;
+      height: 320px;
+      background-image: url("/static/base/teach_pic_final.png"), url("/static/base/teach_pic_final.png");
+      background-size: cover;
+      background-position: center;
+      margin-top: auto;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
 
-  .dropdown a:hover,
-  #menu ul li:hover {
-    background-color:#f6f6f6;
-  }
+    .img-text-teaching {
+      position: absolute;
+      width: 100%;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.25);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-  #menu ul li a {
-    color:#203033;
-    text-decoration: none;
-    font-family: 'Merriweather'
-    /* font-family: 'Open Sans', sans-serif; */
-    font-size: 12px;
-    font-weight: 300;
-    padding: 10px;
-  }
+    /* Main content card */
+    .conteudo {
+      width: 1000px;
+      max-width: 100%;
+      margin: 16px auto 0 auto;
+      text-align: left;
+      font-size: 15px;
+      font-weight: 400;
+      min-height: calc(100vh - 500px);
+      box-sizing: border-box;
+      padding: 24px 18px 32px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 14px 45px rgba(15, 23, 42, 0.10);
+    }
 
-  #menu ul li.active > a{
-    color: #203033;
-    font-weight: 600;
-  }
+    .section {
+      margin-bottom: 28px;
+    }
 
-  .foto {
-    width:100%;
-    height:300px;
-    background-image: url("/static/base/jon-flobrant-rB7-LCa_diU-unsplash.jpg"),url("/static/base/jon-flobrant-rB7-LCa_diU-unsplash_lowres.jpg");
-    background-size: cover;
-    margin-top:auto;
-    margin-left:auto;
-    margin-right:auto;
-    position: relative;
-    /* margin-top: 110px; */
-  }
+    .section h2 {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #111827;
+    }
 
-  .foto-home {
-    width:100%;
-    /* height:1000px; */
-    /* background-image: url("/static/base/larger_home_pic_dark_letters_central.png"),url("/static/base/larger_home_pic_dark_letters_central.png"); */
-    height:800px;
-    background-image: url("/static/base/xcaetano_home.jpg"),url("/static/base/xcaetano_home.jpg");
-    background-position: center;
-    background-size: cover;
-    margin-top:auto;
-    margin-left:auto;
-    margin-right:auto;
-    position: relative;
-    /* margin-top: 110px; */
-  }
+    .section h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #111827;
+    }
 
-  .foto-publications {
-    width: 1000px;
-    height: 300px;
-    background-image: url("/static/base/pubs_pic_final.png"),url("/static/base/pubs_pic_final.png");
-    background-size: cover;
-    margin-top:auto;
-    margin-left:auto;
-    margin-right:auto;
-    position: relative;
-    /* margin-top: 110px; */
-  }
+    .section-intro {
+      margin-bottom: 18px;
+      color: #4b5563;
+      font-size: 14px;
+    }
 
-  .foto-teaching {
-    width: 1000px;
-    height: 300px;
-    background-image: url("/static/base/teach_pic_final.png"),url("/static/base/teach_pic_final.png");
-    background-size: cover;
-    margin-top:auto;
-    margin-left:auto;
-    margin-right:auto;
-    position: relative;
-    /* margin-top: 110px; */
-  }
+    /* Course cards */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
 
-  .foto-outreach {
-    width: 1000px;
-    height: 300px;
-    background-image: url("/static/base/comm_pic_final.png"),url("/static/base/comm_pic_final.png");
-    background-size: cover;
-    margin-top:auto;
-    margin-left:auto;
-    margin-right:auto;
-    position: relative;
-    /* margin-top: 110px; */
-  }
+    .course-card {
+      background-color: #f9fafb;
+      border-radius: 10px;
+      padding: 12px 12px 14px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      font-size: 14px;
+    }
 
-  .img-text{
-    position: absolute;
-    /* width: 250px; */
-    width: 100%;
-    height:300px;
-    line-height: 300px;
-    /* bottom: 30px;*/
-    /* left: 13%; */
-    text-align: center;
-    font-size: 54px;
-    font-weight: 500;
-    color: #fff;
-    background-color: rgba(0,0,0,0.4);
-    /*padding: 6px;*/
-  }
+    .course-code {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #0f766e;
+      margin-bottom: 4px;
+    }
 
-  .img-text-home{
-    position: absolute;
-    /* width: 250px; */
-    width: 100%;
-    height:800px;
-    line-height: 50px;
-    /* bottom: 30px;*/
-    /* left: 13%; */
-    text-align: center;
-    font-size: 64px;
-    font-weight: 500;
-    /* color: #fff; */
-    color: #454545;
-    background-color: rgba(0,0,0,0);
-    /*padding: 6px;*/
-  }
+    .course-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #111827;
+    }
 
-  .img-text-teaching{
-  position: absolute;
-  /* width: 250px; */
-  width: 100%;
-  height:300px;
-  line-height: 300px;
-  /* bottom: 30px;*/
-  /* left: 13%; */
-  text-align: center;
-  font-size: 40px;
-  font-weight: 500;
-  color: #fff;
-  background-color: rgba(0,0,0,0);
-  /*padding: 6px;*/
-}
+    .course-body {
+      font-size: 13px;
+      color: #4b5563;
+    }
 
-  .rodape {
-    width: 100%;
-    border-top: 1px solid #ddd;
-    background-color: #eee;
-    padding: 14px 0px;
-  }
+    /* Two-column layout for mentoring / previous teaching */
+    .two-column {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 22px;
+      align-items: flex-start;
+    }
 
-  .conteudo {
-    width:1000px;
-    max-width: 100%;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:auto;
-    text-align: justify;
-    font-family: 'Merriweather'
-    /* font-family: 'Open Sans', sans-serif; */
-    font-size: 15px;
-    font-color: #203033;
-    font-weight:300;
-    min-height: calc(100vh - 500px);
-  }
+    .bullet-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      font-size: 14px;
+      color: #111827;
+    }
 
-  .tab_conteudo {
-    font-family: 'Merriweather'
-    /* font-family: 'Open Sans', sans-serif; */
-    font-size: 15px;
-    font-color: #808080;
-    color:black;
-    text-align: justify;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:auto;
-    font-weight:300;
-  }
+    .bullet-list li {
+      margin-bottom: 6px;
+    }
 
-  .tab_conteudo_rodape {
-    width: 1000px;
-    max-width: 100%;
-    font-family: 'Merriweather'
-    /* font-family: 'Open Sans', sans-serif; */
-    text-align: justify;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 12px;
-    color: black;
-    font-weight:300;
-  }
+    .bullet-list li::before {
+      content: "• ";
+      color: #0f766e;
+      font-weight: bold;
+    }
 
-  .tab_conteudo1 {
-    width: 1000px;
-    max-width: 100%;
-    font-family: 'Merriweather'
-    /* font-family: 'Open Sans', sans-serif; */
-    text-align: justify;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 15px;
-    color: black;
-    font-weight:300;
-  }
+    /* Footer */
+    .rodape {
+      width: 100%;
+      border-top: 1px solid #ddd;
+      background-color: #eee;
+      padding: 14px 0px;
+      margin-top: 24px;
+    }
 
-  .tab_conteudo2 {
-    font-family: 'Merriweather'
-    /* font-family: 'Open Sans', sans-serif; */
-    font-size: 18px;
-    text-align: center;
-    font-color: #203033;
-    font-weight:600;
-  }
+    .tab_conteudo_rodape {
+      width: 1000px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 12px;
+      color: #374151;
+    }
 
-  .tab_conteudo_p {
-  text-align: justify;
-  margin-left: auto;
-  margin-top: auto;
-  font-family: 'Merriweather'
-  /* font-family: 'Open Sans', sans-serif; */
-  font-size: 15px;
-  font-color: #203033;
-  font-weight:300;
-  }
+    /* Mobile tweaks */
+    @media (max-width: 768px) {
+      .conteudo {
+        margin-top: 12px;
+        padding: 20px 14px 28px;
+        border-radius: 0;
+        box-shadow: none;
+      }
 
-  .home td:hover {
-    transform: scale(1.15);
-  }
-  .img-circle {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-  }
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
 
-  .home-circle {
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    background-color: #fff;
-    border: 4px solid #222;
-  }
+      .two-column {
+        grid-template-columns: 1fr;
+      }
 
-  .home-circle i {
-    font-size: 30px;
-    padding-top: 20px;
-    line-height: 1;
-    color: #222;
-  }
-
-  .circle-title {
-    font-size: 14px;
-    font-weight:600;
-    color: #222;
-  }
-
-  a:link {
-    text-decoration: none;
-    color:#203033;
-  }
-
-  a:hover {
-    text-decoration: none;
-    color:#203033;
-    font-weight:bold;
-  }
-
-  .undeline {
-    border-bottom: 1px solid #d9d9d9;
-    height: 1px;
-    display: block;
-  }
-
-  .publicacoes {
-    position: relative;
-  }
-
-  .equipe {
-    position: relative;
-  }
-
-  .projetos {
-    position: relative;
-  }
-
-  .dropdown {
-    opacity: 0;
-    width: 175%;
-    display: block;
-    position: absolute;
-    text-align: left;
-    top: 38px;
-    left: 0%;
-    background-color: #ffffff;
-    transition: opacity .1s linear;
-    z-index: 1000;
-  }
-
-  .dropdown a {
-    display: block;
-    padding: 6px;
-    border: 1px solid #ddd;
-  }
-
-  .dropdown a:not(:first-child) {
-    border-top: none;
-  }
-
-  .publicacoes:hover > .dropdown {
-    opacity: 1;
-  }
-
-  .equipe:hover > .dropdown {
-    opacity: 1;
-  }
-
-  .projetos:hover > .dropdown {
-    opacity: 1;
-  }
-
-</style>
-
-
-  
-<style type="text/css">
-
-.conteudo {
-  width:1000px;
-  max-width: 100%;
-  margin-left:auto;
-  margin-right:auto;
-  margin-top:auto;
-  text-align: justify;
-  font-family: 'Merriweather'
-  /* font-family: 'Open Sans', sans-serif; */
-  font-size: 15px;
-  font-color: #203033;
-  font-weight:300;
-}
-
-.conteudo td {
-vertical-align: top;
-padding-bottom: 25px;
-}
-
-</style>
-
-
-
+      .img-text-teaching {
+        font-size: 24px;
+        padding: 0 16px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-  
+  <div class="topo">
+    <br>
+    <a href="/en/home" style="color:#111827; text-decoration:none; font-weight:600;">Caetano Albuquerque</a>
+  </div>
 
-<div class="topo">
-  <!--img src="/static/base/topo.png" height="100%"-->
+  <div id="menu">
+    <ul>
+      <li class=""><a href="/en/home">HOME</a></li>
+      <li class="publicacoes"><a href="/en/publications">PUBLICATIONS</a></li>
+      <li class="ensino active"><a href="/en/teaching">TEACHING</a></li>
+      <li class="outreach"><a href="/en/outreach">COMMUNICATION AND OUTREACH</a></li>
+    </ul>
+  </div>
 
-  <br>
-  <a href="/en/home">Caetano Albuquerque</a>
+  <div class="foto-teaching">
+    <span class="img-text-teaching">
+      Teaching &amp; Mentoring
+    </span>
+  </div>
 
-</div>
+  <div class="conteudo">
 
+    <!-- Teaching philosophy -->
+    <div class="section">
+      <h2>Teaching at California State University, Monterey Bay</h2>
+      <p class="section-intro">
+        My teaching focuses on connecting plant ecophysiology and agronomy to the realities of
+        Central Coast agriculture. Students work with real datasets, field sites, and local
+        partners from the Salinas Valley to understand how water, soil, climate, and management
+        shape vegetable cropping systems.
+      </p>
+    </div>
 
+    <!-- Courses -->
+    <div class="section">
+      <h2>Courses</h2>
+      <p class="section-intro">
+        I teach undergraduate courses in plant ecophysiology, crop and soil research methods,
+        and irrigation management. Course content integrates lecture, discussion, lab, and
+        field-based activities whenever possible.
+      </p>
 
-<div id="menu">
+      <div class="course-grid">
+        <div class="course-card">
+          <div class="course-code">BIO 332</div>
+          <div class="course-title">Plant Ecophysiology</div>
+          <div class="course-body">
+            How plants respond to environmental drivers such as water availability, light, and
+            temperature, with emphasis on crop and natural systems in California. Labs introduce
+            core physiological measurements and data analysis.
+          </div>
+        </div>
 
-<ul>
+        <div class="course-card">
+          <div class="course-code">AGPS 350</div>
+          <div class="course-title">Research Methods for Crop &amp; Soil Science</div>
+          <div class="course-body">
+            Experimental design, field and lab methods, and statistical analysis using datasets
+            from vegetable production systems. Students design small projects relevant to
+            Salinas Valley agriculture.
+          </div>
+        </div>
 
-  <li class=""><a href="/en/home">HOME</a></li>
+        <div class="course-card">
+          <div class="course-code">AGPS 415</div>
+          <div class="course-title">Advanced Irrigation &amp; Management</div>
+          <div class="course-body">
+            Principles and practices of irrigation for crop production, including scheduling,
+            sensor technologies, and regulatory constraints. Emphasis on lettuce and other
+            vegetable crops in coastal and inland California.
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!--li class="sobre"><a href="/en/about">ABOUT</a></li-->
+    <!-- Mentoring + previous teaching -->
+    <div class="section">
+      <div class="two-column">
+        <!-- Mentoring -->
+        <div>
+          <h2>Mentoring</h2>
+          <p class="section-intro">
+            Undergraduate students are central to my research and outreach activities. They
+            contribute to lab and field projects on lettuce, tomato, soil–water relations,
+            and biochar, and present their work at regional conferences.
+          </p>
+          <ul class="bullet-list">
+            <li>Mentoring multiple undergraduate research students at CSUMB in vegetable cropping systems.</li>
+            <li>Student projects span plant physiology, irrigation management, soil amendments, and disease stress.</li>
+            <li>Students participate in poster presentations and engage with growers and industry partners.</li>
+            <li>Co-mentoring master’s students in collaboration with the Scoffoni Lab.</li>
+          </ul>
+        </div>
 
-  <li class="publicacoes"><a href="/en/publications">PUBLICATIONS</a></li>
+        <!-- Previous teaching & guest lectures -->
+        <div>
+          <h2>Previous teaching &amp; guest lectures</h2>
+          <ul class="bullet-list">
+            <li>
+              Lead course instructor – Seminar in Ecology: Environmental Biology (BIOL 5430),
+              California State University Los Angeles (2022).
+            </li>
+            <li>
+              Guest lectures in graduate seminars at UC Davis and UC Riverside on leaf water
+              relations and drought responses.
+            </li>
+            <li>
+              Teaching assistantships in Grapevine Growth and Physiology (VEN 110) at UC Davis,
+              and in farm planning courses at UFRGS, Brazil.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-  <!--li class="conferencias"><a href="/en/conferences">CONFERENCES</a></li-->
+  </div>
 
-  <li class="active ensino"><a href="/en/teaching">TEACHING</a></li>
+  <div class="rodape">
+    <table class="tab_conteudo_rodape">
+      <tbody>
+        <tr>
+          <td>
+            Caetano Albuquerque<br>
+            <i>Assistant Professor</i><br>
+            <i>California State University, Monterey Bay</i><br><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <li class="outreach"><a href="/en/outreach">COMMUNICATION AND OUTREACH</a></li>
-
-  <!--li class=""><a href="/en/events">EVENTS</a></li-->
-
-  <!--li class=""><a href="/en/contact">CONTACT</a></li-->
-
-  <!--li class=""><a href="/en/links">LINKS</a></li-->
-
-
-
-  <!--<li class=""><a href="/en/news">NEWS</a></li>-->
-
-</ul>
-
-</div>
-
-
-<div class="foto-teaching">
-  <span class="img-text-teaching">
-  </span>
-</div>
-
-<div class="conteudo">
-<br>
-
-<font size="4">LEAD COURSE INSTRUCTOR</font>
-<span class="undeline"></span>
-<br>
-
-<strong>Seminar in Ecology – Environmental Biology (BIOL5430) – California State University Los Angeles – 2022</strong><br>
-I was the instructor for this course on advanced study of selected topics in methods of data analysis during the Spring Semester of 2022. I designed the syllabus and the course structure for the semester, which involved lectures I taught to introduce fundamental concepts applied to existing challenges, students’ oral presentations, written assignments, and in-class discussions of papers.<br>
-<br>
-
-<br>
-<font size="4">GUEST LECTURES</font>
-<span class="undeline"></span>
-<br>
-
-<strong>Graduate Seminar in Horticulture (HRT 290)</strong> – Department of Plant Sciences | UC Davis, 2022<br>
-<i>“Dynamics of the mechanisms involved in leaf responses to progressive drought”</i><br>
-<br>
-
-<strong>Graduate Seminar in Plant Biology (BPSC 250)</strong> – Department of Botany & Plant Sciences | UC Riverside, 2022<br>
-<i>“Leaves under drought: Mechanisms involved in their sequential responses to water stress”</i><br>
-<br>
-
-<strong>Plant Physiology I (BIOL 4280)</strong> – Department of Biological Sciences | Cal State LA, 2022<br>
-<i>“Water relations: Sequence of leaf responses to water stress”</i><br>
-<br>
-
-<strong>Integrative Organismal Biology (BIOL 3600)</strong> – Department of Biological Sciences | Cal State LA, 2022<br>
-<i>“Leaf water relations: Responses to progressive drought and rehydration”</i><br>
-<br>
-
-<br>
-<font size="4">TEACHING ASSISTANTSHIPS</font>
-<span class="undeline"></span>
-<br>
-
-<strong>Grapevine Growth and Physiology (VEN110)</strong> – Department of Viticulture and Enology | UC Davis – 2017<br>
-Professor: Dr. Andrew McElrone<br>
-<br>
-
-<strong>Farm Planning and Management</strong> | UFRGS – Brazil, 2010<br>
-Professor: Dr. Lovois de Andrade Miguel<br>
-<br>
-
-<strong>Agricultural Planning</strong> | UFRGS – Brazil, 2010<br>
-Professor: Dr. Joao Armando Dessimon Machado<br>
-<br>
-
-<br>
-Aside from teaching, I have also been mentoring several undergraduate students since my PhD. I have also mentored one high-school student in a Summer research project and I am co-mentoring three master's students in the Scoffoni Lab at Cal State LA.<br>
-
-<br>
-<br>
-
-</div>
-
-
-
-  
-
-<div class="rodape">
-  <table class="tab_conteudo_rodape">
-  <tbody>
-  	<tr>
-	  	<td>
-		    Caetano Albuquerque<br>
-			<i>Assistant Professor</i><br>
-	  		<i></i>California State University, Monterey Bay</i><br>
-          		<br>
-		  </td>
-		</tr>
-	</tbody>
-	</table>
-</div>
-
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Analytics (unchanged) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-216725185-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'UA-216725185-1');
   </script>
-
-  <!--<script async="" src="//www.google-analytics.com/analytics.js"></script>
-  <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-66652826-1', 'auto');
-    ga('send', 'pageview');
-  </script>-->
-
 </body>
-
 
 </html>
