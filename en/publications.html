@@ -13,13 +13,17 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <style type="text/css">
+    /* Base layout */
     body {
-      font-family: 'Merriweather';
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0 auto;
       -ms-overflow-style: none;
       scrollbar-width: none;
       overflow-y: scroll;
       overflow-x: hidden;
+      background-color: #f5f5f7;
+      color: #111827;
+      line-height: 1.6;
     }
 
     body::-webkit-scrollbar {
@@ -29,11 +33,7 @@
     a,
     a:hover,
     a:active {
-      color: black;
-    }
-
-    td {
-      vertical-align: bottom;
+      color: #0f766e;
     }
 
     .topo {
@@ -47,13 +47,6 @@
       margin-right: auto;
     }
 
-    .topo .language {
-      display: inline-block;
-      float: right;
-      font-size: 13px;
-      padding-top: 23px;
-    }
-
     #menu {
       width: 100%;
       border-top: 1px solid #ddd;
@@ -61,6 +54,7 @@
       margin-bottom: 2px;
       margin-top: 2px;
       text-align: center;
+      background-color: #ffffff;
     }
 
     #menu ul {
@@ -69,6 +63,8 @@
       margin-right: auto;
       background-color: #fff;
       text-align: center;
+      padding-left: 0;
+      list-style: none;
     }
 
     #menu ul li {
@@ -77,29 +73,30 @@
       margin: 0px 0px;
     }
 
-    .dropdown a:hover,
-    #menu ul li:hover {
-      background-color: #f6f6f6;
-    }
-
     #menu ul li a {
       color: #203033;
       text-decoration: none;
-      font-family: 'Merriweather';
       font-size: 12px;
-      font-weight: 300;
+      font-weight: 400;
       padding: 10px;
+      letter-spacing: 0.06em;
+    }
+
+    #menu ul li a:hover {
+      background-color: #f6f6f6;
     }
 
     #menu ul li.active>a {
-      color: #203033;
+      color: #0f766e;
       font-weight: 600;
+      border-bottom: 2px solid #0f766e;
     }
 
+    /* Banner */
     .foto-publications {
       width: 100%;
       max-width: 1000px;
-      height: 300px;
+      height: 320px;
       background-image: url("/static/base/pubs_pic_final.png"), url("/static/base/pubs_pic_final.png");
       background-size: cover;
       background-position: center;
@@ -112,89 +109,129 @@
     .img-text-teaching {
       position: absolute;
       width: 100%;
-      height: 300px;
-      line-height: 300px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      font-size: 40px;
-      font-weight: 500;
-      color: #fff;
-      background-color: rgba(0, 0, 0, 0.2);
+      font-size: 38px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.25);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
+    /* Main content card */
+    .conteudo {
+      width: 1000px;
+      max-width: 100%;
+      margin: 16px auto 0 auto;
+      text-align: left;
+      font-size: 15px;
+      font-weight: 400;
+      min-height: calc(100vh - 500px);
+      box-sizing: border-box;
+      padding: 24px 18px 32px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 14px 45px rgba(15, 23, 42, 0.10);
+    }
+
+    .tab_conteudo {
+      font-size: 15px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Cover image */
+    .pub-cover {
+      max-width: 190px;
+      margin: 0 auto 28px auto;
+    }
+
+    .pub-cover img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+    }
+
+    /* Headings */
+    h2 {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #111827;
+    }
+
+    .section-intro {
+      margin-bottom: 24px;
+      color: #4b5563;
+      font-size: 14px;
+    }
+
+    /* Publication list – no numbers, more spacing */
+    .pub-list {
+      margin-top: 0;
+    }
+
+    .pub-entry {
+      margin-bottom: 14px;
+      font-size: 14px;
+      color: #111827;
+    }
+
+    .pub-entry strong {
+      font-weight: 600;
+    }
+
+    .pub-entry em {
+      font-style: italic;
+    }
+
+    .pub-entry a {
+      word-break: break-all;
+      font-size: 13px;
+    }
+
+    /* Footer */
     .rodape {
       width: 100%;
       border-top: 1px solid #ddd;
       background-color: #eee;
       padding: 14px 0px;
-    }
-
-    .conteudo {
-      width: 1000px;
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: auto;
-      text-align: justify;
-      font-family: 'Merriweather';
-      font-size: 15px;
-      color: #203033;
-      font-weight: 300;
-      min-height: calc(100vh - 500px);
-    }
-
-    .tab_conteudo {
-      font-family: 'Merriweather';
-      font-size: 15px;
-      color: black;
-      text-align: justify;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: auto;
-      font-weight: 300;
+      margin-top: 24px;
     }
 
     .tab_conteudo_rodape {
       width: 1000px;
       max-width: 100%;
-      font-family: 'Merriweather';
-      text-align: justify;
       margin-left: auto;
       margin-right: auto;
       font-size: 12px;
-      color: black;
-      font-weight: 300;
+      color: #374151;
     }
 
-    a:link {
-      text-decoration: none;
-      color: #203033;
-    }
-
-    a:hover {
-      text-decoration: none;
-      color: #203033;
-      font-weight: bold;
-    }
-
-    .pub-list {
-      padding-left: 1.3rem;
-      font-size: 15px;
-    }
-
-    .pub-list li {
-      margin-bottom: 0.65rem;
-    }
-
+    /* Mobile tweaks */
     @media (max-width: 640px) {
       .img-text-teaching {
-        font-size: 28px;
-        line-height: 1.3;
-        padding: 0 12px;
-        height: 300px;
+        font-size: 26px;
+        padding: 0 16px;
       }
 
-      .pub-list {
-        padding-left: 1rem;
+      .conteudo {
+        margin-top: 12px;
+        padding: 20px 14px 28px;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .pub-cover {
+        max-width: 160px;
+      }
+
+      .pub-entry {
+        font-size: 14px;
       }
     }
   </style>
@@ -204,7 +241,7 @@
 
   <div class="topo">
     <br>
-    <a href="/en/home">Caetano Albuquerque</a>
+    <a href="/en/home" style="color:#111827; text-decoration:none; font-weight:600;">Caetano Albuquerque</a>
   </div>
 
   <div id="menu">
@@ -223,130 +260,127 @@
   </div>
 
   <div class="conteudo">
-    <br>
 
-    <table class="tab_conteudo">
-      <tbody>
-        <tr>
-          <td width="10%">
-            <center>
-              <img src="/static/base/caetano_revista.png" width="100%">
-            </center>
-          </td>
-          <td width="1%"></td>
-          <td width="79%">
-            <strong>Albuquerque C</strong>, Scoffoni C, Buckley TN, Brodersen CR, Sack L, McElrone AJ (2020). Coordinated decline of leaf hydraulic and stomatal conductances under drought is not linked to leaf xylem embolism for different grapevine cultivars. <i>Journal of Experimental Botany</i>, 71(22), 7286–7300.
-            <a target="_blank" href="https://doi.org/10.1093/jxb/eraa392">https://doi.org/10.1093/jxb/eraa392</a>
-            <br><br><br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Larger cover image only -->
+    <div class="pub-cover">
+      <img src="/static/base/caetano_revista.png" alt="Journal cover featuring research by Caetano Albuquerque">
+    </div>
 
     <h2>Peer-reviewed articles</h2>
+    <p class="section-intro">
+      Selected peer-reviewed publications, listed in reverse chronological order. For a full list and citation metrics, see my
+      <a href="https://scholar.google.com/citations?user=FnRaXGoAAAAJ" target="_blank" rel="noopener">Google Scholar profile</a>.
+    </p>
 
-    <ol class="pub-list">
-      <li>
+    <div class="pub-list">
+      <div class="pub-entry">
         Momayyezi, M., Knipfer, T. M., Hernandez-Perez, M., Kluepfel, D. A., Wakholi, C., Rippner, D. A.,
         <strong>Albuquerque, C. P.</strong>, Bambach, N. E., DeGrom, J., &amp; McElrone, A. J. (2025).
         Differential impact of commercial rootstocks on the physiological response of a common walnut scion to drought stress.
         <em>Physiologia Plantarum</em>, 177(2), e70188.
+        <br>
         <a href="https://doi.org/10.1111/ppl.70188" target="_blank" rel="noopener">
           https://doi.org/10.1111/ppl.70188
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         Scoffoni, C., <strong>Albuquerque, C.</strong>, Buckley, T. N., &amp; Sack, L. (2022).
         The dynamic multi-functionality of leaf water transport outside the xylem.
         <em>New Phytologist</em>, 239, 2099–2107.
+        <br>
         <a href="https://doi.org/10.1111/nph.19069" target="_blank" rel="noopener">
           https://doi.org/10.1111/nph.19069
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         <strong>Albuquerque, C.</strong>, Scoffoni, C., Buckley, T. N., Brodersen, C. R., Sack, L., &amp; McElrone, A. J. (2020).
         Coordinated decline of leaf hydraulic and stomatal conductances under drought is not linked to leaf xylem embolism for different grapevine cultivars.
         <em>Journal of Experimental Botany</em>, 71(22), 7286–7300.
+        <br>
         <a href="https://doi.org/10.1093/jxb/eraa392" target="_blank" rel="noopener">
           https://doi.org/10.1093/jxb/eraa392
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         Scoffoni, C., <strong>Albuquerque, C.</strong>, Cochard, H., Buckley, T. N., Fletcher, L. R., Caringella, M. A., Bartlett, M. K., Brodersen, C. R., Jansen, S., McElrone, A. J., &amp; Sack, L. (2018).
         The causes of leaf hydraulic vulnerability and its influence on gas exchange in <em>Arabidopsis thaliana</em>.
         <em>Plant Physiology</em>, 178(4), 1584–1601.
+        <br>
         <a href="https://doi.org/10.1104/pp.18.00743" target="_blank" rel="noopener">
           https://doi.org/10.1104/pp.18.00743
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         Knipfer, T., Barrios-Masias, F. H., Cuneo, I. F., Bouda, M., <strong>Albuquerque, C.</strong>, Brodersen, C. R., &amp; McElrone, A. J. (2018).
         Variations in xylem embolism susceptibility under drought between intact saplings of three walnut species.
         <em>Tree Physiology</em>, 38(8), 1180–1192.
+        <br>
         <a href="https://doi.org/10.1093/treephys/tpy049" target="_blank" rel="noopener">
           https://doi.org/10.1093/treephys/tpy049
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         McElrone, A. J., Earles, J. M., Knipfer, T. M., <strong>Albuquerque, C.</strong>, Brodersen, C. R., &amp; Cuneo, I. F. (2018).
         Changes in xylem conducting capacity and water storage across species: How can variable air content of xylem cells affect sap flow?
         <em>Acta Horticulturae</em>, 1222, 9–16.
+        <br>
         <a href="https://doi.org/10.17660/ActaHortic.2018.1222.2" target="_blank" rel="noopener">
           https://doi.org/10.17660/ActaHortic.2018.1222.2
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         Scoffoni, C., <strong>Albuquerque, C.</strong>, Brodersen, C. R., Townes, S. V., John, G. P., Bartlett, M. K., Buckley, T. N., McElrone, A. J., &amp; Sack, L. (2017).
         Outside-xylem vulnerability, not xylem embolism, controls leaf hydraulic decline during dehydration.
         <em>Plant Physiology</em>, 173(2), 1197–1210.
+        <br>
         <a href="https://doi.org/10.1104/pp.16.01643" target="_blank" rel="noopener">
           https://doi.org/10.1104/pp.16.01643
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         Scoffoni, C., <strong>Albuquerque, C.</strong>, Brodersen, C. R., Townes, S. V., John, G. P., Cochard, H., Buckley, T. N., McElrone, A. J., &amp; Sack, L. (2016).
         Leaf vein xylem conduit diameter influences susceptibility to embolism and hydraulic decline.
         <em>New Phytologist</em>, 213(3), 1076–1092.
+        <br>
         <a href="https://doi.org/10.1111/nph.14256" target="_blank" rel="noopener">
           https://doi.org/10.1111/nph.14256
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         Hochberg, U., <strong>Albuquerque, C.</strong>, Rachmilevitch, S., Cochard, H., David-Schwartz, R., Brodersen, C. R., &amp; Windt, C. W. (2015).
         Grapevine petioles are more sensitive to drought-induced embolism than stems: Evidence from in vivo MRI and microCT observations of hydraulic vulnerability segmentation.
         <em>Plant, Cell &amp; Environment</em>, 38(10), 1986–1997.
+        <br>
         <a href="https://doi.org/10.1111/pce.12688" target="_blank" rel="noopener">
           https://doi.org/10.1111/pce.12688
         </a>
-      </li>
+      </div>
 
-      <li>
+      <div class="pub-entry">
         Macari, S., Carvalho, P. C. F., Oliveira, L., Devincenzi, T., <strong>Albuquerque, C.</strong>, &amp; Moraes, A. (2011).
         Rearing of lambs under different grazing methods on annual ryegrass in succession to crops.
         <em>Pesquisa Agropecuária Brasileira</em>, 46(10), 1401–1408.
-      </li>
-    </ol>
+      </div>
+    </div>
 
     <h2>Manuscripts under review or submitted</h2>
-
-    <ul class="pub-list">
-      <li>
+    <div class="pub-list">
+      <div class="pub-entry">
         Rech, M., Hahn, L., Wamser, A. F., Argenta, L. C., <strong>Albuquerque, C.</strong>,
         Lima-Rodrigues, M., Grando, D. L., Kokkonen, A. A., &amp; Brunetto, G. (submitted).
         Increasing soil Ca:Mg ratio improves tomato yield, quality, and resistance to rot.
         Submitted to <em>Bragantia</em>.
-      </li>
-    </ul>
+      </div>
+    </div>
 
-    <br><br>
   </div>
 
   <div class="rodape">
