@@ -251,12 +251,13 @@ export const news = [
     headline: 'Melissa Martinez selected for a summer research internship at the University of Minnesota',
     body: 'Melissa will join a summer research program at the University of Minnesota. Congratulations, Melissa.',
   },
-  {
-    date: 'Spring 2026',
-    type: 'Outreach',
-    headline: 'Industry survey launched to help identify research priorities',
-    body: 'A stakeholder survey is being used to gather input on research needs related to water and nutrient management, crop stress, and other production challenges in specialty crop systems.',
-  },
+{
+  date: 'Spring 2026',
+  type: 'Outreach',
+  headline: 'Industry survey launched to help identify research priorities',
+  body: 'A stakeholder survey is being used to gather input on research needs related to water management, crop stress, and other production challenges in specialty crop systems.',
+  link: '/industry',
+},
   {
     date: 'March 2026',
     type: 'Outreach',
@@ -274,15 +275,6 @@ export const news = [
 ];
 
 export const currentStudents = [
-  {
-    name: 'Angela Diaz',
-    role: 'Undergraduate Researcher',
-    year: '2024–present',
-    project: 'Structural and functional responses of lettuce leaves during progressive drought and rehydration. Angela has presented her work at the California Plant and Soil Conference (2025).',
-    awards: ['Apple Scholarship Recipient'],
-    photo: null,
-    internship: 'Stanford University — Summer 2026',
-  },
   {
     name: 'Joe Perez',
     role: 'Undergraduate Researcher',
@@ -305,7 +297,7 @@ export const currentStudents = [
     name: 'Bella Hartmann',
     role: 'Undergraduate Researcher',
     year: '2023–present',
-    project: 'Soil health and plant productivity in eucalyptus biochar-amended organic cropping systems. Part of the CSU-ARI funded biochar project.',
+    project: 'Soil health and plant productivity in eucalyptus biochar-amended organic cropping systems.',
     awards: ['CSU-ARI Undergraduate Research Scholar'],
     photo: null,
     internship: null,
@@ -332,32 +324,18 @@ export const currentStudents = [
 
 export const alumni = [
   {
+    name: 'Angela Diaz',
+    role: 'Undergraduate Researcher',
+    period: '2024–2026',
+    institution: 'CSUMB',
+    outcome: 'Worked on structural and functional responses of lettuce leaves during progressive drought and rehydration. Summer research internship at Stanford University.',
+  },
+  {
     name: 'Dr. Leandro Hahn',
     role: 'Visiting Postdoctoral Scholar',
     period: 'Jan–Jul 2025',
     institution: 'CSUMB',
     outcome: 'Researcher at EPAGRI (Santa Catarina State Agricultural Research & Extension), Brazil. Project: tools to improve water and nutrient use efficiency in vegetable crops.',
-  },
-  {
-    name: 'Eduardo Barragan',
-    role: 'M.S. Student (co-mentored)',
-    period: '2021–2023',
-    institution: 'Cal State LA',
-    outcome: 'Research on vein embolism and leaf hydraulics under drought.',
-  },
-  {
-    name: 'Jesse Gomez',
-    role: 'M.S. Student (co-mentored)',
-    period: '2021–2023',
-    institution: 'Cal State LA',
-    outcome: 'Leaf hydraulic conductance vulnerability and recovery.',
-  },
-  {
-    name: 'Larissa Garcia',
-    role: 'M.S. Student (co-mentored)',
-    period: '2021–2023',
-    institution: 'Cal State LA',
-    outcome: 'Leaf anatomy and drought tolerance mechanisms.',
   },
 ];
 

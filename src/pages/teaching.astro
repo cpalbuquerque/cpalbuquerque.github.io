@@ -2,7 +2,11 @@
 import Base from '../layouts/Base.astro';
 import { courses } from '../data/site.js';
 
-const csumbCourses = courses;
+const csumbCourses = courses.map((course) => ({
+  code: course.code,
+  title: course.title,
+}));
+
 const previousTeaching = [
   {
     institution: 'California State University, Los Angeles',
@@ -19,23 +23,27 @@ const previousTeaching = [
       </h1>
 
       <p class="mt-6 max-w-3xl text-lg leading-8 text-[#4B5563]">
-        My teaching brings together plant science, agronomy, and horticulture through courses
-        that connect biological principles with agricultural systems, field-based questions,
-        and applied problem-solving.
+        Courses in plant science, agronomy, and horticulture that connect biological principles
+        with agricultural systems and field-based questions.
       </p>
     </div>
   </section>
 
   <section class="border-t border-black/5 bg-white">
     <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-        <div class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
-          <img
-            src="/img/hero-salinas-field.jpg"
-            alt="Teaching and field activities"
-            class="w-full object-cover"
-            loading="lazy"
-          />
+      <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
+        <div>
+          <div class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
+            <img
+              src="/img/lab-field.jpg"
+              alt="Field teaching and lab group in lettuce"
+              class="h-[260px] w-full object-cover sm:h-[320px]"
+              loading="lazy"
+            />
+          </div>
+          <p class="mt-3 text-xs text-[#6B7280]">
+            Photo: Brent Dundore-Arias
+          </p>
         </div>
 
         <div>
@@ -43,65 +51,33 @@ const previousTeaching = [
             California State University Monterey Bay
           </p>
 
-          <div class="mt-6 grid gap-5">
+          <ul class="mt-6 space-y-3 text-base leading-8 text-[#4B5563] sm:text-lg">
             {csumbCourses.map((course) => (
-              <article class="rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] p-6 shadow-sm">
-                <h2 class="text-xl font-semibold tracking-tight text-[#1F2937]">
-                  {course.code} — {course.title}
+              <li>
+                <span class="font-medium text-[#1F2937]">{course.code}</span> — {course.title}
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-10">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
+              Previous Teaching
+            </p>
+
+            {previousTeaching.map((group) => (
+              <div class="mt-4">
+                <h2 class="text-lg font-semibold tracking-tight text-[#1F2937]">
+                  {group.institution}
                 </h2>
-
-                <p class="mt-2 text-sm font-medium text-[#6B7280]">
-                  {course.level}
-                </p>
-
-                <p class="mt-4 text-base leading-8 text-[#4B5563]">
-                  {course.description}
-                </p>
-
-                {course.fieldTrip && (
-                  <p class="mt-4 text-sm text-[#4B5563]">
-                    <span class="font-medium text-[#1F2937]">Field component:</span> {course.fieldTrip}
-                  </p>
-                )}
-
-                {course.guestLecturers && course.guestLecturers.length > 0 && (
-                  <div class="mt-4">
-                    <p class="text-sm font-medium text-[#1F2937]">Selected guest speakers</p>
-                    <ul class="mt-2 space-y-1 text-sm text-[#4B5563]">
-                      {course.guestLecturers.map((guest) => (
-                        <li>{guest}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </article>
+                <ul class="mt-3 space-y-2 text-base leading-8 text-[#4B5563]">
+                  {group.courses.map((course) => (
+                    <li>{course}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-t border-black/5 bg-[#F7F8F4]">
-    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-        Previous Teaching
-      </p>
-
-      <div class="mt-6 grid gap-6 md:grid-cols-2">
-        {previousTeaching.map((group) => (
-          <article class="rounded-[1.5rem] border border-black/5 bg-white p-6 shadow-sm">
-            <h2 class="text-xl font-semibold tracking-tight text-[#1F2937]">
-              {group.institution}
-            </h2>
-
-            <ul class="mt-4 space-y-2 text-base leading-8 text-[#4B5563]">
-              {group.courses.map((course) => (
-                <li>{course}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
       </div>
     </div>
   </section>
