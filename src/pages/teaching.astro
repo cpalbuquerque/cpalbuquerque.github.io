@@ -1,11 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
-import { courses } from '../data/site.js';
 
-const csumbCourses = courses.map((course) => ({
-  code: course.code,
-  title: course.title,
-}));
+const currentCourses = [
+  'AGPS 415 — Advanced Irrigation & Nutrient Management',
+  'AGPS 397 — Independent Research in Agriculture',
+  'AGPS 350 — Research Methods for Crop & Soil Sciences',
+  'AGPS 213 — Principles of Viticulture',
+  'AGPS 209 — Plants, Agriculture, and Environment',
+  'BIO 332 — Plant Physiology',
+  'BIO 106 — Introduction to Plant Sciences',
+];
 
 const previousTeaching = [
   {
@@ -52,10 +56,8 @@ const previousTeaching = [
           </p>
 
           <ul class="mt-6 space-y-3 text-base leading-8 text-[#4B5563] sm:text-lg">
-            {csumbCourses.map((course) => (
-              <li>
-                <span class="font-medium text-[#1F2937]">{course.code}</span> — {course.title}
-              </li>
+            {currentCourses.map((course) => (
+              <li>{course}</li>
             ))}
           </ul>
 
@@ -69,7 +71,7 @@ const previousTeaching = [
                 <h2 class="text-lg font-semibold tracking-tight text-[#1F2937]">
                   {group.institution}
                 </h2>
-                <ul class="mt-3 space-y-2 text-base leading-8 text-[#4B5563]">
+                <ul class="mt-3 space-y-2 text-base leading-8 text-[#4B5563] sm:text-lg">
                   {group.courses.map((course) => (
                     <li>{course}</li>
                   ))}
