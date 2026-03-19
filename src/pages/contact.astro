@@ -1,0 +1,96 @@
+---
+// src/pages/contact.astro
+import Base from '../layouts/Base.astro';
+---
+<Base title="Contact — Caetano Albuquerque">
+
+  <div class="bg-grove py-20 px-6">
+    <div class="max-w-site mx-auto">
+      <p class="font-sans text-xs font-medium text-sage uppercase tracking-widest mb-4">Contact</p>
+      <h1 class="font-display text-hero text-straw max-w-2xl leading-tight mb-6">
+        Let's talk about your crops.
+      </h1>
+      <p class="font-serif text-fog/80 text-xl max-w-2xl leading-relaxed">
+        Whether you're a student looking to join the lab, a collaborator with a project idea,
+        a grower with a production problem, or an agency with a funding question —
+        the best way to reach me is by email.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-section bg-straw">
+    <div class="max-w-site mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
+
+      <!-- Contact info -->
+      <div>
+        <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-6">Direct Contact</p>
+        <div class="space-y-6">
+          <div>
+            <p class="font-sans text-xs text-ink/40 uppercase tracking-wider font-medium mb-1">Email</p>
+            <!-- REPLACE: Confirm your CSUMB email address -->
+            <a href="mailto:cpalbuquerque@csumb.edu" class="font-serif text-xl text-grove hover:text-terracotta transition-colors">cpalbuquerque@csumb.edu</a>
+          </div>
+          <div>
+            <p class="font-sans text-xs text-ink/40 uppercase tracking-wider font-medium mb-1">Institution</p>
+            <div class="font-serif text-base text-ink/75 leading-relaxed">
+              <p>Department of Biology, Agriculture & Chemistry</p>
+              <p>Agricultural Plant & Soil Sciences Program</p>
+              <p>California State University, Monterey Bay</p>
+              <p class="mt-1 text-ink/50">Seaside, CA 93955</p>
+            </div>
+          </div>
+          <div>
+            <p class="font-sans text-xs text-ink/40 uppercase tracking-wider font-medium mb-2">Online Profiles</p>
+            <ul class="space-y-2">
+              <li>
+                <a href="https://scholar.google.com/citations?user=FnRaXGoAAAAJ" target="_blank" rel="noopener" class="font-sans text-sm text-grove hover:text-terracotta transition-colors">Google Scholar ↗</a>
+              </li>
+              <li>
+                <!-- REPLACE: Add ORCID -->
+                <a href="https://orcid.org/YOUR-ORCID" target="_blank" rel="noopener" class="font-sans text-sm text-grove hover:text-terracotta transition-colors">ORCID ↗</a>
+              </li>
+              <li>
+                <a href="/cv.pdf" class="font-sans text-sm text-grove hover:text-terracotta transition-colors">Download CV ↗</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Context for different audiences -->
+      <div>
+        <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-6">What to Include</p>
+        <div class="space-y-6">
+          {[
+            {
+              who: 'Students (CSUMB)',
+              what: 'Tell me which course you\'re in, what kind of research you\'re interested in, and what your schedule looks like. If you\'re thinking about AGPS 397, mention that.'
+            },
+            {
+              who: 'Prospective grad students / postdocs',
+              what: 'Send a brief statement of your research interests, your CV, and what kind of questions you want to work on. Be specific about why this lab and this program.'
+            },
+            {
+              who: 'Collaborators',
+              what: 'Describe the project or question briefly, the timeline, and what role you\'re imagining. I\'m open to new collaborations but most productive when there\'s a clear question to start from.'
+            },
+            {
+              who: 'Growers and industry partners',
+              what: 'Tell me about the crop, the challenge, and the geography. Even if it\'s informal — a short note about what\'s going wrong or what you\'re curious about — I\'d love to hear it.'
+            },
+            {
+              who: 'Media and press',
+              what: 'Feel free to reach out directly. I\'m happy to discuss research topics related to water, vegetable crops, drought physiology, or California agriculture.'
+            },
+          ].map((item) => (
+            <div class="border-l-2 border-terracotta/30 pl-5">
+              <p class="font-sans text-sm font-medium text-grove mb-1">{item.who}</p>
+              <p class="font-serif text-sm text-ink/65 leading-relaxed">{item.what}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>

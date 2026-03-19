@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import { publications, inPreparation } from '../data/site.js';
+
+const published = publications.map((p) => ({
+  ...p,
+  type: 'published',
+}));
+
+const inReview = inPreparation.map((p) => ({
+  ...p,
+  type: 'in-review',
+}));
+
+const allPublications = [...inReview, ...published].sort((a, b) => b.year - a.year);
+
+const groupedByYear = allPublications.reduce((acc, item) => {
+  if (!acc[item.year]) acc[item.year] = [];
+  acc[item.year].push(item);
+  return acc;
+}, {});
+
+const years = Object.keys(groupedByYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+---
+
+<Base title="Publications — Caetano Albuquerque">
+  <section class="bg-[#FCFCF8]">
+    <div class="mx-auto max-w-4xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
+        Publications
+      </h1>
+
+      <div class="mt-12 space-y-12">
+        {years.map((year) => (
+          <section>
+            <h2 class="text-2xl font-semibold tracking-tight text-[#1F2937] sm:text-3xl">
+              {year}
+            </h2>
+
+            <div class="mt-5 space-y-6 border-t border-black/10 pt-5">
+              {groupedByYear[year].map((p) => (
+                <article>
+                  {p.type === 'in-review' ? (
+                    <div>
+                      <p class="text-base leading-8 text-[#4B5563] sm:text-lg">
+                        {p.authors} {p.title} <em>{p.target}</em>. {p.status}.
+                      </p>
+
+                      {p.preprint && (
+                        <p class="mt-2">
+                          <a
+                            href={p.preprint}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="break-all text-sm text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
+                          >
+                            Preprint
+                          </a>
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      <p class="text-base leading-8 text-[#4B5563] sm:text-lg">
+                        {p.authors} {p.title} <em>{p.journal}</em>{p.volume ? `, ${p.volume}` : ''}.
+                      </p>
+
+                      {p.doi && (
+                        <p class="mt-2">
+                          <a
+                            href={p.doi}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="break-all text-sm text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
+                          >
+                            {p.doi}
+                          </a>
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

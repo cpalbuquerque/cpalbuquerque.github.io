@@ -1,0 +1,96 @@
+/* src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base typography resets ─────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-straw text-ink;
+    font-family: 'Source Serif 4', Georgia, serif;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* Smooth scroll on all anchor targets */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* ── Reusable component classes ─────────────────────────────────────────── */
+@layer components {
+
+  /* Section container */
+  .container-site {
+    @apply max-w-site mx-auto px-6;
+  }
+
+  /* Pill label */
+  .label-pill {
+    @apply font-sans text-xs font-medium uppercase tracking-widest;
+  }
+
+  /* Publication DOI link */
+  .pub-doi {
+    font-family: 'DM Mono', monospace;
+    @apply text-xs text-sage hover:text-terracotta transition-colors break-all;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply inline-block bg-terracotta text-straw font-sans font-medium text-sm px-6 py-3 hover:bg-terracotta/80 transition-colors;
+  }
+
+  .btn-outline {
+    @apply inline-block border border-current font-sans font-medium text-sm px-6 py-3 hover:opacity-70 transition-opacity;
+  }
+
+  /* Card base */
+  .card {
+    @apply border border-grove/15 bg-fog p-6 hover:border-terracotta/30 hover:shadow-sm transition-all;
+  }
+
+  /* Section header pattern */
+  .section-kicker {
+    @apply font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-3;
+  }
+
+  .section-heading {
+    @apply font-display text-grove;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1.2;
+  }
+}
+
+/* ── Utility extensions ──────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Subtle hover underline link */
+  .link-subtle {
+    @apply text-grove/70 hover:text-terracotta border-b border-transparent hover:border-terracotta/50 transition-all;
+  }
+}
+
+/* ── Print styles ────────────────────────────────────────────────────────── */
+@media print {
+  header, footer, .btn-primary, .btn-outline {
+    display: none !important;
+  }
+  body {
+    font-size: 12pt;
+    color: #000;
+    background: #fff;
+  }
+}

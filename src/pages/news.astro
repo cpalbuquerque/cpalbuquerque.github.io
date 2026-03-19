@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import { news } from '../data/site.js';
+
+const allNews = [...news];
+---
+
+<Base title="News — Caetano Albuquerque">
+  <section class="bg-[#FCFCF8]">
+    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
+        News
+      </h1>
+
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-[#4B5563]">
+        Recent updates from the program, including student achievements, outreach, and research activities.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-t border-black/5 bg-white">
+    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
+      <div class="grid gap-6 lg:grid-cols-2">
+        {allNews.map((item) => (
+          <article class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
+            {item.image && (
+              <img
+                src={item.image}
+                alt={item.headline}
+                class="h-56 w-full object-cover"
+                loading="lazy"
+              />
+            )}
+
+            <div class="p-7">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-sm font-medium text-[#5F7C63]">{item.type}</span>
+                <span class="text-sm text-[#9CA3AF]">·</span>
+                <span class="text-sm text-[#6B7280]">{item.date}</span>
+              </div>
+
+              <h2 class="mt-3 text-xl font-semibold tracking-tight text-[#1F2937]">
+                {item.headline}
+              </h2>
+
+              <p class="mt-4 text-base leading-8 text-[#4B5563]">
+                {item.body}
+              </p>
+
+              {item.link && (
+                <p class="mt-5">
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm font-semibold text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
+                  >
+                    Learn more
+                  </a>
+                </p>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

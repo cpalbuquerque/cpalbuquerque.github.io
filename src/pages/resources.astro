@@ -1,0 +1,108 @@
+---
+// src/pages/resources.astro
+// This page starts sparse — populate as you build protocols and datasets.
+import Base from '../layouts/Base.astro';
+
+const protocols = [
+  {
+    title: 'Measuring Leaf Hydraulic Conductance Using the Evaporative Flux Method (EFM)',
+    description: 'Step-by-step protocol for measuring Kleaf using the EFM, as applied in the Albuquerque lab for grapevines and lettuce.',
+    status: 'coming-soon',
+  },
+  {
+    title: 'Preparing Samples for Synchrotron MicroCT at ALS Beamline 8.3.2',
+    description: 'Sample preparation, hydration protocols, and scanning parameters used in our plant anatomy work at the Advanced Light Source.',
+    status: 'coming-soon',
+  },
+  {
+    title: 'Fitting Hydraulic Vulnerability Curves in R',
+    description: 'R code and documentation for fitting sigmoid and Weibull curves to optical vulnerability and hydraulic conductance data.',
+    status: 'coming-soon',
+  },
+  {
+    title: 'Pressure-Volume Curve Analysis Protocol',
+    description: 'Protocol for running and analyzing pressure-volume curves to determine osmotic potential, bulk modulus of elasticity, and turgor loss point.',
+    status: 'coming-soon',
+  },
+];
+
+const links = [
+  { label: 'Advanced Light Source (ALS)', url: 'https://als.lbl.gov', note: 'Beamline 8.3.2 — microCT' },
+  { label: 'LI-COR LI-6800 Documentation', url: 'https://www.licor.com/env/products/photosynthesis/', note: 'Gas exchange instrumentation' },
+  { label: 'Dragonfly (ORS)', url: 'https://theobjects.com/dragonfly/', note: '3D CT segmentation and visualization' },
+  { label: 'PLANTEAM R Package', url: 'https://cran.r-project.org/web/packages/fitplc/index.html', note: 'Vulnerability curve fitting' },
+  { label: 'Google Scholar — Albuquerque', url: 'https://scholar.google.com/citations?user=FnRaXGoAAAAJ', note: 'Full publication list and citation metrics' },
+  { label: 'USDA-ARS Salinas', url: 'https://www.ars.usda.gov/pacific-west-area/salinas-ca/', note: 'Key partner institution' },
+  { label: 'UC ANR Monterey County', url: 'https://ucanr.edu/sites/Monterey/', note: 'Michael Cahn, Farm Advisor' },
+  { label: 'California Leafy Greens Research Board', url: 'https://lgr.ucdavis.edu', note: 'Funding partner' },
+];
+---
+<Base title="Resources — Caetano Albuquerque">
+
+  <div class="bg-grove py-20 px-6">
+    <div class="max-w-site mx-auto">
+      <p class="font-sans text-xs font-medium text-sage uppercase tracking-widest mb-4">Resources</p>
+      <h1 class="font-display text-hero text-straw max-w-2xl leading-tight mb-6">
+        Protocols, data, and tools from the lab.
+      </h1>
+      <p class="font-serif text-fog/80 text-xl max-w-2xl leading-relaxed">
+        We share protocols and code as they become ready for public release. If you're trying to
+        replicate something from our papers or want to discuss methods, reach out directly.
+      </p>
+    </div>
+  </div>
+
+  <!-- Protocols -->
+  <section class="py-section bg-straw">
+    <div class="max-w-site mx-auto px-6">
+      <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-4">Methods</p>
+      <h2 class="font-display text-display text-grove mb-10">Protocols & Methods</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {protocols.map((p) => (
+          <div class="border border-grove/15 bg-fog p-6">
+            <div class="flex justify-between items-start gap-4 mb-3">
+              <h3 class="font-display text-lg text-grove leading-snug">{p.title}</h3>
+              {p.status === 'coming-soon' && (
+                <span class="flex-shrink-0 font-sans text-xs text-ink/40 bg-ink/5 px-2 py-0.5 border border-ink/10">Coming soon</span>
+              )}
+            </div>
+            <p class="font-serif text-sm text-ink/65 leading-relaxed">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Useful links -->
+  <section class="py-section bg-fog border-t border-grove/10">
+    <div class="max-w-site mx-auto px-6">
+      <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-4">Useful Links</p>
+      <h2 class="font-display text-display text-grove mb-10">Tools and Partner Sites</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {links.map((l) => (
+          <a href={l.url} target="_blank" rel="noopener" class="border border-grove/15 bg-straw p-5 hover:border-terracotta/30 hover:shadow-sm transition-all group">
+            <p class="font-sans text-sm font-medium text-grove group-hover:text-terracotta transition-colors mb-1">{l.label} ↗</p>
+            <p class="font-sans text-xs text-ink/50">{l.note}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Data availability -->
+  <section class="py-section-sm bg-grove text-straw">
+    <div class="max-w-site mx-auto px-6 max-w-3xl">
+      <h2 class="font-display text-2xl text-gold mb-4">Data availability</h2>
+      <p class="font-serif text-lg text-fog/80 leading-relaxed mb-4">
+        Data underlying published papers are available upon reasonable request and will be deposited in
+        public repositories (Dryad, Figshare, or NCBI as appropriate) at or before publication for
+        manuscripts in final preparation.
+      </p>
+      <p class="font-serif text-base text-fog/60">
+        If you need access to specific datasets for replication or meta-analysis work,
+        contact <a href="mailto:cpalbuquerque@csumb.edu" class="text-sage hover:text-straw transition-colors">cpalbuquerque@csumb.edu</a>.
+      </p>
+    </div>
+  </section>
+
+</Base>

@@ -1,0 +1,19 @@
+---
+// src/pages/404.astro
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page Not Found — Caetano Albuquerque">
+  <div class="min-h-screen bg-straw flex items-center justify-center px-6">
+    <div class="text-center max-w-xl">
+      <p class="font-mono text-8xl text-grove/20 mb-6">404</p>
+      <h1 class="font-display text-3xl text-grove mb-4">Page not found</h1>
+      <p class="font-serif text-lg text-ink/60 mb-8">
+        This page doesn't exist or may have moved. Try the navigation above,
+        or head back to the homepage.
+      </p>
+      <a href="/" class="inline-block bg-terracotta text-straw font-sans font-medium text-sm px-6 py-3 hover:bg-terracotta/80 transition-colors">
+        Back to Home →
+      </a>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+
+const areas = [
+  {
+    title: 'Vegetable crop stress physiology',
+    description:
+      'Research on how vegetable crops respond to environmental and physiological stress, with emphasis on leafy greens in California production systems.',
+  },
+  {
+    title: 'Irrigation and nutrient management',
+    description:
+      'Applied work on irrigation and nutrient management practices that improve crop performance, resource use, and resilience under field conditions.',
+  },
+  {
+    title: 'Plant hydraulics and water relations',
+    description:
+      'Basic and applied research on water transport, hydraulic function, and plant responses to drought and irrigation.',
+  },
+  {
+    title: 'Plant anatomy, imaging, and crop health',
+    description:
+      'Work linking plant structure, imaging approaches, and physiology to crop health, disease response, and stress tolerance.',
+  },
+  {
+    title: 'Sensor based crop monitoring',
+    description:
+      'Use of sensing, imaging, and quantitative tools to assess plant status and support crop monitoring and management.',
+  },
+];
+---
+<Base title="Research — Caetano Albuquerque">
+
+  <div class="bg-grove py-20 px-6">
+    <div class="max-w-site mx-auto">
+      <p class="font-sans text-xs font-medium text-sage uppercase tracking-widest mb-4">Research Program</p>
+      <h1 class="font-display text-hero text-straw max-w-3xl leading-tight mb-6">
+        Research
+      </h1>
+      <p class="font-serif text-fog/80 text-xl max-w-2xl leading-relaxed">
+        My research integrates plant physiology, agronomy, and horticulture to address crop production challenges in California agriculture, with particular emphasis on vegetable systems and related work in grapevine and other woody perennial crops.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-section bg-straw">
+    <div class="max-w-site mx-auto px-6">
+      <div class="max-w-prose-xl font-serif text-lg text-ink/80 leading-relaxed space-y-5">
+        <p>
+          The program focuses on how crops respond to water, nutrient, and disease related stress, and on how physiological understanding can inform management under field conditions.
+        </p>
+        <p>
+          Current work is centered on leafy greens, especially lettuce, and combines field, greenhouse, and laboratory approaches. The broader emphasis is on research that is rigorous, relevant to California agriculture, and useful to both academic and industry audiences.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-section bg-fog border-t border-grove/10">
+    <div class="max-w-site mx-auto px-6">
+      <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-4">Research Areas</p>
+      <h2 class="font-display text-display text-grove mb-10">Current areas of work</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {areas.map((area, i) => (
+          <article class={`bg-straw border border-grove/10 p-6 ${i === 4 ? 'md:col-span-2' : ''}`}>
+            <h3 class="font-display text-xl text-grove mb-3">{area.title}</h3>
+            <p class="font-serif text-sm text-ink/70 leading-relaxed">
+              {area.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-section-sm bg-straw border-t border-grove/10">
+    <div class="max-w-site mx-auto px-6">
+      <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-4">Approach</p>
+      <p class="font-serif text-lg text-ink/75 max-w-3xl leading-relaxed">
+        The program combines field, greenhouse, and laboratory research, including plant physiological measurements, structural imaging, and sensor based approaches to crop monitoring.
+      </p>
+    </div>
+  </section>
+
+</Base>
