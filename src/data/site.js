@@ -122,24 +122,6 @@ export const publications = [
   },
 ];
 
-export const collaborators = [
-  'Andrew McElrone (USDA-ARS and UC Davis)',
-  'Christine Scoffoni (Cal State LA)',
-  'Lawren Sack (UCLA)',
-  'Craig Brodersen (Yale)',
-  'Tom Buckley (UC Davis)',
-  'Megan Bartlett (UC Davis)',
-  'Mina Momayyezi (USDA-ARS and UC Davis)',
-  'Elizabeth Clark and Dula Parkinson (Advanced Light Source, Berkeley Lab)',
-  'Thorsten Knipfer (University of British Columbia)',
-  'Italo Cuneo (Pontificia Universidad Catolica de Valparaiso)',
-  'Felipe Barrios-Masias (University of Nevada, Reno)',
-  'Michael Cahn (UC Cooperative Extension)',
-  'Kelley Richardson, Ivan Simko and Renee Eriksen (USDA-ARS Salinas)',
-  'Arun Jani (CSU Monterey Bay)',
-  'Leandro Hahn (EPAGRI, Brazil)',
-];
-
 // Funding shown on Research, from CV v28. No dollar amounts on the site.
 export const funding = {
   research: [

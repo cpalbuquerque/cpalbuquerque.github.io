@@ -10,5 +10,5 @@ data_lettuce_leaf_position.png | Stomatal conductance of the outer and inner lea
 method_pressure_chamber.jpg | A grapevine leaf sealed in a pressure chamber to measure leaf water potential. | no people
 method_gas_exchange.jpg | Measuring gas exchange on a grapevine leaf in the vineyard. | hand only
 method_leaf_veins.jpg | The vein network of a grapevine leaf, the path water takes after leaving the petiole. | no people
-students_field_team.jpg | Students take measurements in a lettuce field. Photo: Brent Dundore-Arias. | consented
 mentoring_hoop_house.jpg | Working with a student in the hoop house. Photo: CSU Monterey Bay. | consented
+students_field_sunflowers.jpg | Students take field notes in a sunflower trial. | consented

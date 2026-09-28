@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { person, collaborators } from '../data/site.js';
+import { person } from '../data/site.js';
 import { loadPeople, findPhoto } from '../lib/content.js';
 
 const { people } = loadPeople();
@@ -28,7 +28,7 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
 
 <Base
   title="People"
-  description="Current lab members, co-mentored graduate students, alumni and collaborators of the Albuquerque plant physiology lab at CSU Monterey Bay."
+  description="Current lab members, co-mentored graduate students and alumni of the Albuquerque plant physiology lab at CSU Monterey Bay."
 >
   <h1 class="text-2xl">People</h1>
 
@@ -135,12 +135,6 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
     </section>
   )}
 
-  <section>
-    <h2 class="section-title">Collaborators</h2>
-    <ul class="mt-4 grid gap-1 text-muted sm:grid-cols-2">
-      {collaborators.map((c) => <li>{c}</li>)}
-    </ul>
-  </section>
 
   <p class="mt-10 max-w-measure">Posters, internships and other lab news are on the <a href="/news/">News</a> page.</p>
 </Base>
