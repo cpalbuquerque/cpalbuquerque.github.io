@@ -1,85 +1,68 @@
 ---
 import Base from '../layouts/Base.astro';
-import { publications, inPreparation } from '../data/site.js';
+import { person, publications, inPreparation } from '../data/site.js';
 
-const published = publications.map((p) => ({
-  ...p,
-  type: 'published',
-}));
+// Wrap "Albuquerque C" in bold and keep the student markers readable.
+function authorHtml(authors) {
+  return authors
+    .replace(/&/g, '&amp;')
+    .replace(/Albuquerque C\b/, '<strong>Albuquerque C</strong>');
+}
 
-const inReview = inPreparation.map((p) => ({
-  ...p,
-  type: 'in-review',
-}));
-
-const allPublications = [...inReview, ...published].sort((a, b) => b.year - a.year);
-
-const groupedByYear = allPublications.reduce((acc, item) => {
-  if (!acc[item.year]) acc[item.year] = [];
-  acc[item.year].push(item);
-  return acc;
-}, {});
-
-const years = Object.keys(groupedByYear)
-  .map(Number)
-  .sort((a, b) => b - a);
+const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
 ---
 
-<Base title="Publications — Caetano Albuquerque">
-  <section class="bg-[#FCFCF8]">
+<Base title={`Publications | ${person.name}`}>
+  <section class="bg-paper">
     <div class="mx-auto max-w-4xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
       <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
         Publications
       </h1>
+      <p class="mt-6 text-base leading-7 text-gray-600">
+        Student authors: * undergraduate mentee, ** co-mentored graduate student.
+        Full list on <a href={person.scholar} target="_blank" rel="noopener noreferrer" class="text-leaf underline underline-offset-4">Google Scholar</a>.
+      </p>
+
+      <section class="mt-12">
+        <h2 class="text-2xl font-semibold tracking-tight text-gray-800 sm:text-3xl">
+          Accepted, under review and in preparation
+        </h2>
+        <div class="mt-5 space-y-6 border-t border-black/10 pt-5">
+          {inPreparation.map((p) => (
+            <article>
+              <p class="text-base leading-8 text-gray-600 sm:text-lg">
+                <span set:html={authorHtml(p.authors)} /> {p.title} <em>{p.status}</em>
+              </p>
+              {p.link && (
+                <p class="mt-1">
+                  <a href={p.link} target="_blank" rel="noopener noreferrer" class="text-sm text-leaf underline underline-offset-4 hover:text-leaf-dark sm:text-base">
+                    {p.linkLabel}
+                  </a>
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
 
       <div class="mt-12 space-y-12">
         {years.map((year) => (
           <section>
-            <h2 class="text-2xl font-semibold tracking-tight text-[#1F2937] sm:text-3xl">
+            <h2 class="text-2xl font-semibold tracking-tight text-gray-800 sm:text-3xl">
               {year}
             </h2>
-
             <div class="mt-5 space-y-6 border-t border-black/10 pt-5">
-              {groupedByYear[year].map((p) => (
+              {publications.filter((p) => p.year === year).map((p) => (
                 <article>
-                  {p.type === 'in-review' ? (
-                    <div>
-                      <p class="text-base leading-8 text-[#4B5563] sm:text-lg">
-                        {p.authors} {p.title} <em>{p.target}</em>. {p.status}.
-                      </p>
-
-                      {p.preprint && (
-                        <p class="mt-2">
-                          <a
-                            href={p.preprint}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="break-all text-sm text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
-                          >
-                            Preprint
-                          </a>
-                        </p>
-                      )}
-                    </div>
-                  ) : (
-                    <div>
-                      <p class="text-base leading-8 text-[#4B5563] sm:text-lg">
-                        {p.authors} {p.title} <em>{p.journal}</em>{p.volume ? `, ${p.volume}` : ''}.
-                      </p>
-
-                      {p.doi && (
-                        <p class="mt-2">
-                          <a
-                            href={p.doi}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="break-all text-sm text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
-                          >
-                            {p.doi}
-                          </a>
-                        </p>
-                      )}
-                    </div>
+                  <p class="text-base leading-8 text-gray-600 sm:text-lg">
+                    <span set:html={authorHtml(p.authors)} /> ({p.year}) {p.title} <em>{p.journal}</em>{p.volume ? `, ${p.volume}` : ''}.
+                  </p>
+                  {p.doi && (
+                    <p class="mt-1">
+                      <a href={p.doi} target="_blank" rel="noopener noreferrer" class="break-all text-sm text-leaf underline underline-offset-4 hover:text-leaf-dark sm:text-base">
+                        {p.doi.replace('https://doi.org/', 'doi:')}
+                      </a>
+                    </p>
                   )}
                 </article>
               ))}

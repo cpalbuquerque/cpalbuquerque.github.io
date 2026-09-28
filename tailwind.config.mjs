@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary palette — Salinas Valley earth tones + scientific precision
+        // Primary palette
         soil:     { DEFAULT: '#2c1f0e', light: '#4a3420' },
         grove:    { DEFAULT: '#1e3a27', light: '#2d5a3d', muted: '#4a7560' },
         sage:     { DEFAULT: '#7a9e84', light: '#a8c4ac' },
@@ -13,6 +13,10 @@ export default {
         gold:     { DEFAULT: '#9a7c3a', light: '#c4a55a' },
         fog:      { DEFAULT: '#e8ede9', light: '#f4f7f4' },
         ink:      { DEFAULT: '#1a1a1a', light: '#2d2d2d' },
+        // Light lab palette used across the site
+        leaf:     { DEFAULT: '#5F7C63', dark: '#3F5D45', pale: '#DCE7DD' },
+        paper:    { DEFAULT: '#FCFCF8' },
+        mist:     { DEFAULT: '#F7F8F4' },
       },
       fontFamily: {
         display:  ['"Playfair Display"', 'Georgia', 'serif'],

@@ -1,15 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import { courses } from '../data/site.js';
 
-const currentCourses = [
-  'AGPS 415 — Advanced Irrigation & Nutrient Management',
-  'AGPS 397 — Independent Research in Agriculture',
-  'AGPS 350 — Research Methods for Crop & Soil Sciences',
-  'AGPS 213 — Principles of Viticulture',
-  'AGPS 209 — Plants, Agriculture, and Environment',
-  'BIO 332 — Plant Physiology',
-  'BIO 106 — Introduction to Plant Sciences',
-];
+const currentCourses = courses.map((c) => `${c.code}, ${c.title}`);
 
 const previousTeaching = [
   {

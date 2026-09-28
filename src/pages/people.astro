@@ -1,11 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { news, currentStudents, alumni } from '../data/site.js';
-
-const studentNews = news.filter((n) => n.type === 'Student News');
+import { person, currentStudents, alumni, alumniNote } from '../data/site.js';
 
 function initials(name) {
   return name
+    .replace(/^Dr\.\s*/, '')
     .split(' ')
     .map((n) => n[0])
     .join('')
@@ -13,31 +12,33 @@ function initials(name) {
 }
 ---
 
-<Base title="People — Caetano Albuquerque">
-  <section class="bg-[#FCFCF8]">
+<Base title={`People | ${person.name}`}>
+  <section class="bg-paper">
     <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
       <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
         People
       </h1>
 
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-[#4B5563]">
-        A research group focused on crop stress physiology, water and nutrient management,
-        and field-relevant questions in California specialty crop systems.
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-gray-600">
+        An undergraduate lab that studies how plant water transport fails under drought and heat,
+        and how it recovers.
       </p>
     </div>
   </section>
 
   <section class="border-t border-black/5 bg-white">
     <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">
         Principal Investigator
       </p>
 
-      <div class="mt-8 grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-start">
-        <div class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
+      <div class="mt-8 grid gap-10 md:grid-cols-[0.6fr_1.4fr] md:items-start">
+        <div class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-mist shadow-sm">
           <img
             src="/img/caetano-portrait.jpg"
             alt="Caetano Albuquerque"
+            width="293"
+            height="293"
             class="w-full object-cover"
             loading="lazy"
           />
@@ -45,55 +46,36 @@ function initials(name) {
 
         <div>
           <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Caetano Albuquerque
+            {person.name}
           </h2>
 
-          <p class="mt-2 text-base text-[#6B7280] sm:text-lg">
-            Assistant Professor of Agronomy and Horticulture · California State University Monterey Bay
+          <p class="mt-2 text-base text-gray-500 sm:text-lg">
+            {person.title}
           </p>
 
-          <div class="mt-6 space-y-5 text-base leading-8 text-[#4B5563] sm:text-lg">
+          <div class="mt-6 space-y-5 text-base leading-8 text-gray-600 sm:text-lg">
             <p>
-              I am a plant scientist working at the intersection of agronomy, horticulture,
-              and crop physiology. My research focuses on how crops respond to water deficit,
-              disease-related stress, and nutrient limitations, with emphasis on vegetable crop
-              systems in California and the Salinas Valley.
+              I am a plant physiologist. I study how water transport in plants fails under drought
+              and heat, and whether it recovers. I trained with Andrew McElrone at UC Davis (PhD),
+              and as a postdoc at UC Davis and at Cal State LA with Christine Scoffoni, working
+              closely with Lawren Sack.
             </p>
 
             <p>
-              My work combines field, greenhouse, and controlled-environment approaches to better
-              understand crop performance and support more practical management decisions for specialty crops.
-            </p>
-
-            <p>
-              I am committed to mentoring students through hands-on research experiences that build
-              scientific skills, confidence, and stronger pathways into plant and agricultural sciences.
+              My lab uses synchrotron microCT, hydraulic measurements and gas exchange on California
+              natives, model species, grasses and crops. Undergraduates do most of this work, and
+              I build my teaching around the same questions.
             </p>
           </div>
 
           <div class="mt-8 flex flex-wrap gap-5 border-t border-black/10 pt-6">
-            <a
-              href="mailto:calbuquerque@csumb.edu"
-              class="text-sm font-medium text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
-            >
-              calbuquerque@csumb.edu
+            <a href={`mailto:${person.email}`} class="text-sm font-medium text-leaf underline underline-offset-4 hover:text-leaf-dark sm:text-base">
+              {person.email}
             </a>
-
-            <a
-              href="https://scholar.google.com/citations?user=FnRaXGoAAAAJ"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm text-[#4B5563] underline underline-offset-4 hover:text-[#1F2937] sm:text-base"
-            >
+            <a href={person.scholar} target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 underline underline-offset-4 hover:text-gray-800 sm:text-base">
               Google Scholar
             </a>
-
-            <a
-              href="https://orcid.org/0000-0001-6222-3996"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm text-[#4B5563] underline underline-offset-4 hover:text-[#1F2937] sm:text-base"
-            >
+            <a href={person.orcid} target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 underline underline-offset-4 hover:text-gray-800 sm:text-base">
               ORCID
             </a>
           </div>
@@ -102,39 +84,9 @@ function initials(name) {
     </div>
   </section>
 
-  {studentNews.length > 0 && (
-    <section class="border-t border-black/5 bg-[#F7F8F4]">
-      <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-          Student Highlights
-        </p>
-
-        <div class="mt-8 grid gap-6 md:grid-cols-2">
-          {studentNews.map((item) => (
-            <article class="rounded-[1.5rem] border border-black/5 bg-white p-6 shadow-sm">
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="text-sm font-medium text-[#5F7C63]">{item.type}</span>
-                <span class="text-sm text-[#9CA3AF]">·</span>
-                <span class="text-sm text-[#6B7280]">{item.date}</span>
-              </div>
-
-              <h3 class="mt-3 text-xl font-semibold tracking-tight text-[#1F2937]">
-                {item.headline}
-              </h3>
-
-              <p class="mt-4 text-base leading-8 text-[#4B5563]">
-                {item.body}
-              </p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <section class="border-t border-black/5 bg-white">
+  <section class="border-t border-black/5 bg-mist">
     <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">
         Current Group
       </p>
 
@@ -144,91 +96,43 @@ function initials(name) {
 
       <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {currentStudents.map((student) => (
-          <article class="rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] p-6 shadow-sm">
-            {student.photo ? (
-              <img
-                src={student.photo}
-                alt={student.name}
-                class="mb-5 h-28 w-28 rounded-full object-cover"
-                loading="lazy"
-              />
-            ) : (
-              <div class="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#DCE7DD] text-lg font-semibold text-[#3F5D45]">
-                {initials(student.name)}
-              </div>
-            )}
-
-            <h3 class="text-xl font-semibold tracking-tight text-[#1F2937]">
-              {student.name}
-            </h3>
-
-            <p class="mt-1 text-sm font-medium text-[#5F7C63]">
-              {student.role}
-            </p>
-
-            <p class="mt-1 text-sm text-[#6B7280]">
-              {student.year}
-            </p>
-
-            <p class="mt-4 text-base leading-8 text-[#4B5563]">
-              {student.project}
-            </p>
-
-            {student.internship && (
-              <p class="mt-4 text-sm font-medium text-[#1F2937]">
-                Internship: <span class="text-[#4B5563]">{student.internship}</span>
-              </p>
-            )}
-
-            {student.awards && student.awards.length > 0 && (
-              <div class="mt-4">
-                <p class="text-sm font-medium text-[#1F2937]">Awards</p>
-                <ul class="mt-2 space-y-1 text-sm text-[#4B5563]">
-                  {student.awards.map((award) => (
-                    <li>{award}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+          <article class="rounded-[1.5rem] border border-black/5 bg-white p-6 shadow-sm">
+            <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-leaf-pale text-lg font-semibold text-leaf-dark">
+              {initials(student.name)}
+            </div>
+            <h3 class="text-xl font-semibold tracking-tight text-gray-800">{student.name}</h3>
+            <p class="mt-1 text-sm font-medium text-leaf">{student.role}</p>
+            <p class="mt-1 text-sm text-gray-500">{student.year}</p>
+            {student.project && <p class="mt-4 text-base leading-8 text-gray-600">{student.project}</p>}
+            {student.note && <p class="mt-3 text-sm text-gray-600">{student.note}</p>}
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  {alumni.length > 0 && (
-    <section class="border-t border-black/5 bg-[#F7F8F4]">
-      <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-          Alumni
-        </p>
+  <section class="border-t border-black/5 bg-white">
+    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">
+        Alumni
+      </p>
 
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Alumni and former lab members
-        </h2>
+      <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+        Former lab members
+      </h2>
 
-        <div class="mt-8 grid gap-6 md:grid-cols-2">
-          {alumni.map((person) => (
-            <article class="rounded-[1.5rem] border border-black/5 bg-white p-6 shadow-sm">
-              <h3 class="text-xl font-semibold tracking-tight text-[#1F2937]">
-                {person.name}
-              </h3>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-gray-600">{alumniNote}</p>
 
-              <p class="mt-1 text-sm font-medium text-[#5F7C63]">
-                {person.role}
-              </p>
-
-              <p class="mt-1 text-sm text-[#6B7280]">
-                {person.period}{person.institution ? ` · ${person.institution}` : ''}
-              </p>
-
-              <p class="mt-4 text-base leading-8 text-[#4B5563]">
-                {person.outcome}
-              </p>
-            </article>
-          ))}
-        </div>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {alumni.map((p) => (
+          <article class="rounded-[1.5rem] border border-black/5 bg-mist p-6 shadow-sm">
+            <h3 class="text-xl font-semibold tracking-tight text-gray-800">{p.name}</h3>
+            <p class="mt-1 text-sm font-medium text-leaf">{p.role}</p>
+            <p class="mt-1 text-sm text-gray-500">{p.period}</p>
+            <p class="mt-4 text-base leading-8 text-gray-600">{p.outcome}</p>
+          </article>
+        ))}
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 </Base>

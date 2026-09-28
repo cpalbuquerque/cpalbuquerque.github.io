@@ -1,86 +1,90 @@
 ---
 import Base from '../layouts/Base.astro';
+import { person } from '../data/site.js';
 
-const areas = [
+const questions = [
   {
-    title: 'Vegetable crop stress physiology',
-    description:
-      'Research on how vegetable crops respond to environmental and physiological stress, with emphasis on leafy greens in California production systems.',
+    title: 'Which fails first: shape or water?',
+    text: 'As a leaf dries, tension in the xylem rises. Conduits can lose their water to an air bubble (embolism), or their walls can buckle inward while still full of water (collapse). We track both, conduit by conduit, in the same organ.',
   },
   {
-    title: 'Irrigation and nutrient management',
-    description:
-      'Applied work on irrigation and nutrient management practices that improve crop performance, resource use, and resilience under field conditions.',
+    title: 'What comes back?',
+    text: 'Collapse is like a kinked garden hose. When water returns, the kink can open again. Embolism is more like a broken pipe. In our grapevine scans, collapsed conduits mostly recover overnight after rewatering, while embolized conduits mostly stay empty.',
   },
   {
-    title: 'Plant hydraulics and water relations',
-    description:
-      'Basic and applied research on water transport, hydraulic function, and plant responses to drought and irrigation.',
+    title: 'Does it matter for the whole plant?',
+    text: 'We link what we see in the scans to leaf hydraulic conductance, gas exchange and water potential. The aim is to know when collapse is a cost and when it is a safe, reversible way to ride out a hot afternoon.',
   },
   {
-    title: 'Plant anatomy, imaging, and crop health',
-    description:
-      'Work linking plant structure, imaging approaches, and physiology to crop health, disease response, and stress tolerance.',
-  },
-  {
-    title: 'Sensor based crop monitoring',
-    description:
-      'Use of sensing, imaging, and quantitative tools to assess plant status and support crop monitoring and management.',
+    title: 'Is it the same across species?',
+    text: 'We compare California natives, model species, C3 and C4 grasses, grapevine, lettuce and almond. Crops are the half of the comparison we can grow, water and control, so we use them to test ideas that come from the wild species.',
   },
 ];
+
+const methods = [
+  'Synchrotron microCT at the Advanced Light Source, Lawrence Berkeley National Laboratory (beamline 8.3.2)',
+  'Leaf and root hydraulic conductance',
+  'Water potential with the pressure chamber, and pressure volume curves',
+  'Leaf gas exchange',
+  'Leaf anatomy and 3D image segmentation',
+];
 ---
-<Base title="Research — Caetano Albuquerque">
-
-  <div class="bg-grove py-20 px-6">
-    <div class="max-w-site mx-auto">
-      <p class="font-sans text-xs font-medium text-sage uppercase tracking-widest mb-4">Research Program</p>
-      <h1 class="font-display text-hero text-straw max-w-3xl leading-tight mb-6">
-        Research
+<Base title={`Research | ${person.name}`}>
+  <section class="bg-paper">
+    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Research</p>
+      <h1 class="mt-3 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
+        {person.focus}
       </h1>
-      <p class="font-serif text-fog/80 text-xl max-w-2xl leading-relaxed">
-        My research integrates plant physiology, agronomy, and horticulture to address crop production challenges in California agriculture, with particular emphasis on vegetable systems and related work in grapevine and other woody perennial crops.
-      </p>
-    </div>
-  </div>
-
-  <section class="py-section bg-straw">
-    <div class="max-w-site mx-auto px-6">
-      <div class="max-w-prose-xl font-serif text-lg text-ink/80 leading-relaxed space-y-5">
+      <div class="mt-8 max-w-3xl space-y-5 text-lg leading-8 text-gray-600">
         <p>
-          The program focuses on how crops respond to water, nutrient, and disease related stress, and on how physiological understanding can inform management under field conditions.
+          Plants move water from soil to leaf through a network of tiny pipes, the xylem. Drought and heat
+          put that network under tension. My lab asks how it fails, and whether it recovers.
         </p>
         <p>
-          Current work is centered on leafy greens, especially lettuce, and combines field, greenhouse, and laboratory approaches. The broader emphasis is on research that is rigorous, relevant to California agriculture, and useful to both academic and industry audiences.
+          The central finding so far is simple to say. Water-filled conduits collapse before they embolize.
+          Collapse reverses overnight, while embolism mostly does not.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="py-section bg-fog border-t border-grove/10">
-    <div class="max-w-site mx-auto px-6">
-      <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-4">Research Areas</p>
-      <h2 class="font-display text-display text-grove mb-10">Current areas of work</h2>
+  <section class="border-t border-black/5 bg-white">
+    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Questions</p>
+      <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">What we are asking</h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {areas.map((area, i) => (
-          <article class={`bg-straw border border-grove/10 p-6 ${i === 4 ? 'md:col-span-2' : ''}`}>
-            <h3 class="font-display text-xl text-grove mb-3">{area.title}</h3>
-            <p class="font-serif text-sm text-ink/70 leading-relaxed">
-              {area.description}
-            </p>
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {questions.map((q) => (
+          <article class="rounded-[1.5rem] border border-black/5 bg-mist p-7 shadow-sm">
+            <h3 class="text-xl font-semibold tracking-tight">{q.title}</h3>
+            <p class="mt-4 text-base leading-8 text-gray-600">{q.text}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="py-section-sm bg-straw border-t border-grove/10">
-    <div class="max-w-site mx-auto px-6">
-      <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-4">Approach</p>
-      <p class="font-serif text-lg text-ink/75 max-w-3xl leading-relaxed">
-        The program combines field, greenhouse, and laboratory research, including plant physiological measurements, structural imaging, and sensor based approaches to crop monitoring.
-      </p>
+  <section class="border-t border-black/5 bg-mist">
+    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-2">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Methods</p>
+          <h2 class="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">How we measure it</h2>
+          <ul class="mt-6 list-disc space-y-2 pl-5 text-base leading-8 text-gray-600">
+            {methods.map((m) => <li>{m}</li>)}
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Students</p>
+          <h2 class="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Who does the work</h2>
+          <p class="mt-6 text-base leading-8 text-gray-600">
+            Undergraduates run most of these measurements. They learn the pressure chamber, gas exchange
+            and image analysis, and many present their own posters.
+            See <a href="/people" class="text-leaf underline underline-offset-4">People</a> for the current group.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
-
 </Base>
