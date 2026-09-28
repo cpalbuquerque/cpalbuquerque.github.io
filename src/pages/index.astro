@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { person, funding } from '../data/site.js';
+import { person } from '../data/site.js';
 import { findPhoto, loadLogos } from '../lib/content.js';
 
 const microct = findPhoto(/^microct_grapevine\.(jpe?g|png|webp)$/i);
 // TODO: logo files in content/logos/ listed in logos.txt.
 const logos = loadLogos();
+const methodPhotos = [/^method_pressure_chamber\./, /^method_gas_exchange\./, /^method_leaf_veins\./].map((r) => findPhoto(r)).filter(Boolean);
 
 const projects = [
   {
@@ -91,17 +92,20 @@ const projects = [
     vulnerability, quantitative anatomy, and synchrotron microCT at beamline 8.3.2 of the Advanced Light
     Source.
   </p>
+  {methodPhotos.length > 0 && (
+    <div class="mt-6 grid gap-5 sm:grid-cols-3">
+      {methodPhotos.map((p) => (
+        <figure>
+          <Image src={p.image} alt={p.caption} widths={[360, 640]} sizes="(min-width: 640px) 16rem, 100vw" class="aspect-[4/3] h-auto w-full object-cover" />
+          <figcaption class="mt-2 text-sm text-muted">{p.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  )}
 
-  <h2 class="section-title">Funding</h2>
-  <ul class="mt-4 max-w-measure space-y-2 text-sm text-muted">
-    {[...funding.research, ...funding.teaching].map((g) => (
-      <li><span class="text-ink">{g.funder}.</span> {g.title}. {g.role}, {g.years}.</li>
-    ))}
-    <li><span class="text-ink">Advanced Light Source, beamline 8.3.2.</span> Synchrotron beamtime, 15 shifts across two proposals.</li>
-  </ul>
-
+  <h2 class="section-title">Supported by</h2>
   {logos.length > 0 && (
-    <ul class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6" aria-label="Funders and facilities">
+    <ul class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-6" aria-label="Funders and facilities">
       {logos.map((l) => (
         <li>
           {l.url ? (

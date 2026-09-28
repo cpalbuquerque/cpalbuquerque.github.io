@@ -21,6 +21,7 @@ const portrait = findPhoto(/^portrait\.(jpe?g|png|webp)$/i);
 // Optional: students with instruments (not portraits).
 const lab = findPhoto(/^students_lettuce_field\./);
 const almond = findPhoto(/^data_almond_vulnerability\./);
+const mentoring = findPhoto(/^mentoring_hoop_house\./);
 
 const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
 ---
@@ -67,19 +68,27 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
         collaborators for summer research and graduate school.
       </p>
     </div>
-    {almond && (
-      <figure class="mt-6 max-w-lg">
-        <Image src={almond.image} alt={almond.caption} widths={[520, 900]} sizes="(min-width: 768px) 32rem, 100vw" class="h-auto w-full border border-rule" />
-        <figcaption class="mt-2 text-sm text-muted">{almond.caption}</figcaption>
-      </figure>
-    )}
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 sm:items-start">
+      {mentoring && (
+        <figure>
+          <Image src={mentoring.image} alt={mentoring.caption} widths={[420, 833]} sizes="(min-width: 640px) 25rem, 100vw" class="h-auto w-full" />
+          <figcaption class="mt-2 text-sm text-muted">{mentoring.caption}</figcaption>
+        </figure>
+      )}
+      {almond && (
+        <figure>
+          <Image src={almond.image} alt={almond.caption} widths={[420, 840]} sizes="(min-width: 640px) 25rem, 100vw" class="h-auto w-full border border-rule" />
+          <figcaption class="mt-2 text-sm text-muted">{almond.caption}</figcaption>
+        </figure>
+      )}
+    </div>
   </section>
 
   {current.length > 0 && (
     <section>
       <h2 class="section-title">Current lab members</h2>
       {lab && (
-        <figure class="mt-4 max-w-measure">
+        <figure class="mt-4 max-w-md">
           <Image src={lab.image} alt={lab.caption} widths={[600, 1000]} sizes="(min-width: 768px) 38rem, 100vw" class="h-auto w-full" />
           <figcaption class="mt-2 text-sm text-muted">{lab.caption}</figcaption>
         </figure>

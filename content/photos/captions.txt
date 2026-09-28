@@ -3,8 +3,12 @@
 portrait.png | Caetano Albuquerque | consented
 microct_grapevine.jpg | Synchrotron microCT cross section imaged at the Advanced Light Source. Dark conduits are filled with air. Gray ones still hold water. | no people
 students_lettuce_field.jpg | Field teaching with the lab in a lettuce field. Photo: Brent Dundore-Arias. | consented
-students_field_measuring.jpg | Students measure plants in the field. | consented
 students_lab_microscope.jpg | A student at the microscope in the lab. | consented
 class_instrument.jpg | Students measure a lettuce plant with a handheld instrument in class. | no faces
 data_almond_vulnerability.png | Almond leaf hydraulic conductance falls as leaves dry. Undergraduates measured 54 leaves with the evaporative flux method in summer 2025. | no people
 data_lettuce_leaf_position.png | Stomatal conductance of the outer and inner leaf on the same romaine plants. Red arrows mark plants where the inner leaf ran higher. From Melissa Martinez's 2026 poster. | no people
+method_pressure_chamber.jpg | A grapevine leaf sealed in a pressure chamber to measure leaf water potential. | no people
+method_gas_exchange.jpg | Measuring gas exchange on a grapevine leaf in the vineyard. | hand only
+method_leaf_veins.jpg | The vein network of a grapevine leaf, the path water takes after leaving the petiole. | no people
+students_field_team.jpg | Students take measurements in a lettuce field. Photo: Brent Dundore-Arias. | consented
+mentoring_hoop_house.jpg | Working with a student in the hoop house. Photo: CSU Monterey Bay. | consented
