@@ -12,18 +12,6 @@
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0F1729;
-    --ink: #E5E9F2;
-    --muted: #A7B0C0;
-    --accent: #93B4FF;
-    --tint: #1E2A4A;
-    --rule: #2A3550;
-    color-scheme: dark;
-  }
-}
-
 @layer base {
   html {
     font-size: 16px;

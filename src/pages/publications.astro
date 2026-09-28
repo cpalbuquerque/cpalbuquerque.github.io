@@ -74,7 +74,9 @@ const filters = [
                   )}
                 </div>
                 {p.cover && (
-                  <Image src={p.cover.src} alt={p.cover.alt} width={p.cover.width} height={p.cover.height} class="h-auto w-16 shrink-0 self-start sm:w-20" />
+                  <a href={p.link} class="shrink-0 self-start hover:bg-transparent">
+                    <Image src={p.cover.src} alt={p.cover.alt} width={p.cover.width} height={p.cover.height} class="h-auto w-16 border border-rule sm:w-20" />
+                  </a>
                 )}
               </li>
             ))}

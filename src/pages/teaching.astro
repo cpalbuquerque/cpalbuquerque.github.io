@@ -1,42 +1,108 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { findPhoto } from '../lib/content.js';
+
+const classPhoto = findPhoto(/^class_instrument\./);
+
+const csumb = [
+  {
+    code: 'BIO 332',
+    title: 'Plant Physiology',
+    terms: 'Fall 2023 to 2026',
+    text: 'An upper-division lecture course, 100 students in Fall 2026. Every student takes part in a course-based research experience built on my research: they work with real synchrotron microCT scans of plants under drought and recovery, and their work feeds a dataset built with the Lawrence Berkeley National Laboratory. Two undergraduates from my lab help lead it.',
+  },
+  {
+    code: 'BIO 106',
+    title: 'Introduction to Plant Sciences',
+    terms: 'Spring 2024 and 2026',
+    text: 'An introductory course with laboratory for several majors, about 70 students in Spring 2026.',
+  },
+  {
+    code: 'AGPS 415',
+    title: 'Advanced Irrigation and Nutrient Management',
+    terms: 'Spring 2024 to 2026',
+    text: 'Students schedule irrigation from plant measurements with the pressure chamber alongside soil sensors and weather data. They grow vegetables in a hoop house under different irrigation and nutrient levels and build a nitrogen budget from soil cores they collect.',
+  },
+  {
+    code: 'AGPS 350',
+    title: 'Research Methods for Crop and Soil Sciences',
+    terms: 'Fall 2023 to 2026',
+    text: 'Experimental design and statistics on real data, with two laboratory sections. Students learn R and RStudio.',
+  },
+  {
+    code: 'AGPS 209',
+    title: 'Plants, Agriculture, and Climate Change',
+    terms: 'Spring 2024 and 2025',
+    text: 'I proposed and designed this course. It is now a permanent part of the catalog.',
+  },
+  {
+    code: 'AGPS 213',
+    title: 'Principles of Viticulture',
+    terms: 'Spring 2025 and 2026',
+    text: 'I proposed and designed this course. It is now a permanent part of the catalog.',
+  },
+  {
+    code: 'AGPS 397',
+    title: 'Independent Research in Agriculture',
+    terms: '2024 and 2025',
+    text: 'Semester-long projects, six students so far. Topics include stomata in lettuce under different irrigation levels, photosynthesis and yield of two lettuce types in a hoop house, and propagating wine grapes from woody cuttings.',
+  },
+];
 ---
 
 <Base
   title="Teaching"
-  description="Plant Physiology with a course-based research experience, Introduction to Plant Sciences, and Root to Shoot, a set of interactive modules for Plant Physiology."
+  description="Courses taught by Caetano Albuquerque at CSU Monterey Bay, including Plant Physiology with a course-based research experience, and Root to Shoot, interactive modules for Plant Physiology."
 >
   <h1 class="text-2xl">Teaching</h1>
 
-  <section>
-    <h2 class="section-title">Plant Physiology (BIO 332)</h2>
-    <p class="mt-4 max-w-measure">
-      An upper-division lecture course, 100 students in Fall 2026. Every student takes part in a
-      course-based research experience built on my research: they work with real synchrotron microCT
-      scans of plants under drought and recovery, and their work feeds a dataset built with the
-      Lawrence Berkeley National Laboratory. Two undergraduates from my lab help lead it.
+  <div class="mt-6 flex flex-col gap-6 md:flex-row md:items-start">
+    <p class="max-w-measure md:flex-1">
+      I teach the fundamentals of how plants work and then have students use them on data, much of it
+      from my lab. Students from biology, agriculture, ecology and molecular biology share the same
+      courses.
     </p>
-  </section>
+    {classPhoto && (
+      <figure class="max-w-xs md:w-64 md:shrink-0">
+        <Image src={classPhoto.image} alt={classPhoto.caption} widths={[512, 768]} sizes="(min-width: 768px) 16rem, 100vw" class="h-auto w-full" />
+        <figcaption class="mt-2 text-sm text-muted">{classPhoto.caption}</figcaption>
+      </figure>
+    )}
+  </div>
 
-  <section>
-    <h2 class="section-title">Introduction to Plant Sciences (BIO 106)</h2>
-    <p class="mt-4 max-w-measure">An introductory course with laboratory.</p>
-    <p class="mt-4 max-w-measure text-muted">
-      I also teach Advanced Irrigation and Nutrient Management (AGPS 415), Research Methods for Crop
-      and Soil Sciences (AGPS 350), Plants, Agriculture, and Climate Change (AGPS 209), and Principles
-      of Viticulture (AGPS 213).
-    </p>
-  </section>
+  <h2 class="section-title">CSU Monterey Bay</h2>
+  <dl class="mt-4 max-w-measure space-y-5">
+    {csumb.map((c) => (
+      <div>
+        <dt><span class="font-semibold">{c.title} ({c.code})</span> <span class="text-sm text-muted">{c.terms}</span></dt>
+        <dd class="mt-1 text-muted">{c.text}</dd>
+      </div>
+    ))}
+  </dl>
 
-  <section>
-    <h2 class="section-title">Root to Shoot</h2>
-    <p class="mt-4 max-w-measure">
-      Root to Shoot is a set of interactive modules for Plant Physiology; the first module, The Water Path,
-      covers the water relations units.
-    </p>
-    <p class="mt-4 max-w-measure">
-      <a href="/water-path/">The Water Path</a>: students predict before each figure, work with data from
-      my lab, and every number carries a badge saying whether it is measured, derived or illustrative.
-    </p>
-  </section>
+  <h2 class="section-title">Root to Shoot</h2>
+  <p class="mt-4 max-w-measure">
+    Root to Shoot is a set of interactive modules for Plant Physiology. The first module, The Water Path,
+    covers the water relations units.
+  </p>
+  <p class="mt-4 max-w-measure">
+    <a href="/water-path/">The Water Path</a>: students predict before each figure, work with data from
+    my lab, and every number carries a badge saying whether it is measured, derived or illustrative.
+  </p>
+
+  <h2 class="section-title">Earlier teaching</h2>
+  <dl class="mt-4 max-w-measure space-y-5">
+    <div>
+      <dt><span class="font-semibold">Plants and Climate Change, graduate seminar (BIOL 5430)</span> <span class="text-sm text-muted">Cal State LA, Spring 2022</span></dt>
+      <dd class="mt-1 text-muted">I designed the syllabus around plant responses to drought, with student-led discussion of primary papers and invited speakers.</dd>
+    </div>
+    <div>
+      <dt><span class="font-semibold">Guest lectures</span></dt>
+      <dd class="mt-1 text-muted">Graduate seminars in horticulture at UC Davis and in plant biology at UC Riverside, and Plant Physiology and Integrative Organismal Biology at Cal State LA, all in 2022. River Hydrology at CSU Monterey Bay in 2023.</dd>
+    </div>
+    <div>
+      <dt><span class="font-semibold">Teaching assistant, Grapevine Growth and Physiology (VEN 110)</span> <span class="text-sm text-muted">UC Davis, 2017</span></dt>
+    </div>
+  </dl>
 </Base>

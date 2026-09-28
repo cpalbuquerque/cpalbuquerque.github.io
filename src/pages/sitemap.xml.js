@@ -1,5 +1,5 @@
-// The five pages and the course site. Old routes redirect and are left out.
-const pages = ['/', '/people/', '/publications/', '/teaching/', '/contact/', '/water-path/'];
+// The six pages and the course site. Old routes redirect and are left out.
+const pages = ['/', '/people/', '/publications/', '/teaching/', '/news/', '/contact/', '/water-path/'];
 
 export function GET({ site }) {
   const urls = pages.map((p) => `  <url><loc>${new URL(p, site).href}</loc></url>`).join('\n');

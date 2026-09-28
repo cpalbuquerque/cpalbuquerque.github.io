@@ -8,6 +8,7 @@ import { findPhoto, loadLogos } from '../lib/content.js';
 const microct = findPhoto(/^microct_grapevine\.(jpe?g|png|webp)$/i);
 // TODO: logo files in content/logos/ listed in logos.txt. Until then the names show as text.
 const logos = loadLogos();
+const almond = findPhoto(/^data_almond_vulnerability\./);
 
 const projects = [
   {
@@ -16,11 +17,11 @@ const projects = [
   },
   {
     title: 'Aquaporins and the living pathway',
-    text: 'VvPIP2;1 knockout grapevines; rehydration kinetics of leaf hydraulic conductance and stomatal conductance.',
+    text: 'VvPIP2;1 knockout grapevines, and how fast leaf hydraulic conductance and stomatal conductance return after rewatering.',
   },
   {
     title: 'Drought strategies across species',
-    text: 'C3 and C4 grasses; almond, pistachio and olive leaf hydraulics with undergraduate teams.',
+    text: 'C3 and C4 grasses, and leaf hydraulics of almond, pistachio and olive measured by undergraduate teams.',
   },
   {
     title: 'Water delivery inside the lettuce plant',
@@ -45,11 +46,11 @@ const projects = [
         stays empty, mostly for good. Imaging intact plants with synchrotron microCT at the Advanced
         Light Source, I found a failure that comes first and reverses. Water-filled conduits collapse
         under tension before they embolize, and after rewatering the collapse reverses while embolism
-        mostly does not. A collapsed conduit is a kinked garden hose; an embolized conduit is a broken pipe.
+        mostly does not. A collapsed conduit is a kinked garden hose. An embolized conduit is a broken pipe.
       </p>
     </div>
     {microct && (
-      <figure class="md:w-56 md:shrink-0">
+      <figure class="max-w-xs md:w-56 md:shrink-0">
         <Image src={microct.image} alt={microct.caption} widths={[448, 672]} sizes="(min-width: 768px) 14rem, 100vw" class="h-auto w-full" />
         <figcaption class="mt-2 text-sm text-muted">{microct.caption}</figcaption>
       </figure>
@@ -66,7 +67,7 @@ const projects = [
     <p>
       I work in California native shrubs, Arabidopsis and species comparisons, C3 and C4 grasses,
       grapevine, lettuce and its wild relatives, almond, pistachio and olive. Crops are where I control
-      genotype, irrigation and drying rate. Natives are where a mechanism meets a drought nobody designed.
+      genotype, irrigation and drying rate. Native shrubs test the same ideas in a natural dry season.
     </p>
   </div>
 
@@ -79,6 +80,25 @@ const projects = [
       </div>
     ))}
   </dl>
+
+  {almond && (
+    <figure class="mt-6 max-w-lg">
+      <Image src={almond.image} alt={almond.caption} widths={[520, 900]} sizes="(min-width: 768px) 32rem, 100vw" class="h-auto w-full border border-rule" />
+      <figcaption class="mt-2 text-sm text-muted">{almond.caption}</figcaption>
+    </figure>
+  )}
+
+  <h2 class="section-title">Earlier work</h2>
+  <div class="mt-4 flex max-w-measure gap-4">
+    <a href="https://doi.org/10.1093/jxb/eraa392" class="shrink-0 hover:bg-transparent">
+      <img src="/img/jxb-2020-cover.webp" width="240" height="313" alt="Cover of Journal of Experimental Botany, volume 71, issue 22, 2020, featuring this paper" class="h-auto w-20 border border-rule" loading="lazy" />
+    </a>
+    <p>
+      In grapevine leaves imaged alive with microCT, leaf hydraulic conductance and gas exchange declined
+      early in drought without xylem embolism. The decline came from the living cells outside the xylem.
+      <a href="https://doi.org/10.1093/jxb/eraa392">Albuquerque et al. 2020, <em>Journal of Experimental Botany</em></a>, journal cover.
+    </p>
+  </div>
 
   <h2 class="section-title">Methods</h2>
   <p class="mt-4 max-w-measure">
@@ -95,12 +115,14 @@ const projects = [
       {logos.map((l) => (
         <li>
           <a href={l.url} class="block hover:bg-transparent">
-            <Image src={l.image} alt={l.org} height={72} class="h-7 w-auto opacity-80 grayscale hover:opacity-100 md:h-9 dark:invert" />
+            <Image src={l.image} alt={l.org} height={72} class="h-7 w-auto opacity-80 grayscale hover:opacity-100 md:h-9 " />
           </a>
         </li>
       ))}
     </ul>
   ) : (
-    <p class="mt-4 text-sm text-muted">{supporters.join('; ')}.</p>
+    <ul class="mt-4 grid gap-1 text-sm text-muted sm:grid-cols-2">
+      {supporters.map((s) => <li>{s}</li>)}
+    </ul>
   )}
 </Base>

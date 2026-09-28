@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { person, collaborators, recent } from '../data/site.js';
+import { person, collaborators } from '../data/site.js';
 import { loadPeople, findPhoto } from '../lib/content.js';
 
 const { people } = loadPeople();
@@ -19,7 +19,7 @@ const alumniGroups = [
 // A portrait shows only when captions.txt lists one.
 const portrait = findPhoto(/^portrait\.(jpe?g|png|webp)$/i);
 // Optional: students with instruments (not portraits).
-const lab = findPhoto(/^students?_.*\.(jpe?g|png|webp)$/i);
+const lab = findPhoto(/^students_lettuce_field\./);
 
 const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
 ---
@@ -103,15 +103,10 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
 
   <section>
     <h2 class="section-title">Collaborators</h2>
-    <p class="mt-4 max-w-measure text-muted">{collaborators.join('; ')}.</p>
-  </section>
-
-  <section>
-    <h2 class="section-title">Recent</h2>
-    <ul class="mt-4 max-w-measure space-y-2">
-      {recent.map((r) => (
-        <li><span class="font-semibold">{r.date}.</span> {r.text}</li>
-      ))}
+    <ul class="mt-4 grid gap-1 text-muted sm:grid-cols-2">
+      {collaborators.map((c) => <li>{c}</li>)}
     </ul>
   </section>
+
+  <p class="mt-10 max-w-measure">Posters, internships and other lab news are on the <a href="/news/">News</a> page.</p>
 </Base>

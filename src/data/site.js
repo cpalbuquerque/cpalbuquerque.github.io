@@ -140,12 +140,6 @@ export const collaborators = [
   'Leandro Hahn (EPAGRI, Brazil)',
 ];
 
-export const recent = [
-  { date: 'October 2026', text: 'A lab member presents at the SACNAS National Diversity in STEM Conference in Long Beach.' },
-  { date: '2026', text: 'Two lab members trained at a Lawrence Berkeley National Laboratory microCT workshop and help lead the Plant Physiology course research experience.' },
-  { date: '2026', text: 'Students presented at the UC Davis Plant Sciences Symposium and the CSUMB UROC Spring Research Showcase.' },
-];
-
 // Shown as a logo row on Research, in this order. Files come from content/logos/.
 export const supporters = [
   'CSU Agricultural Research Institute',

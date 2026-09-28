@@ -59,6 +59,10 @@ export function loadPhotos() {
     .filter((p) => p.image);
 }
 
+export function findPhotos(pattern) {
+  return loadPhotos().filter((p) => pattern.test(p.file));
+}
+
 export function findPhoto(pattern) {
   return loadPhotos().find((p) => pattern.test(p.file)) || null;
 }

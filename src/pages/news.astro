@@ -1,4 +1,46 @@
 ---
-import Redirect from '../components/Redirect.astro';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { news } from '../data/news.js';
+import { findPhoto, loadPhotos } from '../lib/content.js';
+
+const byFile = Object.fromEntries(loadPhotos().map((p) => [p.file, p]));
+
+const photos = [
+  findPhoto(/^students_lab_microscope\./),
+  findPhoto(/^students_field_measuring\./),
+].filter(Boolean);
 ---
-<Redirect to="/people/" />
+
+<Base
+  title="News"
+  description="News from the Albuquerque plant physiology lab at CSU Monterey Bay: student posters, internships and training."
+>
+  <h1 class="text-2xl">News</h1>
+
+  {photos.length > 0 && (
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      {photos.map((p) => (
+        <figure>
+          <Image src={p.image} alt={p.caption} widths={[480, 800]} sizes="(min-width: 640px) 25rem, 100vw" class="aspect-[4/3] h-auto w-full object-cover" />
+          <figcaption class="mt-2 text-sm text-muted">{p.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  )}
+
+  <ul class="mt-8 max-w-measure divide-y divide-rule">
+    {news.map((n) => (
+      <li class="py-4">
+        <p class="text-sm font-semibold text-muted">{n.date}</p>
+        <p class="mt-1">{n.text}</p>
+        {n.photo && byFile[n.photo] && (
+          <figure class="mt-3 max-w-sm">
+            <Image src={byFile[n.photo].image} alt={byFile[n.photo].caption} widths={[400, 700]} sizes="(min-width: 640px) 24rem, 100vw" class="h-auto w-full border border-rule" />
+            <figcaption class="mt-2 text-sm text-muted">{byFile[n.photo].caption}</figcaption>
+          </figure>
+        )}
+      </li>
+    ))}
+  </ul>
+</Base>

@@ -12,6 +12,7 @@ const nav = [
   { href: '/people/', label: 'People' },
   { href: '/publications/', label: 'Publications' },
   { href: '/teaching/', label: 'Teaching' },
+  { href: '/news/', label: 'News' },
   { href: '/contact/', label: 'Contact' },
 ];
 const here = Astro.url.pathname.replace(/\/?$/, '/');
@@ -37,8 +38,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#FCFCFD" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0F1729" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#FCFCFD" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={person.name} />
