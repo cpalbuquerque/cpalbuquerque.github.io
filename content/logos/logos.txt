@@ -1,0 +1,9 @@
+# file | organization name | home page link | "show name" to print the name beside a symbol-only logo
+# Logos downloaded from each organization's own website (28 Sep 2026). White logos recolored dark gray to show on a light page.
+# TODO: csu-ari.png, the CSU Agricultural Research Institute logo (Caetano to supply the file).
+csu-ari.png | CSU Agricultural Research Institute | https://www.calstate.edu/impact-of-the-csu/research/ari
+ciwr.svg | California Institute for Water Resources | https://ciwr.ucanr.edu/ | show name
+csu.png | The California State University | https://www.calstate.edu/
+usgs.png | U.S. Geological Survey | https://www.usgs.gov/
+leafy-greens.png | California Leafy Greens Research Board | https://calgreens.org/
+als.png | Advanced Light Source, Lawrence Berkeley National Laboratory | https://als.lbl.gov/

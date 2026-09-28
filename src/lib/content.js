@@ -70,6 +70,6 @@ export function findPhoto(pattern) {
 export function loadLogos() {
   const rows = readLines('logos/logos.txt') || [];
   return rows
-    .map(([file, org = '', url = '']) => ({ file, org, url, image: asset(logoFiles, 'logos', file) }))
+    .map(([file, org = '', url = '', opt = '']) => ({ file, org, url, showName: /show name/i.test(opt), image: asset(logoFiles, 'logos', file) }))
     .filter((l) => l.image);
 }

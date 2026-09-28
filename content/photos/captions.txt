@@ -1,10 +1,10 @@
 # file | what it shows (used as caption and alt text) | consent
-# Photos taken from the old public site or lab files. Confirm consent for the student photos before merging.
+# Students in these photos consented to being shown (confirmed by Caetano, 28 Sep 2026).
 portrait.png | Caetano Albuquerque | consented
 microct_grapevine.jpg | Synchrotron microCT cross section imaged at the Advanced Light Source. Dark conduits are filled with air. Gray ones still hold water. | no people
-students_lettuce_field.jpg | Field teaching with the lab in a lettuce field. Photo: Brent Dundore-Arias. | on old public site
-students_field_measuring.jpg | Students measure plants in the field. | on old public site
-students_lab_microscope.jpg | A student at the microscope in the lab. | from a student poster, confirm
+students_lettuce_field.jpg | Field teaching with the lab in a lettuce field. Photo: Brent Dundore-Arias. | consented
+students_field_measuring.jpg | Students measure plants in the field. | consented
+students_lab_microscope.jpg | A student at the microscope in the lab. | consented
 class_instrument.jpg | Students measure a lettuce plant with a handheld instrument in class. | no faces
 data_almond_vulnerability.png | Almond leaf hydraulic conductance falls as leaves dry. Undergraduates measured 54 leaves with the evaporative flux method in summer 2025. | no people
 data_lettuce_leaf_position.png | Stomatal conductance of the outer and inner leaf on the same romaine plants. Red arrows mark plants where the inner leaf ran higher. From Melissa Martinez's 2026 poster. | no people
