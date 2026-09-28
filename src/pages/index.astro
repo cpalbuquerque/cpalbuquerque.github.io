@@ -104,10 +104,17 @@ const projects = [
     <ul class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6" aria-label="Funders and facilities">
       {logos.map((l) => (
         <li>
-          <a href={l.url} class="flex items-center gap-2 text-sm text-muted no-underline hover:bg-transparent">
-            <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale hover:opacity-100 md:h-10" />
-            {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
-          </a>
+          {l.url ? (
+            <a href={l.url} class="flex items-center gap-2 text-sm text-muted no-underline hover:bg-transparent">
+              <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale hover:opacity-100 md:h-10" />
+              {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
+            </a>
+          ) : (
+            <span class="flex items-center gap-2 text-sm text-muted">
+              <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale md:h-10" />
+              {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
+            </span>
+          )}
         </li>
       ))}
     </ul>
