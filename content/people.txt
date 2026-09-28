@@ -1,0 +1,69 @@
+# People shown on the website. One person per line: name | group | years | one line. Years and the last field may be empty; empty means show nothing.
+# Groups: current, visiting, masters, alumni-csumb, alumni-calstatela, alumni-ucdavis
+# Lines with CONFIRM are left out of the site until you replace or delete the word.
+# Delete any line you do not want shown. Order within a group is kept.
+# Sources: lab Slack workspace membership (28 Sep 2026) and CV v27.
+
+# Current lab members, on Slack through the summer 2026 campaign
+Melissa Martinez | current | |
+Ignacio Maravilla | current | | leads the Plant Physiology course research experience
+Lydia Mattsson-Boze | current | |
+Ralph Trujillo | current | |
+Jonathan Jaime | current | |
+Jason Morris | current | |
+Oscar Lopez Rodriguez | current | |
+Manuel Venancio-Guzman | current | |
+Javier Blanco Ortega | current | |
+Popocatepetl Perez-Vargas | current | |
+Nathalie Lopez | current | |
+# In your CV as a current mentee (CSU ARI) with 2026 posters, not on Slack
+Bella Hartman | current | CONFIRM |
+# Joined the Slack workspace 23 to 25 September 2026
+Julian Pizano | current | CONFIRM |
+Prashanta Pokharel | current | CONFIRM |
+Aurora Totten-Morgado | current | CONFIRM |
+
+# Visiting scholar hosted
+Leandro Hahn | visiting | January to July 2025 | visiting postdoctoral scholar from EPAGRI (Santa Catarina State Agricultural Research and Extension, Brazil); water and nutrient use efficiency in vegetable crops
+
+# Master's students co-mentored, Cal State LA
+Eduardo Barragan | masters | 2021 to 2023 |
+Jesse Gomez | masters | 2021 to 2023 |
+Larissa Garcia | masters | 2021 to 2023 |
+
+# Alumni, CSU Monterey Bay
+Joe Perez | alumni-csumb | | summer research internship at Stanford University
+Angela Diaz | alumni-csumb | |
+Fatima Zamora | alumni-csumb | |
+Matthijs De Vries | alumni-csumb | | now in a master's program in the Netherlands
+Asamahan Murran | alumni-csumb | |
+Kah'mauri Norwood | alumni-csumb | |
+Jorge Flores | alumni-csumb | |
+Madison Villapando | alumni-csumb | |
+Jose Zarazua | alumni-csumb | |
+Dayanira Hernandez | alumni-csumb | CONFIRM |
+Alexis Casillas | alumni-csumb | CONFIRM |
+Edgar Diaz Aparicio | alumni-csumb | CONFIRM |
+Roberto Palacios | alumni-csumb | CONFIRM |
+
+# Alumni, Cal State LA (2021 to 2023)
+Marisha Flemister | alumni-calstatela | |
+Rebecca Rios | alumni-calstatela | |
+Roberto Hernandez | alumni-calstatela | |
+Isabela Pedro | alumni-calstatela | |
+Maryam Shehab | alumni-calstatela | |
+Alexander Gomez | alumni-calstatela | |
+Mary Ramirez | alumni-calstatela | |
+Elizabeth Guadarrama | alumni-calstatela | |
+Emily Buch-Abaj | alumni-calstatela | |
+Ana Garcia | alumni-calstatela | |
+Joselin Tol | alumni-calstatela | |
+Gustavo Argueta | alumni-calstatela | |
+Lisette Garnica | alumni-calstatela | |
+Alejandra Garcia | alumni-calstatela | |
+Melissa Gonzalez | alumni-calstatela | |
+
+# Alumni, UC Davis and USDA-ARS (2016 to 2017)
+Luna Santaolalla | alumni-ucdavis | |
+Jack Grom | alumni-ucdavis | |
+Daniel Ribeiro | alumni-ucdavis | | high school researcher, now a PhD candidate at Texas A&M University

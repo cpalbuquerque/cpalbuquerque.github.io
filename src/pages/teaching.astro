@@ -1,86 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const currentCourses = [
-  'AGPS 415 — Advanced Irrigation & Nutrient Management',
-  'AGPS 397 — Independent Research in Agriculture',
-  'AGPS 350 — Research Methods for Crop & Soil Sciences',
-  'AGPS 213 — Principles of Viticulture',
-  'AGPS 209 — Plants, Agriculture, and Environment',
-  'BIO 332 — Plant Physiology',
-  'BIO 106 — Introduction to Plant Sciences',
-];
-
-const previousTeaching = [
-  {
-    institution: 'California State University, Los Angeles',
-    courses: ['BIOL 5430 — Seminar Ecology: Environmental Biology'],
-  },
-];
 ---
 
-<Base title="Teaching — Caetano Albuquerque">
-  <section class="bg-[#FCFCF8]">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
-      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
-        Teaching
-      </h1>
+<Base
+  title="Teaching"
+  description="Plant Physiology with a course-based research experience, Introduction to Plant Sciences, and Root to Shoot, a set of interactive modules for Plant Physiology."
+>
+  <h1 class="text-2xl">Teaching</h1>
 
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-[#4B5563]">
-        Courses in plant science, agronomy, and horticulture that connect biological principles
-        with agricultural systems and field-based questions.
-      </p>
-    </div>
+  <section>
+    <h2 class="section-title">Plant Physiology (BIO 332)</h2>
+    <p class="mt-4 max-w-measure">
+      An upper-division lecture course, 100 students in Fall 2026. Every student takes part in a
+      course-based research experience built on my research: they work with real synchrotron microCT
+      scans of plants under drought and recovery, and their work feeds a dataset built with the
+      Lawrence Berkeley National Laboratory. Two undergraduates from my lab help lead it.
+    </p>
   </section>
 
-  <section class="border-t border-black/5 bg-white">
-    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
-        <div>
-          <div class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
-            <img
-              src="/img/lab-field.jpg"
-              alt="Field teaching and lab group in lettuce"
-              class="h-[260px] w-full object-cover sm:h-[320px]"
-              loading="lazy"
-            />
-          </div>
-          <p class="mt-3 text-xs text-[#6B7280]">
-            Photo: Brent Dundore-Arias
-          </p>
-        </div>
+  <section>
+    <h2 class="section-title">Introduction to Plant Sciences (BIO 106)</h2>
+    <p class="mt-4 max-w-measure">An introductory course with laboratory.</p>
+    <p class="mt-4 max-w-measure text-muted">
+      I also teach Advanced Irrigation and Nutrient Management (AGPS 415), Research Methods for Crop
+      and Soil Sciences (AGPS 350), Plants, Agriculture, and Climate Change (AGPS 209), and Principles
+      of Viticulture (AGPS 213).
+    </p>
+  </section>
 
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-            California State University Monterey Bay
-          </p>
-
-          <ul class="mt-6 space-y-3 text-base leading-8 text-[#4B5563] sm:text-lg">
-            {currentCourses.map((course) => (
-              <li>{course}</li>
-            ))}
-          </ul>
-
-          <div class="mt-10">
-            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-              Previous Teaching
-            </p>
-
-            {previousTeaching.map((group) => (
-              <div class="mt-4">
-                <h2 class="text-lg font-semibold tracking-tight text-[#1F2937]">
-                  {group.institution}
-                </h2>
-                <ul class="mt-3 space-y-2 text-base leading-8 text-[#4B5563] sm:text-lg">
-                  {group.courses.map((course) => (
-                    <li>{course}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+  <section>
+    <h2 class="section-title">Root to Shoot</h2>
+    <p class="mt-4 max-w-measure">
+      Root to Shoot is a set of interactive modules for Plant Physiology; the first module, The Water Path,
+      covers the water relations units.
+    </p>
+    <p class="mt-4 max-w-measure">
+      <a href="/water-path/">The Water Path</a>: students predict before each figure, work with data from
+      my lab, and every number carries a badge saying whether it is measured, derived or illustrative.
+    </p>
   </section>
 </Base>

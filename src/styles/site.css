@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #FCFCFD;
+  --ink: #14213D;
+  --muted: #4B5563;
+  --accent: #1D4ED8;
+  --tint: #DBEAFE;
+  --rule: #E5E7EB;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F1729;
+    --ink: #E5E9F2;
+    --muted: #A7B0C0;
+    --accent: #93B4FF;
+    --tint: #1E2A4A;
+    --rule: #2A3550;
+    color-scheme: dark;
+  }
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (min-width: 768px) {
+    html { font-size: 17px; }
+  }
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+  }
+  h1, h2, h3 {
+    @apply font-semibold text-ink;
+    line-height: 1.3;
+  }
+  a {
+    @apply text-accent underline decoration-1 underline-offset-2;
+  }
+  a:hover {
+    @apply bg-tint;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .page { @apply mx-auto max-w-page px-4 sm:px-6; }
+  .prose-block { @apply max-w-measure; }
+  .prose-block p + p { @apply mt-4; }
+  .section-title { @apply mt-12 border-t border-rule pt-6 text-lg; }
+  .muted { @apply text-muted; }
+}

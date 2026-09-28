@@ -1,209 +1,106 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { news } from '../data/site.js';
+import { person, supporters } from '../data/site.js';
+import { findPhoto, loadLogos } from '../lib/content.js';
 
-const latestNews = news.slice(0, 5);
+// TODO: content/photos/microct_grapevine.jpg (or .png) with its line in captions.txt.
+const microct = findPhoto(/^microct_grapevine\.(jpe?g|png|webp)$/i);
+// TODO: logo files in content/logos/ listed in logos.txt. Until then the names show as text.
+const logos = loadLogos();
+
+const projects = [
+  {
+    title: 'Reversible xylem collapse and recovery in grapevine and lettuce',
+    text: 'Synchrotron microCT of intact plants at the Advanced Light Source.',
+  },
+  {
+    title: 'Aquaporins and the living pathway',
+    text: 'VvPIP2;1 knockout grapevines; rehydration kinetics of leaf hydraulic conductance and stomatal conductance.',
+  },
+  {
+    title: 'Drought strategies across species',
+    text: 'C3 and C4 grasses; almond, pistachio and olive leaf hydraulics with undergraduate teams.',
+  },
+  {
+    title: 'Water delivery inside the lettuce plant',
+    text: 'Inner leaves run higher stomatal conductance and lower water potential than outer leaves. Tipburn as a delivery failure. Fusarium wilt in lettuce xylem imaged by microCT, preliminary.',
+  },
+];
 ---
 
-<Base title="Caetano Albuquerque — Agronomy and Horticulture, CSUMB">
-  <section class="border-b border-black/5 bg-[#FCFCF8]">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
-      <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-            Agronomy · Horticulture · Crop Physiology
-          </p>
+<Base
+  title="Research"
+  description="Caetano Albuquerque, plant physiologist at CSU Monterey Bay: how water transport in plants fails under drought and heat, and whether it recovers."
+>
+  <h1 class="text-2xl">{person.name}</h1>
+  <p class="mt-1 max-w-measure text-muted">
+    Plant physiologist. How water transport in plants fails under drought and heat, and whether it recovers.
+  </p>
 
-          <h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Caetano Albuquerque
-          </h1>
-
-          <p class="mt-4 text-lg text-[#4B5563] sm:text-xl">
-            Assistant Professor of Agronomy and Horticulture at California State University Monterey Bay
-          </p>
-
-       <p class="mt-8 max-w-3xl text-lg leading-8 text-[#4B5563] sm:text-xl sm:leading-9">
-  Integrating water management, crop stress physiology, and sensing approaches to improve irrigation decisions,
-  reduce water use and nitrate leaching, and support climate adaptation in vegetable crop systems in California,
-  with emphasis on the Salinas Valley. Our lab also studies other crops grown in California and how plant
-  functional traits compare across species.
-</p>
-
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#research"
-              class="rounded-full bg-[#5F7C63] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 sm:text-base"
-            >
-              View research
-            </a>
-
-            <a
-              href="/publications"
-              class="rounded-full border border-[#DCE7DD] bg-white px-6 py-3 text-sm font-semibold text-[#1F2937] transition hover:border-[#5F7C63] hover:text-[#5F7C63] sm:text-base"
-            >
-              Publications
-            </a>
-          </div>
-        </div>
-
-<div class="mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-sm">
-  <div class="overflow-hidden rounded-[2rem] border border-black/5 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)]">
-    <img
-      src="/img/caetano-portrait.jpg"
-      alt="Portrait of Caetano Albuquerque"
-      class="h-[420px] w-full object-cover object-top sm:h-[480px]"
-      loading="eager"
-    />
+  <div class="mt-8 flex flex-col gap-6 md:flex-row md:items-start">
+    <div class="prose-block md:flex-1">
+      <p>
+        The standard account of drought damage to the xylem is embolism: air enters a conduit and it
+        stays empty, mostly for good. Imaging intact plants with synchrotron microCT at the Advanced
+        Light Source, I found a failure that comes first and reverses. Water-filled conduits collapse
+        under tension before they embolize, and after rewatering the collapse reverses while embolism
+        mostly does not. A collapsed conduit is a kinked garden hose; an embolized conduit is a broken pipe.
+      </p>
+    </div>
+    {microct && (
+      <figure class="md:w-56 md:shrink-0">
+        <Image src={microct.image} alt={microct.caption} widths={[448, 672]} sizes="(min-width: 768px) 14rem, 100vw" class="h-auto w-full" />
+        <figcaption class="mt-2 text-sm text-muted">{microct.caption}</figcaption>
+      </figure>
+    )}
   </div>
-</div>
+
+  <div class="prose-block mt-4">
+    <p>
+      I am now separating two mechanisms: reversible collapse of xylem conduits, and aquaporin control
+      of water movement through living cells. Gene-edited grapevines lacking one aquaporin keep their
+      stomata open longer as leaves dry, with no detected change in hydraulic vulnerability. I test both
+      across vapor pressure deficit and soil moisture.
+    </p>
+    <p>
+      I work in California native shrubs, Arabidopsis and species comparisons, C3 and C4 grasses,
+      grapevine, lettuce and its wild relatives, almond, pistachio and olive. Crops are where I control
+      genotype, irrigation and drying rate. Natives are where a mechanism meets a drought nobody designed.
+    </p>
+  </div>
+
+  <h2 class="section-title">Current projects</h2>
+  <dl class="mt-4 max-w-measure space-y-4">
+    {projects.map((p) => (
+      <div>
+        <dt class="font-semibold">{p.title}</dt>
+        <dd class="text-muted">{p.text}</dd>
       </div>
-    </div>
-  </section>
+    ))}
+  </dl>
 
-  <section id="research" class="bg-white">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-18 lg:px-8">
-      <div class="max-w-3xl">
-        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-          Research
-        </p>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Research areas
-        </h2>
-      </div>
+  <h2 class="section-title">Methods</h2>
+  <p class="mt-4 max-w-measure">
+    Pressure chamber, porometry and gas exchange, pressure-volume curves, leaf hydraulic conductance by the
+    evaporative flux method, optical vulnerability imaging, quantitative anatomy from hand sections,
+    synchrotron microCT at beamline 8.3.2 of the Advanced Light Source (Lawrence Berkeley National
+    Laboratory), a gravimetric phenotyping platform under construction, and gene-edited grapevine lines
+    built with collaborators at UC Davis.
+  </p>
 
-      <div class="mt-10 grid gap-6 md:grid-cols-3">
-        <article class="rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] p-7 shadow-sm">
-          <h3 class="text-xl font-semibold tracking-tight">Water & nutrient management</h3>
-          <p class="mt-4 text-base leading-8 text-[#4B5563]">
-            Field- and greenhouse-based work focused on improving irrigation and nutrient management in specialty crop systems.
-          </p>
-        </article>
-
-        <article class="rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] p-7 shadow-sm">
-          <h3 class="text-xl font-semibold tracking-tight">Crop stress physiology</h3>
-          <p class="mt-4 text-base leading-8 text-[#4B5563]">
-            Physiological and anatomical responses to drought, salinity, and disease-related stress.
-          </p>
-        </article>
-
-        <article class="rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] p-7 shadow-sm">
-          <h3 class="text-xl font-semibold tracking-tight">Sensing & decision tools</h3>
-          <p class="mt-4 text-base leading-8 text-[#4B5563]">
-            Proximal sensing, imaging, and quantitative tools to better understand crop status and support management decisions.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-[#F7F8F4]">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-18 lg:px-8">
-      <div class="grid gap-6 md:grid-cols-2">
-        <a href="/publications" class="rounded-[1.5rem] border border-black/5 bg-white p-7 shadow-sm transition hover:-translate-y-0.5">
-          <h3 class="text-xl font-semibold tracking-tight">Publications</h3>
-          <p class="mt-4 text-base leading-8 text-[#4B5563]">
-            Selected peer-reviewed publications.
-          </p>
-        </a>
-
-        <a href="/industry" class="rounded-[1.5rem] border border-black/5 bg-white p-7 shadow-sm transition hover:-translate-y-0.5">
-          <h3 class="text-xl font-semibold tracking-tight">Industry survey</h3>
-          <p class="mt-4 text-base leading-8 text-[#4B5563]">
-            Stakeholder input on research priorities in specialty crop systems.
-          </p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="news" class="bg-white">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-18 lg:px-8">
-      <div class="max-w-3xl">
-        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-          News
-        </p>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Updates
-        </h2>
-      </div>
-
-      <div class="mt-10 grid gap-6 lg:grid-cols-2">
-        {latestNews.map((item) => (
-          <article class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
-            {item.image && (
-              <img
-                src={item.image}
-                alt={item.headline}
-                class="h-56 w-full object-cover"
-                loading="lazy"
-              />
-            )}
-
-            <div class="p-7">
-              <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[#5F7C63]">
-                {item.date}
-              </p>
-
-              <p class="mt-2 text-sm font-medium text-[#6B7280]">
-                {item.type}
-              </p>
-
-              <h3 class="mt-3 text-xl font-semibold tracking-tight">
-                {item.headline}
-              </h3>
-
-              <p class="mt-4 text-base leading-8 text-[#4B5563]">
-                {item.body}
-              </p>
-
-              {item.link && (
-                <p class="mt-5">
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm font-semibold text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
-                  >
-                    Learn more
-                  </a>
-                </p>
-              )}
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="bg-[#F7F8F4]">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-18 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-            Contact
-          </p>
-          <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Get in touch
-          </h2>
-        </div>
-
-        <div class="rounded-[1.5rem] border border-black/5 bg-white p-7 shadow-sm">
-          <div class="space-y-5 text-base text-[#4B5563] sm:text-lg">
-            <p>
-              <span class="font-semibold text-[#1F2937]">Email:</span>
-              <a href="mailto:calbuquerque@csumb.edu" class="ml-2 hover:text-[#5F7C63]">calbuquerque@csumb.edu</a>
-            </p>
-            <p>
-              <span class="font-semibold text-[#1F2937]">Institution:</span>
-              <span class="ml-2">California State University Monterey Bay</span>
-            </p>
-            <p>
-              <span class="font-semibold text-[#1F2937]">Focus:</span>
-              <span class="ml-2">Vegetable crop systems in California, especially the Salinas Valley</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <h2 class="section-title">Supported by</h2>
+  {logos.length > 0 ? (
+    <ul class="mt-4 flex flex-wrap items-center gap-x-8 gap-y-5">
+      {logos.map((l) => (
+        <li>
+          <a href={l.url} class="block hover:bg-transparent">
+            <Image src={l.image} alt={l.org} height={72} class="h-7 w-auto opacity-80 grayscale hover:opacity-100 md:h-9 dark:invert" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="mt-4 text-sm text-muted">{supporters.join('; ')}.</p>
+  )}
 </Base>

@@ -1,0 +1,16 @@
+---
+// Minimal redirect page for an old route, so existing links keep working.
+const { to } = Astro.props;
+const href = new URL(to, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Caetano Albuquerque</title>
+    <meta http-equiv="refresh" content={`0;url=${href}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={href} />
+  </head>
+  <body><p>This page has moved. <a href={href}>Continue</a>.</p></body>
+</html>
