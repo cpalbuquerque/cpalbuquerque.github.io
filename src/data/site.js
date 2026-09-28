@@ -140,6 +140,23 @@ export const collaborators = [
   'Leandro Hahn (EPAGRI, Brazil)',
 ];
 
+// Funding shown on Research, from CV v28. No dollar amounts on the site.
+export const funding = {
+  research: [
+    { funder: 'CSU Agricultural Research Institute', title: 'Climate-Resilient Vineyards: Enhanced practices and sensing to improve water-use efficiency and soil carbon in the Central Coast', role: 'PI', years: '2026 to 2028' },
+    { funder: 'CSU GUIDE', title: 'Establishing a High-Throughput Gravimetric Phenotyping Platform to Quantify Water-Use Efficiency and Nitrate Leaching in Romaine Lettuce', role: 'PI', years: '2026 to 2027' },
+    { funder: 'California Institute for Water Resources and U.S. Geological Survey', title: 'Testing proximal sensors technology to improve irrigation use efficiency for vegetable production in the Salinas Valley', role: 'PI', years: '2026 to 2027' },
+    { funder: 'CSU Monterey Bay Research, Scholarship and Creative Activity', title: 'Integrated Plant Sensing Technologies for Improved Water Use Efficiency and Reduced Production Losses in Salinas Valley Lettuce', role: 'PI', years: '2026 to 2027' },
+    { funder: 'California Leafy Greens Research Board', title: 'USDA lettuce breeding for improved disease resistance', role: 'Co-PI, site PI at CSU Monterey Bay', years: '2025 to 2027' },
+    { funder: 'CSU Agricultural Research Institute', title: 'Monitoring soil health, water conservation, and vegetable productivity on organic cropland amended with eucalyptus biochar', role: 'Co-PI', years: '2024 to 2026' },
+    { funder: 'LI-COR Environmental Education Fund', title: 'Gas exchange instrumentation for plant ecophysiology teaching and undergraduate research', role: 'PI', years: '2023' },
+  ],
+  teaching: [
+    { funder: 'CSU LIFT (Learning Innovation for Future-Forward Teaching)', title: 'Decision-Ready: Embedding Durable Skills Across Applied Agricultural and Plant Sciences Courses at CSUMB', role: 'PI', years: '2026 to 2027', note: 'One of 45 proposals funded from about 260 across the CSU system.' },
+  ],
+  beamtime: 'Advanced Light Source, beamline 8.3.2: 15 shifts across two proposals, 9 as PI and experiment leader.',
+};
+
 // Shown as a logo row on Research, in this order. Files come from content/logos/.
 export const supporters = [
   'CSU Agricultural Research Institute',

@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { person, supporters } from '../data/site.js';
+import { person, supporters, funding } from '../data/site.js';
 import { findPhoto, loadLogos } from '../lib/content.js';
 
 // TODO: content/photos/microct_grapevine.jpg (or .png) with its line in captions.txt.
@@ -12,20 +12,20 @@ const almond = findPhoto(/^data_almond_vulnerability\./);
 
 const projects = [
   {
-    title: 'Reversible xylem collapse and recovery in grapevine and lettuce',
-    text: 'Synchrotron microCT of intact plants at the Advanced Light Source.',
+    title: 'Reversible collapse and recovery of the xylem',
+    text: 'Synchrotron microCT of intact plants through drought and rewatering, with leaf hydraulic conductance and gas exchange measured on the same plants.',
   },
   {
     title: 'Aquaporins and the living pathway',
-    text: 'VvPIP2;1 knockout grapevines, and how fast leaf hydraulic conductance and stomatal conductance return after rewatering.',
+    text: 'Gene-edited grapevines lacking the aquaporin VvPIP2;1, used to separate the valve from the pipe during dehydration and rehydration.',
   },
   {
-    title: 'Drought strategies across species',
-    text: 'C3 and C4 grasses, and leaf hydraulics of almond, pistachio and olive measured by undergraduate teams.',
+    title: 'Dry air and dry soil',
+    text: 'Whether the same leaf water potential is equally recoverable when it is reached through dry air or through drying soil.',
   },
   {
-    title: 'Water delivery inside the lettuce plant',
-    text: 'Inner leaves run higher stomatal conductance and lower water potential than outer leaves. Tipburn as a delivery failure. Fusarium wilt in lettuce xylem imaged by microCT, preliminary.',
+    title: 'Water delivery and vascular disease in lettuce',
+    text: 'Undergraduate projects on water delivery to inner leaves, tipburn, and Fusarium wilt in the xylem imaged by microCT.',
   },
 ];
 ---
@@ -42,11 +42,16 @@ const projects = [
   <div class="mt-8 flex flex-col gap-6 md:flex-row md:items-start">
     <div class="prose-block md:flex-1">
       <p>
-        The standard account of drought damage to the xylem is embolism: air enters a conduit and it
-        stays empty, mostly for good. Imaging intact plants with synchrotron microCT at the Advanced
-        Light Source, I found a failure that comes first and reverses. Water-filled conduits collapse
-        under tension before they embolize, and after rewatering the collapse reverses while embolism
-        mostly does not. A collapsed conduit is a kinked garden hose. An embolized conduit is a broken pipe.
+        I study how plants respond to drought and recover from it, relating structure and function
+        across scales. I combine physiological measurements with synchrotron microCT imaging at the
+        Advanced Light Source of the Lawrence Berkeley National Laboratory.
+      </p>
+      <p>
+        The standard account of drought damage to the xylem is embolism, and embolism is mostly
+        permanent. Using synchrotron microCT in intact grapevines, I found a failure that arrives first
+        and reverses. Water-filled conduits collapse before they embolize, and most reopen after
+        rewatering, while embolized conduits rarely refill. A collapsed conduit is a kinked garden hose.
+        An embolized conduit is a broken pipe.
       </p>
     </div>
     {microct && (
@@ -59,15 +64,21 @@ const projects = [
 
   <div class="prose-block mt-4">
     <p>
-      I am now separating two mechanisms: reversible collapse of xylem conduits, and aquaporin control
-      of water movement through living cells. Gene-edited grapevines lacking one aquaporin keep their
-      stomata open longer as leaves dry, with no detected change in hydraulic vulnerability. I test both
-      across vapor pressure deficit and soil moisture.
+      My question now is how much of the loss and recovery of leaf water transport under drought each
+      of two reversible mechanisms explains: collapse of water-filled xylem conduits, and aquaporin
+      control of the living cells. Grapevines lacking the aquaporin VvPIP2;1 kept their stomata open
+      longer than wild type as leaves dried, with no change in leaf hydraulic vulnerability, which
+      suggests the gene acts on the valve and not on the pipe.
     </p>
-    <p>
-      I work in California native shrubs, Arabidopsis and species comparisons, C3 and C4 grasses,
-      grapevine, lettuce and its wild relatives, almond, pistachio and olive. Crops are where I control
-      genotype, irrigation and drying rate. Native shrubs test the same ideas in a natural dry season.
+    <p>My work has three aims:</p>
+    <ul class="mt-2 list-disc space-y-1 pl-6">
+      <li>How different species respond to progressive dehydration, and which traits drive those responses.</li>
+      <li>The drought threshold beyond which plants cannot fully recover.</li>
+      <li>How dry air and dry soil differ, to understand plant responses to more frequent weather extremes.</li>
+    </ul>
+    <p class="mt-4">
+      I choose the plant that best answers the question, from model species to crops such as grapevine
+      and lettuce.
     </p>
   </div>
 
@@ -95,7 +106,7 @@ const projects = [
     </a>
     <p>
       In grapevine leaves imaged alive with microCT, leaf hydraulic conductance and gas exchange declined
-      early in drought without xylem embolism. The decline came from the living cells outside the xylem.
+      early in drought without xylem embolism. The decline was driven by the living cells outside the xylem.
       <a href="https://doi.org/10.1093/jxb/eraa392">Albuquerque et al. 2020, <em>Journal of Experimental Botany</em></a>, journal cover.
     </p>
   </div>
@@ -109,20 +120,35 @@ const projects = [
     built with collaborators at UC Davis.
   </p>
 
-  <h2 class="section-title">Supported by</h2>
-  {logos.length > 0 ? (
-    <ul class="mt-4 flex flex-wrap items-center gap-x-8 gap-y-5">
+  <h2 class="section-title">Funding</h2>
+  <h3 class="mt-4 text-base">Research</h3>
+  <ul class="mt-2 max-w-measure space-y-3">
+    {funding.research.map((g) => (
+      <li>
+        <span class="font-semibold">{g.funder}.</span> {g.title}. <span class="text-muted">{g.role}, {g.years}.</span>
+      </li>
+    ))}
+  </ul>
+  <h3 class="mt-6 text-base">Teaching</h3>
+  <ul class="mt-2 max-w-measure space-y-3">
+    {funding.teaching.map((g) => (
+      <li>
+        <span class="font-semibold">{g.funder}.</span> {g.title}. <span class="text-muted">{g.role}, {g.years}. {g.note}</span>
+      </li>
+    ))}
+  </ul>
+  <h3 class="mt-6 text-base">Synchrotron beamtime</h3>
+  <p class="mt-2 max-w-measure">{funding.beamtime}</p>
+
+  {logos.length > 0 && (
+    <ul class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5">
       {logos.map((l) => (
         <li>
           <a href={l.url} class="block hover:bg-transparent">
-            <Image src={l.image} alt={l.org} height={72} class="h-7 w-auto opacity-80 grayscale hover:opacity-100 md:h-9 " />
+            <Image src={l.image} alt={l.org} height={72} class="h-7 w-auto opacity-80 grayscale hover:opacity-100 md:h-9" />
           </a>
         </li>
       ))}
-    </ul>
-  ) : (
-    <ul class="mt-4 grid gap-1 text-sm text-muted sm:grid-cols-2">
-      {supporters.map((s) => <li>{s}</li>)}
     </ul>
   )}
 </Base>
