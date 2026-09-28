@@ -12,7 +12,10 @@ function authorHtml(authors) {
 const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
 ---
 
-<Base title={`Publications | ${person.name}`}>
+<Base
+  title={`Publications | ${person.name}`}
+  description="Papers, preprints and datasets on plant water transport, xylem embolism and collapse, with student authors marked."
+>
   <section class="bg-paper">
     <div class="mx-auto max-w-4xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
       <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">

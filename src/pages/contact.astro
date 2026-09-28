@@ -1,96 +1,87 @@
 ---
-// src/pages/contact.astro
 import Base from '../layouts/Base.astro';
+import { person } from '../data/site.js';
+
+const notes = [
+  {
+    who: 'Students',
+    what: 'Students at any level who are curious about how plants handle drought are welcome to write. No experience needed. Tell me a little about yourself, what caught your interest, and your schedule this semester.',
+  },
+  {
+    who: 'Future graduate students and postdocs',
+    what: 'If you are thinking about graduate school or a postdoc in plant water relations, I am happy to talk about ideas, programs and people to work with.',
+  },
+  {
+    who: 'Collaborators',
+    what: 'Send a short note on the question and the timeline. I am most useful when there is a clear question to start from.',
+  },
+];
+
+const profiles = [
+  { label: 'Google Scholar', url: person.scholar },
+  { label: 'ResearchGate', url: person.researchgate },
+  { label: 'LinkedIn', url: person.linkedin },
+].filter((p) => p.url);
 ---
-<Base title="Contact — Caetano Albuquerque">
-
-  <div class="bg-grove py-20 px-6">
-    <div class="max-w-site mx-auto">
-      <p class="font-sans text-xs font-medium text-sage uppercase tracking-widest mb-4">Contact</p>
-      <h1 class="font-display text-hero text-straw max-w-2xl leading-tight mb-6">
-        Let's talk about your crops.
-      </h1>
-      <p class="font-serif text-fog/80 text-xl max-w-2xl leading-relaxed">
-        Whether you're a student looking to join the lab, a collaborator with a project idea,
-        a grower with a production problem, or an agency with a funding question —
-        the best way to reach me is by email.
+<Base
+  title={`Contact | ${person.name}`}
+  description="Students at any level who are curious about how plants handle drought are welcome to write. No experience needed."
+>
+  <section class="bg-paper">
+    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Contact</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-gray-600">
+        The best way to reach me is by email.
       </p>
-    </div>
-  </div>
-
-  <section class="py-section bg-straw">
-    <div class="max-w-site mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
-
-      <!-- Contact info -->
-      <div>
-        <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-6">Direct Contact</p>
-        <div class="space-y-6">
-          <div>
-            <p class="font-sans text-xs text-ink/40 uppercase tracking-wider font-medium mb-1">Email</p>
-            <!-- REPLACE: Confirm your CSUMB email address -->
-            <a href="mailto:cpalbuquerque@csumb.edu" class="font-serif text-xl text-grove hover:text-terracotta transition-colors">cpalbuquerque@csumb.edu</a>
-          </div>
-          <div>
-            <p class="font-sans text-xs text-ink/40 uppercase tracking-wider font-medium mb-1">Institution</p>
-            <div class="font-serif text-base text-ink/75 leading-relaxed">
-              <p>Department of Biology, Agriculture & Chemistry</p>
-              <p>Agricultural Plant & Soil Sciences Program</p>
-              <p>California State University, Monterey Bay</p>
-              <p class="mt-1 text-ink/50">Seaside, CA 93955</p>
-            </div>
-          </div>
-          <div>
-            <p class="font-sans text-xs text-ink/40 uppercase tracking-wider font-medium mb-2">Online Profiles</p>
-            <ul class="space-y-2">
-              <li>
-                <a href="https://scholar.google.com/citations?user=FnRaXGoAAAAJ" target="_blank" rel="noopener" class="font-sans text-sm text-grove hover:text-terracotta transition-colors">Google Scholar ↗</a>
-              </li>
-              <li>
-                <!-- REPLACE: Add ORCID -->
-                <a href="https://orcid.org/YOUR-ORCID" target="_blank" rel="noopener" class="font-sans text-sm text-grove hover:text-terracotta transition-colors">ORCID ↗</a>
-              </li>
-              <li>
-                <a href="/cv.pdf" class="font-sans text-sm text-grove hover:text-terracotta transition-colors">Download CV ↗</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Context for different audiences -->
-      <div>
-        <p class="font-sans text-xs font-medium text-terracotta uppercase tracking-widest mb-6">What to Include</p>
-        <div class="space-y-6">
-          {[
-            {
-              who: 'Students (CSUMB)',
-              what: 'Tell me which course you\'re in, what kind of research you\'re interested in, and what your schedule looks like. If you\'re thinking about AGPS 397, mention that.'
-            },
-            {
-              who: 'Prospective grad students / postdocs',
-              what: 'Send a brief statement of your research interests, your CV, and what kind of questions you want to work on. Be specific about why this lab and this program.'
-            },
-            {
-              who: 'Collaborators',
-              what: 'Describe the project or question briefly, the timeline, and what role you\'re imagining. I\'m open to new collaborations but most productive when there\'s a clear question to start from.'
-            },
-            {
-              who: 'Growers and industry partners',
-              what: 'Tell me about the crop, the challenge, and the geography. Even if it\'s informal — a short note about what\'s going wrong or what you\'re curious about — I\'d love to hear it.'
-            },
-            {
-              who: 'Media and press',
-              what: 'Feel free to reach out directly. I\'m happy to discuss research topics related to water, vegetable crops, drought physiology, or California agriculture.'
-            },
-          ].map((item) => (
-            <div class="border-l-2 border-terracotta/30 pl-5">
-              <p class="font-sans text-sm font-medium text-grove mb-1">{item.who}</p>
-              <p class="font-serif text-sm text-ink/65 leading-relaxed">{item.what}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   </section>
 
+  <section class="border-t border-black/5 bg-white">
+    <div class="mx-auto grid max-w-6xl gap-12 px-5 py-12 sm:px-6 md:grid-cols-2 lg:px-8">
+      <div class="space-y-8">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Email</p>
+          <a href={`mailto:${person.email}`} class="mt-2 inline-block break-all text-xl font-medium text-gray-800 underline underline-offset-4 hover:text-leaf sm:text-2xl">
+            {person.email}
+          </a>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Where</p>
+          <div class="mt-2 text-base leading-7 text-gray-600">
+            <p>Department of Biology, Agriculture and Chemistry</p>
+            <p>California State University, Monterey Bay</p>
+            <p>Seaside, CA 93955</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">ORCID</p>
+          <a href={person.orcid} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-base text-gray-800 underline underline-offset-4 hover:text-leaf">
+            {person.orcidId}
+          </a>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Profiles</p>
+          <ul class="mt-2 space-y-2">
+            {profiles.map((p) => (
+              <li>
+                <a href={p.url} target="_blank" rel="noopener noreferrer" class="text-base text-gray-800 underline underline-offset-4 hover:text-leaf">{p.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        {notes.map((n) => (
+          <div class="border-l-2 border-leaf/40 pl-5">
+            <h2 class="text-lg font-semibold tracking-tight text-gray-800">{n.who}</h2>
+            <p class="mt-1 text-base leading-7 text-gray-600">{n.what}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 </Base>

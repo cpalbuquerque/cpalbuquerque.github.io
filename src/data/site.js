@@ -205,6 +205,11 @@ export const inPreparation = [
     linkLabel: 'Dataset (Zenodo)',
   },
   {
+    authors: 'Albuquerque C, Hammermeister A, Scoffoni C, Brodersen CR, Sack L, McElrone AJ.',
+    title: 'Reversible collapse of water-filled xylem conduits precedes embolism in grapevine petioles under drought.',
+    status: 'With co-authors, for submission to New Phytologist.',
+  },
+  {
     // Author list follows the CV. The bioRxiv record lists Aguero before Arancibia
     // and does not include Kluepfel. TODO: confirm the submitted author list.
     authors: 'Albuquerque C, Momayyezi M, Arancibia C, Aguero CB, Stanfield R, Ron M, Walker MA, Bartlett MK, Scoffoni C, Kluepfel D, McElrone AJ.',
@@ -218,6 +223,17 @@ export const inPreparation = [
     authors: 'Rech M, Hahn L, Wamser AF, Argenta LC, Albuquerque C, Lima-Rodrigues M, Grando DL, Kokkonen AA, Brunetto G.',
     title: 'Increasing soil Ca:Mg ratio improves tomato yield, quality, and resistance to rot.',
     status: 'Under review at Bragantia.',
+  },
+  {
+    // Author list follows the CV. The site prompt listed "Scoffoni, Albuquerque, Sack". TODO: confirm order and Barragan's marker.
+    authors: 'Albuquerque C, Barragan E**, Sack L, Scoffoni C.',
+    title: 'A new method to quantify root hydraulic conductance vulnerability curves.',
+    status: 'Invited contribution, Journal of Visualized Experiments.',
+  },
+  {
+    authors: 'Albuquerque C, McElrone AJ.',
+    title: 'Xylem collapse and recovery after rehydration confers resilience to water stress in lettuce (Lactuca sativa).',
+    status: 'In preparation.',
   },
 ];
 
@@ -241,7 +257,26 @@ export const collaborators = [
   { name: 'Leandro Hahn', affiliation: 'EPAGRI, Brazil' },
 ];
 
+// News, newest and most relevant first. Dates left blank are TODO.
 export const news = [
+  {
+    date: '', // TODO: month and year of the Berkeley Lab workshop
+    type: 'Research',
+    headline: 'Two lab students trained at a microCT annotation workshop at Berkeley Lab',
+    body: 'Two students from my lab attended a workshop at Lawrence Berkeley National Laboratory on annotating synchrotron microCT scans. They now help lead the same work in Plant Physiology, where every student annotates real scans of grapevine petioles for SYNAPS-I.',
+  },
+  {
+    date: '', // TODO: date of the high school visit
+    type: 'Outreach',
+    headline: 'High school students visit the lab',
+    body: 'We hosted visiting high school students in the lab.', // TODO: add one sentence on what they did
+  },
+  {
+    date: '2024 to 2026',
+    type: 'Student News',
+    headline: 'Sixteen student posters since 2024',
+    body: 'Students from the lab have given 16 posters since 2024.',
+  },
   {
     date: 'Spring 2026',
     type: 'Student News',
@@ -255,23 +290,18 @@ export const news = [
     body: 'Melissa joined a summer research program at the University of Minnesota. Congratulations, Melissa.',
   },
   {
-    date: 'Spring 2026',
-    type: 'Outreach',
-    headline: 'Industry survey launched to help identify research priorities',
-    body: 'A stakeholder survey is being used to gather input on research needs related to water management, crop stress, and other production challenges in specialty crop systems.',
-    link: '/industry',
-  },
-  {
     date: 'March 2026',
-    type: 'Outreach',
-    headline: 'Participation in the 2026 Advanced School on Microirrigation for Crop Production',
-    body: 'Participating in the California Irrigation Institute Micro Irrigation School program.',
+    type: 'Talk',
+    headline: 'Invited talk at the International Microirrigation School for Crop Production',
+    body: 'I spoke on plant based irrigation management and water stress diagnostics for vegetable crops at the California Agricultural Irrigation Institute school in Davis.',
     link: 'https://caii.org/international-micro-irrigation-school/',
-    image: '/img/uc-microirrigation-school-2026-banner.png',
+    image: '/img/microirrigation-school-2026-banner.webp',
+    imageWidth: 1200,
+    imageHeight: 504,
   },
 ];
 
-// Current group. Only names already confirmed; full roster comes in pass 2.
+// Current group. Only names already on the site and still current; full roster comes in pass 2.
 // TODO: confirm Melissa Martinez, Matthijs De Vries and Asamahan Murran are current.
 export const currentStudents = [
   {
@@ -321,6 +351,11 @@ export const alumni = [
     outcome: 'Researcher at EPAGRI, Brazil. Tools to improve water and nutrient use efficiency in vegetable crops, with Michael Cahn (UC ANR).',
   },
 ];
+
+export const labStats = {
+  current: 'Twelve undergraduates in the lab now. Of the 47 students I have mentored, 43 are the first in their families to attend college.',
+  posters: 'Students have given 16 posters since 2024.',
+};
 
 export const alumniNote = 'Former mentees are now in PhD programs at UCLA, the University of Wisconsin-Madison and Texas A&M.';
 

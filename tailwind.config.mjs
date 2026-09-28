@@ -14,7 +14,7 @@ export default {
         fog:      { DEFAULT: '#e8ede9', light: '#f4f7f4' },
         ink:      { DEFAULT: '#1a1a1a', light: '#2d2d2d' },
         // Light lab palette used across the site
-        leaf:     { DEFAULT: '#5F7C63', dark: '#3F5D45', pale: '#DCE7DD' },
+        leaf:     { DEFAULT: '#4F6D54', dark: '#3F5D45', pale: '#DCE7DD' },
         paper:    { DEFAULT: '#FCFCF8' },
         mist:     { DEFAULT: '#F7F8F4' },
       },

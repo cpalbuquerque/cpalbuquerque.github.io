@@ -1,0 +1,14 @@
+---
+// TODO slot for a photo that arrives in pass 2.
+// Visible only when built with PUBLIC_SHOW_SLOTS=true (local review).
+// The GitHub Actions build leaves it out, so an unfilled slot never shows on the live site.
+const { label, aspect = 'aspect-[4/3]' } = Astro.props;
+const show = import.meta.env.PUBLIC_SHOW_SLOTS === 'true';
+---
+{show ? (
+  <div class={`flex ${aspect} w-full items-center justify-center rounded-[1.5rem] border-2 border-dashed border-leaf/40 bg-mist p-6 text-center`}>
+    <p class="text-sm font-medium text-leaf-dark">TODO photo: {label}</p>
+  </div>
+) : (
+  <Fragment set:html={`<!-- TODO photo: ${label} -->`} />
+)}

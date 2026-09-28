@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import { person, currentStudents, alumni, alumniNote } from '../data/site.js';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import { person, currentStudents, alumni, alumniNote, labStats } from '../data/site.js';
 
 function initials(name) {
   return name
@@ -12,7 +13,10 @@ function initials(name) {
 }
 ---
 
-<Base title={`People | ${person.name}`}>
+<Base
+  title={`People | ${person.name}`}
+  description="An undergraduate plant physiology lab at CSU Monterey Bay. Current students, alumni now in PhD programs, and outreach with visiting high school students."
+>
   <section class="bg-paper">
     <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
       <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
@@ -22,6 +26,9 @@ function initials(name) {
       <p class="mt-6 max-w-3xl text-lg leading-8 text-gray-600">
         An undergraduate lab that studies how plant water transport fails under drought and heat,
         and how it recovers.
+      </p>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
+        {labStats.current} {labStats.posters}
       </p>
     </div>
   </section>
@@ -94,6 +101,10 @@ function initials(name) {
         Current students
       </h2>
 
+      <div class="mt-8 max-w-3xl">
+        <PhotoSlot label="students measuring with instruments (pressure chamber, gas exchange or field), with caption" aspect="aspect-[16/9]" />
+      </div>
+
       <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {currentStudents.map((student) => (
           <article class="rounded-[1.5rem] border border-black/5 bg-white p-6 shadow-sm">
@@ -113,6 +124,22 @@ function initials(name) {
 
   <section class="border-t border-black/5 bg-white">
     <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">Outreach</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">High school visits</h2>
+          <p class="mt-4 text-lg leading-8 text-gray-600">
+            We host visiting high school students in the lab.
+          </p>
+          <!-- TODO: one or two sentences on what the visiting students did -->
+        </div>
+        <PhotoSlot label="high school visit: hands, plants and instruments, or from behind (no identifiable minors without a guardian release)" />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-black/5 bg-mist">
+    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
       <p class="text-sm font-semibold uppercase tracking-[0.18em] text-leaf">
         Alumni
       </p>
@@ -125,7 +152,7 @@ function initials(name) {
 
       <div class="mt-8 grid gap-6 md:grid-cols-2">
         {alumni.map((p) => (
-          <article class="rounded-[1.5rem] border border-black/5 bg-mist p-6 shadow-sm">
+          <article class="rounded-[1.5rem] border border-black/5 bg-white p-6 shadow-sm">
             <h3 class="text-xl font-semibold tracking-tight text-gray-800">{p.name}</h3>
             <p class="mt-1 text-sm font-medium text-leaf">{p.role}</p>
             <p class="mt-1 text-sm text-gray-500">{p.period}</p>

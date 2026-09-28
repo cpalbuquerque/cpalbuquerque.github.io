@@ -1,0 +1,1207 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Turgor Through a Salinas Day</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F4F5F0; --surface:#FFFFFF; --sunk:#ECEEE7; --line:#D5D9CE;
+  --ink:#1E2420; --muted:#565F52; --faint:#6B7466;
+  --psi:#1F487C; --psis:#8A4718; --psip:#3F5B37; --wilt:#9E2135; --root:#6B6F86;
+  --psi-soft:#E3EAF3; --psis-soft:#F6EBE1; --psip-soft:#E4EDDE; --wilt-soft:#F7E4E7;
+  --night:#DCE1E7; --focus:#1F487C; --chip-on:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#151813; --surface:#1D211B; --sunk:#232821; --line:#3A4136;
+    --ink:#E7EBE1; --muted:#A6B09D; --faint:#8D9784;
+    --psi:#84B0E0; --psis:#DDA468; --psip:#96C58C; --wilt:#E8919F; --root:#A7ABC2;
+    --psi-soft:#1B2836; --psis-soft:#2C2318; --psip-soft:#1E2A1D; --wilt-soft:#2E1C21;
+    --night:#0F120E; --focus:#84B0E0; --chip-on:#0F1418;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#151813; --surface:#1D211B; --sunk:#232821; --line:#3A4136;
+  --ink:#E7EBE1; --muted:#A6B09D; --faint:#8D9784;
+  --psi:#84B0E0; --psis:#DDA468; --psip:#96C58C; --wilt:#E8919F; --root:#A7ABC2;
+  --psi-soft:#1B2836; --psis-soft:#2C2318; --psip-soft:#1E2A1D; --wilt-soft:#2E1C21;
+  --night:#0F120E; --focus:#84B0E0; --chip-on:#0F1418;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+     font-family:Archivo,"Segoe UI",system-ui,sans-serif; font-size:16px; line-height:1.55;
+     -webkit-text-size-adjust:100%}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:18px; padding-block:2.2rem 4rem}
+h1{font-family:Spectral,Georgia,serif; font-weight:600; font-size:clamp(1.8rem,4.4vw,2.5rem);
+   line-height:1.1; margin:0 0 .5rem; text-wrap:balance; letter-spacing:-.01em}
+h2{font-family:Spectral,Georgia,serif; font-weight:600; font-size:1.5rem; margin:0 0 .4rem;
+   text-wrap:balance; line-height:1.15}
+h3{font-size:.8rem; font-family:"IBM Plex Mono",monospace; font-weight:600;
+   letter-spacing:.11em; text-transform:uppercase; color:var(--muted); margin:0 0 .65rem}
+h4{margin:0; font-size:.9rem; font-weight:600}
+p{margin:0 0 .85rem}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--psip); margin:0 0 .7rem; font-weight:600}
+.dek{color:var(--muted); font-size:1.03rem; max-width:64ch; margin:0}
+header.top{border-bottom:1px solid var(--line); padding-bottom:1.5rem; margin-bottom:1.6rem}
+
+
+details.key{background:var(--surface); border:1px solid var(--line); border-radius:8px;
+  padding:.85rem 1.05rem; margin:0 0 1rem}
+details.key summary{cursor:pointer; font-weight:600; font-size:1rem; color:var(--psi)}
+.keybody{padding-top:.9rem}
+.keylist{display:grid; grid-template-columns:auto 1fr; gap:.45rem .95rem; margin:0 0 1rem;
+  font-size:.93rem; align-items:baseline}
+.keylist dt{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--psi);
+  white-space:nowrap}
+.keylist dt span{color:var(--faint); font-weight:400; font-size:.8em}
+.keylist dd{margin:0; color:var(--muted)}
+.keylist dd b{color:var(--ink)}
+.numline{margin:.2rem 0 .7rem}
+.numline svg{width:100%; height:auto; display:block; overflow:visible}
+.keynote{font-size:.93rem; color:var(--muted); margin:0}
+.keynote b{color:var(--ink)}
+.starthere{background:var(--psip-soft); border:1px solid var(--line);
+  border-left:3px solid var(--psip); border-radius:6px; padding:.8rem 1.05rem; margin:0 0 1.6rem;
+  font-size:.96rem}
+.starthere b{color:var(--psip)}
+@media (max-width:560px){ .keylist{grid-template-columns:1fr; gap:.1rem .5rem}
+  .keylist dd{margin:0 0 .55rem} }
+.part{margin:0 0 2.6rem}
+.parthead{display:flex; align-items:baseline; gap:.75rem; margin:0 0 .3rem; flex-wrap:wrap}
+.partnum{font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--psip); font-weight:600; flex:none}
+.partdek{color:var(--muted); font-size:.97rem; max-width:64ch; margin:0 0 1rem}
+
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:8px}
+.pad{padding:1.05rem 1.1rem 1.2rem}
+.controls{padding:1rem 1.1rem 1.15rem; margin-bottom:1.1rem}
+.ctl-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:1.05rem 1.5rem; align-items:end}
+.ctl-lab{display:block; font-family:"IBM Plex Mono",monospace; font-size:.71rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:.4rem;
+  font-weight:600; min-height:2.1em}
+.ctl-lab .val{color:var(--ink); font-weight:600; letter-spacing:0}
+input[type=range]{width:100%; accent-color:var(--psi); height:26px; margin:0; display:block}
+select{width:100%; font:inherit; font-size:.92rem; padding:.45rem .5rem; border-radius:5px;
+  border:1px solid var(--line); background:var(--sunk); color:var(--ink); min-height:42px}
+.chips{display:flex; flex-wrap:wrap; gap:.4rem}
+.chip{font:inherit; font-size:.84rem; padding:.45rem .75rem; border-radius:999px; cursor:pointer;
+  border:1px solid var(--line); background:var(--sunk); color:var(--muted); min-height:40px}
+.chip[aria-pressed="true"]{background:var(--psi); border-color:var(--psi); color:var(--chip-on);
+  font-weight:600}
+.timerow{display:flex; align-items:center; gap:.7rem}
+.playbtn{font:inherit; font-size:.84rem; font-weight:600; padding:.45rem .8rem; border-radius:5px;
+  border:1px solid var(--line); background:var(--sunk); color:var(--ink); cursor:pointer;
+  flex:none; min-height:40px; min-width:98px}
+.playbtn:hover{border-color:var(--psi)}
+button:focus-visible, select:focus-visible, input:focus-visible, summary:focus-visible{
+  outline:2px solid var(--focus); outline-offset:2px; border-radius:4px}
+
+.two{display:grid; grid-template-columns:1fr; gap:1.1rem; align-items:start}
+@media (min-width:880px){ .two{grid-template-columns:1fr 1fr} }
+.bench{display:grid; grid-template-columns:1fr; gap:1.1rem; margin-bottom:1.1rem;
+  align-items:start}
+@media (min-width:880px){ .bench{grid-template-columns:1.2fr 1fr} }
+
+.gauge{display:flex; align-items:center; gap:.9rem; padding:.7rem .9rem; border-radius:7px;
+  background:var(--psi-soft); border:1px solid var(--line); margin-bottom:1rem}
+.gauge .big{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  font-size:1.7rem; font-weight:600; color:var(--psi); line-height:1}
+.gauge .lbl{font-size:.83rem; color:var(--muted); line-height:1.4}
+.gauge .lbl b{color:var(--ink)}
+
+.vines{display:grid; grid-template-columns:1fr 1fr; gap:.85rem}
+@media (max-width:430px){ .vines{grid-template-columns:1fr} }
+.vine{border:1px solid var(--line); border-radius:7px; padding:.75rem .8rem .85rem;
+  background:var(--sunk); display:flex; flex-direction:column; gap:.5rem}
+.vine h4{line-height:1.25; min-height:2.5em}
+.vine h4 span{display:block; font-weight:400; color:var(--muted); font-size:.82rem}
+.vine .po{font-family:"IBM Plex Mono",monospace; font-size:.74rem; color:var(--muted);
+  min-height:1.5em}
+.cellsvg{width:100%; height:auto; display:block; overflow:hidden}
+.state{font-size:.78rem; font-weight:600; padding:.3rem .5rem; border-radius:4px;
+  text-align:center; border:1px solid var(--line); background:var(--surface)}
+.state.ok{color:var(--psip); border-color:var(--psip)}
+.state.edge{color:var(--psis); border-color:var(--psis); background:var(--psis-soft)}
+.state.bad{color:var(--wilt); border-color:var(--wilt); background:var(--wilt-soft)}
+.readout{display:grid; grid-template-columns:auto 1fr; gap:.12rem .5rem; font-size:.81rem;
+  margin:0}
+.readout dt{font-family:"IBM Plex Mono",monospace; color:var(--muted)}
+.readout dd{margin:0; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  text-align:right; font-weight:500}
+
+.stackrow{margin-bottom:1.1rem}
+.stackrow:last-child{margin-bottom:0}
+.stacklab{display:flex; justify-content:space-between; align-items:baseline; font-size:.83rem;
+  margin-bottom:.25rem; gap:.5rem; flex-wrap:wrap}
+.stacklab .eq{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  color:var(--muted); font-size:.78rem}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem 1rem; font-size:.78rem; color:var(--muted);
+  margin-top:.6rem}
+.legend span{display:flex; align-items:center; gap:.35rem}
+.sw{width:.7rem; height:.7rem; border-radius:2px; flex:none}
+svg.chart{width:100%; height:auto; display:block; overflow:hidden}
+
+.hof{border:1px solid var(--line); border-radius:7px; background:var(--sunk);
+  padding:.8rem .85rem .9rem; display:flex; flex-direction:column; gap:.55rem}
+.hof .hofh{font-family:Archivo,system-ui,sans-serif; font-size:.92rem; font-weight:600;
+  letter-spacing:0; text-transform:none; color:var(--ink); margin:0}
+.hof .cap{font-size:.78rem; color:var(--muted); font-family:"IBM Plex Mono",monospace}
+.big-read{display:flex; gap:1.2rem; flex-wrap:wrap; font-size:.84rem}
+.big-read div{display:flex; flex-direction:column}
+.big-read .n{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+  font-size:1.15rem; font-weight:600}
+.big-read .k{color:var(--muted); font-size:.72rem; font-family:"IBM Plex Mono",monospace;
+  letter-spacing:.06em; text-transform:uppercase}
+
+.notice{display:grid; grid-template-columns:1fr; gap:.6rem}
+@media (min-width:700px){ .notice{grid-template-columns:1fr 1fr} }
+details.q{background:var(--surface); border:1px solid var(--line); border-radius:7px;
+  padding:.75rem .95rem}
+details.q summary{cursor:pointer; font-weight:600; font-size:.94rem; line-height:1.4}
+details.q p{margin:.6rem 0 0; font-size:.9rem; color:var(--muted)}
+details.q[open] summary{color:var(--psi)}
+
+.callout{background:var(--psis-soft); border:1px solid var(--line);
+  border-left:3px solid var(--psis); border-radius:6px; padding:.85rem 1.05rem; margin:1.2rem 0;
+  font-size:.94rem}
+.callout b{color:var(--psis)}
+.gap{background:var(--psip-soft); border:1px solid var(--line); border-left:3px solid var(--psip);
+  border-radius:6px; padding:.85rem 1.05rem; margin:1.2rem 0; font-size:.94rem}
+.gap b{color:var(--psip)}
+.small{font-size:.9rem; color:var(--muted); max-width:66ch}
+.srcs{font-size:.83rem; color:var(--muted); border-top:1px solid var(--line); padding-top:1.1rem;
+  margin-top:1.8rem}
+.srcs ul{margin:.5rem 0 0; padding-left:1.1rem} .srcs li{margin-bottom:.4rem}
+.srcs b{color:var(--ink); font-weight:600}
+.tag{font-family:"IBM Plex Mono",monospace; font-size:.74rem; background:var(--sunk);
+  border:1px solid var(--line); border-radius:4px; padding:.05rem .35rem; color:var(--ink)}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">BIO 332 · Plant Physiology · CSUMB</p>
+  <h1>Turgor Through a Salinas Day</h1>
+  <p class="dek">Three scales of the same problem. One cell losing water. One leaf across one day.
+  One plant across a week without irrigation. Everything here runs on the same four numbers, and
+  every published number has a source, and the model's own constants are listed as illustrative
+  at the end. Syrah and Merlot are cultivars of one species,
+  <i>Vitis vinifera</i>; the herbaceous option is a stand-in, for the reason given at the end.</p>
+</header>
+
+
+<details class="key" open>
+  <summary>Before you start: four letters, one unit, and one rule about negative numbers</summary>
+  <div class="keybody">
+    <dl class="keylist">
+      <dt>Ψ <span>psi</span></dt>
+      <dd>How tightly water is held. Free, pure water is <b>0</b>. Everything inside a plant is
+        below that, so <b>every number on this page is negative</b>.</dd>
+      <dt>Ψ<sub>s</sub></dt>
+      <dd>The part of Ψ caused by dissolved solutes. <b>Always negative.</b> More solutes, more
+        negative.</dd>
+      <dt>Ψ<sub>p</sub></dt>
+      <dd>The part caused by pressure. Inside a living cell that is <b>turgor</b>, and it is
+        <b>positive</b>. Inside a dead xylem conduit it is negative, because that water is being
+        pulled.</dd>
+      <dt>Ψ<sub>w</sub> = Ψ<sub>s</sub> + Ψ<sub>p</sub></dt>
+      <dd>The total. This is what decides which way water moves, and it is the only one a pressure
+        chamber can read.</dd>
+      <dt>π<sub>o</sub></dt>
+      <dd>Ψ<sub>s</sub> when the cell is <b>completely full</b>. As water leaves, the same solutes
+        get more concentrated, so Ψ<sub>s</sub> slides below π<sub>o</sub>. That is why the orange
+        line moves even though you set π<sub>o</sub> once.</dd>
+      <dt>ε <span>epsilon</span></dt>
+      <dd>Wall stiffness: how many MPa of turgor the cell loses per unit of water content lost.
+        A stiff wall is a steep loss.</dd>
+      <dt>MPa</dt>
+      <dd>Megapascals. 1 MPa is about 10 atmospheres, 10 bars, or 145 psi. A car tyre is about
+        0.2 MPa. California irrigation gear reads in <b>bars</b>, so −1.2 MPa is −12 bars.</dd>
+    </dl>
+    <div class="numline" role="img"
+         aria-label="A number line from minus 2.0 megapascals on the left, labelled drier and harder to get water, to zero on the right, labelled pure free water. Water always moves toward the more negative number.">
+      <svg viewBox="0 0 640 74">
+        <line x1="24" y1="34" x2="616" y2="34" stroke="var(--line)" stroke-width="2"/>
+        <g font-family="IBM Plex Mono,monospace" font-size="12" fill="var(--muted)">
+          <text x="24" y="58">−2.0</text><text x="172" y="58">−1.5</text>
+          <text x="320" y="58" text-anchor="middle">−1.0</text>
+          <text x="468" y="58" text-anchor="middle">−0.5</text>
+          <text x="616" y="58" text-anchor="end">0</text>
+          <text x="24" y="18" fill="var(--psis)" font-weight="600">drier · harder to get water</text>
+          <text x="616" y="18" text-anchor="end" fill="var(--psip)" font-weight="600">pure free water</text>
+        </g>
+        <g stroke="var(--line)" stroke-width="2">
+          <line x1="24" y1="28" x2="24" y2="40"/><line x1="172" y1="28" x2="172" y2="40"/>
+          <line x1="320" y1="28" x2="320" y2="40"/><line x1="468" y1="28" x2="468" y2="40"/>
+          <line x1="616" y1="28" x2="616" y2="40"/>
+        </g>
+        <path d="M430,68 L210,68" stroke="var(--psi)" stroke-width="2.2" marker-end="url(#nlA)"/>
+        <defs><marker id="nlA" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="5" markerHeight="5"
+          orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--psi)"/></marker></defs>
+        <text x="440" y="72" font-family="IBM Plex Mono,monospace" font-size="11.5"
+              fill="var(--psi)" font-weight="600">water always moves this way</text>
+      </svg>
+    </div>
+    <p class="keynote"><b>−1.5 is lower than −0.5.</b> That is the one piece of arithmetic that
+      trips everybody up in this topic. A leaf at −1.5 MPa is holding its water more tightly, and
+      is in more trouble, than a leaf at −0.5.</p>
+  </div>
+</details>
+
+<div class="starthere">
+  <b>Start here.</b> Drag the second slider below, <i>Water taken out</i>, and watch the two charts
+  change. Both cells contain exactly the same solutes; the only difference between them is the
+  wall. Everything on this page responds to something, so if a number sits on a slider, move it.
+</div>
+
+<!-- ══════════════════════════ PART 1 ══════════════════════════ -->
+<section class="part">
+  <div class="parthead"><span class="partnum">Part 1</span>
+    <h2>Inside one cell</h2></div>
+  <p class="partdek">A cell that has just divided is tiny. It gets big by taking in water, pressing
+  on its wall, and making the wall yield. So turgor is not a side effect of having water, it is
+  the thing that does the growing. This is the Höfler diagram: what happens to Ψs, Ψp and Ψw as
+  you take water back out of that cell.</p>
+
+  <div class="panel controls">
+    <div class="ctl-grid">
+      <div class="ctl">
+        <span class="ctl-lab" id="lab-po1">Solutes in both cells, π<sub>o</sub>
+          <span class="val" id="po1Val">−1.00 MPa</span></span>
+        <input type="range" id="po1" min="-200" max="-50" step="1" value="-100"
+               aria-labelledby="lab-po1">
+      </div>
+      <div class="ctl">
+        <span class="ctl-lab" id="lab-loss">Water taken out
+          <span class="val" id="lossVal">6 points of RWC</span></span>
+        <input type="range" id="loss" min="0" max="30" step="1" value="6"
+               aria-labelledby="lab-loss">
+      </div>
+    </div>
+    <p class="small" style="margin:.9rem 0 0; font-size:.84rem">Both cells get the
+      <b>same solutes</b>. The only difference is the wall. That is the controlled comparison, and
+      it is the only way to see what wall stiffness actually does.</p>
+  </div>
+
+  <div class="two">
+    <div class="hof">
+      <h3 class="hofh">Grapevine leaf · stiff wall</h3>
+      <div class="cap">ε = 13 MPa &nbsp;·&nbsp; woody, Martorell et al. 2014</div>
+      <svg class="chart" id="hofA" viewBox="0 0 380 250" role="img"
+           aria-label="Höfler diagram, grapevine"></svg>
+      <div class="big-read">
+        <div><span class="k">Turgor now</span><span class="n" id="hpA">+0.22</span></div>
+        <div><span class="k">Wilts after</span><span class="n" id="hrA">7.7 pts</span></div>
+        <div><span class="k">Ψ at wilting</span><span class="n" id="htA">−1.08</span></div>
+      </div>
+    </div>
+    <div class="hof">
+      <h3 class="hofh">Leafy crop herb · soft wall</h3>
+      <div class="cap">ε = 5 MPa &nbsp;·&nbsp; crop mean, Bartlett et al. 2012 Fig. 3</div>
+      <svg class="chart" id="hofB" viewBox="0 0 380 250" role="img"
+           aria-label="Höfler diagram, crop herb"></svg>
+      <div class="big-read">
+        <div><span class="k">Turgor now</span><span class="n" id="hpB">+0.70</span></div>
+        <div><span class="k">Wilts after</span><span class="n" id="hrB">20 pts</span></div>
+        <div><span class="k">Ψ at wilting</span><span class="n" id="htB">−1.25</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Look at what moved and what did not.</b> Making the wall two and a half times softer (13 MPa to 5) shifts only a little the
+    water potential at which the cell wilts, but it more than doubles the amount of water the cell
+    can lose first. Bartlett, Scoffoni and Sack put it exactly: <i>"π<sub>o</sub> is the major
+    driver of π<sub>tlp</sub>. In contrast, ε plays no direct role in driving drought tolerance
+    within or across species, but sclerophylly and elastic adjustments act to maintain
+    RWC<sub>tlp</sub>, preventing cell dehydration."</i> The wall is not a drought tolerance trait.
+    It is a dehydration avoidance trait. Those are different things and most textbooks get it wrong.
+  </div>
+
+  <h3 style="margin:1.6rem 0 .3rem">What is actually pushing, and in which direction</h3>
+  <p class="small" style="margin:0 0 .8rem">Pressure has no direction of its own. What it produces
+    is a force on every patch of wall, always at right angles to that patch, which is why the
+    arrows point every way at once. The dark stubs outside the wall are the wall pushing back just
+    as hard. <b>Nothing here is moving, and the arrows are not water.</b> Both cells are at the
+    water content you set above, so they are drawn the same size.</p>
+  <div class="two">
+    <div class="hof">
+      <h3 class="hofh">Grapevine leaf · stiff wall</h3>
+      <svg class="chart" id="bigA" viewBox="0 0 500 238" role="img"
+           aria-label="Labelled plant cell with a stiff wall, showing turgor pressing outward in every direction"></svg>
+    </div>
+    <div class="hof">
+      <h3 class="hofh">Leafy crop herb · soft wall</h3>
+      <svg class="chart" id="bigB" viewBox="0 0 500 238" role="img"
+           aria-label="Labelled plant cell with a soft wall, showing turgor pressing outward in every direction"></svg>
+    </div>
+  </div>
+  <p class="small" style="margin:.2rem 0 1.2rem; font-size:.86rem">At the same water content the
+    stiff-walled cell has already spent most of its turgor while the soft-walled cell is still
+    pushing hard. Both are drawn the same size, because they hold the same water. Keep going and
+    the wall <b>buckles inward</b> along with the protoplast: that is <b>cytorrhysis</b>, and it is
+    what happens to a leaf drying in air. It is <em>not</em> plasmolysis. Plasmolysis is the
+    protoplast peeling off an intact wall, and it needs an outside solution to flow into the gap,
+    which is why you see it on a microscope slide in salt water and never in a field.</p>
+
+  <div class="two">
+    <div class="panel pad">
+      <h3>Why this is the whole story of growth</h3>
+      <p class="small" style="margin:0">Lockhart wrote it in one line in 1965. Growth rate
+        = φ (Ψ<sub>p</sub> − Y). The cell only expands while turgor is above a yield threshold Y,
+        and φ is how readily the wall gives. Take water out, turgor drops, and expansion stops
+        <b>long before</b> anything looks wilted. A lettuce that stopped expanding at two in the
+        afternoon is a smaller head at harvest, and nobody saw it happen.</p>
+      <p class="small" style="margin:.7rem 0 0; font-size:.82rem">No reliable value of Y has been
+        published for a leaf, so this page does not put a number on it.</p>
+    </div>
+    <div class="panel pad">
+      <h3>Inside the cell against outside the cell</h3>
+      <p class="small" style="margin:0"><b>Inside</b> a living cell, Ψp is <b>positive</b>. The
+        protoplast presses out, the wall presses back, and that pressure is turgor.</p>
+      <p class="small" style="margin:.6rem 0 0"><b>Outside</b>, in the dead xylem conduit next
+        door, Ψp is <b>negative</b>. The water there is under tension, being pulled from above.
+        Same symbol, same equation, opposite sign, two cell diameters apart. That is why a conduit
+        needs a lignified wall to stop it imploding while its neighbour needs a wall to stop it
+        bursting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PART 2 ══════════════════════════ -->
+<section class="part">
+  <div class="parthead"><span class="partnum">Part 2</span>
+    <h2>Across one day</h2></div>
+  <p class="partdek">Now connect that cell to the sky. Stomata open for carbon, water evaporates,
+  tension builds, and the leaf's water potential falls. The cell from Part 1 is sitting inside
+  this, losing turgor as the day goes on. Two leaves here, identical except that vine B has
+  adjusted osmotically.</p>
+
+  <div class="panel controls">
+    <div class="ctl-grid">
+      <div class="ctl">
+        <span class="ctl-lab" id="lab-time">Time of day <span class="val" id="timeVal">05:00</span></span>
+        <div class="timerow">
+          <button class="playbtn" id="play" type="button">▶ Run day</button>
+          <input type="range" id="time" min="0" max="1435" step="5" value="300"
+                 aria-labelledby="lab-time">
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-lab" id="lab-weather">Evaporative demand <span class="val" id="vpdVal">VPD 2.0 kPa</span></span>
+        <div class="chips" role="group" aria-labelledby="lab-weather" id="weather">
+          <button class="chip" type="button" data-vpd="0.9" aria-pressed="false">Coastal fog</button>
+          <button class="chip" type="button" data-vpd="2.0" aria-pressed="true">Typical summer</button>
+          <button class="chip" type="button" data-vpd="3.8" aria-pressed="false">Inland heat spike</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-lab" id="lab-soil">Soil water potential <span class="val" id="soilVal">−0.15 MPa</span></span>
+        <input type="range" id="soil" min="-140" max="-3" step="1" value="-15"
+               aria-labelledby="lab-soil">
+      </div>
+      <div class="ctl">
+        <span class="ctl-lab" id="lab-days">Osmotic adjustment, plant B <span class="val" id="daysVal">−0.26 MPa</span></span>
+        <input type="range" id="days" min="0" max="30" step="1" value="26"
+               aria-labelledby="lab-days">
+      </div>
+      <div class="ctl">
+        <span class="ctl-lab" id="lab-cv">Plant material <span class="val" id="cvVal">ε 13 MPa</span></span>
+        <select id="cv" aria-labelledby="lab-cv">
+          <optgroup label="Vitis vinifera cultivars, ε = 13 MPa">
+            <option value="-1.05|13|Syrah" selected>Syrah  πo −1.05</option>
+            <option value="-1.20|13|Sangiovese">Sangiovese  πo −1.20</option>
+            <option value="-1.22|13|Pinot noir">Pinot noir  πo −1.22</option>
+            <option value="-1.28|13|Chardonnay">Chardonnay  πo −1.28</option>
+            <option value="-1.41|13|Riesling">Riesling  πo −1.41</option>
+            <option value="-1.45|13|Zinfandel">Zinfandel  πo −1.45</option>
+            <option value="-1.48|13|Merlot">Merlot  πo −1.48</option>
+          </optgroup>
+          <optgroup label="Herbaceous, ε = 5 MPa">
+            <option value="-1.00|5|Leafy crop herb">Leafy crop herb  πo −1.00  (lettuce stand-in)</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="bench">
+    <section class="panel pad">
+      <h3>What the pressure chamber reads</h3>
+      <div class="gauge" aria-live="polite">
+        <div class="big" id="gauge">0.15</div>
+        <div class="lbl">megapascals of balancing pressure. You squeeze the cut leaf until sap
+          returns to the surface, so the gauge reads positive and the leaf water potential is the
+          same number negative: <b id="gaugePsi">−0.15 MPa</b>. In this model it is
+          <b>identical for both plants.</b></div>
+      </div>
+      <div class="vines">
+        <div class="vine">
+          <h4>Plant A <span>no osmotic adjustment</span></h4>
+          <div class="po" id="poA">π<sub>o</sub> −1.05 MPa</div>
+          <svg class="cellsvg" id="cellA" viewBox="0 0 150 176" role="img"
+               aria-label="Cell diagram, plant A"></svg>
+          <div class="state ok" id="stateA">Turgid, full pressure</div>
+          <dl class="readout" aria-live="polite">
+            <dt>Ψw</dt><dd id="wA">−0.15</dd>
+            <dt>Ψs</dt><dd id="sA">−1.06</dd>
+            <dt>Ψp</dt><dd id="pA">+0.91</dd>
+            <dt>RWC<sub>sym</sub></dt><dd id="rA">99%</dd>
+          </dl>
+        </div>
+        <div class="vine">
+          <h4>Plant B <span id="hB">adjusted</span></h4>
+          <div class="po" id="poB">π<sub>o</sub> −1.31 MPa</div>
+          <svg class="cellsvg" id="cellB" viewBox="0 0 150 176" role="img"
+               aria-label="Cell diagram, plant B"></svg>
+          <div class="state ok" id="stateB">Turgid, full pressure</div>
+          <dl class="readout" aria-live="polite">
+            <dt>Ψw</dt><dd id="wB">−0.15</dd>
+            <dt>Ψs</dt><dd id="sB">−1.32</dd>
+            <dt>Ψp</dt><dd id="pB">+1.17</dd>
+            <dt>RWC<sub>sym</sub></dt><dd id="rB">99%</dd>
+          </dl>
+        </div>
+      </div>
+      <p class="small" style="margin:.9rem 0 0; font-size:.82rem">
+        RWC<sub>sym</sub> is symplastic relative water content, the water inside the living cells.
+        Total leaf RWC is always higher, because the apoplast holds water too, about 21 per cent of
+        it in a crop leaf.</p>
+    </section>
+
+    <section class="panel pad">
+      <h3>Ψw = Ψs + Ψp</h3>
+      <div class="stackrow">
+        <div class="stacklab"><b>Plant A</b><span class="eq" id="eqA">−0.15 = −1.06 +0.91</span></div>
+        <svg class="chart" id="barA" viewBox="0 0 320 104" role="img"
+             aria-label="Components, plant A"></svg>
+      </div>
+      <div class="stackrow">
+        <div class="stacklab"><b>Plant B</b><span class="eq" id="eqB">−0.15 = −1.32 +1.17</span></div>
+        <svg class="chart" id="barB" viewBox="0 0 320 104" role="img"
+             aria-label="Components, plant B"></svg>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--psis)"></i>Ψs, osmotic, always negative</span>
+        <span><i class="sw" style="background:var(--psip)"></i>Ψp, turgor, pushes back</span>
+        <span><i class="sw" style="background:var(--psi)"></i>Ψw, the sum, what you measure</span>
+      </div>
+      <p class="small" style="margin:.9rem 0 0; font-size:.86rem">
+        Read each block downward: solutes drag the potential below zero, the wall pushes it back up,
+        and the bottom bar is where it lands. Both land in the same place. Only the green part keeps
+        a leaf open for business.</p>
+    </section>
+  </div>
+
+  <section class="panel pad" style="margin-bottom:1.1rem">
+    <h3>The whole day, in megapascals</h3>
+    <svg class="chart" id="day" viewBox="0 0 700 290" role="img" aria-label="Day traces"></svg>
+  </section>
+
+  <div class="callout">
+    <b>The one thing to take away from Part 2.</b> Ψs barely moves across a day. Ψw swings by
+    nearly a megapascal. So the entire swing lands on turgor, and turgor is what stops a leaf
+    expanding and eventually makes it wilt. A plant cannot argue with the weather. What it can
+    change is that middle column, and that takes weeks.
+  </div>
+</section>
+
+<!-- ══════════════════════════ PART 3 ══════════════════════════ -->
+<section class="part">
+  <div class="parthead"><span class="partnum">Part 3</span>
+    <h2>Seven days without water</h2></div>
+  <p class="partdek">Stop irrigating and run the same model for a week. The soil dries slowly and
+  smoothly. The leaf does not: it swings every day, recovers every night, and each morning starts
+  from a lower place than the last. Wilting is what happens when the bottom of one of those swings
+  finally crosses the turgor loss point. Change the plant material or the weather above and watch the
+  day it happens move. This figure runs its own drying curve and shows plant A only: the soil
+  slider and the osmotic adjustment slider do not reach it.</p>
+
+  <section class="panel pad">
+    <svg class="chart" id="week" viewBox="0 0 700 330" role="img"
+         aria-label="Seven day drying traces for soil, root and leaf water potential"></svg>
+    <p class="small" style="margin:.8rem 0 0; font-size:.84rem">
+      Redrawn for BIO 332 from this model, after the classic figure in McElrone, Choat, Gambetta
+      and Brodersen (2013), <i>Nature Education Knowledge</i> 4(5): 6. Soil dries smoothly, root
+      tracks it with a lag, leaf oscillates hardest. Night bands are unshaded in the original;
+      here they are shaded.</p>
+  </section>
+
+  <div class="gap">
+    <b>Three things this figure is for.</b> First, the gap between the three lines <em>is</em> the
+    flow: no gap at dawn means no flow, and the widest gap is the middle of the afternoon. Second,
+    the predawn points march downward. In a real plant, once the soil is dry enough the leaf stops
+    getting all the way back overnight, and that failure to recover is the clinical start of
+    drought stress. <b>This model has no capacitance, so it recovers perfectly every night and
+    cannot show you that.</b> Watch the predawn values fall instead, and notice what the model is
+    missing. Third, the leaf crosses turgor loss on one particular
+    afternoon. Here the soil dries the same way every time, so only the plant and the weather can
+    move that day. In a real field the soil's drying rate moves it too, and that is the leg you
+    control with irrigation.
+  </div>
+</section>
+
+<h2 style="margin-top:2.4rem">Things to try</h2>
+<div class="notice">
+  <details class="q">
+    <summary>Part 1. Set the water taken out to 8 points. Compare the two cells.</summary>
+    <p>The stiff-walled vine cell is at or past turgor loss. The soft-walled crop cell still has
+    most of its turgor. Same solutes, same water lost, completely different state, and the only
+    difference is the wall. This is why a grapevine leaf feels leathery and a lettuce leaf feels
+    crisp, and why the lettuce can lose far more water before it looks wrong.</p>
+  </details>
+  <details class="q">
+    <summary>Part 1. Now drag π<sub>o</sub> more negative and watch both turgor loss points.</summary>
+    <p>Both move, together, a long way. That is the point Bartlett makes: solutes set the water
+    potential at which you wilt, and the wall sets how much water you lose getting there. If you
+    want a more drought tolerant variety, you are shopping for π<sub>o</sub>.</p>
+  </details>
+  <details class="q">
+    <summary>Part 2. Run the day on Typical summer with the soil at −0.15. When is the plant least able to grow?</summary>
+    <p>Mid afternoon, around 14:00, when turgor bottoms out. The low is not at solar noon, because
+    air temperature and therefore evaporative demand lag the sun by a couple of hours. Cell
+    expansion needs turgor above a yield threshold, so a shoot does most of its growing at night
+    and at dawn. That is why you measure elongation before breakfast.</p>
+  </details>
+  <details class="q">
+    <summary>Part 2. Set the soil to −0.45 and the time to 14:00, then step the weather from Coastal fog to Typical summer to Inland heat spike.</summary>
+    <p>Nothing changed in the ground. The soil holds exactly the same water in both cases and the
+    plant goes from coping to losing turgor. Denmead and Shaw showed this in 1962 with corn in
+    containers sunk in an Iowa field: on an overcast humid day their plants held turgor down to
+    about 24 per cent soil water content, and on a clear dry day they lost it at about 35 per cent,
+    with field capacity for that soil at 36. Those three numbers are read off their Figure 2, and
+    their corn was in containers sunk in the field, so rooting depth was restricted, which is the
+    standing critique. Wilting is a race between supply and demand, and the sky sets the demand.</p>
+  </details>
+  <details class="q">
+    <summary>Part 2. Watch the gauge while you move the osmotic adjustment slider.</summary>
+    <p>Nothing happens to it. That is the point. The chamber reads the water potential of the
+    xylem sap, and at equilibrium that equals the leaf cells' Ψw. It cannot see Ψs and it cannot
+    see turgor. Two plants at an identical reading can be one wilted and one fine. In a real field
+    the adjusted plant would hold its stomata open longer and run slightly more negative; this
+    model holds them equal to make the point clean.</p>
+  </details>
+  <details class="q">
+    <summary>Part 3. Switch from Syrah to the leafy crop herb and watch the wilting day.</summary>
+    <p>It moves later, even though the crop herb has <em>less</em> negative solutes, because its
+    soft wall drops the turgor loss point from −1.14 to −1.25 MPa. Be careful about that: this
+    figure compares water <em>potentials</em>, so what you are seeing is a small ε effect, the one
+    Part 1 tells you is minor. Now switch to Merlot and it moves three days, because its solutes
+    are 0.43 MPa more concentrated. Small lever and big lever, side by side. The soft wall's real
+    advantage only shows up in Part 1, where the axis is water content. 
+   </p>
+  </details>
+</div>
+
+<div class="gap">
+  <b>An honest gap, and it is in your backyard.</b> There is no published pressure volume curve
+  for lettuce. We searched the pressure volume, salinity, tipburn and postharvest literature in
+  September 2026 and found none: no ε, no turgor loss point, in a crop worth billions of dollars a
+  year to this valley. Leaf osmotic potential on its own does turn up in the salinity work, so that
+  part is not missing; the curve is. The soft-wall panel here uses Bartlett's crop herb mean as a
+  labelled stand in. A vapour pressure osmometer gives you π<sub>o</sub> from a leaf disc in about
+  ten minutes, and an estimate of π<sub>tlp</sub> from that; ε and RWC at turgor loss need a full
+  pressure volume curve, hours per sample. Screening the cultivars grown within twenty miles of
+  this classroom is a real, publishable measurement that nobody has made. <b>If you want in, come
+  to office hours and say "lettuce". You do not need prior lab experience and you do not need a
+  plan for graduate school. The training is the point.</b>
+</div>
+
+<h2>How this page computes</h2>
+<p class="small">The cell follows a linear elastic pressure volume curve:
+  <span class="tag">Ψs = π<sub>o</sub> / R</span> and
+  <span class="tag">Ψp = −π<sub>o</sub> − ε(1 − R)</span> floored at zero, with R the
+  <b>symplastic</b> relative water content. Setting Ψp to zero gives Bartlett's two equations
+  exactly: <span class="tag">π<sub>tlp</sub> = π<sub>o</sub>ε / (π<sub>o</sub> + ε)</span> and
+  <span class="tag">RWC<sub>tlp</sub> = (π<sub>o</sub> + ε) / ε</span>. Parts 2 and 3 add the
+  atmosphere: a diurnal VPD curve peaking about two hours after solar noon, transpiration
+  <span class="tag">E = g<sub>s</sub> × VPD / P</span> solved together with hydraulic stomatal
+  closure <span class="tag">g<sub>s</sub> = g<sub>max</sub> / (1 + (Ψ/Ψ<sub>gs50</sub>)³)</span>,
+  and <span class="tag">Ψ<sub>leaf</sub> = Ψ<sub>soil</sub> − E / K</span> where K is the whole
+  soil to leaf conductance, root and trunk and petiole in series, which falls as the soil dries.</p>
+<p class="small"><b>Six honest limitations, and you should be able to name them.</b>
+  <b>(1)</b> ε is treated as a constant. It is not, it stiffens near full turgor, and published ε
+  values are often computed on total rather than symplastic water content, which makes them about a
+  fifth larger than the ones this model wants. <b>(2)</b> There is no capacitance, so the leaf
+  re-equilibrates with the soil perfectly every night. A real leaf lags, and the water it lags with
+  is stored partly in the pith you score in the microCT images. <b>(3)</b> Stomata here respond only
+  to water potential; real stomata also respond directly to VPD. <b>(4)</b> Ψ<sub>gs50</sub> is one
+  fixed number for every cultivar, so cultivars differ in their walls and solutes and in nothing
+  else. <b>(5)</b> In Part 3 the soil dries on a fixed schedule whatever the plant does, so a plant
+  cannot dry its own soil faster by holding its stomata open. <b>(6)</b> The per cultivar turgor
+  loss points are <b>derived</b>, by combining π<sub>o</sub> from one study with ε from another. No
+  paper published them. Treat the ranking as illustrative.</p>
+<p class="small"><b>The constants, so you can check them.</b> These are chosen to make the model
+  behave realistically and they are not measurements: K<sub>max</sub> 7.4 mmol m⁻² s⁻¹ MPa⁻¹,
+  halving at soil −0.95 MPa; g<sub>max</sub> 0.36 and g<sub>night</sub> 0.012 mol m⁻² s⁻¹;
+  Ψ<sub>gs50</sub> −1.15 MPa; sunrise 05:36, sunset 18:42; night VPD 0.18 kPa; 45 per cent of the
+  soil to leaf resistance placed below the petiole; and in Part 3 the soil follows
+  −0.05 − 1.45(day/7)<sup>1.45</sup> MPa. The herbaceous π<sub>o</sub> of −1.00 MPa is read off
+  Bartlett's Figure 3a crop bar, not a table.</p>
+<p class="small"><b>Units, because the field does not use these.</b> California irrigation gear and
+  irrigation talk run in <b>bars</b>, and sometimes psi. <b>1 MPa = 10 bars = 145 psi</b>, so
+  −1.2 MPa is −12 bars. If somebody tells you the block is at "minus fourteen", they mean
+  −1.4 MPa.</p>
+
+<div class="srcs">
+  <b>Where the numbers come from</b>
+  <ul>
+    <li><b>The two equations, and ε = 5 MPa for crop herbs</b>, the lowest of any biome in a
+      317 species compilation: Bartlett MK, Scoffoni C, Sack L (2012) <i>Ecology Letters</i> 15:
+      393 to 405, equations 1 and 2 and Figure 3c.</li>
+    <li><b>ε by growth form</b>, 378 entries across 325 species: grasses 3.5 ± 1.8, herbs
+      5.3 ± 4.4, woody deciduous 13.2 ± 6.1, woody evergreen 14.8 ± 9.0, ferns 34.6 ± 12.9 MPa.
+      Nadal M, Flexas J, Gulías J, Peñuelas J (2018) <i>Ecology Letters</i> 21: 1372 to 1379.</li>
+    <li><b>Grapevine ε = 10 to 16 MPa, π<sub>o</sub> −0.85 to −1.44, turgor loss −1.18 to −2.01,
+      RWC at turgor loss 88 to 92 per cent</b>, field grown, June and August, Grenache and
+      Tempranillo: Martorell S, Medrano H, Tomàs M, Escalona JM, Flexas J, Diaz-Espejo A (2014)
+      <i>Physiologia Plantarum</i> 150: 381 to 391.</li>
+    <li><b>Cultivar π<sub>o</sub></b>, July, common garden at Davis: Sinclair G, Galarneau ER,
+      Hnizdor JF, McElrone AJ, Walker MA, Bartlett MK (2024) <i>Annals of Botany</i> 134:
+      205 to 218. Single site, single month. Two cultivars 0.02 MPa apart are not different.</li>
+    <li><b>Mean osmotic adjustment −0.29 MPa</b> across 283 species, 246 wild and 37 crop:
+      Bartlett MK, Zhang Y, Kreidler N, Sun S, Ardy R, Cao K, Sack L (2014) <i>Ecology Letters</i>
+      17: 1580 to 1590. That paper gives the size of the shift, not the rate, which is why the
+      slider is in megapascals rather than days.</li>
+    <li><b>Growth rate = φ (Ψp − Y)</b>: Lockhart JA (1965) <i>Journal of Theoretical Biology</i>
+      8: 264 to 275.</li>
+    <li><b>The Höfler diagram</b> is named for Karl Höfler (1920), <i>Berichte der Deutschen
+      Botanischen Gesellschaft</i> 38: 288. The modern quantitative form is the pressure volume
+      curve of Tyree MT and Hammel HT (1972) <i>Journal of Experimental Botany</i> 23: 267 to 282.</li>
+    <li><b>The seven day drying figure</b> is redrawn after McElrone AJ, Choat B, Gambetta GA,
+      Brodersen CR (2013) Water uptake and transport in vascular plants.
+      <i>Nature Education Knowledge</i> 4(5): 6.</li>
+    <li><b>Wilting at high soil water content under high demand</b>: Denmead OT, Shaw RH (1962)
+      <i>Agronomy Journal</i> 54: 385 to 390. Corn in 136 containers sunk in a field, so rooting
+      depth was restricted, which is the standing critique.</li>
+    <li><b>Lettuce is about 96 per cent water</b> and shows visible dehydration beyond about 5 per
+      cent weight loss: USDA FoodData Central 169248; Cantwell M, Kulchin NX, Donis-González IR,
+      crisphead lettuce produce facts, UC Davis Postharvest Technology Center.</li>
+    <li><b>Pressure chamber</b>: Scholander PF, Hammel HT, Bradstreet ED, Hemmingsen EA (1965)
+      <i>Science</i> 148: 339 to 346.</li>
+  </ul>
+  <p style="margin-top:.9rem">Built for BIO 332 by Dr. Caetano Albuquerque, Department of Biology
+  and Chemistry, CSUMB. Companion to the water potential lectures and to
+  <i>Teaching a Computer Leaf Anatomy</i>.</p>
+</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var KMAX=7.4, KHALF=-0.95, GSMAX=0.36, GSNIGHT=0.012, GS50=-1.15, PATM=101.3;
+  var SUNUP=5.6, SUNDOWN=18.7, VPDNIGHT=0.18, V0=5.0, V1=21.0, SKEW=1.30;
+  var AF=0.21;                       // apoplastic fraction, Bartlett 2012 crop mean
+  var ROOTFRAC=0.45;                 // share of the soil-to-leaf resistance below the petiole
+
+  var el=function(id){ return document.getElementById(id); };
+  var S={ minute:300, vpdPeak:2.0, soil:-0.15, oa:0.26, po:-1.05, eps:13, name:"Syrah",
+          po1:-1.00, loss:6, playing:false };
+
+  // ---------- shared physiology ----------
+  function light(h){
+    if (h<=SUNUP||h>=SUNDOWN) return 0;
+    return Math.pow(Math.sin(Math.PI*(h-SUNUP)/(SUNDOWN-SUNUP)),1.35);
+  }
+  function vpdAt(h){
+    if (h<=V0||h>=V1) return VPDNIGHT;
+    var u=(h-V0)/(V1-V0);
+    return VPDNIGHT+(S.vpdPeak-VPDNIGHT)*Math.pow(Math.sin(Math.PI*Math.pow(u,SKEW)),1.2);
+  }
+  function kOf(soil){ return KMAX/(1+Math.pow(soil/KHALF,2)); }
+  // returns {leaf, root, E}
+  function flow(h, soil){
+    var g0=GSNIGHT+(GSMAX-GSNIGHT)*Math.min(1,light(h)*1.6);
+    var vpd=vpdAt(h), K=kOf(soil), psi=soil, gs, E;
+    for (var i=0;i<90;i++){
+      gs=g0/(1+Math.pow(psi/GS50,3));
+      E=gs*vpd/PATM*1000;
+      psi=psi*0.65+(soil-E/K)*0.35;
+    }
+    gs=g0/(1+Math.pow(psi/GS50,3)); E=gs*vpd/PATM*1000;
+    return { leaf:psi, root:soil-(E/K)*ROOTFRAC, E:E };
+  }
+  function leafPsi(h){ return flow(h,S.soil).leaf; }
+  function poB(){ return S.po-S.oa; }
+
+  function cellState(psi, po, eps){
+    var Rtlp=1+po/eps, psiTlp=po/Rtlp, R;
+    if (psi>=psiTlp){
+      var b=po+eps+psi;
+      R=(b+Math.sqrt(b*b-4*eps*po))/(2*eps);
+      if (R>1) R=1;
+    } else { R=po/psi; }
+    var ps=po/R, pp=psi-ps; if (pp<0) pp=0;
+    return { R:R, psis:ps, psip:pp, Rtlp:Rtlp, psiTlp:psiTlp };
+  }
+  function tlpOf(po,eps){ return po/(1+po/eps); }
+
+  function f2(x){ if (Math.abs(x)<0.005) x=0; return (x<0?"−":"")+Math.abs(x).toFixed(2); }
+  function f2s(x){ if (Math.abs(x)<0.005) x=0; return (x<0?"−":"+")+Math.abs(x).toFixed(2); }
+  function hhmm(m){ var h=Math.floor(m/60),mm=m%60;
+    return (h<10?"0":"")+h+":"+(mm<10?"0":"")+mm; }
+  function txt(x,y,s,o){ o=o||{};
+    return '<text x="'+x+'" y="'+y+'" font-size="'+(o.size||10)+'" font-family="IBM Plex Mono,monospace"'
+      +(o.anchor?' text-anchor="'+o.anchor+'"':'')
+      +(o.weight?' font-weight="'+o.weight+'"':'')
+      +' fill="'+(o.fill||"var(--muted)")+'">'+s+'</text>'; }
+
+  // ---------- PART 1: Höfler ----------
+  function drawHofler(svg, po, eps){
+    var W=380, H=250, L=44, R=14, T=16, B=42;
+    var Rlo=Math.min(0.66,(1+po/eps)-0.06), Rhi=1.0;
+    var lo=Math.min(-2.6, po/(Rlo)-0.2), hi=Math.max(0.6, -po+0.35);
+    var X=function(r){ return L+(W-L-R)*(r-Rlo)/(Rhi-Rlo); };
+    var Y=function(v){ return T+(H-T-B)*(hi-v)/(hi-lo); };
+    var Rtlp=1+po/eps, psiTlp=po/Rtlp;
+    var g='';
+
+    // below turgor loss: shade
+    if (Rtlp>Rlo){
+      g+='<rect x="'+X(Rlo).toFixed(1)+'" y="'+T+'" width="'+(X(Rtlp)-X(Rlo)).toFixed(1)
+        +'" height="'+(H-T-B)+'" fill="var(--wilt)" opacity=".07"/>';
+    }
+    for (var v=Math.floor(hi*2)/2; v>=Math.ceil(lo*2)/2; v-=0.5){
+      var z=Math.abs(v)<1e-9;
+      g+='<line x1="'+L+'" y1="'+Y(v).toFixed(1)+'" x2="'+(W-R)+'" y2="'+Y(v).toFixed(1)+'"'
+        +' stroke="'+(z?"var(--muted)":"var(--line)")+'" stroke-width="'+(z?1.3:1)+'" opacity=".65"/>'
+        + txt(L-6, Y(v)+3.5, (z?"0":(v<0?"−":"+")+Math.abs(v).toFixed(1)), {anchor:"end",size:9.5});
+    }
+    var ticks=[]; for (var tv=Math.ceil(Rlo*10)/10; tv<=1.0001; tv+=0.1)
+      ticks.push(Math.round(tv*100)/100);
+    ticks.forEach(function(r){
+      g+='<line x1="'+X(r).toFixed(1)+'" y1="'+(H-B)+'" x2="'+X(r).toFixed(1)+'" y2="'+(H-B+4)+'"'
+        +' stroke="var(--line)" stroke-width="1"/>'
+        + txt(X(r), H-B+16, Math.round(r*100)+"%", {anchor:(r===1?"end":"middle"), size:9.5});
+    });
+    g+=txt(W-R, H-B+31, "symplastic RWC  ← drying", {anchor:"end", size:9.5});
+
+    var pw="", ps="", pp="";
+    for (var i=0;i<=120;i++){
+      var r=Rlo+(Rhi-Rlo)*i/120, st=cellState(po/r + Math.max(0,-po-eps*(1-r)), po, eps);
+      var s=po/r, p=Math.max(0, -po-eps*(1-r)), w=s+p, c=(i?"L":"M");
+      pw+=c+X(r).toFixed(1)+","+Y(w).toFixed(1);
+      ps+=c+X(r).toFixed(1)+","+Y(s).toFixed(1);
+      pp+=c+X(r).toFixed(1)+","+Y(p).toFixed(1);
+    }
+    // turgor loss marker
+    if (Rtlp>Rlo && Rtlp<Rhi){
+      g+='<line x1="'+X(Rtlp).toFixed(1)+'" y1="'+T+'" x2="'+X(Rtlp).toFixed(1)+'" y2="'+(H-B)+'"'
+        +' stroke="var(--wilt)" stroke-width="1.4" stroke-dasharray="3 3"/>'
+        +'<circle cx="'+X(Rtlp).toFixed(1)+'" cy="'+Y(psiTlp).toFixed(1)+'" r="4"'
+        +' fill="var(--wilt)"/>'
+        + txt(X(Rtlp)-5, T+11, "turgor loss", {anchor:"end", size:9.5, fill:"var(--wilt)"});
+    }
+    g+='<path d="'+ps+'" fill="none" stroke="var(--psis)" stroke-width="2.2"/>'
+      +'<path d="'+pp+'" fill="none" stroke="var(--psip)" stroke-width="2.2"/>'
+      +'<path d="'+pw+'" fill="none" stroke="var(--psi)" stroke-width="2.8"/>';
+
+    // the live point
+    var rNow=1-S.loss/100;
+    if (rNow>=Rlo){
+      var sN=po/rNow, pN=Math.max(0,-po-eps*(1-rNow)), wN=sN+pN;
+      g+='<line x1="'+X(rNow).toFixed(1)+'" y1="'+T+'" x2="'+X(rNow).toFixed(1)+'" y2="'+(H-B)+'"'
+        +' stroke="var(--ink)" stroke-width="1.4" opacity=".5"/>';
+      [[wN,"var(--psi)"],[sN,"var(--psis)"],[pN,"var(--psip)"]].forEach(function(q){
+        g+='<circle cx="'+X(rNow).toFixed(1)+'" cy="'+Y(q[0]).toFixed(1)+'" r="4.2" fill="'+q[1]
+          +'" stroke="var(--sunk)" stroke-width="1.8"/>';
+      });
+    }
+    // labels on the curves, at the right edge
+    g+=txt(W-R-3, Y(-po)-5, "Ψp", {anchor:"end", size:11, weight:600, fill:"var(--psip)"})
+      +txt(W-R-3, Y(po)+13, "Ψs", {anchor:"end", size:11, weight:600, fill:"var(--psis)"})
+      +txt(W-R-3, Y(0)-5, "Ψw", {anchor:"end", size:11, weight:600, fill:"var(--psi)"});
+    svg.innerHTML=g;
+  }
+
+  function renderPart1(){
+    var po=S.po1;
+    el("po1Val").textContent=f2(po)+" MPa";
+    el("lossVal").textContent=S.loss+(S.loss===1?" point of RWC":" points of RWC");
+    [["A",13],["B",5]].forEach(function(pr){
+      var k=pr[0], eps=pr[1], r=1-S.loss/100;
+      var p=Math.max(0,-po-eps*(1-r));
+      var Rtlp=1+po/eps;
+      drawHofler(el("hof"+k), po, eps);
+      drawBigCell(el("big"+k), po, eps, k);
+      el("hp"+k).textContent=f2s(p);
+      el("hr"+k).textContent=((1-Rtlp)*100).toFixed(1)+" pts";
+      el("ht"+k).textContent=f2(tlpOf(po,eps));
+    });
+  }
+
+  // ---------- PART 2 drawings ----------
+  // Pressure is a scalar: it acts equally in every direction at once. So the arrows
+  // radiate all the way round, they run from inside the vacuole to the INNER FACE OF THE
+  // WALL, which is the surface turgor actually pushes on, and the wall gets its own short
+  // inward arrows, because the two are equal and that is why nothing moves.
+  function pressureArrows(cx,cy,ai,bi,ao,bo,frac,col,mid,mid2,n){
+    var out="";
+    for (var k=0;k<n;k++){
+      var th=(k+0.5)*2*Math.PI/n, c=Math.cos(th), s2=Math.sin(th);
+      var hit=function(a,b){
+        var tx=Math.abs(c)<1e-6?1e9:a/Math.abs(c), ty=Math.abs(s2)<1e-6?1e9:b/Math.abs(s2);
+        return Math.min(tx,ty);
+      };
+      var ti=hit(ai,bi)*0.55, to=hit(ao,bo)*0.985;
+      var w=(0.9+2.4*frac).toFixed(2), op=(0.30+0.65*frac).toFixed(2);
+      out+='<line x1="'+(cx+c*ti).toFixed(1)+'" y1="'+(cy+s2*ti).toFixed(1)
+        +'" x2="'+(cx+c*to).toFixed(1)+'" y2="'+(cy+s2*to).toFixed(1)+'" stroke="'+col
+        +'" stroke-width="'+w+'" stroke-linecap="round" marker-end="url(#'+mid
+        +')" opacity="'+op+'"/>';
+      var t1=hit(ao,bo)*1.13, t2=hit(ao,bo)*1.04;
+      out+='<line x1="'+(cx+c*t1).toFixed(1)+'" y1="'+(cy+s2*t1).toFixed(1)
+        +'" x2="'+(cx+c*t2).toFixed(1)+'" y2="'+(cy+s2*t2).toFixed(1)
+        +'" stroke="var(--ink)" stroke-width="'+w+'" stroke-linecap="round" marker-end="url(#'
+        +mid2+')" opacity="'+(0.25+0.45*frac).toFixed(2)+'"/>';
+    }
+    return out;
+  }
+
+  // Geometry runs off WATER CONTENT, never off pressure. Two cells at the same relative
+  // water content are drawn the same size, which is what relative water content means.
+  // The wall moves with the protoplast: that is cytorrhysis, which is what happens to a
+  // leaf drying in air. Pressure is carried by arrow weight alone.
+  function cellGeom(R, frac){
+    return { scale: Math.sqrt(Math.max(0.55, R)), bow: 7*frac - 5*(1-frac) };
+  }
+  function boxPath(a,b,c,d,k){
+    var mx=(a+c)/2,my=(b+d)/2;
+    return "M"+a.toFixed(1)+","+b.toFixed(1)+" Q"+mx.toFixed(1)+","+(b-k).toFixed(1)+" "
+      +c.toFixed(1)+","+b.toFixed(1)+" Q"+(c+k).toFixed(1)+","+my.toFixed(1)+" "
+      +c.toFixed(1)+","+d.toFixed(1)+" Q"+mx.toFixed(1)+","+(d+k).toFixed(1)+" "
+      +a.toFixed(1)+","+d.toFixed(1)+" Q"+(a-k).toFixed(1)+","+my.toFixed(1)+" "
+      +a.toFixed(1)+","+b.toFixed(1)+"Z";
+  }
+
+  function drawCell(svg, st, po, tag){
+    var frac=Math.max(0,Math.min(1,st.psip/(-po)));
+    var wilted=st.psip<=0.005, col=wilted?"var(--wilt)":"var(--psip)";
+    var G=cellGeom(st.R,frac), cx=75, cy=63, A=55*G.scale, B=47*G.scale, WT=4;
+    var wall=boxPath(cx-A,cy-B,cx+A,cy+B,G.bow);
+    var prot=boxPath(cx-A+WT,cy-B+WT,cx+A-WT,cy+B-WT,G.bow*0.7);
+    var mid="ah"+tag, mid2="aw"+tag;
+    var g='<defs><marker id="'+mid+'" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="4.4"'
+      +' markerHeight="4.4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="'+col+'"/></marker>'
+      +'<marker id="'+mid2+'" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="4"'
+      +' markerHeight="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker>'
+      +'</defs>'
+      +'<path d="'+wall+'" fill="none" stroke="var(--ink)" stroke-width="3.4" opacity=".5"'
+      +' stroke-linejoin="round"/>'
+      +'<path d="'+prot+'" fill="var(--psi)" fill-opacity=".13" stroke="var(--psi)"'
+      +' stroke-width="1.3"/>';
+    if (!wilted) g+=pressureArrows(cx,cy,A-WT,B-WT,A-WT,B-WT,frac,col,mid,mid2,12);
+    var ang=80*(1-frac)*(1-frac);
+    g+='<g transform="translate(44,132)">'
+      +'<line x1="-16" y1="0" x2="0" y2="0" stroke="var(--ink)" stroke-width="2.4" opacity=".4"/>'
+      +'<g transform="rotate('+ang.toFixed(1)+')">'
+      +'<path d="M2,0 C14,-13 38,-12 54,0 C38,12 14,13 2,0 Z" fill="var(--psip)"'
+      +' fill-opacity=".3" stroke="var(--psip)" stroke-width="1.3"/>'
+      +'<line x1="0" y1="0" x2="54" y2="0" stroke="var(--psip)" stroke-width="2"/></g></g>'
+      +txt(75,170,(wilted?"turgor zero · wall buckling in":"turgor pushes out all round"),
+           {anchor:"middle",size:10,fill:"var(--muted)"});
+    svg.innerHTML=g;
+    svg.setAttribute("aria-label","Plant "+tag+", relative water content "
+      +Math.round(st.R*100)+" per cent, turgor "+f2s(st.psip)+" megapascals."
+      +(wilted?" Turgor is zero and the wall is buckling inward."
+              :" Turgor presses outward on the wall in every direction."));
+  }
+
+  function drawBigCell(svg, po, eps, tag){
+    var R=1-S.loss/100;
+    var psip=Math.max(0,-po-eps*(1-R));
+    var frac=Math.max(0,Math.min(1,psip/(-po)));
+    var wilted=psip<=0.005, col=wilted?"var(--wilt)":"var(--psip)";
+    var G=cellGeom(R,frac);
+    var cx=248, cy=116, A=102*G.scale, B=70*G.scale, LG=132, RG=360, WT=9;
+    var wall=boxPath(cx-A,cy-B,cx+A,cy+B,G.bow);
+    var pa=A-WT, pb=B-WT;
+    var prot=boxPath(cx-pa,cy-pb,cx+pa,cy+pb,G.bow*0.7);
+    var va=pa-17, vb=pb-15;
+    var vac=boxPath(cx-va,cy-vb,cx+va,cy+vb,G.bow*0.4);
+    var mid="bg"+tag, mid2="bw"+tag;
+    var g='<defs><marker id="'+mid+'" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="4.2"'
+      +' markerHeight="4.2" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="'+col+'"/></marker>'
+      +'<marker id="'+mid2+'" viewBox="0 0 8 8" refX="6.5" refY="4" markerWidth="3.8"'
+      +' markerHeight="3.8" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker>'
+      +'</defs>'
+      +'<path d="'+wall+'" fill="var(--psis)" fill-opacity=".13" stroke="var(--ink)"'
+      +' stroke-width="5" opacity=".9" stroke-linejoin="round"/>'
+      +'<path d="'+prot+'" fill="var(--surface)" stroke="var(--psi)" stroke-width="1.9"/>'
+      +'<path d="'+vac+'" fill="var(--psi)" fill-opacity=".16" stroke="var(--psi)"'
+      +' stroke-width="1.3" stroke-dasharray="5 3"/>';
+    if (!wilted) g+=pressureArrows(cx,cy,va,vb,pa,pb,frac,col,mid,mid2,14);
+    var sideLead=function(xa,y,xe,label,anchor){
+      return '<line x1="'+xa.toFixed(1)+'" y1="'+y.toFixed(1)+'" x2="'+xe+'" y2="'+y.toFixed(1)
+        +'" stroke="var(--faint)" stroke-width="1"/>'
+        +'<circle cx="'+xa.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="2.1" fill="var(--faint)"/>'
+        +txt(anchor==="end"?xe-5:xe+5, y+4, label, {anchor:anchor,size:11,fill:"var(--muted)"});
+    };
+    g+=sideLead(cx-A, cy-B*0.60, LG, "cell wall", "end");
+    g+=sideLead(cx-pa, cy+B*0.60, LG, "plasma membrane", "end");
+    g+=sideLead(cx+va, cy-B*0.60, RG, "vacuole: the solutes", "start");
+    g+=sideLead(cx+pa-7, cy, RG, "cytoplasm", "start");
+    g+=sideLead(cx+A, cy+B*0.60, RG, "wall pushes back", "start");
+    g+=txt(cx, 20, (wilted
+        ? "turgor is zero · the wall buckles inward with the protoplast"
+        : "turgor presses outward in every direction at once"),
+        {anchor:"middle", size:11.5, weight:600, fill:col});
+    g+=txt(cx, 234, "cell is at "+Math.round(R*100)+"% of full water content",
+        {anchor:"middle", size:10.5, fill:"var(--muted)"});
+    svg.innerHTML=g;
+    svg.setAttribute("aria-label",(eps>8?"Stiff":"Soft")+" walled cell at "+Math.round(R*100)
+      +" per cent relative water content, turgor "+f2s(psip)+" megapascals."
+      +(wilted?" Turgor is zero and the wall has buckled inward."
+              :" Arrows show turgor pressing outward on the wall in every direction, and the"
+               +" wall pressing back equally."));
+  }
+
+  function drawBar(svg, st, psi){
+    var zero=286, scale=96, x0=16;
+    var sX=zero+st.psis*scale, wX=zero+psi*scale;
+    var h=15,r1=8,r2=32,r3=56,base=78;
+    var p='<line x1="'+zero+'" y1="4" x2="'+zero+'" y2="'+(base+4)+'" stroke="var(--line)" stroke-width="1.5"/>';
+    p+='<rect x="'+sX.toFixed(1)+'" y="'+r1+'" width="'+(zero-sX).toFixed(1)+'" height="'+h
+      +'" rx="2" fill="var(--psis)"/>'+txt(sX-6,r1+11.5,f2(st.psis),{anchor:"end",size:10.5,weight:600,fill:"var(--psis)"});
+    if (st.psip>0.005)
+      p+='<rect x="'+sX.toFixed(1)+'" y="'+r2+'" width="'+(wX-sX).toFixed(1)+'" height="'+h
+        +'" rx="2" fill="var(--psip)"/>';
+    p+=txt(sX-6,r2+11.5,f2s(st.psip),{anchor:"end",size:10.5,weight:600,
+        fill:(st.psip>0.005?"var(--psip)":"var(--wilt)")});
+    p+='<line x1="'+sX.toFixed(1)+'" y1="'+(r1+h)+'" x2="'+sX.toFixed(1)+'" y2="'+r2
+      +'" stroke="var(--faint)" stroke-width="1" stroke-dasharray="2 2"/>'
+      +'<line x1="'+wX.toFixed(1)+'" y1="'+(r2+h)+'" x2="'+wX.toFixed(1)+'" y2="'+r3
+      +'" stroke="var(--faint)" stroke-width="1" stroke-dasharray="2 2"/>';
+    p+='<rect x="'+wX.toFixed(1)+'" y="'+r3+'" width="'+(zero-wX).toFixed(1)+'" height="'+h
+      +'" rx="2" fill="var(--psi)"/>'+txt(wX-6,r3+11.5,f2(psi),{anchor:"end",size:10.5,weight:600,fill:"var(--psi)"});
+    p+='<line x1="'+x0+'" y1="'+base+'" x2="'+zero+'" y2="'+base+'" stroke="var(--line)" stroke-width="1"/>';
+    [-2.5,-2,-1.5,-1,-0.5,0].forEach(function(v){
+      var tx=zero+v*scale; if (tx<x0) return;
+      p+='<line x1="'+tx.toFixed(1)+'" y1="'+base+'" x2="'+tx.toFixed(1)+'" y2="'+(base+4)
+        +'" stroke="var(--line)" stroke-width="1"/>';
+      if (v%1===0) p+=txt(tx,base+16,(v===0?"0":"−"+Math.abs(v)),{anchor:"middle",size:9.5});
+    });
+    svg.innerHTML=p;
+    svg.setAttribute("aria-label","Osmotic potential "+f2(st.psis)+" plus turgor "
+      +f2s(st.psip)+" equals total water potential "+f2(psi)+" megapascals.");
+  }
+
+  function drawDay(){
+    var W=700,H=290,L=48,R=16,T=18,B=64, pB=poB(), PB=H-B;
+    var lo=Math.min(-2.4, tlpOf(pB,S.eps)-0.25), hi=Math.max(0.3, -pB+0.3);
+    var X=function(h){ return L+(W-L-R)*h/24; };
+    var Y=function(v){ return T+(H-T-B)*(hi-v)/(hi-lo); };
+    var pw="",pSA="",pPA="",pSB="",pPB="";
+    for (var i=0;i<=96;i++){
+      var h=i/4, psi=leafPsi(h), a=cellState(psi,S.po,S.eps), b=cellState(psi,pB,S.eps), c=(i?"L":"M");
+      pw+=c+X(h).toFixed(1)+","+Y(psi).toFixed(1);
+      pSA+=c+X(h).toFixed(1)+","+Y(a.psis).toFixed(1);
+      pPA+=c+X(h).toFixed(1)+","+Y(a.psip).toFixed(1);
+      pSB+=c+X(h).toFixed(1)+","+Y(b.psis).toFixed(1);
+      pPB+=c+X(h).toFixed(1)+","+Y(b.psip).toFixed(1);
+    }
+    var g='<rect x="'+X(0)+'" y="'+T+'" width="'+(X(SUNUP)-X(0)).toFixed(1)+'" height="'+(PB-T)
+      +'" fill="var(--night)" opacity=".5"/>'
+      +'<rect x="'+X(SUNDOWN).toFixed(1)+'" y="'+T+'" width="'+(X(24)-X(SUNDOWN)).toFixed(1)
+      +'" height="'+(PB-T)+'" fill="var(--night)" opacity=".5"/>'
+      +txt((X(0)+X(SUNUP))/2,T+12,"night",{anchor:"middle",size:9.5})
+      +txt((X(SUNDOWN)+X(24))/2,T+12,"night",{anchor:"middle",size:9.5});
+    for (var v=Math.floor(hi*2)/2; v>=Math.ceil(lo*2)/2; v-=0.5){
+      var z=Math.abs(v)<1e-9;
+      g+='<line x1="'+L+'" y1="'+Y(v).toFixed(1)+'" x2="'+(W-R)+'" y2="'+Y(v).toFixed(1)
+        +'" stroke="'+(z?"var(--muted)":"var(--line)")+'" stroke-width="'+(z?1.4:1)+'" opacity=".65"/>'
+        +txt(L-7,Y(v)+3.5,(z?"0":(v<0?"−":"+")+Math.abs(v).toFixed(1)),{anchor:"end"});
+    }
+    [0,6,12,18,24].forEach(function(h){
+      g+=txt(X(h),PB+17,(h<10?"0":"")+h+":00",{anchor:(h===0?"start":h===24?"end":"middle")});
+    });
+    function tlpLine(po,dash,op,label){
+      var v=tlpOf(po,S.eps); if (v<lo||v>hi) return "";
+      var y=Y(v), ty=Math.max(T+9,Math.min(PB-3,y-4)), t=label+" "+f2(v);
+      return '<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(W-R)+'" y2="'+y.toFixed(1)
+        +'" stroke="var(--wilt)" stroke-width="1.4" stroke-dasharray="'+dash+'" opacity="'+op+'"/>'
+        +'<rect x="'+(L+4)+'" y="'+(ty-9).toFixed(1)+'" width="'+(t.length*6.1+8).toFixed(1)
+        +'" height="12" rx="2" fill="var(--surface)" opacity=".9"/>'
+        +txt(L+8,ty,t,{size:9.5,fill:"var(--wilt)"});
+    }
+    g+='<path d="'+pSA+'" fill="none" stroke="var(--psis)" stroke-width="1.5" stroke-dasharray="3 3" opacity=".8"/>'
+      +'<path d="'+pSB+'" fill="none" stroke="var(--psis)" stroke-width="2.2"/>'
+      +'<path d="'+pPA+'" fill="none" stroke="var(--psip)" stroke-width="1.5" stroke-dasharray="3 3" opacity=".8"/>'
+      +'<path d="'+pPB+'" fill="none" stroke="var(--psip)" stroke-width="2.2"/>'
+      +'<path d="'+pw+'" fill="none" stroke="var(--psi)" stroke-width="2.6"/>';
+    g+=tlpLine(S.po,"2 4",".9","turgor loss A");
+    if (S.oa>0.005) g+=tlpLine(pB,"7 4",".6","turgor loss B");
+    var hN=S.minute/60, pn=leafPsi(hN);
+    g+='<line x1="'+X(hN).toFixed(1)+'" y1="'+T+'" x2="'+X(hN).toFixed(1)+'" y2="'+PB
+      +'" stroke="var(--ink)" stroke-width="1.4" opacity=".45"/>'
+      +'<circle cx="'+X(hN).toFixed(1)+'" cy="'+Y(pn).toFixed(1)+'" r="4.5" fill="var(--psi)"'
+      +' stroke="var(--surface)" stroke-width="2"/>';
+    var lg=[["Ψw, both plants","var(--psi)"],["Ψs, osmotic","var(--psis)"],
+            ["Ψp, turgor","var(--psip)"]], lx=L, ly=H-10;
+    lg.forEach(function(it){
+      g+='<line x1="'+lx+'" y1="'+ly+'" x2="'+(lx+17)+'" y2="'+ly+'" stroke="'+it[1]+'" stroke-width="2.6"/>'
+        +txt(lx+22,ly+3.5,it[0],{fill:"var(--muted)"});
+      lx+=22+it[0].length*6.2+18;
+    });
+    g+=txt(W-R,ly+3.5,"dashed = A · solid = B",{anchor:"end"});
+    var svg=el("day"); svg.innerHTML=g;
+    svg.setAttribute("aria-label","Twenty four hour traces. Leaf water potential is "+f2(pn)
+      +" megapascals at "+hhmm(S.minute)+". Turgor loss for plant A is at "+f2(tlpOf(S.po,S.eps))
+      +" and for plant B at "+f2(tlpOf(pB,S.eps))+" megapascals.");
+  }
+
+  // ---------- PART 3: seven days ----------
+  function drawWeek(){
+    var W=700,H=330,L=48,R=16,T=18,B=74, PB=H-B, DAYS=7;
+    var tlp=tlpOf(S.po,S.eps);
+    var soilAt=function(d){ return -0.05-1.45*Math.pow(d/DAYS,1.45); };
+    var lo=Math.min(-2.2, tlp-0.3), hi=0.15;
+    var X=function(d){ return L+(W-L-R)*d/DAYS; };
+    var Y=function(v){ return T+(H-T-B)*(hi-v)/(hi-lo); };
+    var g='';
+
+    // night shading, one band per night
+    for (var n=0;n<DAYS;n++){
+      var a=n+(SUNDOWN/24), b=Math.min(DAYS, n+1+(SUNUP/24));
+      g+='<rect x="'+X(a).toFixed(1)+'" y="'+T+'" width="'+(X(b)-X(a)).toFixed(1)+'" height="'+(PB-T)
+        +'" fill="var(--night)" opacity=".45"/>';
+    }
+    for (var v=0; v>=Math.ceil(lo*2)/2; v-=0.5){
+      var z=Math.abs(v)<1e-9;
+      g+='<line x1="'+L+'" y1="'+Y(v).toFixed(1)+'" x2="'+(W-R)+'" y2="'+Y(v).toFixed(1)
+        +'" stroke="'+(z?"var(--muted)":"var(--line)")+'" stroke-width="'+(z?1.3:1)+'" opacity=".6"/>'
+        +txt(L-7,Y(v)+3.5,(z?"0":"−"+Math.abs(v).toFixed(1)),{anchor:"end"});
+    }
+    g+=txt(L-7,T-4,"MPa",{anchor:"end",size:9});
+    for (var d=0;d<=DAYS;d++){
+      g+='<line x1="'+X(d).toFixed(1)+'" y1="'+PB+'" x2="'+X(d).toFixed(1)+'" y2="'+(PB+4)
+        +'" stroke="var(--line)" stroke-width="1"/>';
+      if (d<DAYS) g+=txt(X(d+0.5),PB+17,String(d+1),{anchor:"middle"});
+    }
+    g+=txt((L+W-R)/2,PB+33,"days without water",{anchor:"middle",size:9.5});
+
+    // traces
+    var pS="",pR="",pL="", wiltD=null, N=DAYS*72;
+    for (var i=0;i<=N;i++){
+      var dd=DAYS*i/N, soil=soilAt(dd), h=(dd%1)*24;
+      var fl=flow(h,soil), c=(i?"L":"M");
+      pS+=c+X(dd).toFixed(1)+","+Y(soil).toFixed(1);
+      pR+=c+X(dd).toFixed(1)+","+Y(fl.root).toFixed(1);
+      pL+=c+X(dd).toFixed(1)+","+Y(fl.leaf).toFixed(1);
+      if (wiltD===null && fl.leaf<tlp) wiltD=dd;
+    }
+    g+='<path d="'+pS+'" fill="none" stroke="var(--psis)" stroke-width="2.4" stroke-dasharray="9 5"/>'
+      +'<path d="'+pR+'" fill="none" stroke="var(--root)" stroke-width="2"/>'
+      +'<path d="'+pL+'" fill="none" stroke="var(--psi)" stroke-width="2.2" stroke-dasharray="4 3"/>';
+
+    // turgor loss line and the wilting event
+    g+='<line x1="'+L+'" y1="'+Y(tlp).toFixed(1)+'" x2="'+(W-R)+'" y2="'+Y(tlp).toFixed(1)
+      +'" stroke="var(--wilt)" stroke-width="1.4" stroke-dasharray="2 4"/>';
+    var tl="turgor loss "+f2(tlp);
+    g+='<rect x="'+(L+4)+'" y="'+(Y(tlp)-13).toFixed(1)+'" width="'+(tl.length*6.1+8).toFixed(1)
+      +'" height="12" rx="2" fill="var(--surface)" opacity=".92"/>'
+      +txt(L+8,Y(tlp)-4,tl,{size:9.5,fill:"var(--wilt)"});
+    if (wiltD!==null){
+      g+='<line x1="'+X(wiltD).toFixed(1)+'" y1="'+T+'" x2="'+X(wiltD).toFixed(1)+'" y2="'+PB
+        +'" stroke="var(--wilt)" stroke-width="1.6" opacity=".8"/>'
+        +'<circle cx="'+X(wiltD).toFixed(1)+'" cy="'+Y(tlp).toFixed(1)+'" r="4.5" fill="var(--wilt)"/>'
+        +txt(Math.min(W-R, X(wiltD)+7), T+12,
+             "onset of wilting, day "+(Math.floor(wiltD)+1),
+             {size:10,weight:600,fill:"var(--wilt)"});
+    } else {
+      g+=txt(W-R-4,T+12,"never reaches turgor loss in 7 days",{anchor:"end",size:10,fill:"var(--psip)"});
+    }
+
+    var lg=[["soil","var(--psis)","9 5"],["root","var(--root)",""],["leaf","var(--psi)","4 3"]];
+    var lx=L, ly=H-12;
+    lg.forEach(function(it){
+      g+='<line x1="'+lx+'" y1="'+ly+'" x2="'+(lx+20)+'" y2="'+ly+'" stroke="'+it[1]
+        +'" stroke-width="2.4"'+(it[2]?' stroke-dasharray="'+it[2]+'"':'')+'/>'
+        +txt(lx+25,ly+3.5,it[0],{fill:"var(--muted)"});
+      lx+=25+it[0].length*6.4+22;
+    });
+    g+=txt(W-R,ly+3.5,S.name+" · πo "+f2(S.po)+" · ε "+S.eps+" MPa",
+           {anchor:"end",fill:"var(--muted)"});
+
+    var svg=el("week"); svg.innerHTML=g;
+    svg.setAttribute("aria-label","Seven days without water. Soil, root and leaf water potential. "
+      +(wiltD!==null ? "The leaf first crosses turgor loss on day "+(Math.floor(wiltD)+1)+"."
+                     : "The leaf never reaches turgor loss within seven days."));
+  }
+
+  // ---------- render ----------
+  function render(){
+    renderPart1();
+    var h=S.minute/60, psi=leafPsi(h), pB=poB();
+    var A=cellState(psi,S.po,S.eps), B=cellState(psi,pB,S.eps);
+    el("timeVal").textContent=hhmm(S.minute);
+    el("soilVal").textContent=f2(S.soil)+" MPa";
+    el("vpdVal").textContent="VPD "+S.vpdPeak.toFixed(1)+" kPa";
+    el("daysVal").textContent=(S.oa>0.005?"−"+S.oa.toFixed(2):"0.00")+" MPa";
+    el("cvVal").textContent="ε "+S.eps+" MPa";
+    el("gauge").textContent=Math.abs(psi).toFixed(2);
+    el("gaugePsi").textContent=f2(psi)+" MPa";
+    el("hB").textContent=S.oa>0.005?"adjusted":"no adjustment either";
+    el("poA").innerHTML="π<sub>o</sub> "+f2(S.po)+" MPa";
+    el("poB").innerHTML="π<sub>o</sub> "+f2(pB)+" MPa"
+      +(S.oa>0.005?" <span style='opacity:.75'>(−"+S.oa.toFixed(2)+")</span>":"");
+    [["A",A,S.po],["B",B,pB]].forEach(function(pr){
+      var k=pr[0], st=pr[1], po=pr[2];
+      el("w"+k).textContent=f2(psi);
+      el("s"+k).textContent=f2(st.psis);
+      el("p"+k).textContent=f2s(st.psip);
+      el("r"+k).textContent=Math.round(st.R*100)+"%";
+      el("eq"+k).textContent=f2(psi)+" = "+f2(st.psis)+" "+f2s(st.psip);
+      var s=el("state"+k);
+      if (st.psip<=0.005){ s.className="state bad"; s.textContent="Bulk turgor lost"; }
+      else if (st.psip<0.15){ s.className="state edge"; s.textContent="Near turgor loss"; }
+      else if (st.psip<0.40){ s.className="state ok"; s.textContent="Turgid, low turgor"; }
+      else { s.className="state ok"; s.textContent="Turgid, full pressure"; }
+      drawCell(el("cell"+k),st,po,k);
+      drawBar(el("bar"+k),st,psi);
+    });
+    drawDay();
+    drawWeek();
+  }
+
+  el("po1").addEventListener("input",function(e){ S.po1=+e.target.value/100;
+    e.target.setAttribute("aria-valuetext", f2(S.po1)+" megapascals"); renderPart1(); });
+  el("loss").addEventListener("input",function(e){ S.loss=+e.target.value;
+    e.target.setAttribute("aria-valuetext", S.loss+" percentage points of water removed");
+    renderPart1(); });
+  el("time").addEventListener("input",function(e){ S.minute=+e.target.value;
+    e.target.setAttribute("aria-valuetext", hhmm(S.minute)); render(); });
+  el("soil").addEventListener("input",function(e){ S.soil=+e.target.value/100;
+    e.target.setAttribute("aria-valuetext", f2(S.soil)+" megapascals"); render(); });
+  el("days").addEventListener("input",function(e){ S.oa=+e.target.value/100;
+    e.target.setAttribute("aria-valuetext", S.oa.toFixed(2)+" megapascals of adjustment"); render(); });
+  el("cv").addEventListener("change",function(e){
+    var p=e.target.value.split("|");
+    S.po=+p[0]; S.eps=+p[1]; S.name=p[2]; render();
+  });
+  Array.prototype.forEach.call(el("weather").querySelectorAll(".chip"),function(b){
+    b.addEventListener("click",function(){
+      Array.prototype.forEach.call(el("weather").querySelectorAll(".chip"),function(o){
+        o.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true");
+      S.vpdPeak=+b.dataset.vpd; render();
+    });
+  });
+  var timer=null;
+  function stopPlay(){ if (timer) clearInterval(timer); timer=null; S.playing=false;
+    el("play").textContent="▶ Run day"; }
+  el("play").addEventListener("click",function(){
+    if (S.playing){ stopPlay(); return; }
+    S.playing=true; el("play").textContent="■ Stop";
+    S.minute=0; el("time").value=0; render();
+    timer=setInterval(function(){
+      S.minute+=10;
+      if (S.minute>=1440){ S.minute=1435; el("time").value=S.minute; render(); stopPlay(); return; }
+      el("time").value=S.minute; render();
+    },55);
+  });
+
+  render();
+})();
+</script>
+
+</body></html>

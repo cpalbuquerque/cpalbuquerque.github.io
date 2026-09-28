@@ -8,7 +8,7 @@ const pages = [
   '/grants/',
   '/news/',
   '/contact/',
-  '/industry/',
+  '/water-path/',
 ];
 
 export function GET({ site }) {
