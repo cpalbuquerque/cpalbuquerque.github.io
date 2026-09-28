@@ -13,7 +13,7 @@ export const person = {
 };
 
 export const siteDescription =
-  'Caetano Albuquerque, plant physiologist at CSU Monterey Bay: how water transport in plants fails under drought and heat, and whether it recovers.';
+  'Caetano Albuquerque, plant physiologist at CSU Monterey Bay: how plants respond to drought and recover from it, across scales, relating structure and function.';
 
 // status: 'published' | 'accepted' | 'review'
 // Student authors: * undergraduate mentee, ** co-mentored graduate student.

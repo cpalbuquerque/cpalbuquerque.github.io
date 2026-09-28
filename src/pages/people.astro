@@ -20,6 +20,7 @@ const alumniGroups = [
 const portrait = findPhoto(/^portrait\.(jpe?g|png|webp)$/i);
 // Optional: students with instruments (not portraits).
 const lab = findPhoto(/^students_lettuce_field\./);
+const almond = findPhoto(/^data_almond_vulnerability\./);
 
 const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
 ---
@@ -37,7 +38,7 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
     <div class="max-w-measure">
       <h2 class="text-lg">{person.name}</h2>
       <p class="text-muted">{person.role}, {person.unit}, {person.institution}</p>
-      <p class="mt-2">Plant physiologist studying how water transport in plants fails under drought and heat, and whether it recovers.</p>
+      <p class="mt-2">Plant physiologist studying how plants respond to drought and recover from it, across scales, relating structure and function.</p>
       <p class="mt-2">
         <a href={person.scholar}>Google Scholar</a>
         <span class="muted"> · </span>
@@ -66,6 +67,12 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
         collaborators for summer research and graduate school.
       </p>
     </div>
+    {almond && (
+      <figure class="mt-6 max-w-lg">
+        <Image src={almond.image} alt={almond.caption} widths={[520, 900]} sizes="(min-width: 768px) 32rem, 100vw" class="h-auto w-full border border-rule" />
+        <figcaption class="mt-2 text-sm text-muted">{almond.caption}</figcaption>
+      </figure>
+    )}
   </section>
 
   {current.length > 0 && (
