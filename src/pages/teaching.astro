@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { findPhoto } from '../lib/content.js';
 
-const classPhoto = findPhoto(/^class_instrument\./);
+const classPhoto = findPhoto(/^synaps_workshop\./);
 
 const csumb = [
   {
@@ -57,29 +57,29 @@ const csumb = [
 >
   <h1 class="text-2xl">Teaching</h1>
 
-  <div class="mt-6 flex flex-col gap-6 md:flex-row md:items-start">
-    <p class="max-w-measure md:flex-1">
-      I teach plant science fundamentals and have students use them on data, much of it collected by
-      students with the tools researchers use. Students from biology, agriculture, ecology and molecular
-      biology use the same fundamentals to answer questions in their own fields.
-    </p>
-    {classPhoto && (
-      <figure class="max-w-xs md:w-64 md:shrink-0">
-        <Image src={classPhoto.image} alt={classPhoto.caption} widths={[512, 768]} sizes="(min-width: 768px) 16rem, 100vw" class="h-auto w-full" />
-        <figcaption class="mt-2 text-sm text-muted">{classPhoto.caption}</figcaption>
-      </figure>
-    )}
-  </div>
+  <p class="mt-6 max-w-measure">
+    I teach plant science fundamentals and have students use them on data, much of it collected by
+    students with the tools researchers use. Students from biology, agriculture, ecology and molecular
+    biology use the same fundamentals to answer questions in their own fields.
+  </p>
 
   <h2 class="section-title">CSU Monterey Bay</h2>
-  <dl class="mt-4 max-w-measure space-y-5">
-    {csumb.map((c) => (
-      <div>
-        <dt><span class="font-semibold">{c.title} ({c.code})</span> <span class="text-sm text-muted">{c.terms}</span></dt>
-        <dd class="mt-1 text-muted">{c.text}</dd>
-      </div>
+  <ul class="mt-4 space-y-5">
+    {csumb.map((c, i) => (
+      <li class={i === 0 && classPhoto ? 'flex flex-col gap-4 md:flex-row md:items-start md:gap-8' : ''}>
+        <div class="max-w-measure md:flex-1">
+          <p><span class="font-semibold">{c.title} ({c.code})</span> <span class="text-sm text-muted">{c.terms}</span></p>
+          <p class="mt-1 text-muted">{c.text}</p>
+        </div>
+        {i === 0 && classPhoto && (
+          <figure class="max-w-xs md:w-64 md:shrink-0">
+            <Image src={classPhoto.image} alt={classPhoto.caption} widths={[512, 768]} sizes="(min-width: 768px) 16rem, 100vw" class="h-auto w-full" />
+            <figcaption class="mt-2 text-sm text-muted">{classPhoto.caption}</figcaption>
+          </figure>
+        )}
+      </li>
     ))}
-  </dl>
+  </ul>
 
   <h2 class="section-title">Teaching grant</h2>
   <p class="mt-4 max-w-measure">

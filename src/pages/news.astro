@@ -6,10 +6,7 @@ import { findPhoto, loadPhotos } from '../lib/content.js';
 
 const byFile = Object.fromEntries(loadPhotos().map((p) => [p.file, p]));
 
-const photos = [
-  findPhoto(/^students_lab_microscope\./),
-  findPhoto(/^students_field_sunflowers\./),
-].filter(Boolean);
+const photos = [findPhoto(/^synaps_berkeley_lab\./)].filter(Boolean);
 ---
 
 <Base
@@ -19,10 +16,10 @@ const photos = [
   <h1 class="text-2xl">News</h1>
 
   {photos.length > 0 && (
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    <div class="mt-6 max-w-2xl">
       {photos.map((p) => (
         <figure>
-          <Image src={p.image} alt={p.caption} widths={[480, 800]} sizes="(min-width: 640px) 25rem, 100vw" class="aspect-[4/3] h-auto w-full object-cover" />
+          <Image src={p.image} alt={p.caption} widths={[640, 1200]} sizes="(min-width: 768px) 42rem, 100vw" class="h-auto w-full" />
           <figcaption class="mt-2 text-sm text-muted">{p.caption}</figcaption>
         </figure>
       ))}
