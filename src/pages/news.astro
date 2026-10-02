@@ -6,7 +6,10 @@ import { findPhoto, loadPhotos } from '../lib/content.js';
 
 const byFile = Object.fromEntries(loadPhotos().map((p) => [p.file, p]));
 
-const photos = [findPhoto(/^synaps_berkeley_lab\./), findPhoto(/^poster-with-student\./)].filter(Boolean);
+const photos = [findPhoto(/^synaps_berkeley_lab\./)].filter(Boolean);
+const posters = [/^poster-oscar-2026\./, /^poster-lettuce-leaves\./, /^poster-almond\./, /^poster-lettuce-recovery\./, /^poster-with-student\./]
+  .map((r) => findPhoto(r))
+  .filter(Boolean);
 ---
 
 <Base
@@ -16,17 +19,33 @@ const photos = [findPhoto(/^synaps_berkeley_lab\./), findPhoto(/^poster-with-stu
   <h1>News</h1>
 
   {photos.length > 0 && (
-    <div class="mt-6 grid gap-6 sm:grid-cols-[2fr_1fr] sm:items-start">
+    <div class="mt-6 max-w-2xl">
       {photos.map((p, i) => (
         <figure>
-          <Image src={p.image} alt={p.caption} widths={[480, 960, 1200]} sizes={i === 0 ? '(min-width: 640px) 40rem, 92vw' : '(min-width: 640px) 20rem, 92vw'} formats={['avif', 'webp']} loading={i === 0 ? 'eager' : 'lazy'} class="h-auto w-full rounded" />
+          <Image src={p.image} alt={p.caption} widths={[400, 720, 1100]} sizes="(min-width: 768px) 42rem, 92vw" formats={['avif', 'webp']} loading="eager" fetchpriority="high" class="h-auto w-full rounded" />
           <figcaption>{p.caption}</figcaption>
         </figure>
       ))}
     </div>
   )}
 
-  <ul class="mt-8 max-w-measure divide-y divide-rule">
+  {posters.length > 0 && (
+    <section class="section">
+      <h2>Student posters</h2>
+      <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {posters.map((p) => (
+          <figure>
+            <Image src={p.image} alt={p.caption} widths={[320, 640]} sizes="(min-width: 640px) 20rem, 46vw" formats={['avif', 'webp']} class="aspect-[4/5] h-auto w-full rounded object-cover" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+  <h2>Lab news</h2>
+  <ul class="mt-4 max-w-measure divide-y divide-rule">
     {news.map((n) => (
       <li class="py-4">
         <p class="text-sm font-semibold text-muted">{n.date}</p>
@@ -40,4 +59,5 @@ const photos = [findPhoto(/^synaps_berkeley_lab\./), findPhoto(/^poster-with-stu
       </li>
     ))}
   </ul>
+  </section>
 </Base>

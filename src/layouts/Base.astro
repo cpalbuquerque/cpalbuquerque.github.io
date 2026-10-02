@@ -2,8 +2,8 @@
 import '../styles/site.css';
 import { person, siteDescription } from '../data/site.js';
 
-const { title, description = siteDescription } = Astro.props;
-const fullTitle = title ? `${title} | ${person.name}` : person.name;
+const { title, pageTitle, description = siteDescription } = Astro.props;
+const fullTitle = pageTitle || (title ? `${title} | ${person.name}` : person.name);
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const shareImage = new URL('/og.png', Astro.site).href;
 
@@ -20,13 +20,31 @@ const here = Astro.url.pathname.replace(/\/?$/, '/');
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: person.name,
-  jobTitle: person.role,
-  affiliation: { '@type': 'CollegeOrUniversity', name: person.institution },
-  email: `mailto:${person.email}`,
-  url: 'https://cpalbuquerque.github.io/',
-  sameAs: [person.scholar, person.orcid],
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://cpalbuquerque.github.io/#person',
+      name: person.name,
+      jobTitle: person.role,
+      description: siteDescription,
+      image: new URL('/og.png', Astro.site).href,
+      email: `mailto:${person.email}`,
+      url: 'https://cpalbuquerque.github.io/',
+      worksFor: { '@type': 'CollegeOrUniversity', name: person.institution },
+      affiliation: { '@type': 'CollegeOrUniversity', name: person.institution },
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of California, Davis' },
+      knowsAbout: ['plant physiology', 'plant water relations', 'xylem', 'drought', 'leaf hydraulics', 'synchrotron microCT'],
+      sameAs: [person.scholar, person.orcid],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://cpalbuquerque.github.io/#website',
+      name: `${person.name}, Plant Physiology Lab`,
+      url: 'https://cpalbuquerque.github.io/',
+      publisher: { '@id': 'https://cpalbuquerque.github.io/#person' },
+      inLanguage: 'en',
+    },
+  ],
 };
 ---
 
@@ -37,6 +55,8 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={person.name} />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

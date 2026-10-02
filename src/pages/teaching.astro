@@ -10,44 +10,37 @@ const csumb = [
   {
     code: 'BIO 332',
     title: 'Plant Physiology',
-    terms: 'Fall 2023 to 2026',
-    text: 'How plants take up, move and lose water, fix carbon and respond to stress, from cells to the whole plant. Since Fall 2026 every student annotates synchrotron microCT scans of grapevine petioles from the Advanced Light Source for SYNAPS-I, a Berkeley Lab project, and two students from my lab help lead this work. The water relations units are taught with The Water Path.',
+    text: 'How plants take up, move and lose water, fix carbon and respond to stress, from cells to the whole plant. Every student annotates synchrotron microCT scans of grapevine petioles from the Advanced Light Source for SYNAPS-I, a Berkeley Lab project, and two students from my lab help lead this work. The water relations units are taught with The Water Path.',
     photo: workshop,
   },
   {
     code: 'BIO 106',
     title: 'Introduction to Plant Sciences, with laboratory',
-    terms: 'Spring 2024 and 2026',
     text: 'An introductory plant biology course with laboratory for students from several majors.',
   },
   {
     code: 'AGPS 350',
     title: 'Research Methods for Crop and Soil Sciences, with laboratory',
-    terms: 'Fall 2023 to 2026',
-    text: 'Experimental design and statistics in R, taught alongside two laboratory sections. Since Fall 2026 students annotate synchrotron microCT scans and use statistics to count embolized conduits and measure tissue shrinkage. The redesign was supported by a systemwide CSU LIFT award for teaching innovation, one of 45 funded from about 260 proposals.',
+    text: 'Experimental design and statistics in R, taught alongside two laboratory sections. Students annotate synchrotron microCT scans and use statistics to count embolized conduits and measure tissue shrinkage. This work was supported by a systemwide CSU LIFT award for teaching innovation, one of 45 funded from about 260 proposals.',
   },
   {
     code: 'AGPS 415',
     title: 'Advanced Irrigation and Nutrient Management',
-    terms: 'Spring 2024 to 2026',
     text: 'How water and nutrient supply shape crop growth and plant water status. Students grow vegetables under different irrigation and nutrient levels in a hoop house, harvest and analyze them, and measure plant water status with the pressure chamber.',
   },
   {
     code: 'AGPS 213',
     title: 'Principles of Viticulture',
-    terms: 'Spring 2025 and 2026',
     text: 'The biology and management of grapevines. A course I proposed and designed. It is now part of the catalog.',
   },
   {
     code: 'AGPS 209',
     title: 'Plants, Agriculture, and Climate Change',
-    terms: 'Spring 2024 and 2025',
     text: 'How plants and crops respond to a changing climate. A course I proposed and designed. It is now part of the catalog.',
   },
   {
     code: 'AGPS 397',
     title: 'Independent Research in Agriculture',
-    terms: '2024 and 2025',
     text: 'Semester-long research projects with individual students, from stomata in lettuce under different irrigation levels to propagating wine grapes from woody cuttings.',
   },
 ];
@@ -87,7 +80,7 @@ const csumb = [
       {csumb.map((c) => (
         <li class={c.photo ? 'flex flex-col gap-4 md:flex-row md:items-start md:gap-8' : ''}>
           <div class="max-w-measure md:flex-1">
-            <p><span class="font-semibold text-head">{c.code}, {c.title}</span> <span class="text-sm text-muted">({c.terms})</span></p>
+            <p><span class="font-semibold text-head">{c.code}, {c.title}</span></p>
             <p class="mt-1 text-muted">{c.text}</p>
           </div>
           {c.photo && (
@@ -105,15 +98,15 @@ const csumb = [
     <h2>Earlier teaching</h2>
     <ul class="mt-6 max-w-measure space-y-5">
       <li>
-        <p><span class="font-semibold text-head">BIOL 5430, Seminar in Ecology: Plants and Climate Change</span> <span class="text-sm text-muted">(Cal State LA, Spring 2022)</span></p>
+        <p><span class="font-semibold text-head">BIOL 5430, Seminar in Ecology: Plants and Climate Change</span> <span class="text-sm text-muted">(Cal State LA)</span></p>
         <p class="mt-1 text-muted">A graduate seminar I designed on plant responses to drought, built on readings, discussion and student presentations.</p>
       </li>
       <li>
         <p><span class="font-semibold text-head">Guest lectures</span></p>
-        <p class="mt-1 text-muted">Graduate seminars in horticulture at UC Davis and in plant biology at UC Riverside, and Plant Physiology and Integrative Organismal Biology at Cal State LA, all in 2022. River Hydrology at CSU Monterey Bay in 2023.</p>
+        <p class="mt-1 text-muted">Graduate seminars in horticulture at UC Davis and in plant biology at UC Riverside, Plant Physiology and Integrative Organismal Biology at Cal State LA, and River Hydrology at CSU Monterey Bay.</p>
       </li>
       <li>
-        <p><span class="font-semibold text-head">Teaching assistant, Grapevine Growth and Physiology (VEN 110)</span> <span class="text-sm text-muted">(UC Davis, 2017)</span></p>
+        <p><span class="font-semibold text-head">Teaching assistant, Grapevine Growth and Physiology (VEN 110)</span> <span class="text-sm text-muted">(UC Davis)</span></p>
       </li>
     </ul>
   </section>

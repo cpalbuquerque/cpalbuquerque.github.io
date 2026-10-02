@@ -28,13 +28,11 @@ export const news = [
   {
     date: 'Summer 2026',
     // TODO: individual poster titles and presenters from the symposium program (the CV marks these CONFIRM).
-    photo: 'poster-oscar-2026.jpg',
     text: 'USDA NIFA NextGen interns in the lab presented at the CSUMB UROC Summer Research Symposium. Ralph Trujillo and Jason Morris asked whether romaine lettuce can take a 25 percent nitrogen cut in a commercial field trial. Lydia Mattsson-Boze, Oscar Lopez Rodriguez, Manuel Venancio-Guzman and Javier Blanco Ortega presented work on lettuce biostimulants, pistachio leaf hydraulics, and biochar and compost effects on vine water status.',
   },
   {
     date: 'Spring 2026',
-    photo: 'poster-lettuce-leaves.jpg',
-    text: 'Melissa Martinez and Joe Perez, with a lab mate, presented the physiological differences between younger and older lettuce leaves, an approach to tipburn, at the UC Davis Plant Sciences Symposium and the CSUMB UROC Spring Research Showcase.',
+    text: 'Melissa Martinez, Bella Hartman and Joe Perez presented the physiological differences between younger and older lettuce leaves, an approach to tipburn, at the UC Davis Plant Sciences Symposium and the CSUMB UROC Spring Research Showcase.',
   },
   {
     date: 'Spring 2026',
