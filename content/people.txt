@@ -16,8 +16,6 @@ Manuel Venancio-Guzman | current | |
 Javier Blanco Ortega | current | |
 Popocatepetl Perez-Vargas | current | |
 Nathalie Lopez | current | |
-# In your CV as a current mentee (CSU ARI) with 2026 posters, not on Slack
-Bella Hartman | current | CONFIRM |
 # Joined the Slack workspace 23 to 25 September 2026
 Julian Pizano | current | CONFIRM |
 Prashanta Pokharel | current | CONFIRM |
@@ -34,6 +32,7 @@ Larissa Garcia | masters | 2021 to 2023 |
 # Alumni, CSU Monterey Bay
 Joe Perez | alumni-csumb | | summer research internship at Stanford University
 Angela Diaz | alumni-csumb | |
+Bella Hartman | alumni-csumb | |
 Fatima Zamora | alumni-csumb | |
 Matthijs De Vries | alumni-csumb | | now in a master's program in the Netherlands
 Asamahan Murran | alumni-csumb | |
