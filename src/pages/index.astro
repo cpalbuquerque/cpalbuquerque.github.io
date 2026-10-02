@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import { person } from '../data/site.js';
 import { findPhoto, loadLogos } from '../lib/content.js';
 
-const hero = findPhoto(/^grape-leaf-cleared\./);
+const hero = findPhoto(/^leaf-in-sun\./);
 const logos = loadLogos();
 
 // Students per project come only from the CV (final October 2026 version). An empty list shows nothing.
@@ -39,7 +39,7 @@ const projects = [
 const band = [/^student-microscope-1\./, /^evaporative-flux-bench\./, /^poster-lettuce-recovery\./]
   .map((r) => findPhoto(r))
   .filter(Boolean);
-const methods = [/^leaf-in-sun\./, /^root-hydraulics\./].map((r) => findPhoto(r)).filter(Boolean);
+const methods = [/^students-bench\./, /^root-hydraulics\./, /^leaf-water-drops\./].map((r) => findPhoto(r)).filter(Boolean);
 ---
 
 <Base
@@ -139,10 +139,10 @@ const methods = [/^leaf-in-sun\./, /^root-hydraulics\./].map((r) => findPhoto(r)
       Source.
     </p>
     {methods.length > 0 && (
-      <div class="mt-6 grid gap-6 sm:grid-cols-2">
+      <div class="mt-6 grid gap-6 sm:grid-cols-3">
         {methods.map((p) => (
           <figure>
-            <Image src={p.image} alt={p.caption} widths={[400, 800]} sizes="(min-width: 640px) 30rem, 92vw" formats={['avif', 'webp']} class="aspect-[4/3] h-auto w-full object-cover" />
+            <Image src={p.image} alt={p.caption} widths={[400, 800]} sizes="(min-width: 640px) 20rem, 92vw" formats={['avif', 'webp']} class="aspect-[4/3] h-auto w-full object-cover" />
             <figcaption>{p.caption}</figcaption>
           </figure>
         ))}
