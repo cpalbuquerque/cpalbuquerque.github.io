@@ -1,7 +1,6 @@
 # file | what it shows (caption and alt text) | consent
 # Lab students in these photos consented (confirmed by Caetano, 2 Oct 2026). Photos of visiting student groups are not used.
 portrait.jpg | Caetano Albuquerque | yes
-grape-leaf-cleared.jpg | A grapevine leaf cleared and stained to show its veins. | no people
 microct_grapevine.jpg | Synchrotron microCT cross section imaged at the Advanced Light Source. Dark conduits are filled with air. Gray ones still hold water. | no people
 leaf-in-sun.jpg | A grapevine leaf in the sun. | no people
 method_pressure_chamber.jpg | A grapevine leaf sealed in a pressure chamber to measure leaf water potential. | no people
