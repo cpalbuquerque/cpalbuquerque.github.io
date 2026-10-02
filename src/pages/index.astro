@@ -11,7 +11,7 @@ const logos = loadLogos();
 // Only people not marked CONFIRM in content/people.txt are named.
 const projects = [
   {
-    title: 'Collapse and recovery of the xylem',
+    title: 'Loss and recovery of water transport in the xylem',
     text: 'Synchrotron microCT of intact plants through drought and rewatering, alongside leaf hydraulics and gas exchange.',
     photo: findPhoto(/^microct_grapevine\./),
     students: ['Joe Perez', 'Angela Diaz'],
@@ -44,14 +44,14 @@ const methods = [/^students-bench\./, /^root-hydraulics\./, /^leaf-water-drops\.
 
 <Base
   pageTitle="Caetano Albuquerque | Plant Physiology Lab, CSU Monterey Bay"
-  description="Caetano Albuquerque, plant physiologist at CSU Monterey Bay: how plants lose and recover water transport during drought, from the xylem conduit to the whole plant."
+  description="Caetano Albuquerque, plant physiologist at CSU Monterey Bay. I study how plants move water, how drought and disease disrupt it, and how it recovers."
 >
   <div class="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
     <div class="max-w-text md:flex-1">
       <h1>{person.name}</h1>
       <p class="mt-3 text-lg text-muted">
-        Plant physiologist. I study how plants lose and recover water transport during drought, from the
-        xylem conduit to the whole plant.
+        Plant physiologist. I study how plants move water, how drought and disease disrupt it, and how it
+        recovers.
       </p>
     </div>
     {hero && (
@@ -64,18 +64,13 @@ const methods = [/^students-bench\./, /^root-hydraulics\./, /^leaf-water-drops\.
 
   <div class="prose-block mt-8">
     <p>
-      I combine physiological measurements with synchrotron microCT imaging at the Advanced Light Source,
-      Lawrence Berkeley National Laboratory.
+      My lab studies how plants respond to drought and disease, and the mechanisms behind those
+      responses. We compare several plant species, including crops such as grapevine, lettuce and almond.
     </p>
     <p>
-      Drought damage to the xylem is usually described as embolism, which is mostly permanent. Imaging
-      intact grapevines, I found that water-filled conduits collapse before they embolize, and most
-      reopen after rewatering. A collapsed conduit is a kinked garden hose. An embolized conduit is a
-      broken pipe.
-    </p>
-    <p>
-      I am now asking how much of the loss and recovery of leaf water transport comes from this
-      collapse, and how much from aquaporins in the living cells.
+      A central question is how water transport declines under stress and how it recovers when conditions
+      improve, after the soil is rewatered or the air becomes less dry. We combine plant physiology and
+      hydraulics with imaging to connect structure and function.
     </p>
   </div>
 
@@ -135,8 +130,7 @@ const methods = [/^students-bench\./, /^root-hydraulics\./, /^leaf-water-drops\.
     <h2>Methods</h2>
     <p class="mt-4 max-w-measure">
       Pressure chamber, gas exchange, pressure-volume curves, leaf and root hydraulic conductance, optical
-      vulnerability, quantitative anatomy, and synchrotron microCT at beamline 8.3.2 of the Advanced Light
-      Source.
+      vulnerability, quantitative anatomy, and synchrotron microCT.
     </p>
     {methods.length > 0 && (
       <div class="mt-6 grid gap-6 sm:grid-cols-3">

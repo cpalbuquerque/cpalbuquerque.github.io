@@ -13,7 +13,7 @@ export const person = {
 };
 
 export const siteDescription =
-  'Caetano Albuquerque, plant physiologist at CSU Monterey Bay: how plants respond to drought and recover from it, across scales, relating structure and function.';
+  'Caetano Albuquerque, plant physiologist at CSU Monterey Bay. I study how plants move water, how drought and disease disrupt it, and how it recovers.';
 
 // status: 'published' | 'accepted' | 'review'
 // Student authors: * undergraduate mentee, ** co-mentored graduate student.

@@ -6,4 +6,3 @@ ciwr.svg | California Institute for Water Resources | https://ciwr.ucanr.edu/ | 
 csu.png | The California State University | https://www.calstate.edu/
 usgs.png | U.S. Geological Survey | 
 leafy-greens.png | California Leafy Greens Research Board | https://calgreens.org/
-als.png | Advanced Light Source, Lawrence Berkeley National Laboratory | 
