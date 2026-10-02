@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #FFFFFF;
+  --surface: #F7F9FC;
+  --head: #0B2545;
+  --ink: #1F2937;
+  --muted: #4B5563;
+  --accent: #1D4ED8;
+  --accent-strong: #1E40AF;
+  --tint: #EEF4FB;
+  --rule: #E5E7EB;
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (min-width: 768px) {
+    html { font-size: 17px; }
+  }
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+  }
+  h1, h2, h3 {
+    @apply font-serif font-semibold text-head;
+    line-height: 1.25;
+  }
+  h1 { font-size: 1.625rem; }
+  @media (min-width: 768px) {
+    h1 { font-size: 1.88rem; }
+  }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.05rem; }
+  a {
+    @apply text-accent underline decoration-1 underline-offset-2;
+  }
+  a:hover {
+    @apply text-accent-strong;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  img { max-width: 100%; height: auto; }
+  figcaption { @apply mt-2 text-sm leading-snug text-muted; font-size: 14px; }
+}
+
+@layer components {
+  .page { @apply mx-auto max-w-wide px-4 sm:px-6; }
+  .prose-block { @apply max-w-measure; }
+  .prose-block p + p { @apply mt-4; }
+  .section { @apply mt-10 border-t border-rule pt-8 md:mt-16 md:pt-10; }
+  .section-title { @apply mt-10 border-t border-rule pt-8 md:mt-16 md:pt-10; }
+  .muted { @apply text-muted; }
+  .band { @apply bg-surface; }
+  .btn { @apply inline-flex min-h-[44px] items-center rounded border border-accent px-4 font-medium no-underline; }
+  .btn:hover { @apply bg-tint; }
+}

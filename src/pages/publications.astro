@@ -1,92 +1,130 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { publications, inPreparation } from '../data/site.js';
+import { person, publications } from '../data/site.js';
 
-const published = publications.map((p) => ({
-  ...p,
-  type: 'published',
-}));
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const bold = (authors) => esc(authors).replace(/Albuquerque C\b/, '<strong>Albuquerque C</strong>');
 
-const inReview = inPreparation.map((p) => ({
-  ...p,
-  type: 'in-review',
-}));
+const review = publications.filter((p) => p.status === 'review');
+const accepted = publications.filter((p) => p.status === 'accepted');
+const published = publications.filter((p) => p.status === 'published');
+const years = [...new Set(published.map((p) => p.year))].sort((a, b) => b - a);
 
-const allPublications = [...inReview, ...published].sort((a, b) => b.year - a.year);
-
-const groupedByYear = allPublications.reduce((acc, item) => {
-  if (!acc[item.year]) acc[item.year] = [];
-  acc[item.year].push(item);
-  return acc;
-}, {});
-
-const years = Object.keys(groupedByYear)
-  .map(Number)
-  .sort((a, b) => b - a);
+// One running number, newest first.
+let n = 0;
+const numbered = (list) => list.map((p) => ({ ...p, n: ++n }));
+const groups = [
+  { id: 'review', label: 'In review', blocks: [{ items: numbered(review) }] },
+  { id: 'accepted', label: 'Accepted', blocks: [{ items: numbered(accepted) }] },
+  { id: 'published', label: 'Published', blocks: years.map((y) => ({ year: y, items: numbered(published.filter((p) => p.year === y)) })) },
+];
+const filters = [
+  { id: 'all', label: 'All' },
+  { id: 'published', label: 'Published' },
+  { id: 'accepted', label: 'Accepted' },
+  { id: 'review', label: 'In review' },
+];
 ---
 
-<Base title="Publications — Caetano Albuquerque">
-  <section class="bg-[#FCFCF8]">
-    <div class="mx-auto max-w-4xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
-      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
-        Publications
-      </h1>
+<Base
+  title="Publications"
+  description="Peer-reviewed papers by Caetano Albuquerque on plant water transport, xylem embolism and leaf hydraulics, with student authors marked."
+>
+  <h1>Publications</h1>
+  <p class="mt-2 text-muted">* undergraduate mentee, ** co-mentored graduate student</p>
+  <p class="mt-1 text-sm text-muted">Also on <a href={person.scholar}>Google Scholar</a>.</p>
 
-      <div class="mt-12 space-y-12">
-        {years.map((year) => (
-          <section>
-            <h2 class="text-2xl font-semibold tracking-tight text-[#1F2937] sm:text-3xl">
-              {year}
-            </h2>
-
-            <div class="mt-5 space-y-6 border-t border-black/10 pt-5">
-              {groupedByYear[year].map((p) => (
-                <article>
-                  {p.type === 'in-review' ? (
-                    <div>
-                      <p class="text-base leading-8 text-[#4B5563] sm:text-lg">
-                        {p.authors} {p.title} <em>{p.target}</em>. {p.status}.
-                      </p>
-
-                      {p.preprint && (
-                        <p class="mt-2">
-                          <a
-                            href={p.preprint}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="break-all text-sm text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
-                          >
-                            Preprint
-                          </a>
-                        </p>
-                      )}
-                    </div>
-                  ) : (
-                    <div>
-                      <p class="text-base leading-8 text-[#4B5563] sm:text-lg">
-                        {p.authors} {p.title} <em>{p.journal}</em>{p.volume ? `, ${p.volume}` : ''}.
-                      </p>
-
-                      {p.doi && (
-                        <p class="mt-2">
-                          <a
-                            href={p.doi}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="break-all text-sm text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
-                          >
-                            {p.doi}
-                          </a>
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
+  <div id="pub-tools" class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center" hidden>
+    <div role="group" aria-label="Filter by status" class="flex flex-wrap gap-1">
+      {filters.map((f, i) => (
+        <button type="button" data-filter={f.id} aria-pressed={i === 0 ? 'true' : 'false'} class="min-h-[44px] rounded border border-rule px-3 text-sm aria-pressed:border-accent aria-pressed:bg-tint aria-pressed:text-accent">
+          {f.label}
+        </button>
+      ))}
     </div>
-  </section>
+    <label class="flex-1">
+      <span class="sr-only">Search publications</span>
+      <input id="pub-search" type="search" placeholder="Search authors, titles, journals" class="min-h-[44px] w-full rounded border border-rule bg-bg px-3 text-ink placeholder:text-muted" />
+    </label>
+  </div>
+  <p id="pub-empty" class="mt-6 text-muted" hidden>No matches.</p>
+
+  {groups.map((g) => (
+    <section data-group={g.id}>
+      <h2 class="section-title">{g.label}</h2>
+      {g.blocks.map((b) => (
+        <div data-block>
+          {b.year && <h3 class="mt-6 text-base text-muted">{b.year}</h3>}
+          <ol class="mt-3 space-y-4">
+            {b.items.map((p) => (
+              <li value={p.n} data-pub class="flex max-w-measure gap-3">
+                <span class="w-6 shrink-0 text-right text-muted">{p.n}.</span>
+                <div class="min-w-0 flex-1">
+                  <p>
+                    <span set:html={bold(p.authors)} />
+                    {p.year && ` (${p.year})`} {p.title}{' '}
+                    {p.journal && <em>{p.journal}</em>}{p.journal && (/^\d/.test(p.venue) ? ' ' : ', ')}{p.venue}
+                    {p.note && <span class="text-muted"> {p.note}</span>}
+                  </p>
+                  {p.link && (
+                    <p class="mt-1 text-sm">
+                      <a href={p.link} class="break-all">{p.linkLabel ? `${p.linkLabel}: ` : ''}{p.link.replace('https://doi.org/', 'doi:')}</a>
+                    </p>
+                  )}
+                </div>
+                {p.cover && (
+                  <a href={p.link} class="shrink-0 self-start hover:bg-transparent">
+                    <Image src={p.cover.src} alt={p.cover.alt} width={p.cover.width} height={p.cover.height} class="h-auto w-16 border border-rule sm:w-20" />
+                  </a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </section>
+  ))}
 </Base>
+
+<script>
+  // Progressive enhancement: without JavaScript the full list shows and the controls stay hidden.
+  const tools = document.getElementById('pub-tools');
+  const search = document.getElementById('pub-search');
+  const empty = document.getElementById('pub-empty');
+  const buttons = Array.from(document.querySelectorAll('[data-filter]'));
+  const groups = Array.from(document.querySelectorAll('[data-group]'));
+  let status = 'all';
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    for (const g of groups) {
+      const groupOn = status === 'all' || g.dataset.group === status;
+      let groupShown = 0;
+      for (const block of g.querySelectorAll('[data-block]')) {
+        let blockShown = 0;
+        for (const li of block.querySelectorAll('[data-pub]')) {
+          const on = groupOn && (!q || li.textContent.toLowerCase().includes(q));
+          li.hidden = !on;
+          if (on) blockShown++;
+        }
+        block.hidden = blockShown === 0;
+        groupShown += blockShown;
+      }
+      g.hidden = groupShown === 0;
+      shown += groupShown;
+    }
+    empty.hidden = shown > 0;
+  }
+
+  for (const b of buttons) {
+    b.addEventListener('click', () => {
+      status = b.dataset.filter;
+      for (const other of buttons) other.setAttribute('aria-pressed', String(other === b));
+      apply();
+    });
+  }
+  search.addEventListener('input', apply);
+  tools.hidden = false;
+</script>

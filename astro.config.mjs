@@ -4,6 +4,6 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://cpalbuquerque.github.io',
   base: '/',
-  integrations: [tailwind()],
+  integrations: [tailwind({ applyBaseStyles: false })],
   output: 'static',
 });

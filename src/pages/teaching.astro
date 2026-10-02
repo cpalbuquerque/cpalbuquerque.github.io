@@ -1,86 +1,113 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { findPhoto } from '../lib/content.js';
 
-const currentCourses = [
-  'AGPS 415 — Advanced Irrigation & Nutrient Management',
-  'AGPS 397 — Independent Research in Agriculture',
-  'AGPS 350 — Research Methods for Crop & Soil Sciences',
-  'AGPS 213 — Principles of Viticulture',
-  'AGPS 209 — Plants, Agriculture, and Environment',
-  'BIO 332 — Plant Physiology',
-  'BIO 106 — Introduction to Plant Sciences',
-];
+const workshop = findPhoto(/^synaps_workshop\./);
+const waterPath = findPhoto(/^water-path\./);
 
-const previousTeaching = [
+const csumb = [
   {
-    institution: 'California State University, Los Angeles',
-    courses: ['BIOL 5430 — Seminar Ecology: Environmental Biology'],
+    code: 'BIO 332',
+    title: 'Plant Physiology',
+    text: 'How plants take up, move and lose water, fix carbon and respond to stress, from cells to the whole plant. Every student annotates synchrotron microCT scans of grapevine petioles from the Advanced Light Source for SYNAPS-I, a Berkeley Lab project, and two students from my lab help lead this work. The water relations units are taught with The Water Path.',
+    photo: workshop,
+  },
+  {
+    code: 'BIO 106',
+    title: 'Introduction to Plant Sciences, with laboratory',
+    text: 'An introductory plant biology course with laboratory for students from several majors.',
+  },
+  {
+    code: 'AGPS 350',
+    title: 'Research Methods for Crop and Soil Sciences, with laboratory',
+    text: 'Experimental design and statistics in R, taught alongside two laboratory sections. Students annotate synchrotron microCT scans and use statistics to count embolized conduits and measure tissue shrinkage. This work was supported by a systemwide CSU LIFT award for teaching innovation, one of 45 funded from about 260 proposals.',
+  },
+  {
+    code: 'AGPS 415',
+    title: 'Advanced Irrigation and Nutrient Management',
+    text: 'How water and nutrient supply shape crop growth and plant water status. Students grow vegetables under different irrigation and nutrient levels in a hoop house, harvest and analyze them, and measure plant water status with the pressure chamber.',
+  },
+  {
+    code: 'AGPS 213',
+    title: 'Principles of Viticulture',
+    text: 'The biology and management of grapevines. A course I proposed and designed. It is now part of the catalog.',
+  },
+  {
+    code: 'AGPS 209',
+    title: 'Plants, Agriculture, and Climate Change',
+    text: 'How plants and crops respond to a changing climate. A course I proposed and designed. It is now part of the catalog.',
+  },
+  {
+    code: 'AGPS 397',
+    title: 'Independent Research in Agriculture',
+    text: 'Semester-long research projects with individual students, from stomata in lettuce under different irrigation levels to propagating wine grapes from woody cuttings.',
   },
 ];
 ---
 
-<Base title="Teaching — Caetano Albuquerque">
-  <section class="bg-[#FCFCF8]">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
-      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
-        Teaching
-      </h1>
+<Base
+  title="Teaching"
+  description="Courses taught by Caetano Albuquerque at CSU Monterey Bay, including Plant Physiology with synchrotron microCT research for every student, and The Water Path, an interactive course site."
+>
+  <h1>Teaching</h1>
+  <p class="mt-4 max-w-measure">
+    I teach plant science fundamentals and have students use them on data, much of it collected by
+    students with the tools researchers use.
+  </p>
 
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-[#4B5563]">
-        Courses in plant science, agronomy, and horticulture that connect biological principles
-        with agricultural systems and field-based questions.
-      </p>
+  <section class="band mt-8 rounded px-4 py-6 sm:px-6 md:py-8">
+    <div class="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
+      <div class="md:flex-1">
+        <h2>The Water Path</h2>
+        <p class="mt-2 max-w-measure">
+          An interactive site I built for the water relations units of Plant Physiology. Students follow
+          water from the soil through roots, stems and leaves to the air, in seven stops.
+        </p>
+        <p class="mt-4"><a href="/water-path/" class="btn">Open The Water Path</a></p>
+      </div>
+      {waterPath && (
+        <a href="/water-path/" class="block md:w-[26rem] md:shrink-0">
+          <Image src={waterPath.image} alt={waterPath.caption} widths={[480, 900]} sizes="(min-width: 768px) 26rem, 92vw" formats={['avif', 'webp']} loading="eager" class="h-auto w-full rounded border border-rule" />
+        </a>
+      )}
     </div>
   </section>
 
-  <section class="border-t border-black/5 bg-white">
-    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-[1fr_1fr]">
-        <div>
-          <div class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
-            <img
-              src="/img/lab-field.jpg"
-              alt="Field teaching and lab group in lettuce"
-              class="h-[260px] w-full object-cover sm:h-[320px]"
-              loading="lazy"
-            />
+  <section class="section">
+    <h2>Courses at CSU Monterey Bay</h2>
+    <ul class="mt-6 space-y-6">
+      {csumb.map((c) => (
+        <li class={c.photo ? 'flex flex-col gap-4 md:flex-row md:items-start md:gap-8' : ''}>
+          <div class="max-w-measure md:flex-1">
+            <p><span class="font-semibold text-head">{c.code}, {c.title}</span></p>
+            <p class="mt-1 text-muted">{c.text}</p>
           </div>
-          <p class="mt-3 text-xs text-[#6B7280]">
-            Photo: Brent Dundore-Arias
-          </p>
-        </div>
+          {c.photo && (
+            <figure class="max-w-xs md:w-64 md:shrink-0">
+              <Image src={c.photo.image} alt={c.photo.caption} widths={[400, 640]} sizes="(min-width: 768px) 16rem, 92vw" formats={['avif', 'webp']} class="h-auto w-full rounded" />
+              <figcaption>{c.photo.caption}</figcaption>
+            </figure>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
 
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-            California State University Monterey Bay
-          </p>
-
-          <ul class="mt-6 space-y-3 text-base leading-8 text-[#4B5563] sm:text-lg">
-            {currentCourses.map((course) => (
-              <li>{course}</li>
-            ))}
-          </ul>
-
-          <div class="mt-10">
-            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#5F7C63]">
-              Previous Teaching
-            </p>
-
-            {previousTeaching.map((group) => (
-              <div class="mt-4">
-                <h2 class="text-lg font-semibold tracking-tight text-[#1F2937]">
-                  {group.institution}
-                </h2>
-                <ul class="mt-3 space-y-2 text-base leading-8 text-[#4B5563] sm:text-lg">
-                  {group.courses.map((course) => (
-                    <li>{course}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+  <section class="section">
+    <h2>Earlier teaching</h2>
+    <ul class="mt-6 max-w-measure space-y-5">
+      <li>
+        <p><span class="font-semibold text-head">BIOL 5430, Seminar in Ecology: Plants and Climate Change</span> <span class="text-sm text-muted">(Cal State LA)</span></p>
+        <p class="mt-1 text-muted">A graduate seminar I designed on plant responses to drought, built on readings, discussion and student presentations.</p>
+      </li>
+      <li>
+        <p><span class="font-semibold text-head">Guest lectures</span></p>
+        <p class="mt-1 text-muted">Graduate seminars in horticulture at UC Davis and in plant biology at UC Riverside, Plant Physiology and Integrative Organismal Biology at Cal State LA, and River Hydrology at CSU Monterey Bay.</p>
+      </li>
+      <li>
+        <p><span class="font-semibold text-head">Teaching assistant, Grapevine Growth and Physiology (VEN 110)</span> <span class="text-sm text-muted">(UC Davis)</span></p>
+      </li>
+    </ul>
   </section>
 </Base>

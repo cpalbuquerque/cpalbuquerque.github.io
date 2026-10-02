@@ -1,68 +1,63 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { news } from '../data/site.js';
+import { news } from '../data/news.js';
+import { findPhoto, loadPhotos } from '../lib/content.js';
 
-const allNews = [...news];
+const byFile = Object.fromEntries(loadPhotos().map((p) => [p.file, p]));
+
+const photos = [findPhoto(/^synaps_berkeley_lab\./)].filter(Boolean);
+const posters = [/^poster-oscar-2026\./, /^poster-lettuce-leaves\./, /^poster-almond\./, /^poster-lettuce-recovery\./, /^poster-with-student\./]
+  .map((r) => findPhoto(r))
+  .filter(Boolean);
 ---
 
-<Base title="News — Caetano Albuquerque">
-  <section class="bg-[#FCFCF8]">
-    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-20 lg:px-8">
-      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
-        News
-      </h1>
+<Base
+  title="News"
+  description="News from the Albuquerque plant physiology lab at CSU Monterey Bay: student posters, internships and training."
+>
+  <h1>News</h1>
 
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-[#4B5563]">
-        Recent updates from the program, including student achievements, outreach, and research activities.
-      </p>
+  {photos.length > 0 && (
+    <div class="mt-6 max-w-2xl">
+      {photos.map((p, i) => (
+        <figure>
+          <Image src={p.image} alt={p.caption} widths={[400, 720, 1100]} sizes="(min-width: 768px) 42rem, 92vw" formats={['avif', 'webp']} loading="eager" fetchpriority="high" class="h-auto w-full rounded" />
+          <figcaption>{p.caption}</figcaption>
+        </figure>
+      ))}
     </div>
-  </section>
+  )}
 
-  <section class="border-t border-black/5 bg-white">
-    <div class="mx-auto max-w-6xl px-5 py-12 sm:px-6 lg:px-8">
-      <div class="grid gap-6 lg:grid-cols-2">
-        {allNews.map((item) => (
-          <article class="overflow-hidden rounded-[1.5rem] border border-black/5 bg-[#F7F8F4] shadow-sm">
-            {item.image && (
-              <img
-                src={item.image}
-                alt={item.headline}
-                class="h-56 w-full object-cover"
-                loading="lazy"
-              />
-            )}
-
-            <div class="p-7">
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="text-sm font-medium text-[#5F7C63]">{item.type}</span>
-                <span class="text-sm text-[#9CA3AF]">·</span>
-                <span class="text-sm text-[#6B7280]">{item.date}</span>
-              </div>
-
-              <h2 class="mt-3 text-xl font-semibold tracking-tight text-[#1F2937]">
-                {item.headline}
-              </h2>
-
-              <p class="mt-4 text-base leading-8 text-[#4B5563]">
-                {item.body}
-              </p>
-
-              {item.link && (
-                <p class="mt-5">
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm font-semibold text-[#5F7C63] underline underline-offset-4 hover:text-[#3F5D45] sm:text-base"
-                  >
-                    Learn more
-                  </a>
-                </p>
-              )}
-            </div>
-          </article>
+  {posters.length > 0 && (
+    <section class="section">
+      <h2>Student posters</h2>
+      <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {posters.map((p) => (
+          <figure>
+            <Image src={p.image} alt={p.caption} widths={[320, 640]} sizes="(min-width: 640px) 20rem, 46vw" formats={['avif', 'webp']} class="aspect-[4/5] h-auto w-full rounded object-cover" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
         ))}
       </div>
-    </div>
+    </section>
+  )}
+
+  <section class="section">
+  <h2>Lab news</h2>
+  <ul class="mt-4 max-w-measure divide-y divide-rule">
+    {news.map((n) => (
+      <li class="py-4">
+        <p class="text-sm font-semibold text-muted">{n.date}</p>
+        <p class="mt-1">{n.text}</p>
+        {n.photo && byFile[n.photo] && (
+          <figure class="mt-3 max-w-sm">
+            <Image src={byFile[n.photo].image} alt={byFile[n.photo].caption} widths={[400, 700]} sizes="(min-width: 640px) 24rem, 92vw" formats={['avif', 'webp']} class="h-auto max-h-80 w-auto rounded" />
+            <figcaption>{byFile[n.photo].caption}</figcaption>
+          </figure>
+        )}
+      </li>
+    ))}
+  </ul>
   </section>
 </Base>

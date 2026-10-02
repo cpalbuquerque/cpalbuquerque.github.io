@@ -1,0 +1,23 @@
+# file | what it shows (caption and alt text) | consent
+# Lab students in these photos consented (confirmed by Caetano, 2 Oct 2026). Photos of visiting student groups are not used.
+portrait.jpg | Caetano Albuquerque | yes
+grape-leaf-cleared.jpg | A grapevine leaf cleared and stained to show its veins. | no people
+microct_grapevine.jpg | Synchrotron microCT cross section imaged at the Advanced Light Source. Dark conduits are filled with air. Gray ones still hold water. | no people
+leaf-in-sun.jpg | A grapevine leaf in the sun. | no people
+method_pressure_chamber.jpg | A grapevine leaf sealed in a pressure chamber to measure leaf water potential. | no people
+method_gas_exchange.jpg | Measuring gas exchange on a grapevine leaf in the vineyard. | hand only
+root-hydraulics.jpg | Measuring root hydraulic conductance. | no people
+evaporative-flux-bench.jpg | The evaporative flux bench used to measure leaf hydraulic conductance. | no people
+students-bench.jpg | Oscar Lopez Rodriguez and Javier Blanco Ortega at the evaporative flux bench. | yes
+student-microscope-1.jpg | A student at the stereomicroscope. | yes
+student-microscope-2.jpg | Learning a protocol at the stereomicroscope. | yes
+hahn-microscope.jpg | Dr. Leandro Hahn, visiting postdoctoral scholar, at the microscope. | yes
+poster-lettuce-recovery.jpg | Presenting how lettuce leaves recover after rewatering. | yes
+poster-almond.jpg | Presenting almond leaf hydraulics at a student poster session. | yes
+poster-lettuce-leaves.jpg | Presenting differences between young and old lettuce leaves. | yes
+poster-with-student.jpg | With a student at his poster. | yes
+poster-oscar-2026.jpg | Oscar Lopez Rodriguez with his 2026 poster. | yes
+mentoring_hoop_house.jpg | Working with a student in the hoop house. Photo: CSU Monterey Bay. | yes
+synaps_workshop.jpg | Lab members at the Berkeley Lab microCT workshop for SYNAPS-I. | yes
+synaps_berkeley_lab.jpg | With the SYNAPS-I group at Berkeley Lab, in front of the Perlmutter supercomputer at NERSC. | yes
+water-path.jpg | The opening page of The Water Path. | no people
