@@ -7,13 +7,14 @@ import { findPhoto, loadLogos } from '../lib/content.js';
 const hero = findPhoto(/^grape-leaf-cleared\./);
 const logos = loadLogos();
 
-// Students per project come only from the CV. TODO: fill from CV v57; an empty list shows nothing.
+// Students per project come only from the CV (final October 2026 version). An empty list shows nothing.
+// Only people not marked CONFIRM in content/people.txt are named.
 const projects = [
   {
     title: 'Collapse and recovery of the xylem',
     text: 'Synchrotron microCT of intact plants through drought and rewatering, alongside leaf hydraulics and gas exchange.',
     photo: findPhoto(/^microct_grapevine\./),
-    students: [],
+    students: ['Joe Perez', 'Angela Diaz'],
   },
   {
     title: 'Aquaporins and the living cells',
@@ -31,7 +32,7 @@ const projects = [
     title: 'Water delivery and disease in lettuce',
     text: 'Student projects on inner leaves and tipburn, and on Fusarium wilt in the xylem.',
     photo: findPhoto(/^poster-lettuce-leaves\./),
-    students: [],
+    students: ['Melissa Martinez', 'Joe Perez'],
   },
 ];
 
@@ -157,12 +158,12 @@ const methods = [/^leaf-veins\./, /^root-hydraulics\./].map((r) => findPhoto(r))
           <li>
             {l.url ? (
               <a href={l.url} class="flex items-center gap-2 text-sm text-muted no-underline">
-                <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale md:h-9" />
+                <Image src={l.image} alt={l.showName ? '' : l.org} height={l.tall ? 160 : 72} class={`w-auto opacity-80 grayscale ${l.tall ? 'h-16 md:h-[4.5rem]' : 'h-8 md:h-9'}`} />
                 {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
               </a>
             ) : (
               <span class="flex items-center gap-2 text-sm text-muted">
-                <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale md:h-9" />
+                <Image src={l.image} alt={l.showName ? '' : l.org} height={l.tall ? 160 : 72} class={`w-auto opacity-80 grayscale ${l.tall ? 'h-16 md:h-[4.5rem]' : 'h-8 md:h-9'}`} />
                 {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
               </span>
             )}
