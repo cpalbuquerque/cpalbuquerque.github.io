@@ -33,6 +33,12 @@ export const publications = [
     venue: 'In review.',
   },
   {
+    status: 'review',
+    authors: 'Hahn L, Brancher TL, Argenta LC, Grando DL, Schmitt DE, Moura-Bueno JM, Albuquerque C, Parent LE, Brunetto G.',
+    title: "Fertilization decisions in apple orchards integrating stakeholders' data, state guidelines and field trials.",
+    venue: 'Submitted.',
+  },
+  {
     status: 'accepted',
     authors: 'Elavarthi P, Chong X, Abramov D, Clark EG, Koepp W, McReynolds D, Parkinson DY, Hammermeister A, Albuquerque C, McElrone AJ, Chavez T, Hexemer A, Zwart PH.',
     title: 'Synchrotron micro-CT time series of dehydrating grapevine petioles with a legacy semantic segmentation corpus.',

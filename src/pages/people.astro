@@ -18,10 +18,15 @@ const alumniGroups = [
 
 // A portrait shows only when captions.txt lists one.
 const portrait = findPhoto(/^portrait\.(jpe?g|png|webp)$/i);
-// Optional: students with instruments (not portraits).
-const lab = findPhoto(/^students_lab_microscope\./);
-const almond = findPhoto(/^data_almond_vulnerability\./);
 const mentoring = findPhoto(/^mentoring_hoop_house\./);
+const hahn = findPhoto(/^hahn-microscope\./);
+
+const steps = [
+  { title: 'Learn a protocol', text: 'Each student starts by learning one measurement well, with written protocols and practice on the bench.', photo: findPhoto(/^student-microscope-2\./) },
+  { title: 'Run the measurement', text: 'Students collect their own dataset: water potential, gas exchange, pressure-volume curves, leaf hydraulic conductance, anatomy or microCT scans.', photo: findPhoto(/^students-bench\./) },
+  { title: 'Analyze and present', text: 'They analyze the data themselves and present it as a poster at regional and national meetings.', photo: findPhoto(/^poster-almond\./) },
+  { title: 'Publish', text: 'Students take a role in a manuscript when their work becomes part of a paper. Student authors are marked on the Publications page.', link: '/publications/' },
+];
 
 const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
 ---
@@ -30,16 +35,16 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
   title="People"
   description="Current lab members, co-mentored graduate students and alumni of the Albuquerque plant physiology lab at CSU Monterey Bay."
 >
-  <h1 class="text-2xl">People</h1>
+  <h1>People</h1>
 
   <section class="mt-8 flex flex-col gap-5 sm:flex-row sm:items-start">
     {portrait && (
-      <Image src={portrait.image} alt={portrait.caption} width={160} class="h-auto w-28 sm:w-40" />
+      <Image src={portrait.image} alt={portrait.caption} widths={[240, 320]} sizes="(min-width: 768px) 160px, 120px" formats={['avif', 'webp']} loading="eager" class="h-auto w-[120px] rounded md:w-[160px]" />
     )}
     <div class="max-w-measure">
-      <h2 class="text-lg">{person.name}</h2>
+      <h2>{person.name}</h2>
       <p class="text-muted">{person.role}, {person.unit}, {person.institution}</p>
-      <p class="mt-2">Plant physiologist studying how plants respond to drought and recover from it, across scales, relating structure and function.</p>
+      <p class="mt-2">Plant physiologist. I study how plants lose and recover water transport during drought, from the xylem conduit to the whole plant.</p>
       <p class="mt-2">
         <a href={person.scholar}>Google Scholar</a>
         <span class="muted"> · </span>
@@ -52,45 +57,33 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
     47 undergraduates and three master's students mentored since 2016, and one visiting postdoctoral scholar hosted; 16 student conference presentations since 2024.
   </p>
 
-  <section>
-    <h2 class="section-title">Research training</h2>
-    <div class="prose-block mt-4">
-      <p>
-        Students in the lab learn plant physiology methods by using them on their own questions: water
-        potential with the pressure chamber, stomatal conductance and gas exchange, pressure-volume curves,
-        leaf hydraulic conductance, quantitative anatomy from hand sections, and analysis of synchrotron
-        microCT scans.
-      </p>
-      <p>
-        Each student moves through the same sequence with growing independence: protocol training, a
-        dataset they own, a poster, then a role in a manuscript, with authorship rules written down at the
-        start. Students are paid through my grants, present at regional and national meetings, and meet my
-        collaborators for summer research and graduate school.
-      </p>
-    </div>
-    <div class="mt-6 grid gap-6 sm:grid-cols-2 sm:items-start">
-      {mentoring && (
-        <figure>
-          <Image src={mentoring.image} alt={mentoring.caption} widths={[420, 833]} sizes="(min-width: 640px) 25rem, 100vw" class="h-auto w-full" />
-          <figcaption class="mt-2 text-sm text-muted">{mentoring.caption}</figcaption>
-        </figure>
-      )}
-      {almond && (
-        <figure>
-          <Image src={almond.image} alt={almond.caption} widths={[420, 840]} sizes="(min-width: 640px) 25rem, 100vw" class="h-auto w-full border border-rule" />
-          <figcaption class="mt-2 text-sm text-muted">{almond.caption}</figcaption>
-        </figure>
-      )}
-    </div>
+  <section class="section">
+    <h2>Research training</h2>
+    <p class="mt-3 max-w-measure text-muted">
+      Students learn plant physiology methods by using them on their own questions, with growing
+      independence at each step.
+    </p>
+    <ol class="mt-6 grid gap-8 sm:grid-cols-2">
+      {steps.map((st, i) => (
+        <li>
+          {st.photo && (
+            <Image src={st.photo.image} alt={st.photo.caption} widths={[400, 800]} sizes="(min-width: 640px) 22rem, 92vw" formats={['avif', 'webp']} class="aspect-[4/3] h-auto w-full rounded object-cover" />
+          )}
+          <h3 class={st.photo ? 'mt-3' : ''}>{i + 1}. {st.title}</h3>
+          <p class="mt-1 text-muted">{st.text}</p>
+          {st.link && <p class="mt-2"><a href={st.link}>See publications</a></p>}
+        </li>
+      ))}
+    </ol>
   </section>
 
   {current.length > 0 && (
     <section>
       <h2 class="section-title">Current lab members</h2>
-      {lab && (
-        <figure class="mt-4 max-w-xs">
-          <Image src={lab.image} alt={lab.caption} widths={[320, 640]} sizes="(min-width: 768px) 20rem, 100vw" class="h-auto w-full" />
-          <figcaption class="mt-2 text-sm text-muted">{lab.caption}</figcaption>
+      {mentoring && (
+        <figure class="mt-4 max-w-md">
+          <Image src={mentoring.image} alt={mentoring.caption} widths={[400, 800]} sizes="(min-width: 640px) 28rem, 92vw" formats={['avif', 'webp']} class="h-auto w-full rounded" />
+          <figcaption>{mentoring.caption}</figcaption>
         </figure>
       )}
       <ul class="mt-4 grid gap-x-8 gap-y-1 sm:grid-cols-2">
@@ -104,6 +97,12 @@ const withNote = (p) => (p.line ? `${p.name} (${p.line})` : p.name);
   {visiting.length > 0 && (
     <section>
       <h2 class="section-title">Visiting scholar hosted</h2>
+      {hahn && (
+        <figure class="mt-4 max-w-sm">
+          <Image src={hahn.image} alt={hahn.caption} widths={[400, 800]} sizes="(min-width: 640px) 24rem, 92vw" formats={['avif', 'webp']} class="h-auto w-full rounded" />
+          <figcaption>{hahn.caption}</figcaption>
+        </figure>
+      )}
       <ul class="mt-4 max-w-measure space-y-1">
         {visiting.map((p) => (
           <li>{p.name}{p.years && <span class="text-muted">, {p.years}</span>}{p.line && <span class="text-muted">. {p.line.charAt(0).toUpperCase() + p.line.slice(1)}.</span>}</li>

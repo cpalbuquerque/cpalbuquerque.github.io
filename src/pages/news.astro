@@ -6,21 +6,21 @@ import { findPhoto, loadPhotos } from '../lib/content.js';
 
 const byFile = Object.fromEntries(loadPhotos().map((p) => [p.file, p]));
 
-const photos = [findPhoto(/^synaps_berkeley_lab\./)].filter(Boolean);
+const photos = [findPhoto(/^synaps_berkeley_lab\./), findPhoto(/^poster-with-student\./)].filter(Boolean);
 ---
 
 <Base
   title="News"
   description="News from the Albuquerque plant physiology lab at CSU Monterey Bay: student posters, internships and training."
 >
-  <h1 class="text-2xl">News</h1>
+  <h1>News</h1>
 
   {photos.length > 0 && (
-    <div class="mt-6 max-w-2xl">
-      {photos.map((p) => (
+    <div class="mt-6 grid gap-6 sm:grid-cols-[2fr_1fr] sm:items-start">
+      {photos.map((p, i) => (
         <figure>
-          <Image src={p.image} alt={p.caption} widths={[640, 1200]} sizes="(min-width: 768px) 42rem, 100vw" class="h-auto w-full" />
-          <figcaption class="mt-2 text-sm text-muted">{p.caption}</figcaption>
+          <Image src={p.image} alt={p.caption} widths={[480, 960, 1200]} sizes={i === 0 ? '(min-width: 640px) 40rem, 92vw' : '(min-width: 640px) 20rem, 92vw'} formats={['avif', 'webp']} loading={i === 0 ? 'eager' : 'lazy'} class="h-auto w-full rounded" />
+          <figcaption>{p.caption}</figcaption>
         </figure>
       ))}
     </div>
@@ -33,8 +33,8 @@ const photos = [findPhoto(/^synaps_berkeley_lab\./)].filter(Boolean);
         <p class="mt-1">{n.text}</p>
         {n.photo && byFile[n.photo] && (
           <figure class="mt-3 max-w-sm">
-            <Image src={byFile[n.photo].image} alt={byFile[n.photo].caption} widths={[400, 700]} sizes="(min-width: 640px) 24rem, 100vw" class="h-auto w-full border border-rule" />
-            <figcaption class="mt-2 text-sm text-muted">{byFile[n.photo].caption}</figcaption>
+            <Image src={byFile[n.photo].image} alt={byFile[n.photo].caption} widths={[400, 700]} sizes="(min-width: 640px) 24rem, 92vw" formats={['avif', 'webp']} class="h-auto max-h-80 w-auto rounded" />
+            <figcaption>{byFile[n.photo].caption}</figcaption>
           </figure>
         )}
       </li>

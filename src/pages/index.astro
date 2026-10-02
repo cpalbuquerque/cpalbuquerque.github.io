@@ -4,123 +4,171 @@ import Base from '../layouts/Base.astro';
 import { person } from '../data/site.js';
 import { findPhoto, loadLogos } from '../lib/content.js';
 
-const microct = findPhoto(/^microct_grapevine\.(jpe?g|png|webp)$/i);
-// TODO: logo files in content/logos/ listed in logos.txt.
+const hero = findPhoto(/^grape-leaf-cleared\./);
 const logos = loadLogos();
-const methodPhotos = [/^method_pressure_chamber\./, /^method_gas_exchange\./, /^method_leaf_veins\./].map((r) => findPhoto(r)).filter(Boolean);
 
+// Students per project come only from the CV. TODO: fill from CV v57; an empty list shows nothing.
 const projects = [
   {
     title: 'Collapse and recovery of the xylem',
     text: 'Synchrotron microCT of intact plants through drought and rewatering, alongside leaf hydraulics and gas exchange.',
+    photo: findPhoto(/^microct_grapevine\./),
+    students: [],
   },
   {
     title: 'Aquaporins and the living cells',
     text: 'Grapevines lacking the aquaporin VvPIP2;1, to separate the living pathway from the xylem.',
+    photo: findPhoto(/^method_gas_exchange\./),
+    students: [],
   },
   {
     title: 'Dry air and dry soil',
     text: 'Whether drought reached through dry air or through drying soil is equally recoverable.',
+    photo: findPhoto(/^method_pressure_chamber\./),
+    students: [],
   },
   {
     title: 'Water delivery and disease in lettuce',
     text: 'Student projects on inner leaves and tipburn, and on Fusarium wilt in the xylem.',
+    photo: findPhoto(/^poster-lettuce-leaves\./),
+    students: [],
   },
 ];
+
+const band = [/^student-microscope-1\./, /^evaporative-flux-bench\./, /^poster-lettuce-recovery\./]
+  .map((r) => findPhoto(r))
+  .filter(Boolean);
+const methods = [/^leaf-veins\./, /^root-hydraulics\./].map((r) => findPhoto(r)).filter(Boolean);
 ---
 
 <Base
   title="Research"
-  description="Caetano Albuquerque, plant physiologist at CSU Monterey Bay: how plants respond to drought and recover, across scales and relating structure and function."
+  description="Caetano Albuquerque, plant physiologist at CSU Monterey Bay: how plants lose and recover water transport during drought, from the xylem conduit to the whole plant."
 >
-  <h1 class="text-2xl">{person.name}</h1>
-  <p class="mt-1 max-w-measure text-muted">
-    Plant physiologist. How plants respond to drought and recover from it, across scales, relating
-    structure and function.
-  </p>
-
-  <div class="mt-8 flex flex-col gap-6 md:flex-row md:items-start">
-    <div class="prose-block md:flex-1">
-      <p>
-        I combine physiological measurements with synchrotron microCT imaging at the Advanced Light Source,
-        Lawrence Berkeley National Laboratory, from the conduit to the whole plant.
-      </p>
-      <p>
-        Drought damage to the xylem is usually described as embolism, which is mostly permanent. Imaging
-        intact grapevines, I found that water-filled conduits collapse before they embolize, and most
-        reopen after rewatering. A collapsed conduit is a kinked garden hose. An embolized conduit is a
-        broken pipe.
-      </p>
-      <p>
-        I am now asking how much of the loss and recovery of leaf water transport comes from this
-        collapse, and how much from aquaporins in the living cells.
+  <div class="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+    <div class="max-w-text md:flex-1">
+      <h1>{person.name}</h1>
+      <p class="mt-3 text-lg text-muted">
+        Plant physiologist. I study how plants lose and recover water transport during drought, from the
+        xylem conduit to the whole plant.
       </p>
     </div>
-    {microct && (
-      <figure class="max-w-xs md:w-56 md:shrink-0">
-        <Image src={microct.image} alt={microct.caption} widths={[448, 672]} sizes="(min-width: 768px) 14rem, 100vw" class="h-auto w-full" />
-        <figcaption class="mt-2 text-sm text-muted">{microct.caption}</figcaption>
+    {hero && (
+      <figure class="w-full max-w-[22rem] md:w-80 md:shrink-0">
+        <Image src={hero.image} alt={hero.caption} widths={[400, 640, 960]} sizes="(min-width: 768px) 20rem, 90vw" formats={['avif', 'webp']} loading="eager" class="h-auto w-full" />
+        <figcaption>{hero.caption}</figcaption>
       </figure>
     )}
   </div>
 
-  <h2 class="section-title">Current projects</h2>
-  <dl class="mt-4 max-w-measure space-y-4">
-    {projects.map((p) => (
-      <div>
-        <dt class="font-semibold">{p.title}</dt>
-        <dd class="text-muted">{p.text}</dd>
-      </div>
-    ))}
-  </dl>
-
-  <h2 class="section-title">Earlier work</h2>
-  <div class="mt-4 flex max-w-measure gap-4">
-    <a href="https://doi.org/10.1093/jxb/eraa392" class="shrink-0 hover:bg-transparent">
-      <img src="/img/jxb-2020-cover.webp" width="240" height="313" alt="Cover of Journal of Experimental Botany, volume 71, issue 22, 2020" class="h-auto w-20 border border-rule" loading="lazy" />
-    </a>
+  <div class="prose-block mt-8">
     <p>
-      In grapevine leaves imaged alive with microCT, leaf hydraulic conductance and gas exchange declined
-      early in drought without xylem embolism.
-      <a href="https://doi.org/10.1093/jxb/eraa392">Albuquerque et al. 2020, <em>Journal of Experimental Botany</em></a>, journal cover.
+      I combine physiological measurements with synchrotron microCT imaging at the Advanced Light Source,
+      Lawrence Berkeley National Laboratory, from the conduit to the whole plant.
+    </p>
+    <p>
+      Drought damage to the xylem is usually described as embolism, which is mostly permanent. Imaging
+      intact grapevines, I found that water-filled conduits collapse before they embolize, and most
+      reopen after rewatering. A collapsed conduit is a kinked garden hose. An embolized conduit is a
+      broken pipe.
+    </p>
+    <p>
+      I am now asking how much of the loss and recovery of leaf water transport comes from this
+      collapse, and how much from aquaporins in the living cells.
     </p>
   </div>
 
-  <h2 class="section-title">Methods</h2>
-  <p class="mt-4 max-w-measure">
-    Pressure chamber, gas exchange, pressure-volume curves, leaf hydraulic conductance, optical
-    vulnerability, quantitative anatomy, and synchrotron microCT at beamline 8.3.2 of the Advanced Light
-    Source.
-  </p>
-  {methodPhotos.length > 0 && (
-    <div class="mt-6 grid gap-5 sm:grid-cols-3">
-      {methodPhotos.map((p) => (
-        <figure>
-          <Image src={p.image} alt={p.caption} widths={[360, 640]} sizes="(min-width: 640px) 16rem, 100vw" class="aspect-[4/3] h-auto w-full object-cover" />
-          <figcaption class="mt-2 text-sm text-muted">{p.caption}</figcaption>
-        </figure>
-      ))}
-    </div>
-  )}
-
-  <h2 class="section-title">Supported by</h2>
-  {logos.length > 0 && (
-    <ul class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-6" aria-label="Funders and facilities">
-      {logos.map((l) => (
-        <li>
-          {l.url ? (
-            <a href={l.url} class="flex items-center gap-2 text-sm text-muted no-underline hover:bg-transparent">
-              <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale hover:opacity-100 md:h-10" />
-              {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
-            </a>
-          ) : (
-            <span class="flex items-center gap-2 text-sm text-muted">
-              <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale md:h-10" />
-              {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
-            </span>
+  <section class="section">
+    <h2>Current projects</h2>
+    <ul class="mt-6 grid gap-8 sm:grid-cols-2">
+      {projects.map((p) => (
+        <li class="flex gap-4">
+          {p.photo && (
+            <Image src={p.photo.image} alt={p.photo.caption} widths={[160, 320]} sizes="6rem" formats={['avif', 'webp']} class="h-24 w-24 shrink-0 rounded object-cover" />
           )}
+          <div>
+            <h3>{p.title}</h3>
+            <p class="mt-1 text-muted">{p.text}</p>
+            {p.students.length > 0 && <p class="mt-1 text-sm text-muted">Students: {p.students.join(', ')}</p>}
+          </div>
         </li>
       ))}
     </ul>
+  </section>
+
+  {band.length > 0 && (
+    <section class="section">
+      <h2>Research with undergraduates</h2>
+      <p class="mt-3 max-w-measure text-muted">
+        Undergraduates run most of the measurements in the lab and present their own work.
+        <a href="/people/">Meet the lab</a>.
+      </p>
+      <div class="mt-6 grid gap-6 sm:grid-cols-3">
+        {band.map((p) => (
+          <figure>
+            <a href="/people/" class="block">
+              <Image src={p.image} alt={p.caption} widths={[400, 800]} sizes="(min-width: 640px) 20rem, 92vw" formats={['avif', 'webp']} class="aspect-[4/3] h-auto w-full object-cover" />
+            </a>
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <h2>Earlier work</h2>
+    <div class="mt-4 flex max-w-measure gap-4">
+      <a href="https://doi.org/10.1093/jxb/eraa392" class="shrink-0">
+        <img src="/img/jxb-2020-cover.webp" width="240" height="313" alt="Cover of Journal of Experimental Botany, volume 71, issue 22, 2020" class="h-auto w-20 border border-rule" loading="lazy" />
+      </a>
+      <p>
+        In grapevine leaves imaged alive with microCT, leaf hydraulic conductance and gas exchange declined
+        early in drought without xylem embolism.
+        <a href="https://doi.org/10.1093/jxb/eraa392">Albuquerque et al. 2020, <em>Journal of Experimental Botany</em></a>, journal cover.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Methods</h2>
+    <p class="mt-4 max-w-measure">
+      Pressure chamber, gas exchange, pressure-volume curves, leaf and root hydraulic conductance, optical
+      vulnerability, quantitative anatomy, and synchrotron microCT at beamline 8.3.2 of the Advanced Light
+      Source.
+    </p>
+    {methods.length > 0 && (
+      <div class="mt-6 grid gap-6 sm:grid-cols-2">
+        {methods.map((p) => (
+          <figure>
+            <Image src={p.image} alt={p.caption} widths={[400, 800]} sizes="(min-width: 640px) 30rem, 92vw" formats={['avif', 'webp']} class="aspect-[4/3] h-auto w-full object-cover" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+  </section>
+
+  {logos.length > 0 && (
+    <section class="section">
+      <h2>Supported by</h2>
+      <ul class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-6" aria-label="Funders and facilities">
+        {logos.map((l) => (
+          <li>
+            {l.url ? (
+              <a href={l.url} class="flex items-center gap-2 text-sm text-muted no-underline">
+                <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale md:h-9" />
+                {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
+              </a>
+            ) : (
+              <span class="flex items-center gap-2 text-sm text-muted">
+                <Image src={l.image} alt={l.showName ? '' : l.org} height={72} class="h-8 w-auto opacity-80 grayscale md:h-9" />
+                {l.showName && <span class="max-w-[11rem] leading-tight">{l.org}</span>}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   )}
 </Base>
