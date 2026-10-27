@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Light to sugar</title>
+<meta name="description" content="A plant physiology learning tool: one photon from the Sun to a sugar, in five interactive plates, at three depths.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English+SC&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>:root{color-scheme:light dark}html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div id="wp-root" data-tier="2">
+<div class="wp lx" id="wp">
+  <a class="skip" href="#wp-stage">Skip to the exhibit</a>
+
+  <header class="wp-head">
+    <div class="wp-brand">
+      <p class="wp-kicker">A plant physiology learning tool</p>
+      <h1 class="wp-title">Light to sugar</h1>
+      <p class="wp-sub">One photon, from the Sun to a sugar, in five plates. Change the light and watch every plate answer.</p>
+      <p class="wp-orient">Start at <a href="#sun">Light I, the Sun</a>. Use <b>Depth</b> to choose how much detail: 1 Explore is plain words, 2 Explain covers the core ideas, 3 Expert shows every equation and source. This module is the second part of The Water Path: it starts where the water journey ends, after <a href="../journey/index.html#afternoon">Your Salinas afternoon</a>, and every plate links back to it. All sections are on the <a href="../index.html#/map">Water Path map</a>.</p>
+    </div>
+    <div class="wp-prefs" role="group" aria-label="Display preferences">
+      <button type="button" class="btn" id="wp-theme" aria-pressed="false" title="Night theme: dark background">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 1 0 0 13a6.5 6.5 0 0 0 0-13Zm0 1.5v10a5 5 0 0 1 0-10Z" fill="currentColor"/></svg>
+        <span>Night theme</span>
+      </button>
+      <button type="button" class="btn" id="wp-class" aria-pressed="false" title="Presentation mode for projection: big type, one step at a time. Key C">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="8.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 11v3M5 14.5h6" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span>Presentation mode</span>
+      </button>
+      <button type="button" class="btn" id="wp-motion" aria-pressed="false" title="Stop moving photons, electrons and protons">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h3l2-5 2 10 2-5h3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>Reduce motion</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="wp-bar" aria-label="Plates">
+    <div class="wp-tabs" role="tablist" id="wp-tabs" aria-label="Plates"></div>
+    <div class="wp-tier" role="radiogroup" id="wp-tier" aria-label="Depth">
+      <span class="wp-tier-l" aria-hidden="true">Depth</span>
+      <button type="button" role="radio" aria-checked="false" data-tier="1" tabindex="-1" title="First look: plain words, picture first, no equations"><b>1</b> Explore</button>
+      <button type="button" role="radio" aria-checked="true" data-tier="2" tabindex="0" title="Core ideas: photons, the Z scheme, the Calvin Benson cycle, curves and questions"><b>2</b> Explain</button>
+      <button type="button" role="radio" aria-checked="false" data-tier="3" tabindex="-1" title="Every slider, equations, model constants with sources, open questions and conflicting papers"><b>3</b> Expert</button>
+    </div>
+  </nav>
+
+  <details class="wp-cond" id="wp-cond">
+    <summary>
+      <span class="lbl">Conditions</span>
+      <span class="sumv" id="wp-cond-sum"></span>
+      <span class="chev" aria-hidden="true">&#9662;</span>
+    </summary>
+    <div class="cond-grid" id="wp-cond-grid"></div>
+  </details>
+
+  <div class="wp-main">
+    <main class="wp-stage" id="wp-stage" tabindex="-1" aria-live="off"></main>
+    <aside class="wp-rail" aria-label="Live readouts">
+      <div class="rail" id="wp-rail"></div>
+    </aside>
+  </div>
+
+  <footer class="wp-foot" id="wp-foot"></footer>
+</div>
+</div>
+
+<script src="speed.js"></script>
+<script src="cargo_flag.js"></script>
+<script src="vendor/three.min.js"></script>
+<script>window.THREE||document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>')</script>
+<script src="lmacro.js"></script>
+<script src="engine.js"></script>
+<script src="evidence.js"></script>
+<script src="shell.js"></script>
+<script src="quiz.js"></script>
+<script src="l_sun.js"></script>
+<script src="l_leafoptics.js"></script>
+<script src="l_thylakoid.js"></script>
+<script src="l_stroma.js"></script>
+<script src="l_tradeoff.js"></script>
+</body>
+</html>

@@ -1,77 +1,90 @@
 window.WP_SOURCES=[
+["sade2014","Sade N, Shatil-Cohen A, Attia Z, Maurel C, Boursiac Y, Kelly G, Granot D, Yaaran A, Lerner S, Moshelion M (2014) The role of plasma membrane aquaporins in regulating the bundle sheath-mesophyll continuum and leaf hydraulics. <i>Plant Physiology</i> 166: 1609 to 1620. doi:10.1104/pp.114.248633. <i>Arabidopsis</i>: silencing PIP1 aquaporins in the bundle sheath only lowered bundle sheath and mesophyll water permeability and leaf hydraulic conductance."],
+["zhang2016","Zhang Y-J, Rockwell FE, Graham AC, Alexander T, Holbrook NM (2016) Reversible leaf xylem collapse: a potential \u2018circuit breaker\u2019 against cavitation. <i>Plant Physiology</i> 172: 2261 to 2274. doi:10.1104/pp.16.01191. <i>Quercus rubra</i>, cryo-SEM: collapse in minor veins, 4th to 7th order, from about \u22122 to \u22123 MPa, recovering within minutes of rehydration."],
+["cochard2004","Cochard H, Froux F, Mayr S, Coutand C (2004) Xylem wall collapse in water-stressed pine needles. <i>Plant Physiology</i> 134: 401 to 408. doi:10.1104/pp.103.028357."],
+["brodribb2005","Brodribb TJ, Holbrook NM (2005) Water stress deforms tracheids peripheral to the leaf vein of a tropical conifer. <i>Plant Physiology</i> 137: 1139 to 1146. doi:10.1104/pp.104.058156."],
+["brodribb2016","Brodribb TJ, Skelton RP, McAdam SAM, Bienaim\u00e9 D, Lucani CJ, Marmottant P (2016) Visual quantification of embolism reveals leaf vulnerability to hydraulic failure. <i>New Phytologist</i> 209: 1403 to 1409. doi:10.1111/nph.13846. Optical method, four species: large embolism events early in the midrib, the latest in the minor veins."],
+["tonet2023","Tonet V, Carins-Murphy M, Deans R, Brodribb TJ (2023) Deadly acceleration in dehydration of <i>Eucalyptus viminalis</i> leaves coincides with high-order vein cavitation. <i>Plant Physiology</i> 191: 1648 to 1661. doi:10.1093/plphys/kiad016. Vein-order P<sub>50</sub>: midrib \u22123.35, major veins \u22123.80, higher orders \u22124.07 MPa."],
+["loepfe2007","Loepfe L, Mart\u00ednez-Vilalta J, Pi\u00f1ol J, Mencuccini M (2007) The relevance of xylem network structure for plant hydraulic efficiency and safety. <i>Journal of Theoretical Biology</i> 247: 788 to 803. doi:10.1016/j.jtbi.2007.03.036."],
+["mrad2018","Mrad A, Domec J-C, Huang C-W, Lens F, Katul G (2018) A network model links wood anatomy to xylem tissue hydraulic behaviour and vulnerability to cavitation. <i>Plant, Cell &amp; Environment</i> 41: 2718 to 2730. doi:10.1111/pce.13415."],
+["albuquerque2026pre","Albuquerque C, Momayyezi M, Aguero C, Arancibia C, Stanfield R, Ron M, Walker A, Bartlett MK, Scoffoni C, McElrone AJ (2026) PIP2;1 aquaporin promotes early stomatal closure in grapevine leaves during water stress. <i>bioRxiv</i>, posted 30 January 2026. doi:10.64898/2026.01.29.702672. PREPRINT, not peer reviewed. CRISPR-Cas9 knockout of <i>VvPIP2;1</i> in Chardonnay."],
 ["taiz2002","Taiz L, Zeiger E (2002) <i>Plant Physiology</i>, 3rd edition. Sinauer Associates, Sunderland MA. Chapter 1: the stem diagram places the pith, a ground tissue, at the centre, inside the vascular tissue. Chapter 3, Eq. 3.2, Poiseuille\u2019s equation: \u201cIf the radius is doubled, the volume flow rate increases by a factor of 16.\u201d Chapter 3: 1 MPa is about 9.9 atmospheres; 1 bar is 100 kPa by definition, so 1 MPa = 10 bar. SECONDARY."],
 ["allen1998","Allen RG, Pereira LS, Raes D, Smith M (1998) <i>Crop evapotranspiration</i>. FAO Irrigation and Drainage Paper 56, chapter 3, equations 11, 12, 14, 19, 48. <a href=\"https://www.fao.org/4/x0490e/x0490e07.htm\">fao.org</a>"],
 ["fao56","Saturation vapour pressure used on this site: e° = 0.6108 exp[17.27 T ÷ (T + 237.3)] kPa (FAO-56 Eq. 11). Air water potential Ψ = (RT ÷ V̄w) ln(RH), R = 8.314 J mol⁻¹ K⁻¹, V̄w = 18.05 × 10⁻⁶ m³ mol⁻¹."],
 ["mwelo","California Code of Regulations, Title 23, Model Water Efficient Landscape Ordinance, Appendix A: Reference evapotranspiration table (CIMIS station averages, inches per month)."],
-["nws","NWS Hanford, Fresno 1991–2020 July normals; NOAA Comparative Climatic Data, afternoon relative humidity. Salinas 1991–2020 normals (NOAA NCEI) read from a secondary copy; Salinas afternoon humidity estimated with FAO-56 Eq. 48."],
-["denmead1962","Denmead OT, Shaw RH (1962) Availability of soil water to plants as affected by soil moisture content and meteorological conditions. <i>Agronomy Journal</i> 54: 385\u2013390. doi:10.2134/agronj1962.00021962005400050005x. Read from the paper. Corn in 136 sunken containers of 20 gallons, 18 in diameter and 24 in deep, 4-plant hills inside a field-grown canopy, over five weeks from just before tasseling, at Ames, Iowa; Colo silty clay loam, field capacity 36 % by volume and 22 % by volume at 15 bar; every soil surface covered with black plastic film so that measured loss is transpiration; neutron meter read daily between 1600 and 1800; effective root depth 21 in; treatments depleted to 2.5, 5 and 15 bar against controls held below 0.5 bar. Journal Paper J-4017, Project 1276; received 20 December 1961; from Denmead's PhD thesis, Iowa State University, 1961. The three break points, p. 387: \"For the most extreme conditions encountered in the experiment, when the potential transpiration rate was 6.4 mm. per day, the actual transpiration rate fell significantly below the potential rate when the average soil suction was only about 0.3 bar. For moderate potential transpiration rates of 3 to 4 mm. per day, the potential transpiration rate could be maintained until the average soil suction was about 2 bars. When the potential transpiration rate was only 1.4 mm. per day, this rate was maintained until the average soil suction was as much as 12 bars.\" Their Figure 6 and summary, p. 389: the turgor loss point varied \"from a volumetric soil moisture content of 23% when the potential rate was 1.4 mm. per day to 34% when the potential rate exceeded 6 mm. per day\", against a field capacity of 36 %."],
-["ritchie1973","Ritchie JT (1973) Influence of soil water status and meteorological conditions on evaporation from a corn canopy. <i>Agronomy Journal</i> 65: 893–897. doi:10.2134/agronj1973.00021962006500060014x. From the abstract: \"Evaporation rates were found to be practically independent of the soil water status for all existing conditions of potential evaporation\u2026 at least 80% of the extractable soil water was freely available to plant roots\u2026 serious errors are possible when using their results for predicting evaporation from corn plants growing under field conditions.\""],
-["tuzet2003","Tuzet A, Perrier A, Leuning R (2003) A coupled model of stomatal conductance, photosynthesis and transpiration. <i>Plant, Cell &amp; Environment</i> 26: 1097\u20131116. doi:10.1046/j.1365-3040.2003.01035.x. Reproduces the direction of the Denmead &amp; Shaw result but not its magnitude, and suggests: \"it appears that the results of Denmead &amp; Shaw (1962) can be explained if their graph is a composite derived from plants which started transpiration at different initial moisture contents.\""],
+["nws","NWS Hanford, Fresno 1991 to 2020 July normals; NOAA Comparative Climatic Data, afternoon relative humidity. Salinas 1991 to 2020 normals (NOAA NCEI) read from a secondary copy; Salinas afternoon humidity estimated with FAO-56 Eq. 48."],
+["denmead1962","Denmead OT, Shaw RH (1962) Availability of soil water to plants as affected by soil moisture content and meteorological conditions. <i>Agronomy Journal</i> 54: 385 to 390. doi:10.2134/agronj1962.00021962005400050005x. Read from the paper. Corn in 136 sunken containers of 20 gallons, 18 in diameter and 24 in deep, 4-plant hills inside a field-grown canopy, over five weeks from just before tasseling, at Ames, Iowa; Colo silty clay loam, field capacity 36 % by volume and 22 % by volume at 15 bar; every soil surface covered with black plastic film so that measured loss is transpiration; neutron meter read daily between 1600 and 1800; effective root depth 21 in; treatments depleted to 2.5, 5 and 15 bar against controls held below 0.5 bar. Journal Paper J-4017, Project 1276; received 20 December 1961; from Denmead's PhD thesis, Iowa State University, 1961. The three break points, p. 387: \"For the most extreme conditions encountered in the experiment, when the potential transpiration rate was 6.4 mm. per day, the actual transpiration rate fell significantly below the potential rate when the average soil suction was only about 0.3 bar. For moderate potential transpiration rates of 3 to 4 mm. per day, the potential transpiration rate could be maintained until the average soil suction was about 2 bars. When the potential transpiration rate was only 1.4 mm. per day, this rate was maintained until the average soil suction was as much as 12 bars.\" Their Figure 6 and summary, p. 389: the turgor loss point varied \"from a volumetric soil moisture content of 23% when the potential rate was 1.4 mm. per day to 34% when the potential rate exceeded 6 mm. per day\", against a field capacity of 36 %."],
+["ritchie1973","Ritchie JT (1973) Influence of soil water status and meteorological conditions on evaporation from a corn canopy. <i>Agronomy Journal</i> 65: 893 to 897. doi:10.2134/agronj1973.00021962006500060014x. From the abstract: \"Evaporation rates were found to be practically independent of the soil water status for all existing conditions of potential evaporation\u2026 at least 80% of the extractable soil water was freely available to plant roots\u2026 serious errors are possible when using their results for predicting evaporation from corn plants growing under field conditions.\""],
+["tuzet2003","Tuzet A, Perrier A, Leuning R (2003) A coupled model of stomatal conductance, photosynthesis and transpiration. <i>Plant, Cell &amp; Environment</i> 26: 1097 to 1116. doi:10.1046/j.1365-3040.2003.01035.x. Reproduces the direction of the Denmead &amp; Shaw result but not its magnitude, and suggests: \"it appears that the results of Denmead &amp; Shaw (1962) can be explained if their graph is a composite derived from plants which started transpiration at different initial moisture contents.\""],
 ["ochsner","Ochsner TE. <i>Rain or Shine: An Introduction to Soil Physical Properties and Processes</i>, \u00a711.4. Open textbook, Oklahoma State University. Carries a redraw of the Denmead &amp; Shaw result with two volumetric points, 2.0 mm per day at \u03b8 0.25 and 6.4 mm per day at \u03b8 0.34 <span class=\"badge\">SECONDARY</span>."],
 ["fao56p","FAO-56 Allen et al. 1998, Chapter 8: the soil water depletion fraction, p = p(Table 22) + 0.04 (5 \u2212 ETc), limited to 0.1 \u2264 p \u2264 0.8, with ETc in mm per day. This is the Denmead &amp; Shaw argument in operational form: the allowable depletion shrinks on a high-demand day."],
-["vangenuchten1980","van Genuchten MT (1980) A closed-form equation for predicting the hydraulic conductivity of unsaturated soils. <i>Soil Sci Soc Am J</i> 44: 892–898."],
-["carsel1988","Carsel RF, Parrish RS (1988) Developing joint probability distributions of soil water retention characteristics. <i>Water Resources Research</i> 24: 755–769. Class means used: sandy loam, loam, clay loam."],
-["cahn","Cahn M, Farrara B. Using tensiometers for scheduling irrigations of coastal vegetables. UCCE Monterey County. Cahn M, Johnson L, Benzen S (2022) <i>Horticulturae</i> 8: 857."],
-["grossiord2020","Grossiord C, Buckley TN, Cernusak LA, et al. (2020) Plant responses to rising vapor pressure deficit. <i>New Phytologist</i> 226: 1550–1566."],
-["schonbeck2022","Schönbeck LC, Schuler P, Lehmann MM, et al., Grossiord C (2022) Increasing temperature and vapour pressure deficit lead to hydraulic damages in the absence of soil drought. <i>Plant, Cell &amp; Environment</i> 45: 3275–3289."],
-["bartlett2012","Bartlett MK, Scoffoni C, Sack L (2012) The determinants of leaf turgor loss point and prediction of drought tolerance of species and biomes: a global meta-analysis. <i>Ecology Letters</i> 15: 393–405."],
-["bartlett2014","Bartlett MK, Zhang Y, Kreidler N, Sun S, Ardy R, Cao K, Sack L (2014) Global analysis of plasticity in turgor loss point, a key drought tolerance trait. <i>Ecology Letters</i> 17: 1580–1590."],
-["martorell2015","Martorell S, Medrano H, Tomàs M, Escalona JM, Flexas J, Diaz-Espejo A (2015) Plasticity of vulnerability to leaf hydraulic dysfunction during acclimation to drought in grapevines: an osmotic-mediated process. <i>Physiologia Plantarum</i> 153: 381–391. Table 3."],
+["vangenuchten1980","van Genuchten MT (1980) A closed-form equation for predicting the hydraulic conductivity of unsaturated soils. <i>Soil Sci Soc Am J</i> 44: 892 to 898."],
+["carsel1988","Carsel RF, Parrish RS (1988) Developing joint probability distributions of soil water retention characteristics. <i>Water Resources Research</i> 24: 755 to 769. Class means used: sandy loam, loam, clay loam."],
+["cahn","Cahn M, Farrara B. Using tensiometers for scheduling irrigations of coastal vegetables. UCCE Monterey County. Cahn M, Johnson L, Benzen S (2022) <i>Horticulturae</i> 8: 857. MDPI journal: kept only as local Salinas extension data."],
+["grossiord2020","Grossiord C, Buckley TN, Cernusak LA, et al. (2020) Plant responses to rising vapor pressure deficit. <i>New Phytologist</i> 226: 1550 to 1566."],
+["schonbeck2022","Schönbeck LC, Schuler P, Lehmann MM, et al., Grossiord C (2022) Increasing temperature and vapour pressure deficit lead to hydraulic damages in the absence of soil drought. <i>Plant, Cell &amp; Environment</i> 45: 3275 to 3289."],
+["bartlett2012","Bartlett MK, Scoffoni C, Sack L (2012) The determinants of leaf turgor loss point and prediction of drought tolerance of species and biomes: a global meta-analysis. <i>Ecology Letters</i> 15: 393 to 405."],
+["bartlett2014","Bartlett MK, Zhang Y, Kreidler N, Sun S, Ardy R, Cao K, Sack L (2014) Global analysis of plasticity in turgor loss point, a key drought tolerance trait. <i>Ecology Letters</i> 17: 1580 to 1590."],
+["martorell2015","Martorell S, Medrano H, Tomàs M, Escalona JM, Flexas J, Diaz-Espejo A (2015) Plasticity of vulnerability to leaf hydraulic dysfunction during acclimation to drought in grapevines: an osmotic-mediated process. <i>Physiologia Plantarum</i> 153: 381 to 391. Table 3."],
 ["farolfi2025","Farolfi E, Kulhánková A, De Berardinis F, et al., Herrera JC (2025) Leaf seasonal osmotic adjustment is not driven by temperature or water deficit. <i>The Plant Journal</i> 124: e70569."],
-["sinclair2024","Sinclair G, Galarneau ER, Hnizdor JF, McElrone AJ, Walker MA, Bartlett MK (2024) Grape cultivars adapted to hotter, drier growing regions exhibit greater photosynthesis in hot conditions despite less drought-resistant leaves. <i>Annals of Botany</i> 134: 205–218. Table 1."],
-["sorek2021","Sorek Y, Greenstein S, Netzer Y, Shtein I, Jansen S, Hochberg U (2021) An increase in xylem embolism resistance of grapevine leaves during the growing season is coordinated with stomatal regulation, turgor loss point and intervessel pit membranes. <i>New Phytologist</i> 229: 1955–1969."],
-["lockhart1965","Lockhart JA (1965) An analysis of irreversible plant cell elongation. <i>Journal of Theoretical Biology</i> 8: 264–275."],
-["green1971","Green PB, Erickson RO, Buggy J (1971) Metabolic and physical control of cell elongation rate: in vivo studies in <i>Nitella</i>. <i>Plant Physiology</i> 47: 423–430."],
-["shackel1987","Shackel KA, Matthews MA, Morrison JC (1987) Dynamic relation between expansion and cellular turgor in growing grape (<i>Vitis vinifera</i> L.) leaves. <i>Plant Physiology</i> 84: 1166–1171."],
-["boyer1970","Boyer JS (1970) Leaf enlargement and metabolic rates in corn, soybean, and sunflower at various leaf water potentials. <i>Plant Physiology</i> 46: 233–235; and Differing sensitivity of photosynthesis to low leaf water potentials in corn and soybean, 46: 236–239."],
-["pammenter1998","Pammenter NW, Vander Willigen C (1998) A mathematical and statistical analysis of the curves illustrating vulnerability of xylem to cavitation. <i>Tree Physiology</i> 18: 589–593."],
-["charrier2016","Charrier G, Torres-Ruiz JM, Badel E, et al., Delzon S (2016) Evidence for hydraulic vulnerability segmentation and lack of xylem refilling under tension. <i>Plant Physiology</i> 172: 1657–1668. Table I."],
+["sinclair2024","Sinclair G, Galarneau ER, Hnizdor JF, McElrone AJ, Walker MA, Bartlett MK (2024) Grape cultivars adapted to hotter, drier growing regions exhibit greater photosynthesis in hot conditions despite less drought-resistant leaves. <i>Annals of Botany</i> 134: 205 to 218. Table 1."],
+["sorek2021","Sorek Y, Greenstein S, Netzer Y, Shtein I, Jansen S, Hochberg U (2021) An increase in xylem embolism resistance of grapevine leaves during the growing season is coordinated with stomatal regulation, turgor loss point and intervessel pit membranes. <i>New Phytologist</i> 229: 1955 to 1969."],
+["lockhart1965","Lockhart JA (1965) An analysis of irreversible plant cell elongation. <i>Journal of Theoretical Biology</i> 8: 264 to 275."],
+["green1971","Green PB, Erickson RO, Buggy J (1971) Metabolic and physical control of cell elongation rate: in vivo studies in <i>Nitella</i>. <i>Plant Physiology</i> 47: 423 to 430."],
+["shackel1987","Shackel KA, Matthews MA, Morrison JC (1987) Dynamic relation between expansion and cellular turgor in growing grape (<i>Vitis vinifera</i> L.) leaves. <i>Plant Physiology</i> 84: 1166 to 1171."],
+["boyer1970","Boyer JS (1970) Leaf enlargement and metabolic rates in corn, soybean, and sunflower at various leaf water potentials. <i>Plant Physiology</i> 46: 233 to 235; and Differing sensitivity of photosynthesis to low leaf water potentials in corn and soybean, 46: 236 to 239."],
+["pammenter1998","Pammenter NW, Vander Willigen C (1998) A mathematical and statistical analysis of the curves illustrating vulnerability of xylem to cavitation. <i>Tree Physiology</i> 18: 589 to 593."],
+["charrier2016","Charrier G, Torres-Ruiz JM, Badel E, et al., Delzon S (2016) Evidence for hydraulic vulnerability segmentation and lack of xylem refilling under tension. <i>Plant Physiology</i> 172: 1657 to 1668. Table I."],
 ["lamarque2023","Lamarque LJ, Delmas CEL, Charrier G, et al. (2023) Quantifying the grapevine xylem embolism resistance spectrum to identify varieties and regions at risk in a future dry climate. <i>Scientific Reports</i> 13: 7724."],
-["hochberg2016","Hochberg U, Albuquerque C, Rachmilevitch S, Cochard H, David-Schwartz R, Brodersen CR, McElrone A, Windt CW (2016) Grapevine petioles are more sensitive to drought induced embolism than stems: evidence from in vivo MRI and microcomputed tomography observations of hydraulic vulnerability segmentation. <i>Plant, Cell &amp; Environment</i> 39: 1886–1894."],
-["hochberg2017","Hochberg U, Windt CW, Ponomarenko A, et al., Holbrook NM (2017) Stomatal closure, basal leaf embolism, and shedding protect the hydraulic integrity of grape stems. <i>Plant Physiology</i> 174: 764–775."],
-["albuquerque2020","Albuquerque C, Scoffoni C, Brodersen CR, Buckley TN, Sack L, McElrone AJ (2020) Coordinated decline of leaf hydraulic and stomatal conductances under drought is not linked to leaf xylem embolism for different grapevine cultivars. <i>Journal of Experimental Botany</i> 71: 7286–7300. Table 2."],
-["scoffoni2017","Scoffoni C, Albuquerque C, Brodersen CR, Townes SV, John GP, Bartlett MK, Buckley TN, McElrone AJ, Sack L (2017) Outside-xylem vulnerability, not xylem embolism, controls leaf hydraulic decline during dehydration. <i>Plant Physiology</i> 173: 1197–1210. doi:10.1104/pp.16.01643."],
-["dayer2020","Dayer S, Herrera JC, Dai Z, et al., Gambetta GA (2020) The sequence and thresholds of leaf hydraulic traits underlying grapevine varietal differences in drought tolerance. <i>Journal of Experimental Botany</i> 71: 4333–4344."],
-["choat2012","Choat B, Jansen S, Brodribb TJ, et al. (2012) Global convergence in the vulnerability of forests to drought. <i>Nature</i> 491: 752–755."],
-["brodribb2009","Brodribb TJ, Cochard H (2009) Hydraulic failure defines the recovery and point of death in water-stressed conifers. <i>Plant Physiology</i> 149: 575–584."],
-["urli2013","Urli M, Porté AJ, Cochard H, Guengant Y, Burlett R, Delzon S (2013) Xylem embolism threshold for catastrophic hydraulic failure in angiosperm trees. <i>Tree Physiology</i> 33: 672–683."],
-["sperry1988","Sperry JS, Tyree MT (1988) Mechanism of water stress-induced xylem embolism. <i>Plant Physiology</i> 88: 581–587."],
-["brodersen2010","Brodersen CR, McElrone AJ, Choat B, Matthews MA, Shackel KA (2010) The dynamics of embolism repair in xylem: in vivo visualizations using high-resolution computed tomography. <i>Plant Physiology</i> 154: 1088–1095."],
-["brodersen2013","Brodersen CR, McElrone AJ, Choat B, Lee EF, Shackel KA, Matthews MA (2013) In vivo visualizations of drought-induced embolism spread in <i>Vitis vinifera</i>. <i>Plant Physiology</i> 161: 1820–1829."],
-["choat2010","Choat B, Drayton WM, Brodersen C, Matthews MA, Shackel KA, Wada H, McElrone AJ (2010) Measurement of vulnerability to water stress-induced cavitation in grapevine: a comparison of four techniques applied to a long-vesseled species. <i>Plant, Cell &amp; Environment</i> 33: 1502–1512."],
-["cochard2013","Cochard H, Badel E, Herbette S, Delzon S, Choat B, Jansen S (2013) Methods for measuring plant vulnerability to cavitation: a critical review. <i>Journal of Experimental Botany</i> 64: 4779–4791."],
-["torresruiz2015","Torres-Ruiz JM, Jansen S, Choat B, et al., Delzon S (2015) Direct X-ray microtomography observation confirms the induction of embolism upon xylem cutting under tension. <i>Plant Physiology</i> 167: 40–43."],
-["lens2016","Lens F, Picon-Cochard C, Delmas CEL, et al. (2016) Herbaceous angiosperms are not more vulnerable to drought-induced embolism than angiosperm trees. <i>Plant Physiology</i> 172: 661–667."],
-["vanleeuwen2009","van Leeuwen C, Tregoat O, Choné X, et al. (2009) Vine water status is a key factor in grape ripening and vintage quality for red Bordeaux wine. <i>J Int Sci Vigne Vin</i> 43: 121–134. Stem water potential classes as cited by Myburgh &amp; Howell (2022) <i>S Afr J Enol Vitic</i> 43: 96–102."],
+["hochberg2016","Hochberg U, Albuquerque C, Rachmilevitch S, Cochard H, David-Schwartz R, Brodersen CR, McElrone A, Windt CW (2016) Grapevine petioles are more sensitive to drought induced embolism than stems: evidence from in vivo MRI and microcomputed tomography observations of hydraulic vulnerability segmentation. <i>Plant, Cell &amp; Environment</i> 39: 1886 to 1894."],
+["hochberg2017","Hochberg U, Windt CW, Ponomarenko A, et al., Holbrook NM (2017) Stomatal closure, basal leaf embolism, and shedding protect the hydraulic integrity of grape stems. <i>Plant Physiology</i> 174: 764 to 775."],
+["albuquerque2020","Albuquerque C, Scoffoni C, Brodersen CR, Buckley TN, Sack L, McElrone AJ (2020) Coordinated decline of leaf hydraulic and stomatal conductances under drought is not linked to leaf xylem embolism for different grapevine cultivars. <i>Journal of Experimental Botany</i> 71: 7286 to 7300. Table 2."],
+["scoffoni2017","Scoffoni C, Albuquerque C, Brodersen CR, Townes SV, John GP, Bartlett MK, Buckley TN, McElrone AJ, Sack L (2017) Outside-xylem vulnerability, not xylem embolism, controls leaf hydraulic decline during dehydration. <i>Plant Physiology</i> 173: 1197 to 1210. doi:10.1104/pp.16.01643."],
+["dayer2020","Dayer S, Herrera JC, Dai Z, et al., Gambetta GA (2020) The sequence and thresholds of leaf hydraulic traits underlying grapevine varietal differences in drought tolerance. <i>Journal of Experimental Botany</i> 71: 4333 to 4344."],
+["choat2012","Choat B, Jansen S, Brodribb TJ, et al. (2012) Global convergence in the vulnerability of forests to drought. <i>Nature</i> 491: 752 to 755."],
+["brodribb2009","Brodribb TJ, Cochard H (2009) Hydraulic failure defines the recovery and point of death in water-stressed conifers. <i>Plant Physiology</i> 149: 575 to 584."],
+["urli2013","Urli M, Porté AJ, Cochard H, Guengant Y, Burlett R, Delzon S (2013) Xylem embolism threshold for catastrophic hydraulic failure in angiosperm trees. <i>Tree Physiology</i> 33: 672 to 683."],
+["sperry1988","Sperry JS, Tyree MT (1988) Mechanism of water stress-induced xylem embolism. <i>Plant Physiology</i> 88: 581 to 587."],
+["brodersen2010","Brodersen CR, McElrone AJ, Choat B, Matthews MA, Shackel KA (2010) The dynamics of embolism repair in xylem: in vivo visualizations using high-resolution computed tomography. <i>Plant Physiology</i> 154: 1088 to 1095."],
+["brodersen2013","Brodersen CR, McElrone AJ, Choat B, Lee EF, Shackel KA, Matthews MA (2013) In vivo visualizations of drought-induced embolism spread in <i>Vitis vinifera</i>. <i>Plant Physiology</i> 161: 1820 to 1829."],
+["choat2010","Choat B, Drayton WM, Brodersen C, Matthews MA, Shackel KA, Wada H, McElrone AJ (2010) Measurement of vulnerability to water stress-induced cavitation in grapevine: a comparison of four techniques applied to a long-vesseled species. <i>Plant, Cell &amp; Environment</i> 33: 1502 to 1512."],
+["cochard2013","Cochard H, Badel E, Herbette S, Delzon S, Choat B, Jansen S (2013) Methods for measuring plant vulnerability to cavitation: a critical review. <i>Journal of Experimental Botany</i> 64: 4779 to 4791."],
+["torresruiz2015","Torres-Ruiz JM, Jansen S, Choat B, et al., Delzon S (2015) Direct X-ray microtomography observation confirms the induction of embolism upon xylem cutting under tension. <i>Plant Physiology</i> 167: 40 to 43."],
+["lens2016","Lens F, Picon-Cochard C, Delmas CEL, et al. (2016) Herbaceous angiosperms are not more vulnerable to drought-induced embolism than angiosperm trees. <i>Plant Physiology</i> 172: 661 to 667."],
+["vanleeuwen2009","van Leeuwen C, Tregoat O, Choné X, et al. (2009) Vine water status is a key factor in grape ripening and vintage quality for red Bordeaux wine. How can it be assessed for vineyard management purposes? <i>J Int Sci Vigne Vin</i> (now <i>OENO One</i>) 43: 121 to 134. doi:10.20870/oeno-one.2009.43.3.798. Stem water potential classes as cited by Myburgh &amp; Howell (2022) <i>S Afr J Enol Vitic</i> 43: 96 to 102."],
 ["mcelrone2013","McElrone AJ, Choat B, Gambetta GA, Brodersen CR (2013) Water uptake and transport in vascular plants. <i>Nature Education Knowledge</i> 4(5): 6."],
-["pittermann2005","Pittermann J, Sperry JS, Hacke UG, Wheeler JK, Sikkema EH (2005) Torus-margo pits help conifers compete with angiosperms. <i>Science</i> 310: 1924. <b>Caveat:</b> the page number was not independently verified in this build; authors, year, journal and volume were. Used on the enrichment page for pit architecture, aspiration and the safety-versus-conductivity trade-off <span class=\"badge\">SECONDARY</span>."],
-["wheeler2005","Wheeler JK, Sperry JS, Hacke UG, Hoang N (2005) Inter-vessel pitting and cavitation in woody Rosaceae and other vesselled plants: a basis for a safety versus efficiency trade-off in xylem transport. <i>Plant, Cell &amp; Environment</i> 28: 800–812. The rare pit idea: vulnerability scales with total inter-vessel pit membrane area per vessel."],
-["christman2009","Christman MA, Sperry JS, Adler FR (2009) Testing the 'rare pit' hypothesis for xylem cavitation resistance in three species of <i>Acer</i>. <i>New Phytologist</i> 182: 664–674."],
-["alvarez2022","Álvarez-Maldini C, Acevedo M, Estay D, et al. (2022) Vulnerability to xylem embolism in almond (<i>Prunus dulcis</i>) cultivars. <i>Frontiers in Plant Science</i> 13: 974050. Air injection: 'Avijor' stem P<sub>50</sub> −2.97 MPa, 'Isabelona' −3.80 MPa."],
-["paudel2020","Paudel I, Bar-Tal A, Levy GJ, Rotbart N, Ephrath JE, Cohen S (2020) Treated wastewater irrigation and native embolism in almond. <i>Tree Physiology</i> 40: 454–466. Field shoot P<sub>50</sub> −2.3 MPa from native embolism."],
-["andrade2024","Andrade MT, Oliveira LA, Pereira TS, et al. (2024) Leaf xylem embolism resistance in tomato. <i>Physiologia Plantarum</i> 176: e14408. Optical vulnerability, wild-type leaf P<sub>50</sub> −1.14 MPa."],
-["schell2025","Schell J, et al. (2025) Leaf embolism resistance across soybean cultivars. <i>Plant, Cell &amp; Environment</i> 49: 4027. Optical vulnerability, mean leaf P<sub>50</sub> −1.85 MPa across 10 cultivars."],
-["pratt2020","Pratt RB, Castro V, Fickle JC, Jacobsen AL (2020) Embolism resistance of different aged stems of a California oak species (<i>Quercus douglasii</i>): optical and microCT methods differ from the benchtop dehydration standard. <i>Tree Physiology</i> 40: 5–18. One-year-old stems: benchtop dehydration P<sub>50</sub> −3.22, optical −5.60, microCT −6.46 MPa; across stem ages and methods the reported P<sub>50</sub> spans −2.19 to −6.46 MPa."],
-["laughlin2020","Laughlin DC, Delzon S, Clearwater MJ, Bellingham PJ, McGlone MS, Richardson SJ (2020) Climatic limits of temperate rainforest tree species are explained by xylem embolism resistance among angiosperms but not among conifers. <i>New Phytologist</i> 226: 727\u2013740. Turgor loss point and stem P<sub>50</sub> were uncorrelated across 55 tree species."],
-["moreno2024","Moreno M, Simioni G, Cailleret M, et al. (2024) Long-term rainfall exclusion shifts both the turgor loss point and stem embolism resistance in <i>Quercus ilex</i>. <i>Plant, Cell &amp; Environment</i> 47: 4741\u20134757. The counter-case to Laughlin et al. 2020: co-acclimation of two traits under one treatment."],
-["jones1978","Jones MM, Turner NC (1978) Osmotic adjustment in leaves of sorghum in response to water deficits. <i>Plant Physiology</i> 61: 122\u2013126. 0.9 MPa of adjustment at predawn \u03a8 \u22121.6 MPa; turgor exceeded the control by 0.5 to 0.65 MPa."],
-["schultz2003","Schultz HR (2003) Differences in hydraulic architecture account for near-isohydric and anisohydric behaviour of two field-grown <i>Vitis vinifera</i> L. cultivars during drought. <i>Plant, Cell &amp; Environment</i> 26: 1393\u20131405. Grenache g<sub>s,max</sub> 0.213 mol m\u207b\u00b2 s\u207b\u00b9 as the fitted intercept at predawn \u03a8 = 0."],
-["hernandez2023","Hern\u00e1ndez-Santana V, Perez-Arcoiza A, Gomez-Jimenez MC, Diaz-Espejo A (2023) Disentangling the link between leaf photosynthesis and turgor in fruit growth. <i>Journal of Experimental Botany</i> 74: 4597\u20134612. Orchard midday almond g<sub>s,max</sub> 0.27 mol m\u207b\u00b2 s\u207b\u00b9."],
-["buckley2015pce","Buckley TN (2015) The contributions of apoplastic, symplastic and gas phase pathways for water transport outside the bundle sheath in leaves. <i>Plant, Cell &amp; Environment</i> 38: 7\u201322. doi:10.1111/pce.12372. The parallel-pathway argument: two routes sharing a potential gradient have almost nothing driving a phase change along the shared path, so evaporation piles up at the ends."],
-["buckley2015pp","Buckley TN, John GP, Scoffoni C, Sack L (2015) How does leaf anatomy influence water transport outside the xylem? <i>Plant Physiology</i> 168: 1616\u20131635. doi:10.1104/pp.15.00731. Model output for 14 species: the gas-phase share of K<sub>ox</sub> rises from 16 % to 65 % as the internal temperature gradient goes from 0 to 0.2 \u00b0C; apoplastic bulk flow 68 %, transmembrane 19 %; three evaporation sites, the bundle sheath, the upper spongy mesophyll and the surfaces immediately adjacent to open stomata."],
-["rockwell2014","Rockwell FE, Holbrook NM, Stroock AD (2014) The competition between liquid and vapor transport in transpiring leaves. <i>Plant Physiology</i> 164: 1741\u20131758. doi:10.1104/pp.114.236323."],
-["cernusak2024","Cernusak LA, Wong SC, Stuart-Williams H, M\u00e1rquez DA, Pontarin N, Farquhar GD (2024) Unsaturation in the air spaces of leaves and its implications. <i>Plant, Cell &amp; Environment</i> 47: 3685\u20133698. doi:10.1111/pce.15001. Open access (CC BY)."],
-["buckleysack2019","Buckley TN, Sack L (2019) The humidity inside leaves and why you should care: implications of unsaturation of leaf intercellular airspaces. <i>American Journal of Botany</i> 106: 618\u2013621. doi:10.1002/ajb2.1282. \"we cannot yet embrace as fact the conclusion that the leaf airspaces are unsaturated.\""],
-["rockwell2024","Rockwell FE (2024) Shorting the metaphorical circuit: vascular partitioning and stomatal patchiness can create apparent unsaturation and CO<sub>2</sub> gradient inversion in the Ohmic analogy for leaf gas exchange. <i>New Phytologist</i> 244: 1812\u20131823. doi:10.1111/nph.20106."],
-["blatt2026","Blatt MR, Hills A, Lawson T, Magill J (2026) Cell wall water shields stomata against falling leaf airspace humidity. <i>New Phytologist</i> 250: 861\u2013872. doi:10.1111/nph.70998."],
-["scoffoni2023","Scoffoni C, Albuquerque C, Buckley TN, Sack L (2023) The dynamic multi-functionality of leaf water transport outside the xylem. <i>New Phytologist</i> 239: 2099\u20132107. Tansley insight (review). doi:10.1111/nph.19069. Open access (CC BY). Table 1 compiles 11 studies of 34 species: outside-xylem or leaf hydraulic conductance declined 9 to 99 %, 66 % on average, before the leaf xylem lost 12 % of its conductance (P<sub>12</sub>) or vein embolism began (P<sub>e</sub>). Grapevine cv. Cabernet Sauvignon: 95 % decline before \u22121.3 MPa; cv. Chardonnay: 95 % before \u22121.2 MPa (evaporative flux method and microCT; Albuquerque et al. 2020 <i>J Exp Bot</i> 71: 7286)."],
-["tyree1980","Tyree MT, Yianoulis P (1980) The site of water evaporation from sub-stomatal cavities, liquid path resistances and hydroactive stomatal closure. <i>Annals of Botany</i> 46: 175\u2013193."],
-["knipfer2016","Knipfer T, Cuneo IF, Brodersen CR, McElrone AJ (2016) In situ visualization of the dynamics in xylem embolism formation and removal in the absence of root pressure: a study on excised grapevine stems. <i>Plant Physiology</i> 171: 1024\u20131036. doi:10.1104/pp.16.00136. Refilling half-time 1.6 h and more than 90 % of vessels in 10 h; PEG slowed it to 7.4 h, so the driver is osmotic rather than root pressure."],
-["knipfer2015","Knipfer T, Eustis A, Brodersen CR, Walker AM, McElrone AJ (2015) Grapevine species from varied native habitats exhibit differences in embolism formation/repair associated with leaf gas exchange and root pressure. <i>Plant, Cell &amp; Environment</i> 38: 1503\u20131513. doi:10.1111/pce.12497. Repair was rapid in <i>V. riparia</i> and <i>V. arizonica</i> and negligible in <i>V. champinii</i> even after days."],
-["bourbia2024","Bourbia I, Brodribb TJ (2024) Stomatal response to VPD is not triggered by changes in soil\u2013leaf hydraulic conductance in <i>Arabidopsis</i> or <i>Callitris</i>. <i>New Phytologist</i> 242: 444\u2013452. doi:10.1111/nph.19607. Open access (CC BY-NC-ND). Continuous leaf water potential in intact, transpiring <i>Arabidopsis</i> and <i>Callitris</i> with an optical dendrometer: canopy conductance fell substantially as VPD rose while soil-to-leaf conductance stayed stable. The counter-case to outside-xylem dominance, and measured on intact rather than excised material."],
-["willson2008","Willson CJ, Manos PS, Jackson RB (2008) Hydraulic traits are influenced by phylogenetic history in the drought-resistant, invasive genus <i>Juniperus</i> (Cupressaceae). <i>American Journal of Botany</i> 95: 299–314. <i>Juniperus virginiana</i> stem P<sub>50</sub> −5.8 MPa by centrifuge."]
+["pittermann2005","Pittermann J, Sperry JS, Hacke UG, Wheeler JK, Sikkema EH (2005) Torus-margo pits help conifers compete with angiosperms. <i>Science</i> 310: 1924. doi:10.1126/science.1120479. Used on the enrichment page for pit architecture, aspiration and the safety-versus-conductivity trade-off <span class=\"badge\">SECONDARY</span>."],
+["wheeler2005","Wheeler JK, Sperry JS, Hacke UG, Hoang N (2005) Inter-vessel pitting and cavitation in woody Rosaceae and other vesselled plants: a basis for a safety versus efficiency trade-off in xylem transport. <i>Plant, Cell &amp; Environment</i> 28: 800 to 812. The rare pit idea: vulnerability scales with total inter-vessel pit membrane area per vessel."],
+["christman2009","Christman MA, Sperry JS, Adler FR (2009) Testing the 'rare pit' hypothesis for xylem cavitation resistance in three species of <i>Acer</i>. <i>New Phytologist</i> 182: 664 to 674."],
+["alvarez2022","Álvarez-Maldini C, Acevedo M, Estay D, et al. (2022) Examining physiological, water relations, and hydraulic vulnerability traits to determine anisohydric and isohydric behavior in almond (<i>Prunus dulcis</i>) cultivars: implications for selecting agronomic cultivars under changing climate. <i>Frontiers in Plant Science</i> 13: 974050. doi:10.3389/fpls.2022.974050. Air injection: 'Avijor' stem P<sub>50</sub> −2.97 MPa, 'Isabelona' −3.80 MPa."],
+["paudel2020","Paudel I, Gerbi H, Wagner Y, Zisovich A, Sapir G, Brumfeld V, Klein T (2020) Drought tolerance of wild versus cultivated tree species of almond and plum in the field. <i>Tree Physiology</i> 40: 454 to 466. doi:10.1093/treephys/tpz134. Field shoot P<sub>50</sub> −2.3 MPa from native embolism."],
+["andrade2024","Andrade MT, Cardoso AA, Oliveira LA, et al., Martins SCV (2024) Enhanced drought resistance in tomato via reduced auxin sensitivity: delayed dehydration and improved leaf resistance to embolism. <i>Physiologia Plantarum</i> 176: e14408. doi:10.1111/ppl.14408. Optical vulnerability, wild-type leaf P<sub>50</sub> −1.14 MPa."],
+["schell2025","Schell V, Kervro\u00ebdan L, Corso D, N\u2019do DY, Faucon M-P, Delzon S (2025, online 15 April 2025; print issue 49(7), 2026) Greater resistance to drought-induced embolism is linked to higher yield maintenance in soybean. <i>Plant, Cell &amp; Environment</i> 49: 4027 to 4040. doi:10.1111/pce.15538. Optical vulnerability, mean leaf P<sub>50</sub> −1.85 MPa across 10 cultivars."],
+["pratt2020","Pratt RB, Castro V, Fickle JC, Jacobsen AL (2020) Embolism resistance of different aged stems of a California oak species (<i>Quercus douglasii</i>): optical and microCT methods differ from the benchtop dehydration standard. <i>Tree Physiology</i> 40: 5 to 18. One-year-old stems: benchtop dehydration P<sub>50</sub> −3.22, optical −5.60, microCT −6.46 MPa; across stem ages and methods the reported P<sub>50</sub> spans −2.19 to −6.46 MPa."],
+["laughlin2020","Laughlin DC, Delzon S, Clearwater MJ, Bellingham PJ, McGlone MS, Richardson SJ (2020) Climatic limits of temperate rainforest tree species are explained by xylem embolism resistance among angiosperms but not among conifers. <i>New Phytologist</i> 226: 727 to 740. Turgor loss point and stem P<sub>50</sub> were uncorrelated across 55 tree species."],
+["moreno2024","Moreno M, Limousin J-M, Simioni G, et al., Martin-StPaul N (2024) Hydraulic plasticity and water use regulation act to maintain the hydraulic safety margins of Mediterranean trees in rainfall exclusion experiments. <i>Plant, Cell &amp; Environment</i> 47: 4741 to 4753. doi:10.1111/pce.15066. The counter-case to Laughlin et al. 2020: co-acclimation of two traits under one treatment."],
+["jones1978","Jones MM, Turner NC (1978) Osmotic adjustment in leaves of sorghum in response to water deficits. <i>Plant Physiology</i> 61: 122 to 126. 0.9 MPa of adjustment at predawn \u03a8 \u22121.6 MPa; turgor exceeded the control by 0.5 to 0.65 MPa."],
+["schultz2003","Schultz HR (2003) Differences in hydraulic architecture account for near-isohydric and anisohydric behaviour of two field-grown <i>Vitis vinifera</i> L. cultivars during drought. <i>Plant, Cell &amp; Environment</i> 26: 1393 to 1405. Grenache g<sub>s,max</sub> 0.213 mol m\u207b\u00b2 s\u207b\u00b9 as the fitted intercept at predawn \u03a8 = 0."],
+["hernandez2023","Hern\u00e1ndez-Santana V, Rodriguez-Dominguez CM, Sebastian-Azcona J, Perez-Romero LF, Diaz-Espejo A (2023) Role of hydraulic traits in stomatal regulation of transpiration under different vapour pressure deficits across five Mediterranean tree crops. <i>Journal of Experimental Botany</i> 74: 4597 to 4612. doi:10.1093/jxb/erad157. Orchard midday almond g<sub>s,max</sub> 0.27 mol m\u207b\u00b2 s\u207b\u00b9."],
+["buckley2015pce","Buckley TN (2015) The contributions of apoplastic, symplastic and gas phase pathways for water transport outside the bundle sheath in leaves. <i>Plant, Cell &amp; Environment</i> 38: 7 to 22. doi:10.1111/pce.12372. The parallel-pathway argument: two routes sharing a potential gradient have almost nothing driving a phase change along the shared path, so evaporation piles up at the ends."],
+["buckley2015pp","Buckley TN, John GP, Scoffoni C, Sack L (2015) How does leaf anatomy influence water transport outside the xylem? <i>Plant Physiology</i> 168: 1616 to 1635. doi:10.1104/pp.15.00731. Model output for 14 species: the gas-phase share of K<sub>ox</sub> rises from 16 % to 65 % as the internal temperature gradient goes from 0 to 0.2 \u00b0C; apoplastic bulk flow 68 %, transmembrane 19 %; three evaporation sites, the bundle sheath, the upper spongy mesophyll and the surfaces immediately adjacent to open stomata."],
+["rockwell2014","Rockwell FE, Holbrook NM, Stroock AD (2014) The competition between liquid and vapor transport in transpiring leaves. <i>Plant Physiology</i> 164: 1741 to 1758. doi:10.1104/pp.114.236323."],
+["cernusak2024","Cernusak LA, Wong SC, Stuart-Williams H, M\u00e1rquez DA, Pontarin N, Farquhar GD (2024) Unsaturation in the air spaces of leaves and its implications. <i>Plant, Cell &amp; Environment</i> 47: 3685 to 3698. doi:10.1111/pce.15001. Open access (CC BY)."],
+["buckleysack2019","Buckley TN, Sack L (2019) The humidity inside leaves and why you should care: implications of unsaturation of leaf intercellular airspaces. <i>American Journal of Botany</i> 106: 618 to 621. doi:10.1002/ajb2.1282. \"we cannot yet embrace as fact the conclusion that the leaf airspaces are unsaturated.\""],
+["rockwell2024","Rockwell FE (2024) Shorting the metaphorical circuit: vascular partitioning and stomatal patchiness can create apparent unsaturation and CO<sub>2</sub> gradient inversion in the Ohmic analogy for leaf gas exchange. <i>New Phytologist</i> 244: 1812 to 1823. doi:10.1111/nph.20106."],
+["blatt2026","Blatt MR, Hills A, Lawson T, Magill J (2026) Cell wall water shields stomata against falling leaf airspace humidity. <i>New Phytologist</i> 250: 861 to 872. doi:10.1111/nph.70998."],
+["scoffoni2023","Scoffoni C, Albuquerque C, Buckley TN, Sack L (2023) The dynamic multi-functionality of leaf water transport outside the xylem. <i>New Phytologist</i> 239: 2099 to 2107. Tansley insight (review). doi:10.1111/nph.19069. Open access (CC BY). Table 1 compiles 11 studies of 34 species: outside-xylem or leaf hydraulic conductance declined 9 to 99 %, 66 % on average, before the leaf xylem lost 12 % of its conductance (P<sub>12</sub>) or vein embolism began (P<sub>e</sub>). Grapevine cv. Cabernet Sauvignon: 95 % decline before \u22121.3 MPa; cv. Chardonnay: 95 % before \u22121.2 MPa (evaporative flux method and microCT; Albuquerque et al. 2020 <i>J Exp Bot</i> 71: 7286)."],
+["tyree1980","Tyree MT, Yianoulis P (1980) The site of water evaporation from sub-stomatal cavities, liquid path resistances and hydroactive stomatal closure. <i>Annals of Botany</i> 46: 175 to 193."],
+["knipfer2016","Knipfer T, Cuneo IF, Brodersen CR, McElrone AJ (2016) In situ visualization of the dynamics in xylem embolism formation and removal in the absence of root pressure: a study on excised grapevine stems. <i>Plant Physiology</i> 171: 1024 to 1036. doi:10.1104/pp.16.00136. Rehydrated excised stems refilled rapidly (under 1 h, abstract); PEG slowed refilling substantially, so the driver is osmotic rather than root pressure."],
+["knipfer2015","Knipfer T, Eustis A, Brodersen CR, Walker AM, McElrone AJ (2015) Grapevine species from varied native habitats exhibit differences in embolism formation/repair associated with leaf gas exchange and root pressure. <i>Plant, Cell &amp; Environment</i> 38: 1503 to 1513. doi:10.1111/pce.12497. Repair was rapid in <i>V. riparia</i> and <i>V. arizonica</i> and negligible in <i>V. champinii</i> even after days."],
+["bourbia2024","Bourbia I, Brodribb TJ (2024) Stomatal response to VPD is not triggered by changes in soil-leaf hydraulic conductance in <i>Arabidopsis</i> or <i>Callitris</i>. <i>New Phytologist</i> 242: 444 to 452. doi:10.1111/nph.19607. Open access (CC BY-NC-ND). Continuous leaf water potential in intact, transpiring <i>Arabidopsis</i> and <i>Callitris</i> with an optical dendrometer: canopy conductance fell substantially as VPD rose while soil-to-leaf conductance stayed stable. The counter-case to outside-xylem dominance, and measured on intact rather than excised material."],
+["willson2008","Willson CJ, Manos PS, Jackson RB (2008) Hydraulic traits are influenced by phylogenetic history in the drought-resistant, invasive genus <i>Juniperus</i> (Cupressaceae). <i>American Journal of Botany</i> 95: 299 to 314. <i>Juniperus virginiana</i> stem P<sub>50</sub> −5.8 MPa by centrifuge."],
+["richards1944","Richards LA, Weaver LR (1944) Moisture retention by some irrigated soils as related to soil-moisture tension. <i>Journal of Agricultural Research</i> 69: 215 to 235. Received 1943, published 1944. For 64 of 71 soils the 15-atmosphere (\u22121.5 MPa) water content fell within the range between first permanent wilting and ultimate wilting of sunflower. The origin of \u22121.5 MPa as the conventional wilting point."],
+["charrier2018","Charrier G, Delzon S, Domec J-C, Zhang L, Delmas CEL, Merlin I, Corso D, King A, Ojeda H, Ollat N, Prieto JA, Scholach T, Skinner P, van Leeuwen C, Gambetta GA (2018) Drought will not leave your glass empty: low risk of hydraulic failure revealed by long-term drought observations in world\u2019s top wine regions. <i>Science Advances</i> 4: eaao6969. doi:10.1126/sciadv.aao6969. Four-year-old plants, Cavitron: stem \u03a8<sub>50</sub> shifted from \u22122.07 \u00b1 0.08 MPa in July to \u22122.82 \u00b1 0.03 MPa in September."],
+["jain2021","Jain P, Liu W, Zhu S, Chang CY-Y, Melkonian J, Rockwell FE, Pauli D, Sun Y, Zipfel WR, Holbrook NM, Riha SJ, Gore MA, Stroock AD (2021) A minimally disruptive method for measuring water potential in planta using hydrogel nanoreporters. <i>Proceedings of the National Academy of Sciences USA</i> 118: e2008276118. doi:10.1073/pnas.2008276118. AquaDust, a hydrogel nanoreporter read by fluorescence, designed for the physiological range of about 0 to \u22123 MPa, tested in maize leaves."],
+["wong2022","Wong SC, Canny MJ, Holloway-Phillips M, Stuart-Williams H, Cernusak LA, M\u00e1rquez DA, Farquhar GD (2022) Humidity gradients in the air spaces of leaves. <i>Nature Plants</i> 8: 971 to 978. doi:10.1038/s41477-022-01202-1. Relative humidity in the substomatal cavities estimated at about 97 % under a mild leaf to air humidity difference and as low as about 80 % under a large one."]
 ];
-/* The Water Path · BIO 332 · diel.js
+/* The Water Path · diel.js
    "A day in the life of two plants": 24 h model of VPD, stomata, leaf water
    potential, turgor and Lockhart growth for two plants in the same soil.
    MODEL OUTPUT, NOT DATA. Every constant is listed in result.constants with
@@ -114,9 +127,9 @@ C.CAP.v=C.TAU.v*C.KMAX.v*3600;
 
 var SITES={
   salinas:{name:"Salinas (Municipal Airport)",lat:36.664,lon:-121.608,Tmax:21.5,Tmin:12.8,Tdew:12.8,
-    src:"July 1991-2020 normals 70.7/55.0 degF (NOAA via Wikipedia climate box; MEDIUM). Dew point = Tmin by FAO-56 Eq. 48 (no RH normals for Salinas): ESTIMATE; replace with CIMIS #116 e_a"},
+    src:"July 1991 to 2020 normals 70.7/55.0 degF (NOAA via Wikipedia climate box; MEDIUM). Dew point = Tmin by FAO-56 Eq. 48 (no RH normals for Salinas): ESTIMATE; replace with CIMIS #116 e_a"},
   fresno:{name:"Fresno (FAT)",lat:36.776,lon:-119.719,Tmax:36.5,Tmin:20.7,Tdew:10.6,
-    src:"July 1991-2020 normals 97.7/69.3 degF (NWS Hanford fat07nrm). Dew point 10.6 degC from July afternoon RH 21 % at Tmax (NOAA CCD relhum18; MEDIUM)"}
+    src:"July 1991 to 2020 normals 97.7/69.3 degF (NWS Hanford fat07nrm). Dew point 10.6 degC from July afternoon RH 21 % at Tmax (NOAA CCD relhum18; MEDIUM)"}
 };
 
 /* ---------- sun: NOAA general solar position equations ---------- */
@@ -141,7 +154,7 @@ function makeT(site,S){var a=C.PL_A.v,b=C.PL_B.v,c=C.PL_C.v, tmin0=S.sunrise+c, 
     return (site.Tmin-Tsn*eb+(Tsn-site.Tmin)*Math.exp(-b*n/Z))/(1-eb)}}
 
 /* wx, when given, overrides the site's own air: {Tmax, Tmin, ea, lightScale, name}.
-   Used by the day-scene figure so a student can set temperature and humidity
+   Used by the day-scene figure so a user can set temperature and humidity
    directly instead of picking one of two towns. ea must already be in kPa;
    field.js computes it from the two humidities by FAO-56 Eq. 17. */
 function weather(siteKey,wx){var base=SITES[siteKey]||SITES.salinas;
@@ -275,7 +288,7 @@ var API={run:run,runCustom:runCustom,caveats:CAVEATS,constants:constants,sites:S
 if(typeof window!=="undefined")window.WP_DIEL=API;
 if(typeof module!=="undefined")module.exports=API;
 })();
-/* The Water Path · BIO 332 · field.js
+/* The Water Path · field.js
    "A season in one field": multi-day dry-down, irrigation, weather and osmotic
    adjustment, built on the single-day machinery in diel.js.
 
@@ -304,7 +317,7 @@ function eaOf(Tmax,Tmin,RHmax,RHmin){return (es(Tmin)*RHmax/100 + es(Tmax)*RHmin
 function esDay(Tmax,Tmin){return (es(Tmax)+es(Tmin))/2}
 
 /* ---------- three day types ---------- */
-/* Tmax/Tmin are anchored to NOAA 1991-2020 normals for Salinas Municipal Airport
+/* Tmax/Tmin are anchored to NOAA 1991 to 2020 normals for Salinas Municipal Airport
    (coastal) and King City (inland). RHmax/RHmin are NOT measured: no station RH
    normals were found for any Salinas Valley site, and CIMIS daily records could
    not be retrieved. They are stated assumptions, flagged ILLUSTRATIVE, and every
@@ -316,13 +329,13 @@ var DAYS={
     src:"Tmax/Tmin: a marine-layer day at the cool end of the Salinas Municipal July normals (21.5/12.8 degC). RH and the 45 % light reduction are ILLUSTRATIVE: no station RH or solar normals were found for Salinas."},
   clear:{key:"clear",name:"Clear day",where:"coastal, normal summer",
     Tmax:22,Tmin:12,RHmax:95,RHmin:55,lightScale:1.0,
-    src:"Salinas Municipal Airport July 1991-2020 normals, 21.5/12.8 degC (NOAA). RH ILLUSTRATIVE."},
+    src:"Salinas Municipal Airport July 1991 to 2020 normals, 21.5/12.8 degC (NOAA). RH ILLUSTRATIVE."},
   hot:{key:"hot",name:"Hot, dry day",where:"inland, King City end of the valley",
     Tmax:35,Tmin:13,RHmax:75,RHmin:15,lightScale:1.0,
-    src:"King City July 1991-2020 normals are 29.4/12.1 degC (NOAA); 35 degC is a heat-event day, not a normal. RH ILLUSTRATIVE."}
+    src:"King City July 1991 to 2020 normals are 29.4/12.1 degC (NOAA); 35 degC is a heat-event day, not a normal. RH ILLUSTRATIVE."}
 };
 /* finish a day: everything below follows from the four numbers above by FAO-56
-   arithmetic, so a day the student builds with the sliders is computed exactly
+   arithmetic, so a day the user builds with the sliders is computed exactly
    the same way as the three presets. */
 function finishDay(d){
   d.ea = eaOf(d.Tmax,d.Tmin,d.RHmax,d.RHmin);
@@ -385,28 +398,28 @@ Object.keys(SOILS).forEach(function(k){var s=SOILS[k];
    stomata. That is the point of the figure. */
 var SPECIES={
   grape:{key:"grape",name:"Grapevine",
-    po:-1.23, eps:10, P50:-1.73, slope:98, gmax:0.213, LAI:1.5, rootDepth:1.0,
+    po:-1.23, eps:10, P50:-1.73, slope:98.4, gmax:0.213, LAI:1.5, rootDepth:1.0,
     poSrc:"pi_o -1.23 MPa, well-watered leaves: Farolfi et al. 2025 Plant J 124(3), Table 1. MEASURED",
     epsSrc:"epsilon 10 MPa: ILLUSTRATIVE. No measured bulk modulus was found for this material",
-    p50Src:"stem P50 -1.73 MPa by microCT on intact plants: Charrier et al. 2016 Plant Physiol 172:1657. MEASURED. METHOD-CONSISTENT: the P50 and the P12 this curve is pinned to are both imaging numbers",
-    slopeSrc:"slope 98 %/MPa is DERIVED: chosen so P12 = P50 + 49.81/s = -1.22 MPa, which reproduces Charrier's microCT-measured stem air-entry pressure of -1.221 MPa AND this lab's microCT onset of -1.2 MPa. Two labs, the same method, one threshold. Compare the almond curve, which is spliced across two methods",
+    p50Src:"stem P50 -1.73 MPa (-1.729) by microCT on intact plants: Charrier et al. 2016 Plant Physiol 172:1657, Table I. MEASURED. METHOD-CONSISTENT: the P50 and the slope come from the same fitted imaging curve",
+    slopeSrc:"slope 98.4 % per MPa: Charrier et al. 2016 Plant Physiol 172:1657, Table I, the fitted stem curve. MEASURED fit. The resulting P12, -1.22 MPa, matches Charrier's air-entry pressure (Psi e), which they calculated from the same fit, so the match is expected, not independent. Compare the almond curve, whose slope is not measured",
     gmaxSrc:"g_s,max 0.213 mol m-2 s-1: Schultz 2003 Plant Cell Environ 26:1393, Grenache fitted intercept at Psi_PD = 0. MEASURED",
-    note:"This lab's measured embolism onset for grapevine stem is -1.2 MPa."},
+    note:"Stem curve parameters from Charrier et al. 2016 Table I."},
   almond:{key:"almond",name:"Almond",
-    po:-1.52, eps:12.91, P50:-2.97, slope:43, gmax:0.27, LAI:2.5, rootDepth:1.2,
+    po:-1.52, eps:12.91, P50:-2.97, slope:50, gmax:0.27, LAI:2.5, rootDepth:1.2,
     poSrc:"pi_o -1.52 MPa (published as +1.52 osmotic pressure; sign inverted for water potential), cv. Avijor: Alvarez-Maldini et al. 2022 Front Plant Sci 13:974050. MEASURED",
     epsSrc:"epsilon 12.91 MPa, cv. Avijor: Alvarez-Maldini et al. 2022. MEASURED",
-    p50Src:"stem P50 -2.97 MPa [-2.53, -3.46], cv. Avijor, by AIR INJECTION (double-ended pressure sleeve): Alvarez-Maldini et al. 2022. MEASURED, but by a different method from the P12 this curve is pinned to. METHOD-MIXED",
-    slopeSrc:"slope 43 %/MPa is METHOD-MIXED, not a measurement: it is chosen so P12 = -1.80 MPa, this lab's microCT onset, while P50 comes from air injection on a different cultivar. The two methods do not agree in general (blue oak: -3.22 benchtop, -5.60 optical, -6.46 microCT, Pratt et al. 2020), so the slope between them is an artefact of the splice",
+    p50Src:"stem P50 -2.97 MPa [-2.53, -3.46], cv. Avijor, by AIR INJECTION (double-ended pressure sleeve), Weibull fit: Alvarez-Maldini et al. 2022 Front Plant Sci 13:974050, Table 2. MEASURED. The paper reports P50 only, not the slope",
+    slopeSrc:"slope 50 % per MPa is ILLUSTRATIVE: no published slope was found for this almond curve, so a round value is used. It sets P12 and P88 (P50 +/- 49.81/s), so the almond P12 and P88 shown here are not measurements",
     gmaxSrc:"g_s,max 0.27 mol m-2 s-1, orchard midday: Hernandez-Santana et al. 2023 J Exp Bot 74:4597. MEASURED",
-    note:"This lab's measured embolism onset for almond stem is -1.8 MPa. Published turgor loss point for cv. Avijor is -2.01 MPa."}
+    note:"Published turgor loss point for cv. Avijor is -2.01 MPa (Alvarez-Maldini et al. 2022 Table 2)."}
 };
 
 /* ---------- osmotic adjustment presets, all measured ---------- */
 var OA=[
   {v:0.00,label:"None",                     src:"a hypothetical control. Almost every grapevine studied adjusts through the season"},
-  {v:0.03,label:"Grapevine, drought",       src:"0.03 MPa, NOT SIGNIFICANT (well-watered -1.23 +/- 0.02 vs water-deficit -1.26 +/- 0.04): Farolfi et al. 2025 Plant J 124(3), Table 1. MEASURED"},
-  {v:0.35,label:"Grapevine, over a season", src:"0.29 to 0.43 MPa across three experiments, P < 0.001: Farolfi et al. 2025. Roughly ten times the drought response, and its rate did not differ between watered and droughted vines. MEASURED"},
+  {v:0.03,label:"Grapevine, drought",       src:"0.03 MPa, NOT SIGNIFICANT, greenhouse 2022 (well-watered -1.23 +/- 0.02 vs water-deficit -1.26 +/- 0.04): Farolfi et al. 2025 Plant J 124(3), Table 1. In the 2023 greenhouse run the deficit shift was 0.07 to 0.09 MPa (P < 0.001); over the whole season at most 0.10 MPa. MEASURED"},
+  {v:0.35,label:"Grapevine, over a season", src:"0.29 to 0.43 MPa across three experiments (greenhouse 2022: -0.79 to -1.22; greenhouse 2023: -1.01 to -1.30; potted vines outdoors: -1.23 to -1.57 MPa), effect of days after budbreak P < 0.001: Farolfi et al. 2025 Plant J 124(3), Results and Table 2. Several times the drought response, and its rate did not differ between watered and droughted vines. DERIVED from MEASURED"},
   {v:0.90,label:"Sorghum, drought",         src:"0.9 MPa at predawn Psi -1.6 MPa; turgor exceeded the control by 0.5 to 0.65 MPa: Jones & Turner 1978 Plant Physiol 61:122. MEASURED. This is what real drought-driven adjustment looks like"}
 ];
 
@@ -505,10 +518,11 @@ function run(o){
 
 var CAVEATS=[
   "This is a model, not a measurement. It shows how the pieces interact. No number on this page was measured on a plant on a day.",
-  "Relative humidity for all three day types is ILLUSTRATIVE. No station RH normals were found for any Salinas Valley site, and CIMIS daily records are behind a keyed API that could not be read. Air temperatures are NOAA 1991-2020 normals; the humidities are assumptions, and every VPD follows from them.",
+  "Relative humidity for all three day types is ILLUSTRATIVE. No station RH normals were found for any Salinas Valley site, and CIMIS daily records are behind a keyed API that could not be read. Air temperatures are NOAA 1991 to 2020 normals; the humidities are assumptions, and every VPD follows from them.",
   "Field capacity is taken at -10 kPa rather than the -33 kPa convention. With the Carsel & Parrish mean parameters and -33 kPa, a sandy loam holds only about 19 mm of plant-available water per metre, against 108 to 142 mm in the USDA measured tables. The two methods disagree by a factor of six in coarse soil. -10 kPa narrows the gap but does not close it. Treat the plant-available water number as a model property, not a soil property.",
   "Almond and grapevine are given the SAME stomatal response to leaf water potential, because the measured closure points nearly coincide (grapevine gs P50 -0.60 MPa, Albuquerque et al. 2020; almond Psi_gs90 -1.72 MPa, Alvarez-Maldini et al. 2022, which sits on the same curve). Everything that separates the two species here comes from the xylem.",
-  "Embolism accumulates here and does not reverse under tension. Refilling in grapevine is real, but not while the xylem is pulled: where xylem pressure stayed negative the change in conductivity loss was 0.02 +/- 0.01 %, while at the base of the plant, where pressure was +0.04 +/- 0.01 MPa, it was -0.24 +/- 0.12 % (Charrier et al. 2016 Plant Physiol 172:1657). Excised stems given water refilled with a half-time of 1.6 h and more than 90 % of vessels in 10 h, and adding PEG slowed that to 7.4 h, so the driver is osmotic rather than root pressure (Knipfer et al. 2016 Plant Physiol 171:1024). It also depends on the rootstock: repair was rapid in V. riparia and V. arizonica and negligible in V. champinii even after days (Knipfer et al. 2015 Plant Cell Environ 38:1503). Night, the base of the plant, after rain. Not midday, not under tension.",
+  "The almond turgor loss point here is computed, not measured. With pi_o -1.52 MPa and epsilon 12.91 MPa (Alvarez-Maldini et al. 2022), the Bartlett equation gives -1.72 MPa; the same paper measured -2.01 MPa from pressure-volume curves. So the almond line loses turgor about 0.3 MPa too early in this model.",
+  "Embolism accumulates here and does not reverse under tension. Refilling in grapevine is real, but in intact vines it was not observed while the xylem stayed under tension: where xylem pressure stayed negative the change in conductivity loss was 0.02 ± 0.01 %, while at the base of the plant, where pressure was +0.04 ± 0.01 MPa, it was −0.24 ± 0.12 % (Charrier et al. 2016 Plant Physiol 172:1657). Excised stems given water refilled within about an hour, and adding PEG slowed refilling substantially, so the driver is osmotic rather than root pressure (Knipfer et al. 2016 Plant Physiol 171:1024). It also depends on the rootstock: repair was rapid in V. riparia and V. arizonica and negligible in V. champinii even after days (Knipfer et al. 2015 Plant Cell Environ 38:1503). Night, the base of the plant, after rain. Whether vessels can refill while the bulk xylem is under tension is still argued: Brodersen et al. 2010 Plant Physiol 154:1088 imaged refilling under bulk tension in vessels hydraulically isolated from their neighbours.",
   "Osmotic adjustment changes pi_o only. It does not move P50 here, and that is deliberate: across 55 tree species, turgor loss point and stem P50 were uncorrelated (Laughlin et al. 2020 New Phytol 226:727). The counter-case is real and worth knowing: in a rainfall-exclusion experiment on Quercus ilex both shifted together (Moreno et al. 2024 Plant Cell Environ 47:4741). That is co-acclimation of two traits, not one causing the other.",
   "Leaf temperature equals air temperature. A sunlit leaf can run several degrees off air, which changes leaf-to-air VPD by tens of percent.",
   "The soil is one well-mixed layer at one water potential. A real root zone dries from the top down and the roots follow the water."
@@ -742,11 +756,150 @@ function scene(o){
 }
 window.WP_PLANT={scene:scene};
 })();
-/* The Water Path · BIO 332 · quiz.js
-   Item bank for #/quiz. Three tiers named by what the student does:
+/* The Water Path · net.js
+   "Dry a stem": a network model of embolism spread in a stylised grapevine stem.
+   Nothing in here is fitted to data. It exists to show one thing: put the three
+   mechanisms from this stop together (air seeding through a pore, the rare pit
+   statistic, and spread only from a gas-filled neighbour) and a vulnerability
+   curve comes out of the plumbing. Nobody typed the curve in.
+
+   Model, in four rules:
+   1. Vessels sit in radial sectors around a pith. Neighbours in the same sector
+      share a large pit field; neighbours across a ray share a small one.
+   2. Each shared pit field has N = area x density pores, drawn from one fixed
+      lognormal pore-size distribution. It leaks at its largest pore, at
+      dP = 4T / Dmax (air seeding). The largest of N draws is computed exactly.
+   3. A water-filled vessel embolises when the tension exceeds the leak pressure
+      of a pit field it shares with a vessel that is already gas-filled.
+   4. Air starts either beside the pith, as imaged, or in any vessel.
+   The pressure at which each vessel fills is then a bottleneck path problem:
+   the smallest, over all paths from a gas source, of the largest leak pressure
+   along the path. Solved exactly with a Dijkstra variant.                    */
+(function(){
+var FOURT=0.2912;                         /* 4T in N m-1; dP (MPa) = 0.2912 / D (um)   */
+var PMED=0.040, PSIG=0.45, PDENS=200;     /* same pore distribution as Fig E.3; ILLUSTRATIVE */
+var S=12, R=6, F=2;                        /* sectors, rings, files per sector            */
+var A_RAD=6, A_TAN=4, A_PITH=6;           /* median areas; each field varies lognormally, sd het *//* pit field areas, mm2, ILLUSTRATIVE          */
+var DMED=48, DSIG=0.33, DMIN=18, DMAX=110; /* vessel diameters, um, ILLUSTRATIVE          */
+var SRC={
+  pores:"Pore-size distribution, pore density and pit-field areas are the invented constants of Fig E.3, chosen to put leak pressures in a plausible range. ILLUSTRATIVE",
+  seeding:"Air seeding, dP = 4T / D with T = 0.0728 N m-1: Sperry & Tyree 1988 Plant Physiol 88: 581. PHYSICS",
+  rarepit:"Leak at the largest of N pores, N growing with pit area: the rare pit hypothesis, Wheeler et al. 2005 Plant Cell Environ 28: 800; Christman et al. 2009 New Phytol 182: 664. SECONDARY",
+  start:"Embolism first seen in vessels surrounding the pith at about −1.2 MPa, spreading radially within sectors and through lateral connections in 16 of 629 connections: Brodersen et al. 2013 Plant Physiol 161: 1820. MEASURED",
+  network:"Network models of this kind: Loepfe et al. 2007 J Theor Biol 247: 788; Mrad et al. 2018 Plant Cell Environ 41: 2718. SECONDARY",
+  plc:"PLC as the share of D^4 in gas-filled vessels, the theoretical conductivity used with microCT by Brodersen et al. 2013. DERIVED"
+};
+var CAVEATS=[
+  "This is a model, not a measurement. Every constant that sets a pressure is invented, so its P50 is a property of the constants, not of grapevine.",
+  "Vessels sit on a grid of 12 sectors, 6 rings and 2 files. Real xylem is not a grid, and real vessels end, overlap and connect along the stem as well as across it. The model is one cross-section with no length.",
+  "Why embolism starts beside the pith is not settled. Brodersen et al. 2013 offered two explanations, repeated stress on the oldest pit membranes and weaker primary xylem walls. This model simply makes the pith side a gas source.",
+  "A vessel here fills instantly and completely. Real conduits can hold gas partially, and a gas-filled vessel does not refill in this model.",
+  "Leak pressure depends only on the largest pore. Pit membrane thickness, chemistry and deflection under pressure, which the newer pit models add, are left out."
+];
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function qnorm(p){p=Math.min(1-1e-15,Math.max(1e-15,p));
+ var a=[-3.969683028665376e1,2.209460984245205e2,-2.759285104469687e2,1.383577518672690e2,-3.066479806614716e1,2.506628277459239],
+     b=[-5.447609879822406e1,1.615858368580409e2,-1.556989798598866e2,6.680131188771972e1,-1.328068155288572e1],
+     c=[-7.784894002430293e-3,-3.223964580411365e-1,-2.400758277161838,-2.549732539343734,4.374664141464968,2.938163982698783],
+     d=[7.784695709041462e-3,3.224671290700398e-1,2.445134137142996,3.754408661907416],pl=0.02425,q,r;
+ if(p<pl){q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+ if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+ q=p-0.5;r=q*q;
+ return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+/* largest of N lognormal draws: F(d)^N = u  ->  d = Finv(u^(1/N)); log form keeps precision */
+function maxPore(N,u){var p=Math.exp(Math.log(u)/N); if(p>=1-1e-15)p=1-1e-15; return PMED*Math.exp(PSIG*qnorm(p))}
+function idx(s,r,f){return (r*S+((s%S)+S)%S)*F+f}
+
+/* opts: {seed, area (x all pit fields), ray (cross-ray area as a fraction of A_TAN), start:"pith"|"any"} */
+function build(opts){
+  var o={seed:opts.seed||1, area:opts.area==null?1:opts.area, ray:opts.ray==null?0.05:opts.ray, start:opts.start||"pith", het:opts.het==null?1.1:opts.het};
+  var rnd=rng(20130401+o.seed*7919), N=S*R*F, V=[], E=[], i, s, r, f;
+  for(r=0;r<R;r++)for(s=0;s<S;s++)for(f=0;f<F;f++){
+    var z=qnorm(Math.min(0.999,Math.max(0.001,rnd())));
+    var D=Math.max(DMIN,Math.min(DMAX,DMED*Math.exp(DSIG*z)*(0.85+0.06*r)));
+    V[idx(s,r,f)]={s:s,r:r,f:f,D:D,adj:[]}}
+  function edge(a,b,area,kind){area*=Math.exp(o.het*qnorm(Math.min(0.999,Math.max(0.001,rnd())))); var n=Math.max(2,Math.round(PDENS*area)), dmax=maxPore(n,rnd());
+    var e={a:a,b:b,area:area,n:n,dmax:dmax,p:FOURT/dmax,kind:kind}; E.push(e);
+    if(a>=0)V[a].adj.push(E.length-1); if(b>=0)V[b].adj.push(E.length-1)}
+  function sz(a,b){return ((V[a].D+V[b].D)/2)/DMED}
+  for(s=0;s<S;s++)for(r=0;r<R;r++){
+    for(f=0;f<F;f++)if(r<R-1)edge(idx(s,r,f),idx(s,r+1,f),A_RAD*o.area*sz(idx(s,r,f),idx(s,r+1,f)),"rad");
+    edge(idx(s,r,0),idx(s,r,1),A_TAN*o.area*sz(idx(s,r,0),idx(s,r,1)),"tan");
+    edge(idx(s,r,1),idx(s+1,r,0),A_TAN*o.area*o.ray*sz(idx(s,r,1),idx(s+1,r,0)),"ray")}
+  /* gas sources: a = -1 */
+  if(o.start==="pith"){for(s=0;s<S;s++)for(f=0;f<F;f++)edge(-1,idx(s,0,f),A_PITH*o.area,"pith")}
+  else{for(i=0;i<N;i++)edge(-1,i,A_PITH*o.area*0.35,"any")}
+  /* bottleneck Dijkstra from the gas source */
+  var P=new Array(N), par=new Array(N), done=new Array(N);
+  for(i=0;i<N;i++){P[i]=Infinity; par[i]=-1; done[i]=false}
+  E.forEach(function(e,k){if(e.a===-1&&e.p<P[e.b]){P[e.b]=e.p; par[e.b]=k}});
+  for(var it=0;it<N;it++){var u=-1,best=Infinity;
+    for(i=0;i<N;i++)if(!done[i]&&P[i]<best){best=P[i];u=i}
+    if(u<0)break; done[u]=true;
+    V[u].adj.forEach(function(k){var e=E[k]; if(e.a===-1)return; var v=e.a===u?e.b:e.a; if(done[v])return;
+      var c=Math.max(P[u],e.p); if(c<P[v]){P[v]=c; par[v]=k}})}
+  var order=[]; for(i=0;i<N;i++)order.push(i); order.sort(function(a,b){return P[a]-P[b]});
+  var t4=0; V.forEach(function(v){t4+=Math.pow(v.D,4)});
+  var curve=[], c4=0, cn=0;
+  order.forEach(function(i){c4+=Math.pow(V[i].D,4); cn++; curve.push([-P[i],100*c4/t4,100*cn/N])});
+  function at(psi){var t=-psi, n=0, a4=0, secs={}, lat=0, i;
+    for(i=0;i<N;i++)if(P[i]<=t){n++; a4+=Math.pow(V[i].D,4); secs[V[i].s]=1; if(par[i]>=0&&E[par[i]].kind==="ray")lat++}
+    return {n:n, plc:100*a4/t4, count:100*n/N, sectors:Object.keys(secs).length, lateral:lat}}
+  function pAt(level,col){col=col||1; for(var k=0;k<curve.length;k++)if(curve[k][col]>=level){
+      if(!k)return curve[0][0]; var a=curve[k-1],b=curve[k]; return a[0]+(b[0]-a[0])*(level-a[col])/((b[col]-a[col])||1)} return null}
+  var latTot=0; for(i=0;i<N;i++)if(par[i]>=0&&E[par[i]].kind==="ray")latTot++;
+  return {opts:o, V:V, E:E, P:P, par:par, order:order, curve:curve, at:at, S:S, R:R, F:F, N:N,
+    first:-P[order[0]], p50:pAt(50), p12:pAt(12), p88:pAt(88), p50count:pAt(50,2),
+    latFrac:latTot/Math.max(1,N-S*F*(o.start==="pith"?1:0))}}
+var API={build:build, constants:{FOURT:FOURT,PMED:PMED,PSIG:PSIG,PDENS:PDENS,S:S,R:R,F:F,A_RAD:A_RAD,A_TAN:A_TAN,A_PITH:A_PITH}, sources:SRC, caveats:CAVEATS};
+if(typeof window!=="undefined")window.WP_NET=API;
+if(typeof module!=="undefined")module.exports=API;
+})();
+/* The Water Path · leafdry.js
+   "Dry a grapevine leaf": what fails, in what order, as leaf water potential
+   falls. Every number is from Albuquerque et al. 2020 J Exp Bot 71: 7286,
+   read from the paper (Table 2, p. 7290 text, Fig. 5 caption). Curves through
+   the measured P50 and P80 are a two-point Weibull anchored at 0 MPa, which is our assumption,
+   not the paper's fitted shape.                                              */
+(function(){
+var CV={
+ cs:{name:"Cabernet Sauvignon",
+   k50:-0.30,k80:-0.71, g50:-0.60,g80:-1.21, tlp:-1.37,
+   /* midrib embolised conduits against leaf water potential, p. 7290 */
+   mid:[[-1.25,0],[-1.35,5],[-2.00,20]],
+   minorResolvedTo:-2.8, minorEvent:-2.8},
+ ch:{name:"Chardonnay",
+   k50:-0.29,k80:-0.67, g50:-0.53,g80:-1.17, tlp:-1.49,
+   mid:[[-1.25,0],[-1.65,5],[-1.91,20]],
+   minorResolvedTo:-1.6, minorEvent:null}
+};
+var SRC={
+ table2:"Kleaf and gs P50 and P80 (baseline 0 MPa) and turgor loss point: Albuquerque et al. 2020 J Exp Bot 71: 7286, Table 2. MEASURED",
+ curve:"Curves drawn as a Weibull through the measured P50 and P80, set to 100 % at 0 MPa. The shape between and beyond those two points is our assumption, not the paper's fitted curve. DERIVED",
+ midrib:"Midrib embolised conduits: \"five midrib conduits embolized at Ψw = −1.35 MPa [Cabernet Sauvignon], while Chardonnay reached the same number at Ψw = −1.65 MPa\"; \"20 midrib embolized conduits\" at −1.91 (Chardonnay) and −2.0 MPa (Cabernet Sauvignon); onset around −1.25 MPa, with Chardonnay beginning at more negative water potentials than Cabernet Sauvignon (Fig. 5B), so its drawn start at −1.25 is our simplification. Albuquerque et al. 2020, p. 7290 and abstract. Straight lines between those points are ours. MEASURED",
+ orders:"Secondary veins embolised in 8 of 23 samples, always connected to midrib embolism; tertiary veins in 4 of 23; minor veins (4th to 6th order) rarely; among the most dehydrated samples only one, a Cabernet Sauvignon leaf at −2.8 MPa, had embolised minor-vein conduits, nine in a 4th-order vein and one in a 6th (Fig. 5 caption). Chardonnay minor veins could not be resolved at water potentials more negative than −1.6 MPa. Albuquerque et al. 2020, p. 7290 and Fig. 5 caption. MEASURED",
+ shrink:"Cells beginning to shrink, and the leaf thinner, before any midrib embolism: Albuquerque et al. 2020, Fig. 2 caption. How far the drawn cells shrink is ours. ILLUSTRATIVE"
+};
+/* Weibull through the two measured points, anchored at 100 % at 0 MPa:
+   K/Kmax = exp(-(|psi|/b)^c), with K = 50 % at P50 and 20 % at P80.           */
+function sig(psi,p50,p80){var c=Math.log(Math.log(5)/Math.log(2))/Math.log(p80/p50), b=Math.abs(p50)/Math.pow(Math.log(2),1/c);
+  var x=Math.max(0,-psi); return 100*(1-Math.exp(-Math.pow(x/b,c)))}  /* % lost */
+function midrib(c,psi){var m=c.mid; if(psi>m[0][0])return {n:0,beyond:false};
+  for(var i=1;i<m.length;i++)if(psi>=m[i][0]){var a=m[i-1],b=m[i]; return {n:a[1]+(b[1]-a[1])*(psi-a[0])/(b[0]-a[0]),beyond:false}}
+  return {n:m[m.length-1][1],beyond:true}}
+function state(cvk,psi){var c=CV[cvk];
+  var kLost=sig(psi,c.k50,c.k80), gLost=sig(psi,c.g50,c.g80), mr=midrib(c,psi);
+  return {c:c, kLeft:100-kLost, gLeft:100-gLost, turgor:psi>c.tlp, mid:mr.n, midBeyond:mr.beyond,
+    minorResolved:psi>=c.minorResolvedTo, minorEvent:c.minorEvent!=null&&psi<=c.minorEvent+1e-9}}
+var API={CV:CV,state:state,sig:sig,sources:SRC};
+if(typeof window!=="undefined")window.WP_LEAFDRY=API;
+if(typeof module!=="undefined")module.exports=API;
+})();
+/* The Water Path · quiz.js
+   Item bank for #/quiz. Three tiers named by what the user does:
    1 Know it (recall), 2 Use it (apply, predict), 3 Question it (evaluate).
    Every item: stop, badge, source keys (from sources.js), an explanation for
-   EVERY option. No item asks a student to recall a number the study guide says
+   EVERY option. No item asks a user to recall a number the site says
    not to memorise: when a number matters, the item supplies it.
    Status "verified" is set only after an independent check against the
    primary source; unverified items are filtered out at runtime. */
@@ -779,7 +932,7 @@ var I=[
     ["The wall's extensibility","Extensibility is φ: how readily the wall gives once turgor is above Y."],
     ["The cell's osmotic potential","Osmotic potential sets how much turgor the cell can build, but it is not a term in this equation."]],a:0},
 {id:"k-cav",t:1,stop:"embolism",b:"SECONDARY",src:["sperry1988"],
- q:"Which sentence uses the two words the way this course does?",
+ q:"Which sentence uses the two words the way this site does?",
  o:[["Cavitation happened at midday; by evening the vessel was still embolised.","Right. Cavitation is the event, the moment the column breaks. Embolism is the state it leaves behind: a conduit full of gas."],
     ["Embolism happened at midday; by evening the vessel was still cavitated.","Reversed. The break is the event, cavitation. The gas-filled conduit it leaves is the state, embolism."],
     ["The two words mean the same thing.","They are often used loosely, but keeping them apart keeps the timing clear: one is a moment, the other can last all season."]],a:0},
@@ -854,7 +1007,7 @@ var I=[
     ["Transpiration falls behind on both days","On the low-demand day the break point is 12 bar, far drier than 2."]],a:0},
 {id:"u-seg",t:2,stop:"embolism",b:"MEASURED",src:["charrier2016"],
  q:"In one grapevine study, petiole P<sub>50</sub> was −0.98 MPa and stem P<sub>50</sub> was −1.73 MPa. As the vine dries, which loses half its conductance first?",
- o:[["The petiole","Right. −0.98 MPa is reached before −1.73 MPa as water potential falls. The petiole fails first, which can protect the stem: the leaf is the cheaper part to lose."],
+ o:[["The petiole","Right. −0.98 MPa is reached before −1.73 MPa as water potential becomes more negative. The petiole fails first, which can protect the stem: the leaf is the cheaper part to lose."],
     ["The stem","−1.73 is more negative than −0.98, so the stem holds on longer."],
     ["Both at once, because they share the same water","They sit in the same water column, but their conduits differ. That difference is the whole idea of vulnerability segmentation."]],a:0},
 {id:"u-tlp2",t:2,stop:"demand",b:"ILLUSTRATIVE",src:["bartlett2012"],
@@ -871,12 +1024,12 @@ var I=[
     ["Blue oak must be unusually variable","The three values come from one species, one lab and one stem age. The spread tracks the method, not the plants."]],a:0},
 {id:"q-cannot",t:3,stop:"embolism",b:"MEASURED",src:["charrier2016","hochberg2016"],
  q:"Grapevine petiole P<sub>50</sub> is −0.98 MPa in one study (microCT) and −1.54 MPa in another (MRI, cv. Syrah). Which value is correct?",
- o:[["You cannot tell from these two numbers","Right. The two studies differ in method, cultivar and how the plants were dried: potted Cabernet Sauvignon imaged intact by microCT in one, Syrah vines cut from their roots and dried in an MRI in the other. Either could be right for its own conditions. To choose, you would need the same material measured both ways."],
+ o:[["You cannot tell from these two numbers","Right. The two studies differ in method, cultivar and how the plants were dried: potted Cabernet Sauvignon imaged intact by microCT in one, grafted Syrah vines cut through the rootstock and dried in an MRI in the other. Either could be right for its own conditions. To choose, you would need the same material measured both ways."],
     ["−0.98 MPa, because microCT sees the conduits directly","MicroCT is a strong method, but the two studies also differ in cultivar and conditions. A better method does not settle a comparison between different plants."],
-    ["−1.54 MPa, because MRI is non-invasive","Method alone does not decide this. Both are imaging methods, but the MRI vines had been cut from their roots, and the two studies used different cultivars."],
+    ["−1.54 MPa, because MRI is non-invasive","Method alone does not decide this. Both are imaging methods, but the MRI vines had been cut through the rootstock, and the two studies used different cultivars."],
     ["The average, −1.26 MPa","Averaging two numbers measured under different conditions gives a number nobody measured."]],a:0},
 {id:"q-margin",t:3,stop:"embolism",b:"ILLUSTRATIVE",src:["choat2012"],
- q:"A student reports grape stem P<sub>50</sub> of −1.7 MPa and almond stem P<sub>50</sub> of −2.6 MPa, and concludes that almond is the safer crop in an August heatwave. What is the problem?",
+ q:"Someone reports grape stem P<sub>50</sub> of −1.7 MPa and almond stem P<sub>50</sub> of −2.6 MPa, and concludes that almond is the safer crop in an August heatwave. What is the problem?",
  o:[["You cannot judge safety without the minimum water potential each crop actually reaches","Right. Safety is the distance between how dry the plant gets and where its xylem fails. An almond that runs at −2.4 MPa is closer to failure than a vine at −1.2."],
     ["Nothing: the more negative P<sub>50</sub> always wins","A more negative P<sub>50</sub> helps only if the plant does not use it up by running drier."],
     ["P<sub>50</sub> is not measurable in almond","Almond vulnerability curves have been published. The problem is the missing second number, not the first."]],a:0},
@@ -902,7 +1055,7 @@ var I=[
     ["The compiled studies overturn the intact-plant result","Many studies of one kind do not answer a question asked a different way."]],a:0},
 {id:"q-cut",t:3,stop:"embolism",b:"MEASURED",src:["torresruiz2015"],
  q:"A lab cuts grapevine stems at midday, under water, and reports high native embolism. What should you ask first?",
- o:[["Was the tension relaxed before the stems were cut?","Right. Cutting xylem that is still under tension can pull air into conduits that were full, even under water. Imaging has shown this directly."],
+ o:[["Was the tension relaxed before the stems were cut?","Right. Cutting xylem that is still under tension can pull air into conduits that were full, even under water. X-ray imaging has shown this directly in other species (Torres-Ruiz et al. 2015). We did not find the same test in grapevine, so for grapevine this is a reasonable expectation, not an observation."],
     ["Were the stems cut under water?","They were, and that alone does not prevent the artefact if the xylem was still under tension."],
     ["Was it a hot day?","The weather matters for how much tension there was, but the question to ask is about the cutting."]],a:0},
 {id:"q-grow",t:3,stop:"growth",b:"MEASURED",src:["boyer1970"],
@@ -910,9 +1063,9 @@ var I=[
  o:[["Not much: growth can slow well before any leaf wilts","Right. Growth needs turgor above a yield threshold and stops long before turgor reaches zero. Wilting is a late signal."],
     ["Completely: no wilting means no water stress","Wilting marks zero turgor. Growth responds far earlier."],
     ["It depends only on photosynthesis","Photosynthesis held longer than growth in these data. Growth is the more sensitive readout."]],a:0},
-{id:"q-humid",t:3,stop:"field",b:"DERIVED",src:["allen1998","nws"],
- q:"The season model's afternoon humidities for Salinas are estimated: no humidity normals exist for the town, so they are derived from the night minimum temperature. A classmate uses its day-by-day transpiration to plan real irrigation. What is the problem?",
- o:[["Transpiration depends on VPD, and VPD depends on a humidity nobody measured, so the output inherits the assumption","Right. The temperatures come from station normals; the humidity was never measured, only estimated. Every downstream number carries that gap, however precise it looks."],
+{id:"q-humid",t:3,stop:"field",b:"ILLUSTRATIVE",src:["allen1998","nws"],
+ q:"The season model's humidities are stated assumptions: no station humidity normals were found for the Salinas Valley. Someone uses its day-by-day transpiration to plan real irrigation. What is the problem?",
+ o:[["Transpiration depends on VPD, and VPD depends on a humidity nobody measured, so the output inherits the assumption","Right. The temperatures come from station normals; the humidity was never measured, only assumed. Every downstream number carries that gap, however precise it looks."],
     ["None, because the temperatures are real","Temperature alone does not set the pull of the air. VPD depends on humidity too."],
     ["The model ignores temperature","Temperatures come from station normals. The gap is the humidity."]],a:0}
 ];
@@ -944,7 +1097,7 @@ window.WP_LADDER={
    ],
    [
     "boyer1970",
-    "Leaf enlargement was strongly inhibited by about −0.4 MPa, while soybean photosynthesis held until below −1.1 MPa."
+    "Leaf enlargement was strongly inhibited by about −0.4 MPa, while soybean photosynthesis held until leaf water potential was more negative than −1.1 MPa."
    ]
   ],
   "fight": "Nobody has yet put a measured day and night growth trace for a crop on this site. Until one is read from a primary source, Fig 4.1 argues a case rather than demonstrating it."
@@ -985,7 +1138,7 @@ window.WP_LADDER={
   "more": [
    [
     "mcelrone2013",
-    "A short, free introduction to how water moves through the plant under tension, written for students."
+    "A short, free introduction to how water moves through the plant under tension."
    ]
   ],
   "deep": [
@@ -1050,6 +1203,10 @@ window.WP_LADDER={
    [
     "lens2016",
     "Herbs are not automatically more vulnerable than trees."
+   ],
+   [
+    "mrad2018",
+    "A network model in which tissue vulnerability depends on how vessels connect and on their pit membranes: the grown-up version of Fig E.7."
    ]
   ]
  },
@@ -1061,6 +1218,10 @@ window.WP_LADDER={
    ]
   ],
   "deep": [
+   [
+    "albuquerque2020",
+    "The grapevine data behind Fig L.2: conductance and stomata fail first, midrib embolism late, minor veins almost never."
+   ],
    [
     "buckley2015pp",
     "The model behind Fig L.1: pathway shares and evaporation sites across 14 species."
@@ -1075,10 +1236,14 @@ window.WP_LADDER={
    ],
    [
     "scoffoni2023",
-    "A short review, open access, compiling outside-xylem declines across 34 species, including this course’s grapevine data."
+    "A short review, open access, compiling outside-xylem declines across 34 species, including the grapevine data used on this site."
    ]
   ],
   "fight": [
+   [
+    "albuquerque2026pre",
+    "Preprint, not yet peer reviewed: knocking out one aquaporin changed when stomata closed but not leaf hydraulic conductance."
+   ],
    [
     "bourbia2024",
     "In intact plants under rising VPD, soil-to-leaf conductance held steady: the counter-case."
@@ -1090,6 +1255,10 @@ window.WP_LADDER={
    [
     "rockwell2024",
     "Patchy stomata can make the leaf interior look unsaturated in gas exchange calculations even if it is saturated."
+   ],
+   [
+    "brodribb2016",
+    "Optical imaging in other species: minor veins embolise last, but they do embolise."
    ]
   ]
  },
@@ -1130,7 +1299,7 @@ window.WP_LADDER={
   ]
  }
 };
-/* The Water Path · BIO 332 · core */
+/* The Water Path · core */
 (function(){
 "use strict";
 var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
@@ -1183,7 +1352,7 @@ var G={
  eto:{s:"ETo",n:"reference evapotranspiration",u:"mm day⁻¹ or in month⁻¹",d:"Water lost by a well-watered reference grass. Combines VPD, radiation, wind and temperature."},
  theta:{s:"θ",n:"volumetric soil water content",u:"cm³ cm⁻³",d:"Water volume per soil volume. The same θ can mean very different Ψ<sub>soil</sub> in sand and clay."},
  fc:{s:"FC",n:"field capacity",u:"MPa",d:"By convention −0.033 MPa (−0.01 for coarse soils): soil after free drainage."},
- pwp:{s:"PWP",n:"permanent wilting point",u:"MPa",d:"By convention −1.5 MPa, from sunflower in 1943. A convention, not a crop threshold."},
+ pwp:{s:"PWP",n:"permanent wilting point",u:"MPa",d:"By convention −1.5 MPa, from sunflower wilting (Richards and Weaver 1944). A convention, not a crop threshold."},
  paw:{s:"PAW",n:"plant-available water",u:"mm per m of soil",d:"Water held between field capacity and the wilting point convention, as a depth of water per depth of soil. Multiply by rooting depth for the size of the store. It depends on which field capacity you use, so it is a property of the method as much as of the soil."},
  vg:{s:"van Genuchten",n:"soil water retention curve",u:"θ against MPa",d:"θ(Ψ) = θ<sub>r</sub> + (θ<sub>s</sub> − θ<sub>r</sub>) [1 + (αh)<sup>n</sup>]<sup>−m</sup>, m = 1 − 1/n. Four parameters per soil class. The same θ means very different Ψ in a sandy loam and a clay loam, and this equation is why."},
  lai:{s:"LAI",n:"leaf area index",u:"m² leaf per m² ground",d:"How much leaf a crop carries over each square metre of ground. It converts transpiration per unit leaf area into millimetres of water lost from the field."},
@@ -1210,14 +1379,14 @@ var G={
  rarepit:{s:"rare pit",n:"hypothesis",u:"",d:"A conduit breaks at its single leakiest pore, so a conduit with more pit membrane has more chances of owning a bad one and fails sooner."},
  Y:{s:"Y",n:"yield threshold",u:"MPa",d:"The turgor a growing wall must exceed before it extends irreversibly. The cell can adjust it within minutes."},
  phi:{s:"φ",n:"wall extensibility",u:"MPa⁻¹ h⁻¹",d:"How fast the wall extends per MPa of turgor above Y."},
- oa:{s:"OA",n:"osmotic adjustment",u:"MPa",d:"Accumulating solutes so π<sub>o</sub> falls and turgor holds at more negative Ψ. In grapevine it follows the season."},
+ oa:{s:"OA",n:"osmotic adjustment",u:"MPa",d:"Accumulating solutes so π<sub>o</sub> becomes more negative and turgor holds at more negative Ψ. In grapevine it follows the season."},
  cyto:{s:"cytorrhysis",n:"wall collapse",u:"",d:"A cell drying in air: wall and protoplast shrink together. Plasmolysis needs an outside solution: it happens in salt solutions and on slides, rarely in a drying leaf."},
  conduit:{s:"conduit",n:"a vessel or a tracheid",u:"",d:"One dead, hollow cell of the xylem that water moves through. In a grapevine petiole they are vessels. Dead is the normal state: it is what makes the tube."},
  lumen:{s:"lumen",n:"the space inside a conduit or cell",u:"",d:"The bore the wall encloses. The wall reads bright whatever the lumen holds; only the lumen's grey tells you water or gas."},
- pith:{s:"pith",n:"the centre of the petiole",u:"",d:"A lattice of large, thin-walled living cells inside the ring of vascular bundles. Not xylem, and it gets its own class."},
- pithgas:{s:"pith_gas",n:"gas-filled pith, said in class as dry pith",u:"",d:"A pith cell whose lumen reads dark because it holds gas, not water. Spoken as dry pith; written as pith_gas, which is the spelling the app needs."},
- fibrecap:{s:"fibre cap",n:"the bright block outboard of the phloem",u:"",d:"Thick-walled fibres on the outer face of each bundle. Bright and dense right through, with no lumen to call. Use it to find a bundle; it is not one of the five classes."},
- paren:{s:"parenchyma",n:"thin-walled ground tissue",u:"",d:"Living cells filling the space between bundles and between the bundles and the epidermis. Thin walls, irregular shapes, no bright ring. Not one of the five classes."},
+ pith:{s:"pith",n:"the centre of the petiole",u:"",d:"A lattice of large, thin-walled living cells inside the ring of vascular bundles. Not xylem, and it is a region of its own."},
+ pithgas:{s:"dry pith",n:"gas-filled pith",u:"",d:"A pith cell whose lumen reads dark because it holds gas, not water. Also called dry pith."},
+ fibrecap:{s:"fibre cap",n:"the bright block outboard of the phloem",u:"",d:"Thick-walled fibres on the outer face of each bundle. Bright and dense right through, with no lumen to call."},
+ paren:{s:"parenchyma",n:"thin-walled ground tissue",u:"",d:"Living cells filling the space between bundles and between the bundles and the epidermis. Thin walls, irregular shapes, no bright ring."},
  phloem:{s:"phloem",n:"the sugar-conducting tissue",u:"",d:"Small, thin-walled cells on the outer side of each bundle, between the xylem and the fibre cap. It sits like an eyebrow above the eye."}
 };
 function openPop(btn){var k=btn.getAttribute("data-t"), g=G[k]; if(!g)return; var pop=$("#pop");
@@ -1230,36 +1399,29 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){closePop();
 window.addEventListener("scroll",function(){var pop=$("#pop"); if(!pop.hidden&&Math.abs(window.scrollY-pop._y)>48)closePop();
   var h=document.documentElement; var f=h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight); $("#progress").style.width=(f*100).toFixed(1)+"%"},{passive:true});
 
-/* ---------- stops, schedule ---------- */
+/* ---------- stops ---------- */
 var STOPS=[
- {r:"anatomy",t:"Read a section",q:"What is inside a root, a stem, a leaf and a petiole?",wk:"31 Aug, 2 Sep"},
- {r:"turgor",t:"Water potential and turgor",q:"Why does a cell push on its wall, and when does it stop?",wk:"14, 16 Sep"},
- {r:"growth",t:"Growth",q:"Why does a plant grow at night?",wk:"16, 21 Sep",nw:1},
- {r:"demand",t:"Demand: the sky pulls",q:"How hard does the air pull, and why does wet soil not save you?",wk:"21 Sep",nw:1},
- {r:"embolism",t:"Embolism",q:"When does the water column break, and what fails first?",wk:"23 Sep",nw:1},
- {r:"fail",t:"How a conduit fails",q:"What actually breaks: the pore, the valve, or the statistics?",wk:"enrichment · not on Midterm I",nw:1,en:1},
- {r:"leaf",t:"Where does the water actually leave?",q:"The textbook says the water evaporates at the pore. Where does it actually turn into vapour?",wk:"after Midterm I",nw:1},
- {r:"field",t:"A season in one field",q:"The soil holds a fixed amount of water and the sky takes it. What runs out first?",wk:"after Midterm I",nw:1}
+ {r:"anatomy",t:"Read a section",q:"What is inside a root, a stem, a leaf and a petiole?"},
+ {r:"turgor",t:"Water potential and turgor",q:"Why does a cell push on its wall, and when does it stop?"},
+ {r:"growth",t:"Growth",q:"Why does a plant grow at night?"},
+ {r:"demand",t:"Demand: the sky pulls",q:"How hard does the air pull, and why does wet soil not save you?"},
+ {r:"embolism",t:"Embolism",q:"When does the water column break, and what fails first?"},
+ {r:"fail",t:"How a conduit fails",q:"What actually breaks: the pore, the valve, or the statistics?",en:1},
+ {r:"leaf",t:"Where does the water actually leave?",q:"The textbook says the water evaporates at the pore. Where does it actually turn into vapour?"},
+ {r:"field",t:"A season in one field",q:"The soil holds a fixed amount of water and the sky takes it. What runs out first?"}
 ];
-var SCHED=[{d:"2026-09-14",r:"turgor",l:"Water potential"},{d:"2026-09-16",r:"growth",l:"Inside the cell, night growth"},{d:"2026-09-21",r:"demand",l:"Walls, the plant and the night"},{d:"2026-09-23",r:"embolism",l:"Cavitation and embolism"},{d:"2026-09-28",r:"embolism",l:"Problem session I"},{d:"2026-09-30",r:"map",l:"Midterm I"}];
-function thisWeek(){var now=new Date(), today=now.toISOString().slice(0,10), pick=null;
-  for(var i=0;i<SCHED.length;i++){if(SCHED[i].d>=today){pick=SCHED[i];break}} if(!pick)pick=SCHED[SCHED.length-1]; return pick}
 function stopNums(){var n=0; return STOPS.map(function(s){return s.en?"E":String(++n)})}
 function renderStops(){var done=store.get("done",{}), NUM=stopNums();
-  var li=STOPS.map(function(s,i){return '<li><a href="#/'+s.r+'"><span class="n">'+NUM[i]+'</span><span class="t">'+s.t+'</span><span class="q">'+s.q+'</span><span class="m">'+s.wk+(s.nw?' · <span class="new">new</span>':'')+(done[s.r]?' · predictions made':'')+'</span></a></li>'}).join("");
+  var li=STOPS.map(function(s,i){return '<li><a href="#/'+s.r+'"><span class="n">'+NUM[i]+'</span><span class="t">'+s.t+'</span><span class="q">'+s.q+'</span><span class="m">'+[s.en?"enrichment":"",done[s.r]?"predictions made":""].filter(Boolean).join(" · ")+'</span></a></li>'}).join("");
   $("#stops").innerHTML=li;
-  $("#sheetList").innerHTML=STOPS.map(function(s,i){return '<li><a href="#/'+s.r+'"><span class="n">'+NUM[i]+'</span><span class="t">'+s.t+'</span><span class="wk">'+s.wk+'</span><span class="q">'+s.q+'</span></a></li>'}).join("")+
+  $("#sheetList").innerHTML=STOPS.map(function(s,i){return '<li><a href="#/'+s.r+'"><span class="n">'+NUM[i]+'</span><span class="t">'+s.t+'</span>'+(s.en?'<span class="wk">enrichment</span>':'')+'<span class="q">'+s.q+'</span></a></li>'}).join("")+
     '<li><a href="#/quiz"><span class="n">?</span><span class="t">Test yourself</span><span class="q">Know it, use it, question it. Five questions a round.</span></a></li>'+
     '<li><a href="#/symbols"><span class="n">Ψ</span><span class="t">Symbols</span><span class="q">Every symbol, unit and sign rule.</span></a></li><li><a href="#/sources"><span class="n">§</span><span class="t">Sources</span><span class="q">Every paper and table behind the numbers.</span></a></li>'+
-    '<li><a href="#/feedback"><span class="n">✎</span><span class="t">Tell us what is wrong</span><span class="q">Where the science is wrong, and where a student would get lost.</span></a></li>';
+    '<li><a href="#/feedback"><span class="n">✎</span><span class="t">Tell us what is wrong</span><span class="q">Where the science is wrong, and where a reader would get lost.</span></a></li>';
   $("#railList").innerHTML=STOPS.map(function(s,i){return '<li><a href="#/'+s.r+'" data-r="'+s.r+'"><span class="n">'+NUM[i]+'</span>'+s.t+'</a></li>'}).join("");
-  var w=thisWeek(), st=STOPS.filter(function(s){return s.r===w.r})[0];
-  var dd=new Date(w.d+"T12:00:00"); var ds=dd.toLocaleDateString("en-US",{weekday:"short",day:"numeric",month:"short"});
-  $("#thisweek").innerHTML='<div><span class="label">This week · '+ds+'</span><b>'+w.l+'</b></div><a class="btn primary" style="display:flex;align-items:center;text-decoration:none" href="#/'+w.r+'">'+(st?"Go to "+st.t:"Review the map")+'</a>';
-  $("#tabWeek").setAttribute("href","#/"+w.r);
   $("#mapsvg").innerHTML=mapSVG()}
 function mapSVG(){var pins=[["demand",150,34,"4 sky"],["growth",170,120,"3 growth"],["turgor",76,150,"2 turgor"],["anatomy",192,208,"1 section"],["embolism",66,262,"5 xylem"],["leaf",64,104,"6 leaf"],["field",44,398,"7 field"]];
-  var s='<svg viewBox="0 0 260 440" role="img" aria-label="Course map: a plant drawn from root to leaf, with seven numbered stops pinned on it. 1 section at the stem, 2 microCT at the lower stem, 3 turgor and 4 growth at the leaves, 5 sky above the plant, 6 xylem in the stem, 7 leaf at the upper leaf, 8 field in the soil.">';
+  var s='<svg viewBox="0 0 260 440" role="img" aria-label="Map: a plant drawn from root to leaf, with seven numbered stops pinned on it. 1 section at the stem, 2 turgor and 3 growth at the leaves, 4 sky above the plant, 5 xylem in the stem, 6 leaf at the upper leaf, 7 field in the soil.">';
   s+='<rect x="0" y="0" width="260" height="90" fill="var(--sky)"/>';
   s+='<rect x="0" y="330" width="260" height="110" fill="var(--soil-3)"/><rect x="0" y="330" width="260" height="22" fill="var(--soil-4)"/>';
   s+='<path d="M130 330 L130 70" stroke="var(--ink)" stroke-width="5" fill="none"/>';
@@ -1331,7 +1493,7 @@ function initPTC(){ $$(".ptc").forEach(function(box){var key=box.getAttribute("d
 /* ---------- router ---------- */
 var LASTROUTE=null;
 function route(){var h=location.hash||"#/map"; var anchor=null; var i2=h.indexOf("#",1); if(i2>0){anchor=h.slice(i2+1); h=h.slice(0,i2)}
-  var m=h.match(/^#\/([a-z]+)(?:\/([a-z0-9-]+))?(?:\?(.*))?$/); var r=m?m[1]:"map", slug=m&&m[2], q=m&&m[3]; if(r==="cure"||r==="annotate")r="map";
+  var m=h.match(/^#\/([a-z]+)(?:\/([a-z0-9-]+))?(?:\?(.*))?$/); var r=m?m[1]:"map", slug=m&&m[2], q=m&&m[3]; 
   var sec=$('section.route[data-route="'+r+'"]')||$('section.route[data-route="map"]'); r=sec.getAttribute("data-route");
   var was=$("section.route.on"); var changed=was!==sec;
   if(was&&changed){var wr=was.getAttribute("data-route"); if(wr!=="feedback")LASTROUTE=wr}
@@ -1340,7 +1502,7 @@ function route(){var h=location.hash||"#/map"; var anchor=null; var i2=h.indexOf
   $("#here").textContent=sec.getAttribute("data-title");
   document.title=(r==="map"?"The Water Path":sec.getAttribute("data-title")+" · The Water Path");
   $$(".tabbar [data-tab]").forEach(function(a){a.removeAttribute("aria-current")});
-  var tab=r==="map"?"map":r==="symbols"?"symbols":(r===thisWeek().r?"week":null); if(tab)$('.tabbar [data-tab="'+tab+'"]').setAttribute("aria-current","page");
+  var tab=r==="map"?"map":r==="symbols"?"symbols":r==="quiz"?"quiz":null; if(tab)$('.tabbar [data-tab="'+tab+'"]').setAttribute("aria-current","page");
   $$(".rail a").forEach(function(a){if(a.getAttribute("href")==="#/"+r)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   $$("iframe[data-src]",sec).forEach(function(f){if(!f.src)loadFrame(f)});
   FIGS.forEach(function(f){if(f.route===r)f.draw()});
@@ -1396,15 +1558,21 @@ INIT.push(function(){var L=window.WP_LADDER||{};
 
 /* ---------------- test yourself ---------------- */
 var Q=window.WP_QUIZ; if(!Q)return;
+/* L1 r3, 11 Oct: one quiz for the whole site. Light to Sugar items (light/quiz_site.js, generated) join the pool; they carry module, href and where. */
+var LQ=window.WP_QUIZ_LIGHT_BANK; if(LQ&&LQ.items&&!Q._light){Q._light=1; LQ.items.forEach(function(i){Q.items.push(i)})}
+/* L1 r5, 12 Oct: the Water Path journey bank (journey/quiz_site.js, generated by W's tool) joins too: module "journey". */
+var JQ=window.WP_QUIZ_JOURNEY_BANK; if(JQ&&JQ.items&&!Q._journey){Q._journey=1; JQ.items.forEach(function(i){Q.items.push(i)})}
+function itemLink(it){return it.href?'<a href="'+it.href+'">'+esc(it.where||it.href)+'</a>':'<a href="#/'+it.stop+'">'+esc(stopLabel(it.stop))+'</a>'}
+function itemCite(it,k){if(it.module!=="light"&&it.module!=="journey")return citeLink(k); var BK=it.module==="journey"?JQ:LQ; var L=String((BK&&BK.sources&&BK.sources[k])||k); if(it.module==="journey"&&/^[^,]{3,48}\b\d{4}[a-z]?,/.test(L))return '<a class="cite" href="https://doi.org/'+encodeURI(k)+'" target="_blank" rel="noopener">'+esc(L.split(",")[0])+'</a>'; var m=/^([^\s,(]+)[^(]*?(et al\.)?[^(]*\((\d{4})/.exec(L); return '<a class="cite" href="https://doi.org/'+encodeURI(k)+'" target="_blank" rel="noopener">'+esc(m?m[1]+(m[2]?' et al.':'')+' '+m[3]:L.slice(0,40))+'</a>'}
 var MID={anatomy:1,turgor:1,growth:1,demand:1,embolism:1};
 var PASS=4, N=5;
 var st=null;           /* current round */
 function S(){var d=WP.store.get("quiz",null); if(!d||typeof d!=="object")d={}; d.best=d.best||{}; d.cleared=d.cleared||{}; d.last=d.last||{}; d.scope=d.scope||"all"; return d}
 function save(d){WP.store.set("quiz",d)}
-function pool(t,scope){return Q.items.filter(function(i){return i.t===t&&(scope==="all"||MID[i.stop])})}
+function pool(t,scope){return Q.items.filter(function(i){return i.t===t&&(scope==="all"||(scope==="light"?i.module==="light":scope==="journey"?i.module==="journey":scope==="water"?!i.module:MID[i.stop]))})}
 function shuffle(a){a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var x=a[i];a[i]=a[j];a[j]=x} return a}
 function stopLabel(r){var S2=WP.STOPS, n=WP.stopNums(); for(var i=0;i<S2.length;i++)if(S2[i].r===r)return (n[i]==="E"?"Enrichment":"Stop "+n[i])+" · "+S2[i].t; return r}
-function badgeHTML(b){return '<span class="badge '+(b==="MEASURED"?"m":b==="ILLUSTRATIVE"?"i":"")+'">'+b+'</span>'}
+function badgeHTML(b){return '<span class="badge '+(b==="MEASURED"||b==="VERIFIED"?"m":b==="ILLUSTRATIVE"?"i":"")+'">'+b+'</span>'}
 function open(t,d){return t===1||d.cleared[t-1]||d.cleared["force"+t]}
 
 function renderLadder(){var d=S(), box=WP.$("#qzTiers"); if(!box)return;
@@ -1426,7 +1594,7 @@ function start(t){var d=S(), p=pool(t,d.scope), last=d.last[t]||[];
   WP.$("#qzTiers").hidden=true; WP.$("#qzScopeWrap").hidden=true; WP.$("#qzRound").hidden=false; showItem()}
 
 function showItem(){var box=WP.$("#qzRound"), R=st.items[st.k], it=R.it, T=Q.tiers[st.t-1];
-  var h='<p class="qhead"><span>'+T.name+' · '+(st.k+1)+' of '+st.items.length+'</span><a href="#/'+it.stop+'">'+esc(stopLabel(it.stop))+'</a></p>'+
+  var h='<p class="qhead"><span>'+T.name+' · '+(st.k+1)+' of '+st.items.length+'</span>'+itemLink(it)+'</p>'+
     '<div class="ptc qz"><h2 class="q" tabindex="-1">'+it.q+'</h2><fieldset class="chips stack"><legend class="sr">Your answer</legend>'+
     R.order.map(function(k){return '<label class="chip"><input type="radio" name="qz" value="'+k+'"><span>'+it.o[k][0]+'</span></label>'}).join("")+
     '</fieldset><div class="row"><button class="btn primary" type="button" id="qzCheck" disabled>Check</button></div><div class="ans" id="qzAns" hidden role="status"></div></div>'+
@@ -1445,7 +1613,7 @@ function reveal(k){var R=st.items[st.k], it=R.it, ok=k===it.a; R.pick=k;
   var why=function(i){return it.o[i][1].replace(/^Right\.\s*/,"")};
   h+='<p><b>'+(ok?'Why':'Your answer')+':</b> '+(ok?why(k):it.o[k][0]+'. '+why(k))+'</p>';
   if(!ok)h+='<p><b>The answer:</b> '+it.o[it.a][0]+'. '+why(it.a)+'</p>';
-  h+='<p class="prov">'+badgeHTML(it.b)+' '+(it.src.length?it.src.map(citeLink).join(" · "):"")+'</p>';
+  h+='<p class="prov">'+badgeHTML(it.b)+' '+(it.src.length?it.src.map(function(k){return itemCite(it,k)}).join(" · "):"")+'</p>';
   h+='<div class="row"><button class="btn primary" type="button" id="qzNext">'+(st.k<st.items.length-1?'Next question':'See how you did')+'</button></div>';
   a.innerHTML=h; a.hidden=false; WP.$("#qzCheck").hidden=true;
   WP.$("#qzNext").addEventListener("click",function(){if(st.k<st.items.length-1){st.k++; showItem()} else finish()})}
@@ -1458,7 +1626,7 @@ function finish(){var d=S(), score=st.items.filter(function(R){return R.pick===R
     (cleared?(nxt?Q.tiers[t-1].name+' is cleared. '+nxt.name+' is open.':'All three tiers are cleared. The next thing to question is this site: tell us where it is wrong.'):
      'Clearing this tier takes '+PASS+' of '+N+'. Read the ones you missed, then try another five. The next round draws different questions where the pool allows.')+'</p></div>';
   h+='<ol class="review">'+st.items.map(function(R){var ok=R.pick===R.it.a; return '<li class="'+(ok?'ok':'no')+'"><span class="mk">'+(ok?'Right':'Missed')+'</span> '+R.it.q+
-    (ok?'':'<span class="why">The answer: '+R.it.o[R.it.a][0]+'. <a href="#/'+R.it.stop+'">Back to '+esc(stopLabel(R.it.stop))+'</a></span>')+'</li>'}).join("")+'</ol>';
+    (ok?'':'<span class="why">The answer: '+R.it.o[R.it.a][0]+'. Back to '+itemLink(R.it)+'</span>')+'</li>'}).join("")+'</ol>';
   h+='<div class="row"><button class="btn primary" type="button" id="qzAgain">Another '+N+' from '+Q.tiers[t-1].name+'</button>'+
     (cleared&&nxt?'<button class="btn" type="button" id="qzUp">Go to '+nxt.name+'</button>':(cleared&&!nxt?'<a class="btn" style="display:inline-flex;align-items:center;text-decoration:none" href="#/feedback">Tell us what is wrong</a>':''))+
     '<button class="btn quiet" type="button" id="qzHome">All tiers</button></div>';
@@ -1642,7 +1810,7 @@ D.oa={init:{wk:10,psi:-1.40}, hashkeys:["wk","psi"],
 
 /* ---------------- Lockhart ---------------- */
 D.lockhart={init:{Y:0.70,plant:"crop"}, hashkeys:["Y","plant"],
- draw:function(w){var s=this.st, po=s.plant==="adj"?-1.24:-0.95, pd=P.cell(-0.06,po,5).psip, md=P.cell(-0.50,po,5).psip;
+ draw:function(w){var s=this.st, po=s.plant==="adj"?-1.22:-0.95, pd=P.cell(-0.06,po,5).psip, md=P.cell(-0.50,po,5).psip;
   var h=nar(w)?Math.round(w*0.8):320, f=frame(w,h,{l:44,r:16,t:28,b:46}), sx=lin(0,1.4,f.x0,f.x1), sy=lin(0,1,f.y1,f.y0), g=W.HATCH;
   function gr(p){return Math.max(0,(p-s.Y)/1.0)}
   g+=axisX(f,sx,[0,0.2,0.4,0.6,0.8,1.0,1.2,1.4],function(v){return v.toFixed(1)},"turgor Ψp, MPa");
@@ -1700,14 +1868,14 @@ D.vc={init:{psi:-1.2,organ:"stem",p50:-2.5,s:60}, hashkeys:["psi","organ","p50",
 /* ---------------- sequence ---------------- */
 var SEQ=[["Leaf hydraulic conductance halves, outside the xylem",-0.29,-0.61,"Leaf K halves, outside the xylem"],["Stomatal conductance halves",-0.53,-0.85],["Leaf conductance down 80 %",-0.67,-1.02],["Stomata about 90 % closed",-0.8,-1.4],["Turgor loss point, early to late season",-1.37,-2.01,"Turgor loss, early to late season"],["First embolism in the midrib",-1.25,-1.94],["Leaf xylem P50",-1.43,-2.08],["Stem xylem P50",-1.73,-3.4]];
 D.seq={init:{psi:-0.9}, hashkeys:["psi"],
- draw:function(w){var s=this.st, rh=46, h=SEQ.length*rh+60, f=frame(w,h,{l:12,r:16,t:8,b:46}), sx=lin(0,-3.4,f.x0,f.x1), g=W.HATCH, passed=0, under=[];
+ draw:function(w){var s=this.st, rh=46, h=SEQ.length*rh+60, f=frame(w,h,{l:12,r:16,t:8,b:46}), sx=lin(0,-3.4,f.x0,f.x1), g=W.HATCH, passed=0, under=[], pastL=[];
   g+=axisX(f,sx,[0,-1,-2,-3],function(v){return v?M+Math.abs(v):"0"},"leaf or xylem water potential, MPa");
-  SEQ.forEach(function(r,i){var y=f.y0+i*rh+30, a=sx(r[1]), b=sx(r[2]), st=s.psi<=r[2]?2:s.psi<=r[1]?1:0; if(st===2)passed++; if(st===1)under.push(i+1);
+  SEQ.forEach(function(r,i){var y=f.y0+i*rh+30, a=sx(r[1]), b=sx(r[2]), st=s.psi<=r[2]?2:s.psi<=r[1]?1:0; if(st===2){passed++; pastL.push(i+1)} if(st===1)under.push(i+1);
     g+=T(f.x0,y-16,(i+1)+"  "+(nar(w)&&r[3]?r[3]:r[0]),{size:13,fill:st?"var(--ink)":"var(--ink-2)",weight:st?600:400});
     g+='<rect x="'+a.toFixed(1)+'" y="'+(y-3)+'" width="'+(b-a).toFixed(1)+'" height="10" fill="'+(st===2?"var(--ink)":st===1?"url(#HP)":"var(--surface)")+'" stroke="var(--ink)" stroke-width="1.2"/>'});
   var X=sx(s.psi); g+=L(X,f.y0,X,f.y1,"var(--psi-w)",2.5);
   this.out("psi",sgn(s.psi,2)+" MPa");
-  this.out("passed","At "+sgn(s.psi,2)+" MPa: "+(passed?"steps 1 to "+passed+" are past":"nothing has failed yet")+(under.length?"; step"+(under.length>1?"s ":" ")+under.join(", ")+" under way somewhere in the range.":"."));
+  this.out("passed","At "+sgn(s.psi,2)+" MPa: "+(passed?(passed===1?"step "+pastL[0]+" is past":"steps "+(pastL[passed-1]===passed?"1 to "+passed:pastL.join(", "))+" are past"):"nothing has failed yet")+(under.length?"; step"+(under.length>1?"s ":" ")+under.join(", ")+" under way somewhere in the range.":"."));
   W.setVT($("#sqPsi"),sgn(s.psi,2).replace(M,"minus ")+" megapascals, "+passed+" steps past");
   return {h:h,svg:g,aria:"Sequence of failure in grapevine leaves. "+passed+" of 8 steps past at "+sgn(s.psi,2)+" megapascals."}}};
 
@@ -1740,20 +1908,20 @@ D.r4={init:{e:""},
       (p[2]*sc>14?T(ox+p[0]*sc,oy+p[1]*sc+4,DIAM[i],{anchor:"middle",size:12,fill:on?"#fff":"var(--ink)"}):"")+'</g>'});
   g+=T(w/2,h-8,"diameters in µm · 50 µm = "+Math.round(50*sc)+" px here",{anchor:"middle",size:12,fill:"var(--ink-3)"});
   var n=emb.length, a2=0,a4=0,t2=0,t4=0; DIAM.forEach(function(d,i){t2+=d*d;t4+=d*d*d*d; if(emb.indexOf(i)>=0){a2+=d*d;a4+=d*d*d*d}});
-  this.tiles.innerHTML=tile("By count",Math.round(100*n/DIAM.length)," %")+tile("By area",Math.round(100*a2/t2)," %",badge("what you annotate"))+tile("By flow = PLC",Math.round(100*a4/t4)," %",badge("D⁴","m"),"var(--xylem)");
+  this.tiles.innerHTML=tile("By count",Math.round(100*n/DIAM.length)," %")+tile("By area",Math.round(100*a2/t2)," %",badge("what an image shows"))+tile("By flow = PLC",Math.round(100*a4/t4)," %",badge("D⁴","m"),"var(--xylem)");
   if(!this._bound){this._bound=1; var tog=function(e){var v=e.target.closest(".vessel"); if(!v)return; if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ")return; e.preventDefault(); var i=+v.getAttribute("data-v"), cur=self.st.e?self.st.e.split(",").map(Number):[], k=cur.indexOf(i); if(k>=0)cur.splice(k,1);else cur.push(i); self.st.e=cur.join(","); self.draw(); var nv=self.box.querySelector('[data-v="'+i+'"]'); if(nv&&e.type==="keydown")nv.focus()};
     this.box.addEventListener("click",tog); this.box.addEventListener("keydown",tog)}
   return {h:h,svg:g,aria:n+" of 16 vessels embolised: "+Math.round(100*a4/t4)+" percent loss of flow."}}};
 
 /* ---------------- air seeding ---------------- */
 D.seed={init:{d:72},
- draw:function(w){var s=this.st, D0=Math.pow(10,-2+2*s.d/100), dp=0.288/D0, h=nar(w)?260:260, f=frame(w,h,{l:46,r:16,t:26,b:46});
+ draw:function(w){var s=this.st, D0=Math.pow(10,-2+2*s.d/100), dp=0.291/D0, h=nar(w)?260:260, f=frame(w,h,{l:46,r:16,t:26,b:46});
   var lx=lin(-2,0,f.x0,f.x1), sx=function(d){return lx(Math.log10(d))}, ly=lin(Math.log10(0.2),Math.log10(30),f.y0,f.y1), sy=function(p){return ly(Math.log10(p))}, g="";
   [0.2,0.5,1,2,5,10,30].forEach(function(v){g+=L(f.x0,sy(v),f.x1,sy(v),"var(--line)",1)+T(f.x0-8,sy(v)+4,M+v,{anchor:"end",size:12})});
   g+=L(f.x0,f.y0,f.x0,f.y1,"var(--ink-3)",1)+T(f.x0,f.y0-10,"xylem pressure that pulls air in, MPa",{size:12,fill:"var(--ink-3)"});
   g+=axisX(f,sx,[0.01,0.03,0.1,0.3,1],function(v){return v},"pore diameter, µm (log scale)");
   g+='<rect x="'+f.x0+'" y="'+sy(1.7).toFixed(1)+'" width="'+(f.x1-f.x0)+'" height="'+(sy(3.4)-sy(1.7)).toFixed(1)+'" fill="var(--xylem-soft)" opacity=".7"/>'+T(f.x1-4,sy(3.4)-6,"grapevine stem P50 range",{anchor:"end",size:12,fill:"var(--xylem)",halo:1});
-  var c=[]; for(var e=-2;e<=0;e+=0.02){var d=Math.pow(10,e), p=0.288/d; if(p<=30&&p>=0.2)c.push([sx(d),sy(p)])} g+=path(c,"var(--ink)",2.5);
+  var c=[]; for(var e=-2;e<=0;e+=0.02){var d=Math.pow(10,e), p=0.291/d; if(p<=30&&p>=0.2)c.push([sx(d),sy(p)])} g+=path(c,"var(--ink)",2.5);
   var X=sx(D0), Y=sy(clamp(dp,0.2,30)); g+='<circle cx="'+X.toFixed(1)+'" cy="'+Y.toFixed(1)+'" r="7" fill="var(--psi-w)" stroke="var(--surface)" stroke-width="2"/>';
   this.out("d",(D0*1000).toFixed(0)+" nm · "+D0.toFixed(3)+" µm");
   W.setVT($("#sdD"),"pore "+(D0*1000).toFixed(0)+" nanometres, air enters at minus "+dp.toFixed(2)+" megapascals");
@@ -1773,7 +1941,7 @@ var DAYAIR={salinas:{Tmax:21.5,Tmin:13.0,rhmax:99,rhmin:58},
 D.day={init:{hour:14,site:"salinas",soil:0,wk:13,Y:0.45,tmax:21.5,tmin:13.0,rhmax:99,rhmin:58},
  hashkeys:["hour","site","soil","wk","Y","tmax","tmin","rhmax","rhmin"],
  /* a town chip loads that town's four numbers; moving any of them switches to the
-    student's own air. The two clamps are the ones WP_FIELD.makeDay applies. */
+    user's own air. The two clamps are the ones WP_FIELD.makeDay applies. */
  onset:function(k){var st=this.st, P=DAYAIR[st.site];
   if(k==="site"){ if(P){st.tmax=P.Tmax; st.tmin=P.Tmin; st.rhmax=P.rhmax; st.rhmin=P.rhmin}
     else {var dd=$("[data-air]",this.el); if(dd)dd.open=true} }
@@ -1784,7 +1952,7 @@ D.day={init:{hour:14,site:"salinas",soil:0,wk:13,Y:0.45,tmax:21.5,tmin:13.0,rhma
   if(rm){var stops=[5,9,14,18,23], i=stops.findIndex(function(x){return x>self.st.hour+0.01}); self.st.hour=stops[i<0?0:i]; self.sync(); self.draw(); btn.textContent="Step"; return}
   if(this._timer){clearInterval(this._timer); this._timer=null; btn.textContent="Run day"; this.box.classList.remove("wp-anim"); return}
   if(this.st.hour>=23.9)this.st.hour=0; btn.textContent="Pause"; this.box.classList.add("wp-anim");
-  this._timer=setInterval(function(){self.st.hour=Math.round((self.st.hour+0.25)*4)/4; if(self.st.hour>=24){self.st.hour=24; clearInterval(self._timer); self._timer=null; btn.textContent="Run day"; self.box.classList.remove("wp-anim")} self.sync(); self.draw()},90)},
+  this._timer=spdInterval(function(){self.st.hour=Math.round((self.st.hour+0.25)*4)/4; if(self.st.hour>=24){self.st.hour=24; clearInterval(self._timer); self._timer=null; btn.textContent="Run day"; self.box.classList.remove("wp-anim")} self.sync(); self.draw()},90)},
  draw:function(w){var s=this.st, psS=soilPsiOf(s.soil), days=s.wk*7, poB=-1.0-Math.min(0.40,0.0045*days);
   /* the air: either a town, whose e_a comes from its dew point by FAO-56 Eq. 48,
      or the sliders, whose e_a comes from the two humidities by Eq. 17. The two
@@ -1843,7 +2011,7 @@ function lg(v){return Math.log(v)/Math.LN10}
 function logsc(lo,hi,a,b){var f=lin(lg(lo),lg(hi),a,b); return function(v){return f(lg(v))}}
 
 /* ---------------- E.1 air seeding, live ---------------- */
-var VESS=9.95, VOX=1.25, PORE=0.40;
+var VESS=9.95, VOX=1.27, PORE=0.40;
 D.failseed={init:{d:74}, hashkeys:["d"],
  draw:function(w){var s=this.st, nw=nar(w);
   var e0=lg(0.03), e1=lg(1.0), Dum=Math.pow(10,e0+(e1-e0)*s.d/100), dp=FOURT/Dum, nm=Dum*1000;
@@ -1859,7 +2027,7 @@ D.failseed={init:{d:74}, hashkeys:["d"],
   var c=[]; for(var e=lg(0.025);e<=lg(40);e+=0.015){var d=Math.pow(10,e), p=FOURT/d; if(p<=20&&p>=0.005)c.push([sx(d),sy(p)])}
   g+=path(c,"var(--ink)",2.5);
   /* three marks that must never be confused */
-  var MK=[[PORE,"var(--ink)","pore 0.4",36],[VOX,"var(--phloem)","voxel 1.25",54],[VESS,"var(--xylem)","vessel 9.95",72]];
+  var MK=[[PORE,"var(--ink)","pore 0.4",36],[VOX,"var(--phloem)","voxel 1.27",54],[VESS,"var(--xylem)","vessel 9.95",72]];
   MK.forEach(function(m){var x=sx(m[0]);
     g+=L(x,f.y0,x,f.y1+m[3]-12,m[1],1.6,"4 3");
     g+='<circle cx="'+x.toFixed(1)+'" cy="'+f.y1.toFixed(1)+'" r="3.5" fill="'+m[1]+'"/>';
@@ -1882,8 +2050,8 @@ D.failseed={init:{d:74}, hashkeys:["d"],
   g+='<circle cx="'+ux.toFixed(1)+'" cy="'+cyV.toFixed(1)+'" r="'+ur.toFixed(2)+'" fill="var(--psi-w)"/>';
   var ty=yB+14+Dv+24, sw=function(col,fill){return '<circle cx="'+(bx+5)+'" cy="%Y%" r="4.5" fill="'+(fill||col)+'" stroke="'+col+'" stroke-width="1.5"/>'};
   [["var(--xylem)","var(--psi-w-soft)","grapevine petiole vessel · 9.95 µm"],
-   ["var(--phloem)","none","one microCT voxel · 1.25 µm"],
-   ["var(--ink)","var(--ink)","largest pit pore · 0.40 µm · MEASURED"],
+   ["var(--phloem)","none","one microCT voxel · 1.27 µm"],
+   ["var(--ink)","var(--ink)","maple pit pore ≤ 0.40 µm · MEASURED"],
    ["var(--psi-w)","var(--psi-w)","your pore · "+Math.round(nm)+" nm"]].forEach(function(r,i){var y=ty+i*17;
     g+=sw(r[0],r[1]).replace("%Y%",(y-4).toFixed(1))+T(bx+15,y,r[2],{size:12,fill:"var(--ink)"})});
   g+=T(bx,ty+4*17+4,"pore ÷ vessel = 1 : "+Math.round(VESS/PORE),{size:12,weight:600,fill:"var(--ink)"});
@@ -1896,7 +2064,7 @@ D.failseed={init:{d:74}, hashkeys:["d"],
     tile("Pore ÷ vessel","1 : "+Math.round(VESS/Dum),"",badge("9.95 µm","m"));
   this.out("d",Math.round(nm)+" nm · "+Dum.toFixed(3)+" µm");
   W.setVT($("#fsD"),"pore "+Math.round(nm)+" nanometres, air enters at minus "+dp.toFixed(2)+" megapascals");
-  return {h:h,svg:g,aria:"Air seeding. A pore of "+Math.round(nm)+" nanometres lets air through at minus "+dp.toFixed(2)+" megapascals. Drawn to scale below: a 9.95 micrometre vessel, a 1.25 micrometre voxel and a 0.4 micrometre pore."}}};
+  return {h:h,svg:g,aria:"Air seeding. A pore of "+Math.round(nm)+" nanometres lets air through at minus "+dp.toFixed(2)+" megapascals. Drawn to scale below: a 9.95 micrometre vessel, a 1.27 micrometre voxel and a 0.4 micrometre pore."}}};
 
 /* ---------------- E.2 torus-margo against a homogeneous membrane ---------------- */
 var ASPTHR=1.0, SEEDTHR=2.5;
@@ -1906,7 +2074,7 @@ D.failpit={init:{arch:"ang",dp:0.4}, hashkeys:["arch","dp"],
    if(rm){self.st.dp=self.st.dp<0.6?1.4:self.st.dp<2?3.2:0; self.sync(); self.draw(); btn.textContent="Step"; return}
    if(this._timer){clearInterval(this._timer); this._timer=null; btn.textContent="Run"; return}
    this.st.dp=0; btn.textContent="Pause";
-   this._timer=setInterval(function(){self.st.dp=Math.round((self.st.dp+0.1)*10)/10;
+   this._timer=spdInterval(function(){self.st.dp=Math.round((self.st.dp+0.1)*10)/10;
      if(self.st.dp>=4){self.st.dp=4; clearInterval(self._timer); self._timer=null; btn.textContent="Run"}
      self.sync(); self.draw()},70)},
  draw:function(w){var s=this.st, con=s.arch==="con", nw=nar(w);
@@ -1965,7 +2133,7 @@ D.failpit={init:{arch:"ang",dp:0.4}, hashkeys:["arch","dp"],
   g+=T(X0+2,ay-8,"ΔP "+s.dp.toFixed(2)+" MPa",{size:12,weight:600,fill:"var(--ink)",halo:1});
   g+=L(X0+4,ay+6,cx-WT-8,ay+6,"var(--ink-3)",2)+'<path d="M'+(cx-WT-8)+' '+(ay+6)+' l -8 -4 v 8 z" fill="var(--ink-3)"/>';
   g+=T(X1-2,ay+10,"schematic, not to scale",{anchor:"end",size:12,fill:"var(--ink-3)"});
-  this.tiles.innerHTML=tile("Architecture",con?"conifer":"angiosperm","",badge(con?"torus–margo":"homogeneous"))+
+  this.tiles.innerHTML=tile("Architecture",con?"conifer":"angiosperm","",badge(con?"torus margo":"homogeneous"))+
     tile("ΔP across pit",s.dp.toFixed(2)," MPa",badge("ILLUSTRATIVE","i"))+
     tile("Outcome",con?(aspir?"sealed":"open"):(seeded?"seeded":"holding"),"",badge(con?"torus valve":"no valve"),con&&aspir?"var(--ground-tissue)":seeded?"var(--xylem)":"var(--ink)");
   this.out("dp",s.dp.toFixed(2)+" MPa"); this.out("state",note);
@@ -2060,7 +2228,7 @@ function vcRowsHTML(){return VCS.map(function(r,i){
    '<span class="nm">'+vcSwatch(r.c,r.da)+r.la+'</span>'+
    '<span class="p50">'+sgn(r.p50,2)+' MPa</span>'+
    '<span class="mt">'+r.ml+' · '+r.src+' · '+(r.sk?'<span class="badge m">P50 MEASURED</span> <span class="badge m">SHAPE MEASURED</span>':'<span class="badge m">P50 MEASURED</span> <span class="badge i">SHAPE s = 50, ILLUSTRATIVE</span>')+'</span></label></li>'}).join("")+
- '<li class="void"><b>Lettuce (<i>Lactuca sativa</i>)</b> — NO PUBLISHED VULNERABILITY CURVE EXISTS. This is the gap.</li>'}
+ '<li class="void"><b>Lettuce (<i>Lactuca sativa</i>)</b>: no published vulnerability curve exists. This is the gap.</li>'}
 D.failvc={init:{on:"0,4,7,9",meth:"all"}, hashkeys:["on","meth"],
  act:function(a){var st=this.st;
   if(a==="all"){var k=[]; VCS.forEach(function(r,i){if(vcShown(st,i))k.push(i)}); st.on=k.join(",")}
@@ -2099,7 +2267,7 @@ D.failvc={init:{on:"0,4,7,9",meth:"all"}, hashkeys:["on","meth"],
   var spread=ps.length?(Math.max.apply(null,ps)-Math.min.apply(null,ps)):0;
   this.tiles.innerHTML=tile("Curves drawn",live.length,"",badge(st.meth==="all"?"all methods":st.meth))+
     tile("Shape assumed",nill+" of "+live.length,"",badge("s = 50","i"))+
-    tile("P<sub>50</sub> spread",ps.length?spread.toFixed(2):"—"," MPa",badge("MEASURED","m"));
+    tile("P<sub>50</sub> spread",ps.length?spread.toFixed(2):"n/a",ps.length?" MPa":"",badge("MEASURED","m"));
   return {h:h,svg:g,aria:live.length+" vulnerability curves drawn, P50 from "+(ps.length?sgn(Math.max.apply(null,ps),2)+" to "+sgn(Math.min.apply(null,ps),2):"none")+" megapascals."}}};
 
 /* ---------------- E.5 method dependence ---------------- */
@@ -2193,7 +2361,7 @@ D.failsector={init:{psi:-0.40,mode:"sec"}, hashkeys:["psi","mode"],
   this.tiles.innerHTML=tile("Stem water potential",sgn(s.psi,2)," MPa",badge("SET BY YOU","i"),"var(--psi-w)")+
     tile("Vessels gas-filled",n," of "+SN,badge("DERIVED"),"var(--lbl-2)")+
     tile("Sectors reached",nsec," of "+SSEC,badge(ran?"random rule":"sectored rule","i"))+
-    (ran?tile("Lateral crossings","—","",badge("not defined at random","i"))
+    (ran?tile("Lateral crossings","n/a","",badge("not defined at random","i"))
         :tile("Lateral crossings",lat," of "+Math.max(0,n-1),badge("teaching rule","i"),"var(--phloem)"));
   this.out("psi",sgn(s.psi,2)+" MPa");
   var msg;
@@ -2203,272 +2371,6 @@ D.failsector={init:{psi:-0.40,mode:"sec"}, hashkeys:["psi","mode"],
   this.out("cmp",msg);
   W.setVT($("#fscPsi"),sgn(s.psi,2).replace(M,"minus ")+" megapascals, "+n+" of "+SN+" vessels gas-filled in "+nsec+" of "+SSEC+" sectors");
   return {h:h,svg:g,aria:"Stylised grapevine stem cross-section, twelve sectors of five vessels around a central pith. At minus "+Math.abs(s.psi).toFixed(2)+" megapascals, "+n+" of "+SN+" vessels are gas-filled, in "+nsec+" of "+SSEC+" sectors, under the "+(ran?"random":"sectored")+" rule. Spreading the same number at random would touch "+nsecR+" sectors."}}};
-
-/* ---------------- A.2 annotation practice: identify five classes on a drawn petiole ---------------- */
-var PC={xylem:"var(--lbl-1)",xylem_embolism:"var(--lbl-2)",phloem:"var(--lbl-3)",pith:"var(--lbl-4)",pith_gas:"var(--lbl-5)"};
-var PTASK=[
- {c:"xylem_embolism",all:1,q:"Click every embolised conduit.",
-  h:"A lumen inside a bundle that reads black, far darker than the tissue around it.",
-  d:"telling a dark lumen inside a bundle from a dark cell out in the pith",
-  ok:"Every embolised conduit found. Dark lumen, and inside a bundle: the call needs both halves."},
- {c:"xylem",all:0,q:"Click a water-filled conduit.",
-  h:"The hard one. Bright thick wall, and a lumen the same mid grey as the tissue around it.",
-  d:"seeing a water-filled conduit at all, when its lumen is the same grey as the tissue",
-  ok:"Found one. Notice how little there was to go on: only the bright ring of wall gives it away, and on a real scan it is fainter than this."},
- {c:"pith",all:0,q:"Click the pith.",
-  h:"The lattice of large, thin-walled cells in the centre, inside the ring of bundles.",
-  d:"placing the pith inside the ring of bundles",
-  ok:"That is the pith: one contour, inside the whole ring, large thin-walled cells."},
- {c:"pith_gas",all:1,q:"Click every gas-filled pith cell.",
-  h:"Dry pith. A dark cell out in the pith lattice, not inside a bundle.",
-  d:"telling gas-filled pith (dry pith) from pith that still holds water",
-  ok:"Every gas-filled pith cell found. Exactly the same black as an embolised conduit; only position separated them."},
- {c:"phloem",all:0,q:"Click the phloem in one bundle.",
-  h:"Like an eyebrow above the eye: small thin-walled cells on the outer side of a bundle.",
-  d:"separating phloem from the bright fibre cap outboard of it",
-  ok:"Phloem: the eyebrow above the eye, between the xylem and the fibre cap."}
-];
-var PMC={
- xylem:"That is a water-filled conduit: bright thick wall, lumen the same mid grey as the tissue around it.",
- xylem_embolism:"That is an embolised conduit: a lumen inside a bundle that reads black.",
- phloem:"That is phloem: the band of small thin-walled cells on the outer side of a bundle.",
- pith:"That is the pith: the lattice of large thin-walled cells in the centre.",
- pith_gas:"That is a gas-filled pith cell (dry pith): a dark cell out in the pith lattice.",
- wall:"That is conduit wall, not a lumen. The call is about the space the bright ring encloses.",
- fibre:"That is the fibre cap: bright and dense right through, with no lumen to call.",
- parenchyma:"That is parenchyma between the bundles: thin walls, not round, no bright thick wall.",
- epidermis:"That is the epidermis, the thin bright boundary of the section, and the course drops it from the class list."
-};
-var PM={
- "xylem_embolism|pith_gas":"Position tells you which: a dark lumen inside a bundle is a conduit; a dark lumen in the middle of the pith is a gas-filled pith cell (dry pith).",
- "xylem_embolism|xylem":"Bright wall, but the lumen is the same grey as the tissue around it. That is water, not gas.",
- "xylem_embolism|wall":"That is the bright wall between two conduits; look inside a ring of wall for a lumen that reads black.",
- "xylem_embolism|fibre":"The fibre cap is bright, not black: dense wall absorbs X-rays, gas absorbs almost none.",
- "xylem_embolism|pith":"The pith is mid grey and outside every bundle; an embolised conduit is black and inside one.",
- "xylem_embolism|parenchyma":"Parenchyma is mid grey, not black, and it is not inside a bundle. Both halves of the call fail here.",
- "xylem_embolism|epidermis":"The epidermis is the brightest thing in the section, which is the opposite of what you were asked to find.",
- "xylem|parenchyma":"Thin walls, not round, no bright thick wall. That is parenchyma between the bundles, not a conduit.",
- "xylem|xylem_embolism":"That lumen is black, so it holds gas. You were asked for one that still holds water.",
- "xylem|wall":"That is the wall, not the lumen. A water-filled lumen is the mid grey space the bright ring encloses.",
- "xylem|pith":"That is the pith in the centre; conduits sit inside the bundles in the ring around it.",
- "xylem|fibre":"The fibre cap is bright right through with no lumen; a conduit is a bright ring around a grey space.",
- "xylem|pith_gas":"That is a dark pith cell out in the centre, and you were asked for a conduit that still holds water.",
- "xylem|epidermis":"That is the outer boundary of the section, not a conduit, and it is not one of the five classes.",
- "pith|parenchyma":"That is parenchyma outside the ring of bundles; the pith is the lattice inside the ring.",
- "pith|pith_gas":"That cell reads dark, so it is gas-filled pith (dry pith), a class of its own drawn on top of the pith contour.",
- "pith|xylem":"That is a conduit inside a bundle; the pith is the centre, inside the whole ring.",
- "pith|xylem_embolism":"That black lumen is inside a bundle, so it is an embolised conduit; the pith is the lattice in the centre.",
- "pith|wall":"That is the bright wall of a bundle; the pith is the mid grey lattice inside the ring.",
- "pith|fibre":"The fibre cap is the outermost part of a bundle; the pith is as far inside as you can go.",
- "pith|epidermis":"You went to the outside of the section. The pith is the centre.",
- "pith_gas|xylem_embolism":"Position tells you which: this dark lumen is inside a bundle, so it is an embolised conduit, not a pith cell.",
- "pith_gas|pith":"That pith cell is mid grey, so it still holds water; gas-filled pith (dry pith) reads black.",
- "pith_gas|parenchyma":"That is parenchyma outside the ring of bundles, and it is not dark. Dry pith is dark and inside the ring.",
- "pith_gas|wall":"That is bundle wall, bright and outside the pith; dry pith is a black cell in the lattice at the centre.",
- "phloem|fibre":"That is the fibre cap, one step further out: bright and dense, with no cell lumens in it.",
- "phloem|xylem":"That is a conduit; the phloem sits like an eyebrow above the eye, on the outer side of the bundle.",
- "phloem|xylem_embolism":"That is an embolised conduit inside the xylem; the phloem is outboard of the xylem, under the fibre cap.",
- "phloem|wall":"That is xylem wall. Go one step outward, to the band of small thin-walled cells.",
- "phloem|parenchyma":"That is parenchyma outside the bundle; the phloem hugs the outer face of the xylem, under the fibre cap.",
- "phloem|pith":"You went to the centre. The phloem is on the outer side of a bundle, out towards the epidermis."
-};
-function pmiss(t,c){return PM[t+"|"+c]||PMC[c]||"Not that region."}
-function psumm(s){var tot=0,i,ord=[0,1,2,3,4],hard=[];
- for(i=0;i<5;i++)tot+=s.misses[i];
- if(!tot)return "<b>Practice complete, with no misses.</b> Now do it on a real scan, where the greys are noisier, the bundles are not all alike, and nobody has drawn the answer first.";
- ord.sort(function(a,b){return s.misses[b]-s.misses[a]});
- for(i=0;i<ord.length&&hard.length<2;i++)if(s.misses[ord[i]]>0)hard.push(PTASK[ord[i]].d+" ("+s.misses[ord[i]]+")");
- return "<b>Practice complete: "+tot+" miss"+(tot===1?"":"es")+" in all.</b> Hardest for you: "+hard.join("; then ")+". That is where to slow down on your own slice, and where to ask rather than guess."}
-function ptick(x,y,z){return '<path d="M'+(x-z).toFixed(1)+','+y.toFixed(1)+' l'+(z*0.75).toFixed(1)+','+(z*0.8).toFixed(1)+' l'+(z*1.45).toFixed(1)+',-'+(z*1.85).toFixed(1)+'" fill="none" stroke="#FFFFFF" stroke-width="'+Math.max(2,z*0.42).toFixed(1)+'" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>'}
-function pdd(a){var s="",i; for(i=0;i<a.length;i++)s+=(i?"L":"M")+a[i][0].toFixed(1)+","+a[i][1].toFixed(1); return s+"Z"}
-function pbp(G,b,o,v){var rho=b.Rl-o, x=G.cx+rho*Math.cos(b.t), y=G.cy+G.kY*rho*Math.sin(b.t);
- return [x+b.tv[0]*v, y+b.tv[1]*v]}
-
-var PG=null;
-function psec(w){
- if(PG&&PG.w===w)return PG;
- var R=Math.min(w*0.47,230), kY=0.88, cx=w/2,
-     cy=Math.round(kY*R+20), h=Math.round(2*kY*R+34), i, j, seed=20260924;
- function rn(){seed=(seed*1664525+1013904223)%4294967296; return seed/4294967296}
- function rad(t){var d=Math.atan2(Math.sin(t+Math.PI/2),Math.cos(t+Math.PI/2));
-   return R*(1-0.185*Math.exp(-(d*d)/0.14))*(1+0.010*Math.sin(3*t+1.1)+0.007*Math.sin(7*t+0.3))}
- function pt(t,rho){return [cx+rho*Math.cos(t), cy+kY*rho*Math.sin(t)]}
- function ring(f){var a=[],q; for(q=0;q<192;q++){var t=q/192*2*Math.PI; a.push(pt(t,f(t)))} return a}
- var G={w:w,R:R,kY:kY,cx:cx,cy:cy,h:h,panelW:Math.min(w,2*R+44),items:[],by:{},n:{}};
- G.panelX=(w-G.panelW)/2;
- function reg(o){G.by[o.id]=o; G.n[o.cls]=(G.n[o.cls]||0)+1; G.items.push(o)}
- function dec(sv){G.items.push({deco:sv})}
- var thin=Math.max(0.8,0.0055*R).toFixed(2), thin2=Math.max(0.9,0.0085*R).toFixed(2);
-
- /* the section body. Anything no later region claims is parenchyma. */
- var bodyD=pdd(ring(rad));
- reg({id:"par",cls:"parenchyma",k:"p",d:bodyD,fill:"var(--ct-tissue)",stroke:"none",sw:0,
-   x:cx,y:cy,lab:"tissue between the bundles"});
-
- /* parenchyma texture, kept clear of the bundles */
- var bt=[]; for(i=0;i<10;i++)bt.push(-Math.PI/2+(i+0.5)*Math.PI/5);
- var tx="", tries;
- for(tries=0;tries<2000;tries++){
-   var th=rn()*2*Math.PI, off=(0.010+0.610*rn())*R, near=9;
-   for(i=0;i<10;i++){var dth=Math.abs(Math.atan2(Math.sin(th-bt[i]),Math.cos(th-bt[i]))); if(dth<near)near=dth}
-   var hw=Math.min(0.30,0.205*R/Math.max(0.30*R,R-off));
-   if(off>0.055*R&&near<hw)continue;
-   var p=pt(th,rad(th)-off), rr=(0.013+0.012*rn())*R;
-   tx+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+rr.toFixed(1)+'" fill="var(--ct-tissue2)" stroke="var(--ct-wall2)" stroke-width="'+thin+'"/>';
- }
- dec('<g pointer-events="none" opacity=".9">'+tx+'</g>');
-
- /* pith: one region, a lattice of large thin-walled cells drawn on top of it */
- reg({id:"pith",cls:"pith",k:"p",d:pdd(ring(function(t){return rad(t)-0.644*R})),
-   fill:"var(--ct-tissue2)",stroke:"var(--ct-wall2)",sw:thin2,
-   x:cx,y:cy+0.04*R,tz:0.105,lab:"the centre of the section"});
- var pcr=0.052*R, pgr=0.062*R, step=0.132*R, cells=[], row=0, yy, xx;
- function inP(x,y,m){var dx=x-cx, dy=(y-cy)/kY, t=Math.atan2(dy,dx), rr=Math.sqrt(dx*dx+dy*dy);
-   return rr+m<=rad(t)-0.644*R}
- for(yy=cy-0.40*R*kY; yy<=cy+0.40*R*kY; yy+=step*kY*0.92){
-   var xo=(row%2)?step/2:0; row++;
-   for(xx=cx-0.40*R+xo; xx<=cx+0.40*R; xx+=step) if(inP(xx,yy,pgr+0.010*R)) cells.push([xx,yy]);
- }
- /* four gas-filled pith cells, spread around the lattice rather than clustered */
- var ng=Math.min(4,cells.length), gas={}, tgt=[0.6,2.2,3.7,5.3];
- for(i=0;i<ng;i++){
-   var ta=tgt[i], tr=0.55*0.356*R, best=-1, bd=1e9;
-   for(j=0;j<cells.length;j++){ if(gas[j])continue;
-     var ddx=cells[j][0]-cx, ddy=(cells[j][1]-cy)/kY,
-         ang=Math.atan2(ddy,ddx), rr2=Math.sqrt(ddx*ddx+ddy*ddy),
-         da=Math.abs(Math.atan2(Math.sin(ang-ta),Math.cos(ang-ta))),
-         sc=da*tr+Math.abs(rr2-tr)*0.9;
-     if(sc<bd){bd=sc; best=j}}
-   if(best>=0)gas[best]=1;
- }
- var lat="";
- for(i=0;i<cells.length;i++){ if(gas[i])continue;
-   var cr=pcr*(0.85+0.28*rn());
-   lat+='<circle cx="'+cells[i][0].toFixed(1)+'" cy="'+cells[i][1].toFixed(1)+'" r="'+cr.toFixed(1)+'" fill="var(--ct-tissue)" stroke="var(--ct-wall2)" stroke-width="'+thin2+'"/>';
- }
- dec('<g pointer-events="none">'+lat+'</g>');
- var gn=0;
- for(i=0;i<cells.length;i++){ if(!gas[i])continue; gn++;
-   reg({id:"pg"+gn,cls:"pith_gas",k:"c",x:cells[i][0],y:cells[i][1],r:pgr,hr:0.090*R,
-     fill:"var(--ct-gas)",stroke:"var(--ct-wall2)",sw:thin2,lab:"dark cell "+gn+" in the centre"});
- }
-
- /* ten vascular bundles: fibre cap outboard, phloem under it, xylem inboard */
- var EMB={"0:1":1,"1:2":1,"3:0":1,"4:1":1,"6:2":1,"7:0":1,"8:2":1};
- var WL=[[0.328,-0.160],[0.316,-0.082],[0.312,0.000],[0.316,0.082],[0.328,0.160],
-         [0.395,0.166],[0.455,0.150],[0.515,0.120],[0.575,0.085],[0.626,0.035],
-         [0.626,-0.035],[0.575,-0.085],[0.515,-0.120],[0.455,-0.150],[0.395,-0.166]];
- for(i=0;i<10;i++){
-   var t=bt[i], Rl=rad(t), ov=[Math.cos(t),kY*Math.sin(t)], ln=Math.sqrt(ov[0]*ov[0]+ov[1]*ov[1]);
-   var b={t:t,Rl:Rl,tv:[-ov[1]/ln,ov[0]/ln]}, B=i+1, k;
-   var fc=pbp(G,b,0.100*R,0);
-   reg({id:"fb"+i,cls:"fibre",k:"p",
-     d:pdd([pbp(G,b,0.066*R,-0.150*R),pbp(G,b,0.066*R,0.150*R),pbp(G,b,0.134*R,0.146*R),pbp(G,b,0.134*R,-0.146*R)]),
-     hd:pdd([pbp(G,b,0.060*R,-0.156*R),pbp(G,b,0.060*R,0.156*R),pbp(G,b,0.140*R,0.152*R),pbp(G,b,0.140*R,-0.152*R)]),
-     fill:"var(--ct-fibre)",stroke:"var(--ct-epi)",sw:thin,x:fc[0],y:fc[1],
-     lab:"bundle "+B+", the bright cap on the outer side"});
-   var ph=pbp(G,b,0.216*R,0);
-   reg({id:"ph"+i,cls:"phloem",k:"p",
-     d:pdd([pbp(G,b,0.148*R,-0.152*R),pbp(G,b,0.148*R,0.152*R),pbp(G,b,0.284*R,0.146*R),pbp(G,b,0.284*R,-0.146*R)]),
-     hd:pdd([pbp(G,b,0.144*R,-0.158*R),pbp(G,b,0.144*R,0.158*R),pbp(G,b,0.304*R,0.152*R),pbp(G,b,0.304*R,-0.152*R)]),
-     fill:"var(--ct-tissue2)",stroke:"var(--ct-wall2)",sw:thin,x:ph[0],y:ph[1],tz:0.042,
-     lab:"bundle "+B+", the band of small cells on the outer side"});
-   var pcx="";
-   for(j=0;j<27;j++){var q=pbp(G,b,(0.166+0.049*Math.floor(j/9))*R,(-0.124+0.248*(j%9)/8)*R);
-     pcx+='<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="'+(0.0165*R).toFixed(1)+'" fill="var(--ct-tissue)" stroke="var(--ct-wall)" stroke-width="'+thin+'"/>'}
-   for(j=0;j<7;j++){var f1=pbp(G,b,0.072*R,(-0.126+0.252*j/6)*R), f2=pbp(G,b,0.128*R,(-0.122+0.244*j/6)*R);
-     pcx+='<line x1="'+f1[0].toFixed(1)+'" y1="'+f1[1].toFixed(1)+'" x2="'+f2[0].toFixed(1)+'" y2="'+f2[1].toFixed(1)+'" stroke="var(--ct-wall2)" stroke-width="'+thin+'"/>'}
-   dec('<g pointer-events="none">'+pcx+'</g>');
-   var wc=pbp(G,b,0.470*R,0), wp=[];
-   for(j=0;j<WL.length;j++)wp.push(pbp(G,b,WL[j][0]*R,WL[j][1]*R));
-   reg({id:"wl"+i,cls:"wall",k:"p",d:pdd(wp),fill:"var(--ct-wall2)",stroke:"var(--ct-wall)",sw:thin2,
-     x:wc[0],y:wc[1],lab:"bundle "+B+", the tissue the lumens sit in"});
-   var jit=[0.070,0.074,0.068,0.072,0.071,0.069,0.073,0.070,0.072,0.071];
-   var pos=[[0.412,-0.074,jit[i]],[0.412,0.074,jit[(i+3)%10]],[0.537,0,0.072]];
-   for(k=0;k<pos.length;k++){
-     var c=pbp(G,b,pos[k][0]*R,pos[k][1]*R), isgas=EMB[i+":"+k]===1;
-     reg({id:"xy"+i+"-"+k,cls:isgas?"xylem_embolism":"xylem",k:"c",x:c[0],y:c[1],
-       r:pos[k][2]*R,hr:0.090*R,fill:isgas?"var(--ct-gas)":"var(--ct-water)",
-       stroke:"var(--ct-wall)",sw:Math.max(1.4,0.020*R).toFixed(1),
-       lab:"bundle "+B+", lumen "+(k+1)+", "+(isgas?"black":"mid grey")});
-   }
- }
-
- /* epidermis last, so its bright line sits on top of everything */
- reg({id:"epi",cls:"epidermis",k:"p",d:bodyD,fill:"none",stroke:"var(--ct-epi)",
-   sw:Math.max(2,0.020*R).toFixed(1),hitStroke:Math.max(14,0.09*R).toFixed(1),
-   x:cx,y:cy-kY*0.80*R,lab:"the outer boundary of the section"});
- PG=G; return G}
-
-function ppick(f,id,kb){
- var s=f.st, G=f._g, it=G&&G.by[id]; if(!it||s.done)return;
- var TK=PTASK[s.task], hits=s.hit?s.hit.split(","):[], i, r, have=0;
- if(it.cls===TK.c){
-   var dup=hits.indexOf(id)>=0;
-   if(!dup){hits.push(id); s.hit=hits.join(",")}
-   for(i=0;i<hits.length;i++){r=G.by[hits[i]]; if(r&&r.cls===TK.c)have++}
-   var need=TK.all?(G.n[TK.c]||0):1;
-   if(have>=need){
-     s.task++;
-     if(s.task>=PTASK.length){s.done=1; s.msg=psumm(s)}
-     else s.msg="<b>"+TK.ok+"</b> Next: "+PTASK[s.task].q;
-   } else s.msg="<b>"+(dup?"Already found.":"Yes, that is one.")+"</b> "+(need-have)+" more of "+need+" still to find.";
- } else {
-   s.misses[s.task]++;
-   s.msg="<b>Not that one.</b> "+pmiss(TK.c,it.cls);
-   s.flash=id;
-   if(f._pt)clearTimeout(f._pt);
-   f._pt=setTimeout(function(){f.st.flash=""; f.draw()},1200);
- }
- f.draw();
- if(kb){var nx=f.box.querySelector('[data-p="'+id+'"]'); if(nx)try{nx.focus()}catch(e){}}}
-
-D.practice={init:{task:0,hit:"",misses:[0,0,0,0,0],flash:"",reveal:0,done:0,msg:""},
- act:function(a){if(a==="reveal"){this.st.reveal=this.st.reveal?0:1; this.draw()}},
- draw:function(w){
-  var self=this, s=this.st, G=psec(w), i, r; this._g=G;
-  var hits=s.hit?s.hit.split(","):[], hm={};
-  for(i=0;i<hits.length;i++)if(hits[i])hm[hits[i]]=1;
-  var TK=PTASK[Math.min(s.task,PTASK.length-1)];
-  var g='<rect x="'+G.panelX.toFixed(1)+'" y="0" width="'+G.panelW.toFixed(1)+'" height="'+G.h+'" fill="var(--ct-bg)"/>', ov="";
-  G.items.forEach(function(it){
-    if(it.deco){g+=it.deco; return}
-    var got=hm[it.id]===1, fl=(s.flash===it.id);
-    var shp=function(fill,stroke,sw,extra){
-      if(it.k==="c")return '<circle cx="'+it.x.toFixed(1)+'" cy="'+it.y.toFixed(1)+'" r="'+it.r.toFixed(1)+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"'+(extra||"")+'/>';
-      return '<path d="'+it.d+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"'+(extra||"")+'/>'};
-    var out=shp(it.fill,it.stroke,it.sw);
-    /* every marking a student's click leaves goes into one top layer, so the
-       pith and phloem overlays are not buried under the cells drawn on them */
-    if(got){var col=PC[it.cls], z=it.k==="c"?Math.min(it.r*0.8,0.055*G.R):(it.tz||0.05)*G.R;
-      ov+=shp(col,col,Math.max(2,0.014*G.R).toFixed(1),' fill-opacity=".45"')+ptick(it.x,it.y,z)}
-    if(s.reveal&&it.cls==="xylem")ov+=shp("none","var(--lbl-1)",Math.max(2,0.013*G.R).toFixed(1),' stroke-dasharray="3 3"');
-    if(fl)ov+=shp("none","#FFFFFF","3",' stroke-dasharray="5 3"');
-    if(it.k==="c")out+='<circle class="hit" cx="'+it.x.toFixed(1)+'" cy="'+it.y.toFixed(1)+'" r="'+it.hr.toFixed(1)+'" fill="#000" fill-opacity="0" stroke-opacity="0" pointer-events="all"/>';
-    else if(it.hitStroke)out+='<path class="hit" d="'+it.d+'" fill="none" stroke="#000" stroke-opacity="0" stroke-width="'+it.hitStroke+'" pointer-events="stroke"/>';
-    else out+='<path class="hit" d="'+(it.hd||it.d)+'" fill="#000" fill-opacity="0" stroke-opacity="0" pointer-events="all"/>';
-    g+='<g class="rgn" data-p="'+it.id+'" tabindex="0" role="button" aria-label="'+it.lab+(got?", identified":"")+'">'+out+'</g>'});
-  if(ov)g+='<g pointer-events="none">'+ov+'</g>';
-  g+=T(G.panelX+11,17,"DRAWING · NOT A MICROGRAPH",{size:11,weight:600,fill:"var(--ct-wall2)"});
-  var need=TK.all?(G.n[TK.c]||0):1, have=0, tot=0;
-  for(i=0;i<hits.length;i++){r=G.by[hits[i]]; if(r&&r.cls===TK.c)have++}
-  for(i=0;i<5;i++)tot+=s.misses[i];
-  this.out("prompt",s.done
-    ?'<span class="lab">Practice complete · nothing here was graded</span><b>All five calls made.</b><em>Press Reset to run it again, then go and annotate your own slice.</em>'
-    :'<span class="lab">Task '+(s.task+1)+' of 5 · practice, not graded</span><b>'+TK.q+'</b><em>'+TK.h+'</em>');
-  this.out("msg",s.msg||"Click, tap, or tab to a region on the drawing. Wrong answers are the useful ones: each says why.");
-  this.tiles.innerHTML=tile("Task",s.done?"5 / 5":(s.task+1)+" / 5")+
-    tile("This task",s.done?"done":have+" / "+need)+
-    tile("Misses",tot,"",badge("NOT GRADED"));
-  var rb=$('[data-act="reveal"]',this.el); if(rb)rb.textContent=s.reveal?"Hide them again":"Show me what I'm missing";
-  if(!this._pb){this._pb=1;
-    var go=function(e){var el=e.target.closest?e.target.closest(".rgn"):null; if(!el)return;
-      if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ")return;
-      e.preventDefault(); ppick(self,el.getAttribute("data-p"),e.type==="keydown")};
-    this.box.addEventListener("click",go); this.box.addEventListener("keydown",go)}
-  return {h:G.h,svg:g,
-    aria:"Drawn grapevine petiole cross-section, not a micrograph: a ring of ten vascular bundles with "+(G.n.xylem+G.n.xylem_embolism)+" conduits, of which "+G.n.xylem_embolism+" read black, around a pith holding "+G.n.pith_gas+" dark cells. Current task: "+TK.q}}};
-
 
 /* ================= A SEASON IN ONE FIELD ================= */
 /* F.1 and F.2 read window.WP_FIELD, which is built on window.WP_DIEL.
@@ -2480,7 +2382,7 @@ var FS={sp:"grape",wx:"clear",soil:"loam",root:0.6,oa:0,irr:0,days:28,
 /* the weather a run actually uses: a preset key, or the five slider numbers */
 function wxOf(s){return s.wx==="custom"?{Tmax:s.tmax,Tmin:s.tmin,RHmax:s.rhmax,RHmin:s.rhmin,lightScale:s.light/100}:s.wx}
 function wxKey(s){return s.wx==="custom"?"custom:"+[s.tmax,s.tmin,s.rhmax,s.rhmin,s.light].join(","):s.wx}
-/* which preset the current midday deficit is nearest to, so the student keeps scale */
+/* which preset the current midday deficit is nearest to, so the user keeps scale */
 function nearestDay(v){var K=["fog","clear","hot"], best=null;
   if(v>FLD.DAYS.hot.vpdMidday*1.05)return "warmer and drier at midday than any of the three presets";
   if(v<FLD.DAYS.fog.vpdMidday*0.95)return "damper at midday than the fog day preset";
@@ -2531,7 +2433,7 @@ D.field={init:{sp:"grape",wx:"clear",soil:"loam",root:0.6,oa:0,irr:0,days:28,
  hashkeys:["sp","wx","soil","root","oa","irr","days","tmax","tmin","rhmax","rhmin","light"],
  act:function(a){if(a.indexOf("oa")!==0)return; var p=FLD.OA[+a.slice(2)]; if(!p)return;
    this.st.oa=p.v; this.sync(); this.draw()},
- /* a preset chip loads its five numbers into the sliders, so the student starts
+ /* a preset chip loads its five numbers into the sliders, so the user starts
     from a real day; moving any slider switches the mode to the day they built.
     The two clamps mirror the ones inside WP_FIELD.makeDay. */
  onset:function(k){var s=this.st, P=FLD.DAYS[s.wx];
@@ -2700,7 +2602,7 @@ D.fieldday={init:{day:8}, hashkeys:["day"],
   this.out("day","day "+dy+" of "+nd+" · soil Ψ "+sgn(rec.psiSoil,2)+" MPa");
   W.setVT($("#fdDay"),"day "+dy+" of "+nd+", lowest leaf water potential minus "+Math.abs(rec.psiLeafMin).toFixed(2)+" megapascals");
   return {h:h,svg:g,aria:"Day "+dy+" of "+nd+". VPD rises to "+Math.max.apply(null,H.vpd).toFixed(2)+
-    " kilopascals in the afternoon and leaf water potential falls to "+sgn(rec.psiLeafMin,2)+" megapascals at "+tLab+"."}}};
+    " kilopascals in the afternoon and leaf water potential reaches "+sgn(rec.psiLeafMin,2)+" megapascals at "+tLab+"."}}};
 
 /* ---------------- F.3 Denmead & Shaw against this model ----------------
    Read from the paper itself: Denmead OT, Shaw RH (1962) Agron J 54: 385.
@@ -2816,7 +2718,7 @@ D.fieldds={init:{},
     tile("Their break points fall","× "+Math.round(DS_BRK[0].bar/DS_BRK[2].bar),"",badge("12 · 2 · 0.3 bar","m"),"var(--xylem)")+
     tile("Over a demand range","× "+(DS_BRK[2].pot/DS_BRK[0].pot).toFixed(1),"",badge("1.4 to 6.4 mm d⁻¹","m"),"var(--xylem)")+
     tile("This model moves",(hi-lo).toFixed(3)," MPa",badge("over × "+(maxPot/Math.max(0.01,minPot)).toFixed(0)+" demand","i"),"var(--psi-w)")+
-    tile("Their turgor loss point","23–34"," % θ",badge("THEIR FIG. 6","m"),"var(--xylem)");
+    tile("Their turgor loss point","23 to 34"," % θ",badge("THEIR FIG. 6","m"),"var(--xylem)");
   var fx=rows.filter(function(r){return r.day.key==="fog"||r.day.key==="clear"||r.day.key==="hot"});
   this.out("leaf","At one fixed soil Ψ of "+sgn(DSFIX,3)+" MPa, this "+sp.name.toLowerCase()+"'s midday leaf Ψ is "+
     fx.map(function(r){return sgn(r.leafFix,3)+" MPa on the "+r.day.name.toLowerCase()}).join(", ")+
@@ -2835,7 +2737,10 @@ D.fieldds={init:{},
    text message and hands it either to the visitor's own mail client or to their
    clipboard. A half-written reply is kept in localStorage so a reload does not
    lose it, and that draft is cleared when they send. */
-var FB_TO="calbuquerque@csumb.edu", FB_TAG="[Water Path feedback]", FB_KEY="wp:feedback";
+/* 13 Oct 2026: FB_TO is deliberately EMPTY. The site is an independent teaching resource, so it must not
+   carry a university address. With FB_TO empty the form only copies the message as plain text (the Send
+   button is hidden and the notes say so). Caetano: to turn mail back on, put a personal or lab address here. */
+var FB_TO="", FB_TAG="[Water Path feedback]", FB_KEY="wp:feedback";
 var FB_FIELDS=["who","part","hard","wrong","add"], FB_RADIOS={fbrole:"role",fbuse:"use"};
 function fbDraft(get,val){try{
     if(get)return JSON.parse(localStorage.getItem(FB_KEY)||"{}");
@@ -2853,12 +2758,12 @@ function fbText(v){
     "Part of the site: "+v.part,
     "From: "+(v.who||"not given"),
     "They are: "+(v.role||"not given"),
-    "Would use it with their own students: "+(v.use||"not answered"),""];
+    "Would use it in their own teaching: "+(v.use||"not answered"),""];
   [["What was hard to follow",v.hard],
    ["What is scientifically wrong, unclear, or out of date",v.wrong],
    ["What they would add",v.add]].forEach(function(r){
      L.push("--- "+r[0]+" ---"); L.push(r[1].trim()||"(nothing written)"); L.push("")});
-  L.push("Sent from the BIO 332 Water Path site.");
+  L.push("Sent from the Water Path site.");
   return L.join("\n")}
 function fbSay(msg){var n=$("#fbNote"); if(n)n.textContent=msg}
 function initFeedback(){
@@ -2883,13 +2788,20 @@ function initFeedback(){
     var s=W.$('section.route[data-route="'+from+'"]'); if(!s)return;
     var t=s.getAttribute("data-title");
     for(var i=0;i<sel.options.length;i++)if(sel.options[i].value===t){sel.selectedIndex=i;break}};
+  var fbTo=function(){return FB_TO?" to "+FB_TO:" to the site author"};
+  if(!FB_TO){
+    var sb=$("#fbSend"); if(sb)sb.hidden=true;
+    var cb=$("#fbCopy"); if(cb){cb.textContent="Copy the message"; cb.classList.add("primary")}
+    var co=form.parentNode&&form.parentNode.querySelector(".co p");
+    if(co)co.textContent="Nothing is stored on this page and nothing is sent from it. The form only copies your message as plain text; paste it into an email or a message to the site author and send it yourself.";
+    fbSay("Nothing is stored on this page. The form copies your message as plain text; you send it yourself.")}
   var showText=function(txt){var o=$("#fbOut"); o.hidden=false; o.value=txt; o.focus(); try{o.select()}catch(e){}};
   $("#fbSend").addEventListener("click",function(){
     var v=fbRead(), txt=fbText(v);
     var body=encodeURIComponent(txt), subj=encodeURIComponent(FB_TAG+" "+v.part);
     if(body.length>1800){
       showText(txt);
-      fbSay("That is longer than a mail link can carry without some clients cutting it off, so it is in the box below instead. Copy it and send it to "+FB_TO+" with the subject "+FB_TAG+" "+v.part+".");
+      fbSay("That is longer than a mail link can carry without some clients cutting it off, so it is in the box below instead. Copy it and send it"+fbTo()+" with the subject "+FB_TAG+" "+v.part+".");
       return}
     fbDraft(false,null);
     fbSay("Your mail client should be opening with the message in it. Nothing was sent from this page.");
@@ -2897,11 +2809,11 @@ function initFeedback(){
   $("#fbCopy").addEventListener("click",function(){
     var txt=fbText(fbRead());
     function fallback(){showText(txt);
-      fbSay("Copying was blocked, so the message is in the box below, selected. Copy it and send it to "+FB_TO+".")}
+      fbSay("Copying was blocked, so the message is in the box below, selected. Copy it and send it"+fbTo()+".")}
     try{
       if(navigator.clipboard&&navigator.clipboard.writeText){
         navigator.clipboard.writeText(txt).then(function(){
-          fbSay("Copied. Send it to "+FB_TO+" with the subject "+FB_TAG+" and whichever part you picked.")},fallback)}
+          fbSay("Copied. Send it"+fbTo()+" with the subject "+FB_TAG+" and whichever part you picked.")},fallback)}
       else fallback()
     }catch(e){fallback()}});
 }
@@ -2930,6 +2842,202 @@ D.leaf={init:{mode:"a",dt:0}, hashkeys:["mode","dt"],
   W.setVT(dt,s.dt.toFixed(2)+" degrees between the leaf centre and its surface, vapour carries "+
     Math.round(16+(65-16)*(s.dt/0.2))+" per cent of the conductance outside the xylem");
   return null}};
+
+/* slow and named (13 Oct): a stepping timer that follows the page speed (window.PlaySpeed). It ticks every ms of wall
+   time but runs fn only once per 1/speed ticks, so at ¼× a "Run day" steps four times slower. Model steps are unchanged.
+   Returns an id that clearInterval() stops, like setInterval. */
+function spdInterval(fn,ms){var acc=0; return setInterval(function(){acc+=(window.PlaySpeed?window.PlaySpeed.get():1); if(acc<0.999)return; acc-=1; fn()},ms)}
+/* the main page's own tokens for the speed chip (speed.js falls back to --card, which this page does not define, so the
+   chip was white on white in dark mode) */
+(function(){try{var st=document.createElement("style"); st.textContent=".ps-chip.ps-light{background:var(--surface,#fff);color:var(--ink,#1d2a22);border-color:var(--line-strong,rgba(0,0,0,.25));min-height:var(--hit,36px);font-size:13px}.ps-chip.ps-light.ps-slow{background:#ffd479;color:#2a1d00;border-color:#e0b450}.figtools{flex-wrap:wrap}.figtools .ps-chip,.u7head .ps-chip{flex:0 0 auto}"; document.head.appendChild(st)}catch(e){}})();
+/* speed chip beside every Run or Play button of the v7 figures (one tap steps the page speed down) */
+(window.WP_INIT=window.WP_INIT||[]).push(function(){if(!window.PlaySpeed)return;
+  Array.prototype.forEach.call(document.querySelectorAll('.figtools [data-act="run"], .figtools [data-act="play"]'),function(b){
+    if(b.parentNode.querySelector('[data-ps="chip"]'))return; b.parentNode.insertBefore(window.PlaySpeed.chip("ps-light"),b.nextSibling)})});
+
+/* ================= DRY A STEM, DRY A LEAF (spliced into app2 before W.boot) ================= */
+/* shared play loop: sweeps st.psi down to a floor, one figure at a time */
+var PLAYING=null;
+function playStop(){if(PLAYING){cancelAnimationFrame(PLAYING.raf); var b=PLAYING.btn; if(b){b.textContent="Play"; b.setAttribute("aria-pressed","false")} PLAYING=null}}
+function playStart(fig,btn,floor,rate){if(PLAYING&&PLAYING.fig===fig){playStop();return} playStop();
+  if(fig.st.psi<=floor+0.001)fig.st.psi=0;
+  var reduce=false; try{reduce=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
+  PLAYING={fig:fig,btn:btn,last:0,raf:0}; btn.textContent="Pause"; btn.setAttribute("aria-pressed","true");
+  function step(t){if(!PLAYING||PLAYING.fig!==fig)return; var dt=PLAYING.last?Math.min(0.1,(t-PLAYING.last)/1000):0; PLAYING.last=t; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1);
+    if(reduce){if(!PLAYING.acc)PLAYING.acc=0; PLAYING.acc+=dt; if(PLAYING.acc<0.35){PLAYING.raf=requestAnimationFrame(step);return} PLAYING.acc=0; fig.st.psi=Math.max(floor,fig.st.psi-0.1)}
+    else fig.st.psi=Math.max(floor,fig.st.psi-rate*dt);
+    fig.sync(); fig.draw(); if(fig.st.psi<=floor+1e-9||fig.el.offsetParent===null){playStop();return} PLAYING.raf=requestAnimationFrame(step)}
+  PLAYING.raf=requestAnimationFrame(step)}
+window.addEventListener("hashchange",playStop);
+
+function srcItems(o){return Object.keys(o).map(function(k){var t=o[k], m=t.match(/\s(MEASURED|DERIVED|ILLUSTRATIVE|SECONDARY|PHYSICS)\s*$/), b=m?m[1]:"";
+  return '<li>'+(m?t.slice(0,m.index):t)+(b?' '+badge(b,b==="MEASURED"||b==="PHYSICS"?"m":b==="ILLUSTRATIVE"?"i":""):"")+'</li>'}).join("")}
+/* ---------------- E.7 dry a stem: the curve builds itself ---------------- */
+var NETC={key:"",m:null};
+function netModel(s){var k=[s.seed,s.area,s.ray,s.start].join("|"); if(NETC.key!==k){NETC.key=k; NETC.m=window.WP_NET.build({seed:s.seed,area:s.area,ray:s.ray,start:s.start})} return NETC.m}
+var AREAS=[0.25,0.35,0.5,0.7,1,1.4,2,2.8,4], RAYS=[0.01,0.02,0.05,0.1,0.2,0.35,0.5,0.75,1];
+D.drystem={init:{psi:0,seed:2,ai:4,ri:2,start:"pith",sel:-1}, hashkeys:["psi","seed","ai","ri","start"],
+ onset:function(k){if(k!=="psi")playStop(); if(k==="ai"||k==="ri"||k==="start")this.st.sel=-1},
+ act:function(a){if(a==="play")playStart(this,$('[data-act="play"]',this.el),-3,0.55);
+   else if(a==="stem"){playStop(); this.st.seed=(this.st.seed%40)+1; this.st.sel=-1; this.st.psi=0; this.sync(); this.draw()}},
+ draw:function(w){var self=this, s=this.st, nw=nar(w);
+  if(!this._src){this._src=1; this.out("netsrc",srcItems(window.WP_NET.sources)); this.out("caveats",window.WP_NET.caveats.map(function(c){return '<li>'+c+'</li>'}).join(""))}
+  s.area=AREAS[Math.round(s.ai)]; s.ray=RAYS[Math.round(s.ri)];
+  var m=netModel(s), V=m.V, E=m.E, Pv=m.P, t=-s.psi, i, g="";
+  var st=m.at(s.psi), prev=this._prev==null?s.psi:this._prev; this._prev=s.psi;
+  /* ---- cross-section ---- */
+  var side=Math.min(w-8,nw?360:470), cx=w/2, cy=side/2+6, Rs=side/2-10, Rp=Rs*0.17, dR=(Rs-Rp-8)/m.R;
+  var pos=[]; for(i=0;i<m.N;i++){var v=V[i], ang=((v.s+0.28+0.44*v.f)/m.S)*2*Math.PI-Math.PI/2, rad=Rp+(v.r+0.5)*dR;
+    pos.push([cx+rad*Math.cos(ang),cy+rad*Math.sin(ang)])}
+  var dmx=0; V.forEach(function(v){if(v.D>dmx)dmx=v.D});
+  var rmax=Math.min(dR*0.44,(2*Math.PI*(Rp+0.5*dR)/(m.S*m.F))*0.45);
+  function rv(v){return Math.max(2.2,rmax*v.D/dmx)}
+  g+='<circle cx="'+cx+'" cy="'+cy.toFixed(1)+'" r="'+Rs.toFixed(1)+'" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/>';
+  for(var j=0;j<m.S;j++){var a0=j/m.S*2*Math.PI-Math.PI/2; g+=L(cx+Rp*Math.cos(a0),cy+Rp*Math.sin(a0),cx+Rs*Math.cos(a0),cy+Rs*Math.sin(a0),"var(--line)",1.2)}
+  var pithGas=s.start==="pith"&&st.n>0;
+  g+='<circle cx="'+cx+'" cy="'+cy.toFixed(1)+'" r="'+Rp.toFixed(1)+'" fill="var(--sunk)" stroke="var(--line-strong)" stroke-width="1.5"/>';
+  g+=T(cx,cy+4,"pith",{anchor:"middle",size:12,fill:"var(--ink-3)"});
+  /* the path the air took, for every gas-filled vessel */
+  for(i=0;i<m.N;i++){if(Pv[i]>t)continue; var e=E[m.par[i]]; if(!e)continue;
+    var p2=pos[i], p1=e.a<0?(s.start==="pith"?[cx+(Rp)*(p2[0]-cx)/Math.hypot(p2[0]-cx,p2[1]-cy),cy+(Rp)*(p2[1]-cy)/Math.hypot(p2[0]-cx,p2[1]-cy)]:null):pos[e.a===i?e.b:e.a];
+    if(!p1)continue; var lat=e.kind==="ray";
+    g+=L(p1[0],p1[1],p2[0],p2[1],lat?"var(--phloem)":"var(--lbl-2)",lat?3.2:1.8)}
+  var si=s.sel>=0?s.sel:m.order[0];
+  for(i=0;i<m.N;i++){var p=pos[i], r=rv(V[i]), gas=Pv[i]<=t, fresh=gas&&Pv[i]>-prev-1e-9&&prev!==s.psi;
+    g+='<g class="vessel" data-v="'+i+'" tabindex="-1">';
+    if(fresh)g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(r+5).toFixed(1)+'" fill="none" stroke="var(--lbl-2)" stroke-width="2" opacity=".6"/>';
+    g+=gas?'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r.toFixed(1)+'" fill="var(--gas)" stroke="var(--lbl-2)" stroke-width="1.6"/>'
+          :'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r.toFixed(1)+'" fill="var(--lbl-1)" stroke="var(--surface)" stroke-width="1"/>';
+    g+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+Math.max(r+3,9).toFixed(1)+'" fill="transparent"/></g>'}
+  var ps=pos[si]; g+='<circle cx="'+ps[0].toFixed(1)+'" cy="'+ps[1].toFixed(1)+'" r="'+(rv(V[si])+5).toFixed(1)+'" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-dasharray="3 3"/>';
+  var h=side+14;
+  /* ---- the emergent curve, second chart ---- */
+  var c2=$("[data-chart2]",this.el);
+  if(c2){var w=Math.max(280,Math.round(c2.clientWidth||w)), nw=nar(w); var ch=nw?210:230, f=frame(w,ch,{l:40,r:14,t:22,b:44}), sx=lin(0,-3,f.x0,f.x1), sy=lin(0,100,f.y1,f.y0), q="";
+    q+=axisY(f,sy,[0,50,100],function(v){return v},"loss, %",true);
+    q+=axisX(f,sx,[0,-1,-2,-3],function(v){return v?M+Math.abs(v):"0"},"stem water potential, MPa");
+    var ref=[]; for(var x=0;x>=-3;x-=0.05)ref.push([sx(x),sy(P.plc(x,-1.73,98.4))]);
+    q+=path(ref,"var(--ink-3)",1.5,"2 4");
+    var cf=[[sx(0),sy(0)]], cc=[[sx(0),sy(0)]];
+    m.curve.forEach(function(k,ix){var pv=ix?m.curve[ix-1]:[k[0],0,0]; cf.push([sx(k[0]),sy(pv[1])],[sx(k[0]),sy(k[1])]); cc.push([sx(k[0]),sy(pv[2])],[sx(k[0]),sy(k[2])])});
+    cf.push([sx(-3),sy(100)]); cc.push([sx(-3),sy(100)]);
+    q+=path(cc,"var(--lbl-2)",1.6,"5 3")+path(cf,"var(--xylem)",2.4);
+    var X=sx(s.psi); q+=L(X,f.y0,X,f.y1,"var(--psi-w)",2);
+    if(m.p50!=null){q+='<circle cx="'+sx(m.p50).toFixed(1)+'" cy="'+sy(50).toFixed(1)+'" r="4" fill="var(--xylem)"/>'}
+    var lx=f.x0+8, la="start", ly=f.y0+14;
+    q+=T(lx,ly,"model, by flow (D⁴)",{anchor:la,size:12,fill:"var(--xylem)",weight:600,halo:1});
+    q+=T(lx,ly+16,"model, by count",{anchor:la,size:12,fill:"var(--lbl-2)",halo:1});
+    q+=T(lx,ly+32,"measured stem curve, Charrier 2016",{anchor:la,size:12,fill:"var(--ink-3)",halo:1});
+    c2.innerHTML='<svg viewBox="0 0 '+w+' '+ch+'" width="'+w+'" height="'+ch+'" role="img" aria-label="The vulnerability curve that comes out of this stem: loss of conductivity against stem water potential. Model P50 '+(m.p50==null?"not reached":sgn(m.p50,2))+' megapascals; the measured grapevine stem P50 is minus 1.73.">'+q+'</svg>'}
+  /* ---- readouts ---- */
+  this.tiles.innerHTML=tile("Stem water potential",sgn(s.psi,2)," MPa",badge("SET BY YOU","i"),"var(--psi-w)")+
+    tile("Conductivity lost",Math.round(st.plc)," %",badge("DERIVED"),"var(--xylem)")+
+    tile("Vessels gas-filled",st.n," of "+m.N,badge("MODEL","i"))+
+    tile("Sectors reached",st.sectors," of "+m.S,badge("MODEL","i"));
+  this.out("psi",sgn(s.psi,2)+" MPa"); this.out("area","× "+s.area); this.out("ray",Math.round(s.ray*100)+" %");
+  var lat=st.lateral, spread=st.n-(s.start==="pith"?0:0);
+  var msg;
+  if(!st.n)msg="Every vessel still holds water at "+sgn(s.psi,2)+" MPa. The first one in this stem goes at "+sgn(m.first,2)+" MPa"+(s.start==="pith"?", beside the pith.":".")+" Press Play.";
+  else msg="At "+sgn(s.psi,2)+" MPa, "+st.n+" of "+m.N+" vessels are gas-filled, "+Math.round(st.count)+" % by count, and "+Math.round(st.plc)+" % of the flow is gone. Count and flow are different numbers, because flow goes as D⁴. The air has reached "+st.sectors+" of "+m.S+" sectors and crossed a ray "+lat+" time"+(lat===1?"":"s")+".";
+  msg+=" This stem's curve: first air "+sgn(m.first,2)+", P50 "+(m.p50==null?"not reached":sgn(m.p50,2))+" MPa. Across its whole run, "+(100*m.latFrac).toFixed(1)+" % of the steps crossed a ray; Brodersen and colleagues counted 16 of 629, 2.5 %.";
+  this.out("status",msg);
+  /* ---- inspector: the pore that decides the selected vessel ---- */
+  var v=V[si], e=E[m.par[si]], from=e.a<0?-1:(e.a===si?e.b:e.a), gasNow=Pv[si]<=t, door=e.p, wait=Pv[si]>door+1e-9;
+  var src=from<0?(s.start==="pith"?"the pith side":"a gas source outside the network"):(e.kind==="ray"?"a vessel in the next sector, across a ray":"a vessel in the same sector");
+  var fill=Math.min(1,t/door), nm=Math.round(e.dmax*1000);
+  var hw=Math.min(w-8,420), mh=120, mx=hw/2, my=58, g2='';
+  g2+='<rect x="0" y="12" width="'+(mx-6)+'" height="92" fill="'+((from<0||Pv[from]<=t)?"var(--gas)":"var(--lbl-1)")+'" opacity="'+((from<0||Pv[from]<=t)?".9":".35")+'"/>';
+  g2+='<rect x="'+(mx+6)+'" y="12" width="'+(hw-mx-6)+'" height="92" fill="'+(gasNow?"var(--gas)":"var(--lbl-1)")+'" opacity="'+(gasNow?".9":".35")+'"/>';
+  g2+='<rect x="'+(mx-6)+'" y="12" width="12" height="'+(my-20)+'" fill="var(--ct-wall)"/><rect x="'+(mx-6)+'" y="'+(my+8)+'" width="12" height="'+(104-my-8)+'" fill="var(--ct-wall)"/>';
+  if(!gasNow){var bulge=4+14*fill; g2+='<path d="M'+(mx-6)+' '+(my-8)+' Q '+(mx-6+bulge*1.9)+' '+my+' '+(mx-6)+' '+(my+8)+'" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>'}
+  else g2+='<path d="M'+(mx-6)+' '+(my-8)+' L '+(mx+6)+' '+(my-8)+' L '+(mx+6)+' '+(my+8)+' L '+(mx-6)+' '+(my+8)+'z" fill="var(--gas)"/>';
+  g2+=T(8,30,(from<0?"gas source":(Pv[from]<=t?"gas-filled neighbour":"neighbour, still water")),{size:12,fill:(from<0||Pv[from]<=t)?"#fff":"var(--ink)"});
+  g2+=T(hw-8,30,gasNow?"this vessel: gas":"this vessel: water",{anchor:"end",size:12,fill:gasNow?"#fff":"var(--ink)",weight:600});
+  g2+=T(mx,mh-2,"largest pore "+nm+" nm · leaks at "+M+door.toFixed(2)+" MPa",{anchor:"middle",size:12,fill:"var(--ink-2)"});
+  var ins='<div class="insp"><p class="insp-h"><b>'+(s.sel>=0?"The vessel you picked":"The first vessel to go")+'</b>, '+Math.round(v.D)+' µm wide, carrying '+(100*Math.pow(v.D,4)/V.reduce(function(a,b){return a+Math.pow(b.D,4)},0)).toFixed(1)+' % of the stem\'s flow. Tap any vessel to inspect it.</p>'+
+    '<svg viewBox="0 0 '+hw+' '+mh+'" width="'+hw+'" height="'+mh+'" role="img" aria-label="Two conduits and the pit pore between them. '+(gasNow?"Air has come through.":"The meniscus holds.")+'">'+g2+'</svg>'+
+    '<p>Its air comes from '+src+' through a shared pit field of '+e.area.toFixed(1)+' mm², about '+e.n.toLocaleString("en-US")+' pores. The largest is '+nm+' nm, so the meniscus in it breaks at 0.2912 ÷ '+(e.dmax).toFixed(3)+' µm = '+door.toFixed(2)+' MPa of tension.'+
+    (wait?' But that door only matters once air is on the other side of it, and the neighbour does not fill until '+sgn(-Pv[from],2)+' MPa. So this vessel goes at '+sgn(-Pv[si],2)+' MPa: <b>the pore that decides it is upstream.</b>':' This vessel goes at <b>'+sgn(-Pv[si],2)+' MPa</b>.')+
+    ' Right now the tension is '+t.toFixed(2)+' MPa, '+(gasNow?'past it: the column broke and the vessel is embolised.':Math.round(100*fill)+' % of the way to the leak.')+'</p></div>';
+  this.out("insp",ins);
+  W.setVT($("#dsPsi"),sgn(s.psi,2).replace(M,"minus ")+" megapascals, "+st.n+" vessels gas-filled, "+Math.round(st.plc)+" percent of flow lost");
+  if(!this._bound){this._bound=1; var pick=function(ev){var g0=ev.target.closest(".vessel"); if(!g0)return; self.st.sel=+g0.getAttribute("data-v"); self.draw()};
+    this.box.addEventListener("click",pick)}
+  return {h:h,svg:g,aria:"Stylised grapevine stem cross-section, "+m.N+" vessels in "+m.S+" sectors around the pith. At minus "+t.toFixed(2)+" megapascals, "+st.n+" are gas-filled in "+st.sectors+" sectors, "+Math.round(st.plc)+" percent of conductivity lost."}}};
+
+/* ---------------- L.2 dry a grapevine leaf ---------------- */
+D.dryleaf={init:{psi:0,cv:"cs"}, hashkeys:["psi","cv"],
+ onset:function(k){if(k!=="psi")playStop()},
+ act:function(a){if(a==="play")playStart(this,$('[data-act="play"]',this.el),-2.8,0.45)},
+ draw:function(w){if(!this._src){this._src=1; this.out("leafsrc",srcItems(window.WP_LEAFDRY.sources))}
+  var s=this.st, nw=nar(w), LD=window.WP_LEAFDRY, S=LD.state(s.cv,s.psi), c=S.c, g="", i;
+  /* ---- a stylised vein-order diagram (not a grapevine outline) ---- */
+  var W0=Math.min(w-4,560), ox=(w-W0)/2, sc=W0/560;
+  function X(x){return ox+x*sc} function Y(y){return y*sc}
+  var kF=S.kLeft/100, shrink=1-0.16*clamp(-s.psi/Math.abs(c.tlp),0,1);
+  /* mesophyll areoles: fade with remaining leaf conductance */
+  g+='<path d="M'+X(20)+' '+Y(165)+' C '+X(120)+' '+Y(10)+', '+X(420)+' '+Y(10)+', '+X(545)+' '+Y(165)+' C '+X(420)+' '+Y(320)+', '+X(120)+' '+Y(320)+', '+X(20)+' '+Y(165)+'z" fill="var(--leaf)" stroke="var(--ground-tissue)" stroke-width="1.5"/>';
+  /* minor-vein areoles in a patch, with bundle sheath and cells */
+  var ax0=300, ay0=180, cell='';
+  for(var r=0;r<3;r++)for(var q=0;q<4;q++){var x0=ax0+q*48, y0=ay0+r*36-8;
+    if((x0-280)*(x0-280)/(270*270)+(y0-165)*(y0-165)/(140*140)>0.9)continue;
+    cell+='<rect x="'+X(x0).toFixed(1)+'" y="'+Y(y0).toFixed(1)+'" width="'+(44*sc).toFixed(1)+'" height="'+(32*sc).toFixed(1)+'" fill="none" stroke="var(--ground-tissue)" stroke-width="'+(S.minorEvent?1:1.4)+'" opacity=".8"/>';
+    for(var k=0;k<3;k++)cell+='<ellipse cx="'+X(x0+11+k*11).toFixed(1)+'" cy="'+Y(y0+16).toFixed(1)+'" rx="'+(4.2*shrink*sc).toFixed(1)+'" ry="'+(6*shrink*sc).toFixed(1)+'" fill="var(--pal)" opacity="'+(0.35+0.65*kF).toFixed(2)+'"/>'}
+  g+=cell;
+  /* vein hierarchy */
+  var mid=[[X(26),Y(165)],[X(540),Y(165)]];
+  var sec=[[140,165,210,70],[140,165,210,260],[260,165,330,62],[260,165,330,268],[380,165,440,80],[380,165,440,250]];
+  var ter=[[175,118,250,110],[175,212,250,222],[295,113,360,120],[295,217,360,212],[410,120,470,135],[410,210,470,196]];
+  var midC=S.mid>0?"var(--gas)":"var(--psi-w)";
+  var secHatch=S.mid>0;
+  ter.forEach(function(t){g+=L(X(t[0]),Y(t[1]),X(t[2]),Y(t[3]),"var(--psi-w)",2.2)});
+  sec.forEach(function(t){g+=L(X(t[0]),Y(t[1]),X(t[2]),Y(t[3]),"var(--psi-w)",3.6)});
+  g+=L(mid[0][0],mid[0][1],mid[1][0],mid[1][1],"var(--psi-w)",9);
+  if(S.mid>0){var frac=Math.min(1,S.mid/20); g+=L(mid[0][0],mid[0][1],mid[0][0]+(mid[1][0]-mid[0][0])*(0.25+0.75*frac),mid[1][1],"var(--gas)",5,"10 5")}
+  /* minor vein event */
+  if(S.minorEvent)g+='<circle cx="'+X(396).toFixed(1)+'" cy="'+Y(190).toFixed(1)+'" r="'+(7*sc).toFixed(1)+'" fill="var(--gas)" stroke="var(--lbl-2)" stroke-width="2"/>';
+  if(!S.minorResolved)g+='<rect x="'+X(296).toFixed(1)+'" y="'+Y(168).toFixed(1)+'" width="'+(200*sc).toFixed(1)+'" height="'+(110*sc).toFixed(1)+'" fill="var(--surface)" opacity=".7"/>'+T(X(396),Y(226),"minor veins not resolved here",{anchor:"middle",size:12,fill:"var(--ink-2)"});
+  /* stomata along the lower edge: aperture = remaining gs */
+  var gF=S.gLeft/100; for(i=0;i<5;i++){var sx0=X(150+i*62), sy0=Y(292);
+    g+='<ellipse cx="'+(sx0-4*sc).toFixed(1)+'" cy="'+sy0.toFixed(1)+'" rx="'+(4*sc).toFixed(1)+'" ry="'+(8*sc).toFixed(1)+'" fill="var(--pal)" stroke="var(--dermal)" stroke-width="1.2"/>'+
+      '<ellipse cx="'+(sx0+4*sc).toFixed(1)+'" cy="'+sy0.toFixed(1)+'" rx="'+(4*sc).toFixed(1)+'" ry="'+(8*sc).toFixed(1)+'" fill="var(--pal)" stroke="var(--dermal)" stroke-width="1.2"/>'+
+      '<ellipse cx="'+sx0.toFixed(1)+'" cy="'+sy0.toFixed(1)+'" rx="'+(0.3+2.2*gF*sc).toFixed(1)+'" ry="'+(6*sc).toFixed(1)+'" fill="var(--gas)"/>'}
+  /* labels, outside the blade where possible */
+  var lab=function(x,y,t,o){g+=T(X(x),Y(y),t,o||{size:12,fill:"var(--ink-2)",halo:1})};
+  lab(34,150,"midrib",{size:12,fill:"var(--ink)",weight:600,halo:1});
+  lab(212,58,"secondary");
+  lab(nw?120:150,100,"tertiary");
+  lab(nw?300:350,162,nw?"minor veins":"minor veins, areoles",{size:12,fill:"var(--ground-tissue)",halo:1});
+  lab(150,318,"stomata",{size:12,fill:"var(--dermal-text)",halo:1});
+  var h=Y(330)+6;
+  /* ---- timeline, second chart ---- */
+  var c2=$("[data-chart2]",this.el);
+  if(c2){var w=Math.max(280,Math.round(c2.clientWidth||w)), nw=nar(w); var ch=nw?280:270, f=frame(w,ch,{l:40,r:14,t:nw?74:60,b:44}), sx=lin(0,-2.8,f.x0,f.x1), sy=lin(0,100,f.y1,f.y0), q="";
+    q+=axisY(f,sy,[0,50,100],function(v){return v},nw?"%":"% of maximum, or of 20 conduits",true);
+    q+=axisX(f,sx,[0,-1,-2],function(v){return v?M+Math.abs(v):"0"},"leaf water potential, MPa");
+    var kk=[], gg=[], mm=[]; for(var x=0;x>=-2.8;x-=0.02){var z=LD.state(s.cv,x); kk.push([sx(x),sy(z.kLeft)]); gg.push([sx(x),sy(z.gLeft)]); mm.push([sx(x),sy(100*Math.min(1,z.mid/20))])}
+    q+=path(kk,"var(--ground-tissue)",2.4)+path(gg,"var(--dermal)",2.4,"6 3")+path(mm,"var(--gas)",2.4);
+    var tl=sx(c.tlp); q+=L(tl,f.y0,tl,f.y1,"var(--psi-p)",1.4,"2 3");
+    var X2=sx(s.psi); q+=L(X2,f.y0,X2,f.y1,"var(--psi-w)",2);
+    var lx=nw?f.x1-4:f.x1-4;
+    q+=T(lx,f.y0-(nw?56:42),"leaf hydraulic conductance",{anchor:"end",size:12,fill:"var(--ground-tissue)",weight:600,halo:1});
+    q+=T(lx,f.y0-(nw?40:26),"stomatal conductance",{anchor:"end",size:12,fill:"var(--dermal-text)",halo:1});
+    q+=T(nw?f.x0:lx,f.y0-(nw?24:10),"midrib conduits embolised",{anchor:nw?"start":"end",size:12,fill:"var(--ink)",halo:1});
+    q+=T(tl+4,f.y1-6,"turgor loss",{size:11,fill:"var(--psi-p)",halo:1});
+    c2.innerHTML='<svg viewBox="0 0 '+w+' '+ch+'" width="'+w+'" height="'+ch+'" role="img" aria-label="'+c.name+': leaf hydraulic conductance and stomatal conductance fall early; midrib embolism begins near minus 1.25 megapascals.">'+q+'</svg>'}
+  this.tiles.innerHTML=tile("Leaf water potential",sgn(s.psi,2)," MPa",badge("SET BY YOU","i"),"var(--psi-w)")+
+    tile("Leaf conductance left",Math.round(S.kLeft)," %",badge("DERIVED"),"var(--ground-tissue)")+
+    tile("Stomatal conductance left",Math.round(S.gLeft)," %",badge("DERIVED"),"var(--dermal-text)")+
+    tile("Midrib conduits embolised",S.mid<0.5?"0":(S.midBeyond?"20+":Math.round(S.mid)),"",badge("MEASURED","m"));
+  this.out("psi",sgn(s.psi,2)+" MPa");
+  var msg;
+  if(s.psi>-0.3)msg="Wet leaf. Everything is open. Press Play and watch which line moves first.";
+  else if(S.mid<0.5&&S.turgor)msg="At "+sgn(s.psi,2)+" MPa the leaf has already lost "+Math.round(100-S.kLeft)+" % of its hydraulic conductance and "+Math.round(100-S.gLeft)+" % of its stomatal conductance, and not one vein conduit has embolised. The loss is outside the xylem, in the living tissue between the veins and the evaporating walls.";
+  else if(S.mid<0.5)msg="Past the turgor loss point, "+sgn(c.tlp,2)+" MPa, and still no midrib embolism in this drawing. The cells have been shrinking; the pipes are full.";
+  else msg="Midrib embolism has begun: about "+(S.midBeyond?"20 or more":Math.round(S.mid))+" conduits at "+sgn(s.psi,2)+" MPa. By now the leaf has only "+Math.round(S.kLeft)+" % of its hydraulic conductance left and the stomata are "+Math.round(100-S.gLeft)+" % shut."+(S.minorEvent?" At −2.8 MPa, the most dehydrated Cabernet Sauvignon leaf showed embolism in minor veins: nine conduits in a 4th-order vein and one in a 6th.":(!S.minorResolved?" Chardonnay's minor veins could not be resolved at water potentials more negative than −1.6 MPa, so the drawing greys them out rather than guessing.":" Secondary veins embolised in 8 of 23 leaves, always joined to midrib embolism; tertiary veins in 4 of 23."));
+  this.out("status",msg);
+  W.setVT($("#dlPsi"),sgn(s.psi,2).replace(M,"minus ")+" megapascals, "+Math.round(S.kLeft)+" percent leaf conductance left");
+  return {h:h,svg:g,aria:"Stylised leaf vein orders, "+c.name+", at minus "+Math.abs(s.psi).toFixed(2)+" megapascals: leaf conductance "+Math.round(S.kLeft)+" percent, stomata "+Math.round(S.gLeft)+" percent, midrib conduits embolised "+Math.round(S.mid)+"."}}};
 
 W.boot(D);
 initFeedback();

@@ -179,7 +179,7 @@ details.q[open] summary{color:var(--psi)}
 
 <div class="wrap">
 <header class="top">
-  <p class="eyebrow">BIO 332 · Plant Physiology · CSUMB</p>
+  <p class="eyebrow">A plant physiology learning tool</p>
   <h1>Turgor Through a Salinas Day</h1>
   <p class="dek">Three scales of the same problem. One cell losing water. One leaf across one day.
   One plant across a week without irrigation. Everything here runs on the same four numbers, and
@@ -195,7 +195,7 @@ details.q[open] summary{color:var(--psi)}
     <dl class="keylist">
       <dt>Ψ <span>psi</span></dt>
       <dd>How tightly water is held. Free, pure water is <b>0</b>. Everything inside a plant is
-        below that, so <b>every number on this page is negative</b>.</dd>
+        below that, so <b>every water potential on this page is negative</b>; turgor, Ψ<sub>p</sub>, is the one part that is zero or positive.</dd>
       <dt>Ψ<sub>s</sub></dt>
       <dd>The part of Ψ caused by dissolved solutes. <b>Always negative.</b> More solutes, more
         negative.</dd>
@@ -218,7 +218,7 @@ details.q[open] summary{color:var(--psi)}
         0.2 MPa. California irrigation gear reads in <b>bars</b>, so −1.2 MPa is −12 bars.</dd>
     </dl>
     <div class="numline" role="img"
-         aria-label="A number line from minus 2.0 megapascals on the left, labelled drier and harder to get water, to zero on the right, labelled pure free water. Water always moves toward the more negative number.">
+         aria-label="A number line from minus 2.0 megapascals on the left, labelled drier and harder to get water, to zero on the right, labelled pure free water. Across a membrane, water moves toward the more negative number.">
       <svg viewBox="0 0 640 74">
         <line x1="24" y1="34" x2="616" y2="34" stroke="var(--line)" stroke-width="2"/>
         <g font-family="IBM Plex Mono,monospace" font-size="12" fill="var(--muted)">
@@ -241,7 +241,7 @@ details.q[open] summary{color:var(--psi)}
               fill="var(--psi)" font-weight="600">water always moves this way</text>
       </svg>
     </div>
-    <p class="keynote"><b>−1.5 is lower than −0.5.</b> That is the one piece of arithmetic that
+    <p class="keynote"><b>−1.5 is more negative than −0.5.</b> That is the one piece of arithmetic that
       trips everybody up in this topic. A leaf at −1.5 MPa is holding its water more tightly, and
       is in more trouble, than a leaf at −0.5.</p>
   </div>
@@ -285,7 +285,7 @@ details.q[open] summary{color:var(--psi)}
   <div class="two">
     <div class="hof">
       <h3 class="hofh">Grapevine leaf · stiff wall</h3>
-      <div class="cap">ε = 13 MPa &nbsp;·&nbsp; woody, Martorell et al. 2014</div>
+      <div class="cap">ε = 13 MPa &nbsp;·&nbsp; woody, Martorell et al. 2015</div>
       <svg class="chart" id="hofA" viewBox="0 0 380 250" role="img"
            aria-label="Höfler diagram, grapevine"></svg>
       <div class="big-read">
@@ -372,7 +372,7 @@ details.q[open] summary{color:var(--psi)}
   <div class="parthead"><span class="partnum">Part 2</span>
     <h2>Across one day</h2></div>
   <p class="partdek">Now connect that cell to the sky. Stomata open for carbon, water evaporates,
-  tension builds, and the leaf's water potential falls. The cell from Part 1 is sitting inside
+  tension builds, and the leaf's water potential becomes more negative. The cell from Part 1 is sitting inside
   this, losing turgor as the day goes on. Two leaves here, identical except that vine B has
   adjusted osmotically.</p>
 
@@ -492,6 +492,28 @@ details.q[open] summary{color:var(--psi)}
     </section>
   </div>
 
+  <!-- unifier r7 (12 Oct 2026): the same two cells in the molecular style of the journey (journey/mol.js) -->
+  <section class="panel pad" id="molcells" style="margin-bottom:1.1rem">
+    <h3>Watch the molecules: the same two cells, at this hour</h3>
+    <p class="small" style="margin:.2rem 0 .7rem">One leaf cell from each plant, driven by the numbers above. Water crosses the membrane
+      through aquaporins both ways all the time; when the leaf loses water the net flow is out, the vacuole shrinks and the push on the wall fades.
+      Plant B carries more potassium and sugar. <b>Try this:</b> press Run day with high demand and dry soil, and watch which cell gives up its turgor first.
+      <button class="playbtn" id="molPause" type="button" aria-pressed="false" style="margin-left:.4rem">Pause</button></p>
+    <div class="molgrid">
+      <div><div class="mlab">Plant A</div><div id="molA"></div></div>
+      <div><div class="mlab">Plant B</div><div id="molB"></div></div>
+    </div>
+    <p class="small" style="margin:.7rem 0 0; font-size:.82rem">Drawing scales: one drawn solute per 0.025 MPa of π<sub>o</sub>; the vacuole volume
+      change is drawn three times larger than the computed change in symplastic water content so you can see it; the net direction of the water follows
+      that change. Turgor, Ψ<sub>s</sub> and water content are this page's own pressure volume numbers. Illustrative drawing, model numbers.</p>
+  </section>
+  <style>
+    #molcells .molgrid{display:grid; gap:.9rem}
+    @media (min-width:1150px){ #molcells .molgrid{grid-template-columns:1fr 1fr} }
+    #molcells .mlab{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.8rem; color:var(--muted); margin:0 0 .3rem}
+    #molcells canvas{border:1px solid var(--line)}
+  </style>
+
   <section class="panel pad" style="margin-bottom:1.1rem">
     <h3>The whole day, in megapascals</h3>
     <svg class="chart" id="day" viewBox="0 0 700 290" role="img" aria-label="Day traces"></svg>
@@ -520,14 +542,14 @@ details.q[open] summary{color:var(--psi)}
     <svg class="chart" id="week" viewBox="0 0 700 330" role="img"
          aria-label="Seven day drying traces for soil, root and leaf water potential"></svg>
     <p class="small" style="margin:.8rem 0 0; font-size:.84rem">
-      Redrawn for BIO 332 from this model, after the classic figure in McElrone, Choat, Gambetta
+      Redrawn from this model, after the classic figure in McElrone, Choat, Gambetta
       and Brodersen (2013), <i>Nature Education Knowledge</i> 4(5): 6. Soil dries smoothly, root
       tracks it with a lag, leaf oscillates hardest. Night bands are unshaded in the original;
       here they are shaded.</p>
   </section>
 
   <div class="gap">
-    <b>Three things this figure is for.</b> First, the gap between the three lines <em>is</em> the
+    <b>Three things this figure is for.</b> First, the gap between the three lines is what <em>drives</em> the
     flow: no gap at dawn means no flow, and the widest gap is the middle of the afternoon. Second,
     the predawn points march downward. In a real plant, once the soil is dry enough the leaf stops
     getting all the way back overnight, and that failure to recover is the clinical start of
@@ -593,17 +615,8 @@ details.q[open] summary{color:var(--psi)}
 </div>
 
 <div class="gap">
-  <b>An honest gap, and it is in your backyard.</b> There is no published pressure volume curve
-  for lettuce. We searched the pressure volume, salinity, tipburn and postharvest literature in
-  September 2026 and found none: no ε, no turgor loss point, in a crop worth billions of dollars a
-  year to this valley. Leaf osmotic potential on its own does turn up in the salinity work, so that
-  part is not missing; the curve is. The soft-wall panel here uses Bartlett's crop herb mean as a
-  labelled stand in. A vapour pressure osmometer gives you π<sub>o</sub> from a leaf disc in about
-  ten minutes, and an estimate of π<sub>tlp</sub> from that; ε and RWC at turgor loss need a full
-  pressure volume curve, hours per sample. Screening the cultivars grown within twenty miles of
-  this classroom is a real, publishable measurement that nobody has made. <b>If you want in, come
-  to office hours and say "lettuce". You do not need prior lab experience and you do not need a
-  plan for graduate school. The training is the point.</b>
+  <b>A gap in the literature.</b> We could not find a published pressure volume curve for
+  lettuce, so the soft-wall panel here uses Bartlett's crop herb mean as a labelled stand in.
 </div>
 
 <h2>How this page computes</h2>
@@ -648,17 +661,18 @@ details.q[open] summary{color:var(--psi)}
     <li><b>The two equations, and ε = 5 MPa for crop herbs</b>, the lowest of any biome in a
       317 species compilation: Bartlett MK, Scoffoni C, Sack L (2012) <i>Ecology Letters</i> 15:
       393 to 405, equations 1 and 2 and Figure 3c.</li>
-    <li><b>ε by growth form</b>, 378 entries across 325 species: grasses 3.5 ± 1.8, herbs
-      5.3 ± 4.4, woody deciduous 13.2 ± 6.1, woody evergreen 14.8 ± 9.0, ferns 34.6 ± 12.9 MPa.
-      Nadal M, Flexas J, Gulías J, Peñuelas J (2018) <i>Ecology Letters</i> 21: 1372 to 1379.</li>
+    <li><b>ε is linked to photosynthesis across growth forms</b>: in 20 species covering all
+      major growth forms, plus published data, net assimilation and mesophyll conductance
+      fell as ε rose. Nadal M, Flexas J, Gulías J (2018) <i>Ecology Letters</i> 21: 1372 to 1379.
+      doi:10.1111/ele.13103.</li>
     <li><b>Grapevine ε = 10 to 16 MPa, π<sub>o</sub> −0.85 to −1.44, turgor loss −1.18 to −2.01,
       RWC at turgor loss 88 to 92 per cent</b>, field grown, June and August, Grenache and
-      Tempranillo: Martorell S, Medrano H, Tomàs M, Escalona JM, Flexas J, Diaz-Espejo A (2014)
-      <i>Physiologia Plantarum</i> 150: 381 to 391.</li>
+      Tempranillo: Martorell S, Medrano H, Tomàs M, Escalona JM, Flexas J, Diaz-Espejo A (2015)
+      <i>Physiologia Plantarum</i> 153: 381 to 391.</li>
     <li><b>Cultivar π<sub>o</sub></b>, July, common garden at Davis: Sinclair G, Galarneau ER,
       Hnizdor JF, McElrone AJ, Walker MA, Bartlett MK (2024) <i>Annals of Botany</i> 134:
       205 to 218. Single site, single month. Two cultivars 0.02 MPa apart are not different.</li>
-    <li><b>Mean osmotic adjustment −0.29 MPa</b> across 283 species, 246 wild and 37 crop:
+    <li><b>Mean shift in turgor loss point −0.44 MPa</b> across 283 wild and crop species:
       Bartlett MK, Zhang Y, Kreidler N, Sun S, Ardy R, Cao K, Sack L (2014) <i>Ecology Letters</i>
       17: 1580 to 1590. That paper gives the size of the shift, not the rate, which is why the
       slider is in megapascals rather than days.</li>
@@ -676,12 +690,11 @@ details.q[open] summary{color:var(--psi)}
     <li><b>Lettuce is about 96 per cent water</b> and shows visible dehydration beyond about 5 per
       cent weight loss: USDA FoodData Central 169248; Cantwell M, Kulchin NX, Donis-González IR,
       crisphead lettuce produce facts, UC Davis Postharvest Technology Center.</li>
-    <li><b>Pressure chamber</b>: Scholander PF, Hammel HT, Bradstreet ED, Hemmingsen EA (1965)
-      <i>Science</i> 148: 339 to 346.</li>
+    <li><b>Pressure chamber</b>: Scholander PF, Bradstreet ED, Hemmingsen EA, Hammel HT (1965)
+      Sap pressure in vascular plants. <i>Science</i> 148: 339 to 346. doi:10.1126/science.148.3668.339.</li>
   </ul>
-  <p style="margin-top:.9rem">Built for BIO 332 by Dr. Caetano Albuquerque, Department of Biology
-  and Chemistry, CSUMB. Companion to the water potential lectures and to
-  <i>Teaching a Computer Leaf Anatomy</i>.</p>
+  <p style="margin-top:.9rem">© 2026 Dr Caetano Albuquerque · Albuquerque Lab. An independent teaching
+  resource, not an official university publication. Part of The Water Path.</p>
 </div>
 </div>
 
@@ -1204,4 +1217,34 @@ details.q[open] summary{color:var(--psi)}
 })();
 </script>
 
+<script src="journey/mol.js"></script>
+<script>
+/* unifier r7 (12 Oct 2026): molecular cells for plants A and B, read from this page's own readouts (no change to the model above) */
+(function(){
+  if (!window.MOL) return;
+  function dark(){ var t=document.documentElement.getAttribute("data-theme"); if (t) return t==="dark"; try{return matchMedia("(prefers-color-scheme: dark)").matches}catch(e){return false} }
+  var rm=false; try{ rm=matchMedia("(prefers-reduced-motion: reduce)").matches }catch(e){}
+  function num(id){ var t=(document.getElementById(id)||{}).textContent||""; var m=t.replace(/\u2212/g,"-").match(/[-+]?\d*\.?\d+/); return m?parseFloat(m[0]):NaN }
+  var H=function(cw){ return cw<560?470:300 };
+  var T={A:MOL.Theatre(document.getElementById("molA"),MOL.scenes.cell(),{height:H,dark:dark(),reduce:rm,label:"Animated leaf cell of plant A: water molecules crossing the membrane through aquaporins, solutes in the vacuole, turgor pressing on the wall",prewarm:4}),
+         B:MOL.Theatre(document.getElementById("molB"),MOL.scenes.cell(),{height:H,dark:dark(),reduce:rm,label:"Animated leaf cell of plant B, with more solutes after osmotic adjustment",prewarm:4})};
+  function eps(){ var m=((document.getElementById("cvVal")||{}).textContent||"").match(/(\d+(\.\d+)?)/); return m?+m[1]:5 }
+  function upd(){
+    var e=eps();
+    ["A","B"].forEach(function(k){
+      var psi=num("w"+k), ps=num("s"+k), pp=Math.max(0,num("p"+k)), R=num("r"+k)/100, po=num("po"+k);
+      if (isNaN(psi)||isNaN(po)) return;
+      T[k].set({psi:psi, pio:po, turgor:pp, rwc:isNaN(R)?1:R, tlp:po/(1+po/e), eps:e});
+    });
+  }
+  var mo=new MutationObserver(function(){ upd() });
+  ["wA","pA","rA","wB","pB","rB","poB","cvVal"].forEach(function(id){ var n=document.getElementById(id); if(n) mo.observe(n,{childList:true,characterData:true,subtree:true}) });
+  upd();
+  var pb=document.getElementById("molPause");
+  if (rm){ pb.textContent="Still frame"; pb.disabled=true }
+  else pb.addEventListener("click",function(){ var p=T.A.pause(); T.B.pause(p); pb.setAttribute("aria-pressed",p?"true":"false"); pb.textContent=p?"Play":"Pause" });
+  new MutationObserver(function(){ T.A.setTheme(dark()); T.B.setTheme(dark()) }).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+  try{ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){ T.A.setTheme(dark()); T.B.setTheme(dark()) }) }catch(e){}
+})();
+</script>
 </body></html>
