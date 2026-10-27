@@ -186,7 +186,7 @@
       /* carrier, open inside */
       '<path d="M320 56 L344 56 L352 104 L350 152 L320 152 Z M388 56 L364 56 L356 104 L358 152 L388 152 Z" class="nm-o-car"/>' +
       '<circle cx="354" cy="146" r="7" class="nm-o-ion"/>' +
-      '<text x="302" y="176" text-anchor="middle" class="nm-o-lab">transporter</text><text x="302" y="194" text-anchor="middle" class="nm-o-sub">a carrier: binds one ion, changes shape</text>' +
+      '<text x="302" y="176" text-anchor="middle" class="nm-o-lab">transporter</text><text x="302" y="194" text-anchor="middle" class="nm-o-sub">a carrier: binds an ion, changes shape</text>' +
       '</svg>';
   }
 
@@ -237,7 +237,7 @@
     var nm = N.soluteName(sol);
     if (sol === 'nitrate') return 'You are following <b>nitrate</b>. The second workstation below is about nitrate itself: the carrier that also senses it.';
     if (sol === 'cadmium') return 'You are following <b>cadmium</b>. In the first workstation cadmium is switched on: watch it slip in through IRT1, the iron carrier.';
-    if (sol === 'potassium') return 'You are following <b>potassium</b>. This plate follows iron and nitrate, but the idea of two uptake systems, one for low and one for high concentration, was first resolved for potassium in barley roots (see the second workstation).';
+    if (sol === 'potassium') return 'You are following <b>potassium</b>. This plate follows iron and nitrate, but the idea of two uptake systems, one for low and one for high concentration, was resolved for potassium in barley roots (see the second workstation).';
     return 'You are following <b>' + esc(nm) + '</b>. This plate follows iron and nitrate, two nutrients whose transporters show what a carrier can do. Change the nutrient under Conditions.';
   }
 
@@ -248,8 +248,8 @@
     intro.className = 'nm-open';
     intro.innerHTML = '<div><p class="nm-k">Nutrient path · Plate V, Membrane</p>' +
       '<h3 class="nm-h">A pore next to a carrier</h3>' +
-      '<p class="nm-lead">The aquaporin is joined by a transporter. A pore that cannot choose, next to a carrier that must.</p>' +
-      '<p class="nm-body">On the water plate, water crosses the membrane through the <b>aquaporin</b>, an open pore. Mineral nutrients reach the root as <b>ions</b>, small charged particles, and most need a <b>transporter</b>: a protein that grabs one kind of ion, changes shape and lets it go on the other side. Below, two transporters show what that means: two ways to get iron, and a nitrate carrier that is also a sensor.</p>' +
+      '<p class="nm-lead">The aquaporin is joined by a transporter. A pore for water, next to a carrier that picks its ion.</p>' +
+      '<p class="nm-body">On the water plate, water crosses the membrane through the <b>aquaporin</b>, a pore that lets water through and keeps ions out. Mineral nutrients reach the root as <b>ions</b>, small charged particles, and most cross through <b>transporters</b>: carrier proteins that bind an ion, change shape and let it go on the other side (some ions also pass through ion channels). Below, two transporters show what that means: two ways to get iron, and a nitrate carrier that is also a sensor.</p>' +
       '<p class="nm-note" aria-live="polite"></p></div>' +
       '<div>' + poreCarrierSVG() + '</div>';
     host.appendChild(intro);

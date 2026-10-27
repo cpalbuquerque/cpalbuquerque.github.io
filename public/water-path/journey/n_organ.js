@@ -596,7 +596,7 @@
   function openHTML(c, tid) {
     var B = WS.badge, D = function (t) { return B('DERIVED', 'A model output of ' + t + ', not a measurement.'); };
     return '<p class="ck-open-k">' + B('OPEN') + ' <span>An open question</span></p>' +
-      '<h4 id="' + tid + '">Nobody knows how radial water flow actually splits between the three routes.</h4>' +
+      '<h4 id="' + tid + '">No measurement we found shows how radial water flow splits between the three routes.</h4>' +
       '<p>You just watched the routes one at a time. In a real plant, we found no measurement of how much of the water takes each one.</p>' +
       '<ul>' +
       '<li><b>The best numbers come from a model, and from leaves, not roots.</b> In a model of water flow outside the xylem in leaves of 14 species (' + c.buck + '), flow through the walls makes up 68 % of the conductance on average ' + D('Buckley et al. 2015') + ', and the path across membranes 19 % ' + D('Buckley et al. 2015') + ', or 6 % if the wall thickness seen in the light microscope is used ' + D('Buckley et al. 2015') + '. The model assumes that flow through plasmodesmata is negligible, so it gives the cell to cell route no share at all.</li>' +
