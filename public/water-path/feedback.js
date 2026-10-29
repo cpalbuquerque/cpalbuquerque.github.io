@@ -24,6 +24,7 @@
       'padding:14px 9px;border-radius:6px 0 0 6px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.3);min-width:32px;min-height:44px;text-align:center}' +
       '#wp-fb-tab:hover{background:#163c6a}#wp-fb-tab:focus-visible{outline:3px solid #f2a900;outline-offset:2px}' +
       '@media (max-width:520px){#wp-fb-tab{font-size:12px;padding:12px 7px}}' +
+      '@media (min-width:760px){body{padding-right:44px!important;box-sizing:border-box}}' + /* a gutter for the edge tabs, so they never cover page content */
       '@media print{#wp-fb-tab{display:none}}';
     document.head.appendChild(st);
   }

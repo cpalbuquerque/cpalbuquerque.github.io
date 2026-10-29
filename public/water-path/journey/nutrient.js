@@ -45,7 +45,7 @@
     { n: 2, id: 'plant', rn: 'II', name: 'Plant', sub: 'roots and the fungi they feed' },
     { n: 3, id: 'organ', rn: 'III', name: 'Organ', sub: 'the root checkpoint' },
     { n: 4, id: 'tissue', rn: 'IV', name: 'Tissue', sub: 'where each element goes, and what it costs' },
-    { n: 5, id: 'membrane', rn: 'V', name: 'Membrane', sub: 'iron uptake and the nitrate sensor' },
+    { n: 5, id: 'membrane', rn: 'V', name: 'Membrane', sub: 'the proton pump, iron uptake and the nitrate sensor' },
     { n: 5.5, id: 'species', rn: 'VI', name: 'Species', sub: 'nutrient strategies compared' }
   ];
   function levelOf(n) { for (var i = 0; i < LEVELS.length; i++) if (LEVELS[i].n === +n) return LEVELS[i]; return null; }

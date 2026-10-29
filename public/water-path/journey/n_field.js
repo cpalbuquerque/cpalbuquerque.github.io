@@ -33,10 +33,18 @@
   var TIPFIX = 22;                     // tip depth when growth is off
   var NUTS = {
     nitrate: { id: 'nitrate', name: 'Nitrate', f: 'NO₃⁻', Dl: 1.9e-5, b: 0.3, C0: 1, Imax: 4e-6, Km: 0.03 },
-    potassium: { id: 'potassium', name: 'Potassium', f: 'K⁺', Dl: 2.0e-5, b: 15, C0: 0.3, Imax: 3e-6, Km: 0.02 },
-    phosphate: { id: 'phosphate', name: 'Phosphate', f: 'H₂PO₄⁻', Dl: 0.89e-5, b: 300, C0: 0.005, Imax: 1e-6, Km: 0.005 }
+    potassium: { id: 'potassium', name: 'Potassium', f: 'K⁺', Dl: 2.0e-5, b: 2, C0: 0.3, Imax: 3e-6, Km: 0.02 },
+    phosphate: { id: 'phosphate', name: 'Phosphate', f: 'H₂PO₄⁻', Dl: 0.89e-5, b: 10, C0: 0.005, Imax: 1e-6, Km: 0.005 }
   };
+  /* v18: the buffer powers b of potassium (was 15) and phosphate (was 300) are TUNED, not measured, so the model's
+     shells land on the scale a review gives: phosphate about 3 mm by day 6, nitrate about 2 cm, potassium between.
+     The Dl values are internal constants only; they are never shown on the page (DO NOT USE list). */
   var ORDER = ['nitrate', 'potassium', 'phosphate'];
+  /* how far each nutrient is drawn down around a root, from a review (York et al. 2016, Table 1): SECONDARY.
+     Potassium has no row there, so it gets no marker. Distances from the root surface, mm. */
+  var REVIEW = { phosphate: { mm: 3, txt: 'about 3 mm', el: 'phosphorus' }, nitrate: { mm: 20, txt: 'about 2 cm', el: 'nitrogen (mostly nitrate in soil)' } };
+  var YORK = 'York, Carminati, Mooney, Ritz and Bennett 2016, J Exp Bot 67: 3629 to 3643, a review (Table 1). The table has no reference column.';
+  var YORK_LINK = '(York et al. 2016, J Exp Bot 67: 3629, <a href="https://doi.org/10.1093/jxb/erw108" target="_blank" rel="noopener">doi 10.1093/jxb/erw108</a>)';
   var LNQ = Math.log(RMAX / R0) / NR;
   var FACE = new Float64Array(NR + 1), CEN = new Float64Array(NR), VOL = new Float64Array(NR);
   (function () {
@@ -250,11 +258,12 @@
       title: 'The depletion zone: mass flow versus diffusion',
       badge: 'ILLUSTRATIVE',
       what: 'A model root growing in a block of soil, with one quarter cut away so you can see inside. The colour is how much of a nutrient is <b>dissolved in the soil water</b>: strong colour means as much as at the start, faint colour means the root has taken it away. ' +
-        'All soil and root numbers here are ' + IL('Diffusion coefficients, buffer powers, concentrations, uptake rates, water flow and root sizes are chosen to show the behaviour. No page level source was verified for them.') + '. The robust result is the order: <b>nitrate moves far, potassium less, phosphate barely</b>.',
+        'All soil and root numbers here are ' + IL('Diffusion coefficients, buffer powers, concentrations, uptake rates, water flow and root sizes are chosen to show the behaviour. No page level source was verified for them.') + '. The robust result is the order: <b>nitrate moves far, potassium less, phosphate barely</b>. ' +
+        'For the real scale, a review puts the zone a root drains at <b>about 2 cm for nitrogen</b> and <b>about 3 mm for phosphorus</b> ' + badge('SECONDARY', YORK) + '. Read those against the ruler on the block.',
       todo: 'Press <b>Play</b> (or <b>Step</b>). Then change <b>Transpiration</b>: with nitrate, watch the faint zone around the root fill back in as the water carries nitrate to it. Switch to <b>phosphate</b>: a thin, almost empty shell opens and the root goes hungry. Turn <b>Root grows</b> on to let the root escape into fresh soil. Drag the flat slice (grab its round handle) or use <b>Slice depth</b>.',
-      thing: 'A model root (cream) with root hairs, in a 20 mm wide soil block. The two cut faces pass through the root; the flat slice shows the same field at one depth. A dark dashed line marks the edge of the <b>depletion shell</b>. Small blue dots are water moving toward the root; their speed is exaggerated, and they stop when transpiration is zero. A phosphate shell is under 1 mm wide: zoom in on the root to see it. Model rendering, not an image.',
+      thing: 'A model root (cream) in a 20 mm wide soil block. Its root hairs are drawn for looks only: in this block they take up nothing. The panel below shows what hairs add. The two cut faces pass through the root; the flat slice shows the same field at one depth. A dark dashed line marks the edge of the <b>depletion shell</b>. Small blue dots are water moving toward the root; their speed is exaggerated, and they stop when transpiration is zero. The ruler on the soil surface starts at the root centre and runs out to 10 mm. A coloured tick marks the review distance for the nutrient chosen; that distance is measured from the root surface, not the centre. In this model a phosphate shell grows to a few millimetres: compare it with the ruler. Model rendering, not an image.',
       scanCaption: '<b>Top down map at the slice.</b> The dissolved nutrient around the root at the slice depth, seen from above. Same model, same colours. ' + IL('Model output from illustrative inputs.'),
-      plotCaption: '<b>Concentration against distance from the root surface</b>, at the slice depth, on a stretched (log) distance scale so a shell under 1 mm and one of 2 cm both fit. Bold: the nutrient chosen. Shaded: its depletion shell. ' + DE('Computed by the equations in the Why fold, from illustrative inputs.'),
+      plotCaption: '<b>Concentration against distance from the root surface</b>, at the slice depth, on a stretched (log) distance scale so a shell of a few millimetres and one of 2 cm both fit. Bold: the nutrient chosen. Shaded: its depletion shell. ' + DE('Computed by the equations in the Why fold, from illustrative inputs.') + ' Dotted marks: how far a review says phosphorus (about 3 mm) and nitrogen (about 2 cm) are drawn down ' + badge('SECONDARY', YORK) + '.',
       why: whyHTML(),
       state: { nut: start, tr: 40, grow: false, t: 2, y: 0.2, zoom: 'wide' },
       camera: { dist: 5.0, theta: 0.78, phi: 1.08, target: [0.12, -0.05, 0.12], minDist: 1.2, maxDist: 12 }
@@ -309,6 +318,80 @@
       var eg = new T.BufferGeometry(); eg.setAttribute('position', new T.Float32BufferAttribute(pts, 3));
       mats.edge = new T.LineBasicMaterial({ color: 0x888888 });
       block.add(new T.LineSegments(eg, mats.edge));
+
+      /* a ruler on the soil surface along the cut edge (z = 0), from the root centre out to 10 mm, with a tick for
+         the review distance of the chosen nutrient (from the root surface, so at root radius + that distance) */
+      var rulerG = new T.Group(); rulerG.position.set(0, H / 2 + 0.006, 0.004); block.add(rulerG);
+      var rp = [0, 0, 0, 1, 0, 0];
+      for (var mmk = 0; mmk <= 10; mmk++) { var tl = mmk % 5 === 0 ? 0.075 : 0.035; rp.push(mmk / 10, 0, 0, mmk / 10, tl, 0); }
+      var rg = new T.BufferGeometry(); rg.setAttribute('position', new T.Float32BufferAttribute(rp, 3));
+      mats.ruler = new T.LineBasicMaterial({ color: 0x222222, depthTest: false });
+      var rulerL = new T.LineSegments(rg, mats.ruler); rulerL.renderOrder = 10; rulerG.add(rulerL);
+      var revG = new T.BufferGeometry(); revG.setAttribute('position', new T.Float32BufferAttribute([0, -0.02, 0, 0, 0.25, 0], 3));
+      mats.rev = new T.LineBasicMaterial({ color: 0x9a4320, depthTest: false });
+      var revL = new T.Line(revG, mats.rev); revL.renderOrder = 11; rulerG.add(revL);
+      var revM = new T.Mesh(new T.ConeGeometry(0.022, 0.05, 12), new T.MeshBasicMaterial({ color: 0x9a4320, depthTest: false }));
+      revM.rotation.x = Math.PI; revM.position.y = 0.04; revM.renderOrder = 11; revL.add(revM); mats.revM = revM.material;
+      var rk = 1;   /* label scale: larger on phones */
+      function textSprite(txt, hWorld) {
+        var cv = document.createElement('canvas'), cx = cv.getContext('2d'), fs = 40;
+        cx.font = '600 ' + fs + 'px ' + WS.token('ui');
+        cv.width = Math.ceil(cx.measureText(txt).width) + 16; cv.height = fs + 14;
+        var tx = new T.CanvasTexture(cv); tx.minFilter = T.LinearFilter; tx.generateMipmaps = false;
+        var sp = new T.Sprite(new T.SpriteMaterial({ map: tx, depthTest: false, transparent: true }));
+        sp.renderOrder = 12; sp.scale.set(hWorld * rk * cv.width / cv.height, hWorld * rk, 1);
+        sp.userData = { cv: cv, txt: txt, tex: tx, h: hWorld };
+        sp.userData.draw = function (col, back) {
+          var c2 = cv.getContext('2d'); c2.clearRect(0, 0, cv.width, cv.height);
+          c2.fillStyle = back; c2.globalAlpha = 0.82; c2.fillRect(0, 0, cv.width, cv.height); c2.globalAlpha = 1;
+          c2.font = '600 ' + fs + 'px ' + WS.token('ui'); c2.fillStyle = col; c2.textBaseline = 'middle'; c2.fillText(sp.userData.txt, 8, cv.height / 2 + 2);
+          tx.needsUpdate = true;
+        };
+        sp.userData.setText = function (t2) {
+          sp.userData.txt = t2; var c2 = cv.getContext('2d'); c2.font = '600 ' + fs + 'px ' + WS.token('ui');
+          cv.width = Math.ceil(c2.measureText(t2).width) + 16; cv.height = fs + 14;
+          sp.scale.set(hWorld * rk * cv.width / cv.height, hWorld * rk, 1);
+          tx.dispose(); tx = new T.CanvasTexture(cv); tx.minFilter = T.LinearFilter; tx.generateMipmaps = false; sp.material.map = tx; sp.material.needsUpdate = true;
+        };
+        rulerG.add(sp); return sp;
+      }
+      var rLab = [textSprite('0', 0.1), textSprite('5 mm', 0.1), textSprite('10 mm', 0.1)];
+      rLab[0].position.set(-0.06, 0.15, 0); rLab[1].position.set(0.5, 0.15, 0); rLab[2].position.set(1, 0.15, 0);
+      var revLab = textSprite('review', 0.1);
+      dz.ruler = {
+        labs: rLab, revLab: revLab, revL: revL, cur: '',
+        paint: function (dark) {
+          var ink = WS.token('ink'), back = WS.token('wall');
+          mats.ruler.color.set(ink); mats.rev.color.set(WS.token('warm')); mats.revM.color.set(WS.token('warm'));
+          rLab.forEach(function (l) { l.userData.draw(ink, back); });
+          revLab.userData.draw(WS.token('warm'), back);
+        },
+        fit: function (wpx) {
+          var k = wpx && wpx < 560 ? 1.9 : 1;
+          if (k === rk) return;
+          rk = k;
+          rLab[1].visible = k === 1;
+          rLab.forEach(function (l, i) { var h0 = l.userData.h; l.scale.set(h0 * rk * l.userData.cv.width / l.userData.cv.height, h0 * rk, 1); l.position.y = 0.15 * rk; });
+          rLab[0].position.x = -0.06 * rk;
+          this.cur = ''; this.set(this.nut || 'nitrate');
+        },
+        set: function (nut) {
+          this.nut = nut;
+          var R = REVIEW[nut], key = nut, ph = rk > 1;
+          if (key === this.cur) return; this.cur = key;
+          if (!R) { revL.visible = false; revLab.visible = false; return; }
+          revLab.visible = true;
+          if (R.mm + R0MM <= 10) {
+            var x = (R.mm + R0MM) / 10; revL.visible = true; revL.position.x = x;
+            revLab.userData.setText(ph ? 'P: about 3 mm' : 'P review: about 3 mm'); revLab.position.set(x + (ph ? 0.3 : 0.05), ph ? -0.16 : 0.3, 0);
+          } else {
+            revL.visible = false;
+            revLab.userData.setText(ph ? 'N: 2 cm, off ruler' : 'N review: about 2 cm, past this ruler'); revLab.position.set(ph ? 0.45 : 0.55, ph ? -0.16 : 0.3, 0);
+          }
+          revLab.userData.draw(WS.token('warm'), WS.token('wall'));
+        }
+      };
+      dz.ruler.paint(isDark());
 
       /* the root: a body from above the soil to the tip, a tip cone, and hairs */
       rootG = new T.Group(); block.add(rootG);
@@ -368,6 +451,7 @@
         mats.root.color.set(dark ? '#ded0b0' : '#f6eed6');
         mats.hair.color.set(dark ? '#ded0b0' : '#efe2c0');
         mats.water.color.set(WS.token(dark ? 'w2' : 'w2'));
+        dz.ruler.paint(dark);
         ws.render();
       });
       ws.slice({ key: 'y', axis: 'y', min: -1.15, max: 1.15, size: [2.3, 2.3], label: 'Slice depth', fmt: function (v) { return Math.round(depthOf(v)) + ' mm deep'; } });
@@ -382,9 +466,8 @@
 
     /* ---- every pane follows the state */
     var lastKey = '', lastNut = S.nut;
-    if (S.nut !== 'nitrate') S.zoom = 'close';
     ws.on(function (st) {
-      if (st.nut !== lastNut) { lastNut = st.nut; var z = st.nut === 'nitrate' ? 'wide' : 'close'; if (st.zoom !== z) { ws.set({ zoom: z }); return; } }
+      if (st.nut !== lastNut) { lastNut = st.nut; var z = 'wide'; if (st.zoom !== z) { ws.set({ zoom: z }); return; } }
       var key = [st.nut, st.tr, st.grow, st.t.toFixed(3), st.y.toFixed(4), isDark()].join('|');
       if (key !== lastKey) {
         lastKey = key;
@@ -398,6 +481,7 @@
           hairs.geometry.setDrawRange(0, n * 2);
           slicePlane.position.set(0.5, st.y + 0.003, 0.5);
           dz.water.place(st);
+          dz.ruler.fit(g.renderer.domElement.clientWidth); dz.ruler.set(st.nut);
         }
       }
       var o = here(st);
@@ -417,7 +501,7 @@
     /* ---- the static drawing when 3D is missing: the cut face, mirrored, as a vertical section */
     ws.fallback(function (c, w, h, st) {
       c.fillStyle = WS.token('card2'); c.fillRect(0, 0, w, h);
-      var top = 22, bot = h - 40, sc = Math.min((bot - top) / DEPTH, (w - 40) / (2 * BLOCK)), half = BLOCK * sc, cx = w / 2;
+      var top = 22, bot = h - 70, sc = Math.min((bot - top) / DEPTH, (w - 40) / (2 * BLOCK)), half = BLOCK * sc, cx = w / 2;
       c.imageSmoothingEnabled = true;
       c.drawImage(LAY.cut.canvas, cx, top, half, DEPTH * sc);
       c.save(); c.translate(cx, 0); c.scale(-1, 1); c.drawImage(LAY.cut.canvas, 0, top, half, DEPTH * sc); c.restore();
@@ -427,8 +511,20 @@
       c.beginPath(); c.moveTo(cx - half - 10, ys); c.lineTo(cx + half + 10, ys); c.stroke(); c.setLineDash([]);
       c.fillStyle = WS.token('ink'); c.font = '12px ' + WS.token('ui');
       c.fillText('soil surface', cx - half, top - 6);
+      /* ruler along the soil surface, root centre to 10 mm, with the review distance for the chosen nutrient */
+      c.strokeStyle = WS.token('ink'); c.lineWidth = 1; c.beginPath(); c.moveTo(cx, top - 1); c.lineTo(cx + half, top - 1);
+      for (var mk = 0; mk <= 10; mk++) { var xx = cx + mk * sc, tl = mk % 5 ? 3 : 6; c.moveTo(xx, top - 1); c.lineTo(xx, top - 1 - tl); }
+      c.stroke();
+      c.font = '11px ' + WS.token('ui'); c.fillText('5 mm', cx + 5 * sc - 12, top - 9); c.fillText('10 mm', cx + half - 30, top - 9);
+      var Rv = REVIEW[st.nut];
+      if (Rv && Rv.mm + R0MM <= 10) {
+        var xr = cx + (Rv.mm + R0MM) * sc; c.strokeStyle = WS.token('warm'); c.lineWidth = 2;
+        c.beginPath(); c.moveTo(xr, top - 1); c.lineTo(xr, top + 14); c.stroke();
+        c.fillStyle = WS.token('warm'); c.fillText('P review', xr + 3, top + 12); c.fillStyle = WS.token('ink');
+      }
+      c.font = '12px ' + WS.token('ui');
       c.fillText('slice', Math.min(w - 34, cx + half + 4), ys - 6);
-      c.fillText('a vertical cut through the root, 20 mm wide', cx - half, bot + 18);
+      c.fillText('a vertical cut through the root, 20 mm wide', cx - half, bot + 16);
     });
 
     /* ---- the map */
@@ -519,6 +615,13 @@
           el('line', { x1: xr, x2: xr, y1: ax.y(0), y2: ax.y(100), 'class': 'ws-cursor' }, ax.g);
         }
       }
+      /* review distances (SECONDARY), drawn under the curves */
+      [['phosphate', 'P'], ['nitrate', 'N']].forEach(function (rv) {
+        var R = REVIEW[rv[0]], X = ax.x(Math.log(R.mm) / Math.LN10), on = rv[0] === st.nut;
+        el('line', { x1: X, x2: X, y1: ax.y(0), y2: ax.y(62), 'class': 'nf-rev' + (on ? ' nf-revon' : '') }, ax.g);
+        var t = el('text', { x: X - 3, y: ax.y(4), 'text-anchor': 'end', 'class': 'ws-lab nf-revt' + (on ? ' nf-b' : '') }, ax.g);
+        t.textContent = rv[1] + ' ' + R.txt;
+      });
       ORDER.forEach(function (n) {
         var sim = S2[n], pts = [];
         if (age >= 0) profileInto(sim, age, plotBuf);
@@ -552,7 +655,13 @@
       return '<p class="nf-st"><span><b>Depletion shell</b> ' + (o.w > 0.02 ? mm(o.w) + ' wide' : 'none') + ' ' + DE('Where the dip has shrunk to a tenth of its depth at the root. The one tenth rule is a chosen definition.') + '</span>' +
         '<span><b>At the root surface</b> ' + pct(o.cs) + ' of start ' + DE() + '</span>' +
         '<span><b>Brought by the water (mass flow)</b> ' + pct(Math.min(9.99, o.mf)) + ' of uptake ' + DE('Water influx times the concentration at the root surface, divided by uptake.') + '</span>' +
+        reviewSpan(st, o) +
         '<span><b>Uptake</b>, as a share of a root in fresh soil: ' + pct(o.up) + ' at the slice; ' + pct(o.upTip) + ' in the newest 2 mm behind the tip; ' + pct(o.upAvg) + ' averaged over the whole root ' + DE() + '</span></p>';
+    }
+    function reviewSpan(st, o) {
+      var R = REVIEW[st.nut];
+      if (!R) return '<span><b>Review figure</b> none for potassium in the review used here, so no marker</span>';
+      return '<span><b>Review figure</b> ' + R.el + ' drawn down to ' + R.txt + ' ' + badge('SECONDARY', YORK) + '; this model now ' + (o.w > 0.02 ? mm(o.w) : 'no shell') + ' ' + IL('Model output from illustrative inputs; not a measurement.') + '</span>';
     }
     function sayHTML(st, o) {
       var P = NUTS[st.nut], nm = P.name.toLowerCase(), head = '<b>' + day(st.t).replace('day', 'Day') + '.</b> ';
@@ -564,6 +673,7 @@
       } else if (st.nut === 'phosphate') {
         s = 'Water brings only ' + pct(mf) + ' of the phosphate taken up: phosphate sticks to soil, so little is dissolved. A <b>depletion shell</b> ' + mm(o.w) + ' wide is nearly empty (' + pct(o.cs) + ' left at the root), so here the root gets ' + pct(o.up) + ' of what it would in fresh soil, in a soil full of phosphorus.';
         s += st.grow ? ' Its newest 2 mm, in fresh soil, get ' + pct(o.upTip) + ': growing is how it escapes.' : ' Turn on <b>Root grows</b> to let it escape.';
+        s += ' A review puts real phosphorus zones at about 3 mm; this model was tuned to show that scale. Root hairs: see the panel below.';
       } else {
         s = 'The water brings ' + pct(mf) + ' of the potassium the root takes up; diffusion brings the rest. Potassium sticks to soil a little, so its shell (' + mm(o.w) + ') is narrower than nitrate’s and wider than phosphate’s; at the root it is ' + pct(o.cs) + ' of the start.';
       }
@@ -576,25 +686,27 @@
 
   function whyHTML() {
     var P = NUTS;
-    function row(name, Dl, b, C0, Imax, Km) { return '<tr><th scope="row">' + name + '</th><td>' + Dl + '</td><td>' + b + '</td><td>' + C0 + '</td><td>' + Imax + '</td><td>' + Km + '</td></tr>'; }
+    function row(name, b, C0, Imax, Km) { return '<tr><th scope="row">' + name + '</th><td>' + b + '</td><td>' + C0 + '</td><td>' + Imax + '</td><td>' + Km + '</td></tr>'; }
     function sci(x) { var e = Math.floor(Math.log(x) / Math.LN10), m = x / Math.pow(10, e); return (Math.round(m * 100) / 100) + ' × 10<sup>−' + (-e) + '</sup>'; }
     return '<p>A root can only take up what is <b>dissolved in the soil water</b>. Two things bring a dissolved nutrient to the root surface. <b>Mass flow</b>: the water itself flows toward the root because the leaves are losing water, and it carries whatever is dissolved in it. <b>Diffusion</b>: dissolved ions spread from where there are more to where there are fewer, and the root keeps the soil next to it low.</p>' +
       '<p>Nitrate barely sticks to most soils, and a lot of it is dissolved, so the water alone can bring much of what the root needs. Phosphate sticks tightly to soil particles. Very little is dissolved at any moment, so the water brings almost none, and diffusion is very slow because each ion keeps getting caught. The root empties a thin shell around itself and then has to wait. That is why roots that keep growing, <b>root hairs</b>, and fungal partners matter so much for phosphorus: they reach soil the root has not yet emptied. Hyphae of the mycorrhizal fungus <i>Acaulospora laevis</i> spread up to 11 cm from clover roots after 47 days ' + badge('MEASURED', 'Jakobsen, Abbott and Robson 1992, New Phytol 120: 371 to 380.') + ' (Jakobsen et al. 1992, New Phytol 120: 371, <a href="https://doi.org/10.1111/j.1469-8137.1992.tb01077.x" target="_blank" rel="noopener">doi 10.1111/j.1469-8137.1992.tb01077.x</a>).</p>' +
       '<p>The idea that nutrients reach a root by mass flow and by diffusion was set out by Barber (1962, Soil Sci 93: 39, <a href="https://doi.org/10.1097/00010694-196201000-00007" target="_blank" rel="noopener">doi 10.1097/00010694-196201000-00007</a>). This page does not quote his numbers: the share of each route for each nutrient was not checked against a page, so every share shown here comes from the model.</p>' +
+      '<p><b>No one depletion zone.</b> How far a root drains the soil depends on the nutrient. A review table gives about <b>2 cm for nitrogen</b> and about <b>3 mm for phosphorus</b> ' + badge('SECONDARY', YORK) + ' ' + YORK_LINK + '. Nitrogen, mostly as nitrate, is dissolved and moves with the water; phosphate is held by the soil and only creeps. These are typical sizes from a review, not one experiment: real zones change with the soil, its water and the root. The model here keeps that order. Its inputs are invented ' + IL() + ', and two of them, how strongly the soil holds potassium and phosphate (their buffer power b), were <b>tuned</b> so that the model shows the scale the review gives: after 6 days the phosphate shell is about 3 mm wide and the nitrate dip reaches close to 2 cm, with potassium in between. So the model shows the sourced scale; it does not predict it. The hairs it draws take up nothing; how root hairs change the picture is in the next panel.</p>' +
       '<details class="nf-deep"><summary>Expert depth: the model, its equations and every input</summary>' +
       '<p>A radial convection diffusion model around a cylindrical root, the kind treated by Tinker and Nye (2000, Solute Movement in the Rhizosphere, Oxford University Press, <a href="https://doi.org/10.1093/oso/9780195124927.001.0001" target="_blank" rel="noopener">doi 10.1093/oso/9780195124927.001.0001</a>), Barber (1995, Soil Nutrient Bioavailability, 2nd ed., Wiley) and Jungk and Claassen (1997, Ion diffusion in the soil root system, Advances in Agronomy, pages 53 to 110, <a href="https://doi.org/10.1016/S0065-2113(08)60662-8" target="_blank" rel="noopener">doi 10.1016/S0065-2113(08)60662-8</a>). No number below was checked against a page or table of these works.</p>' +
       '<p class="nf-eq">b ∂C/∂t = (1/r) ∂/∂r [ r D<sub>l</sub> θ f ∂C/∂r + r<sub>0</sub> v<sub>0</sub> C ] ' + DE('The conservation equation for a nutrient around a cylinder, with water flowing in.') + '</p>' +
       '<p class="nf-eq">at r = r<sub>0</sub>: D<sub>l</sub> θ f ∂C/∂r + v<sub>0</sub> C = I<sub>max</sub> C / (K<sub>m</sub> + C); far away: C = C<sub>0</sub> ' + DE('Uptake by Michaelis and Menten kinetics at the root surface.') + '</p>' +
       '<p>C is the concentration in the soil water, r the distance from the root axis, r<sub>0</sub> the root radius, v<sub>0</sub> the water influx at the root surface, D<sub>l</sub> the diffusion coefficient in free water, θ the water content, f the impedance factor of the winding pore path, and b the <b>buffer power</b>: how much more of the nutrient sits on the soil, ready to come off, than in the water. The effective diffusion coefficient is D<sub>e</sub> = D<sub>l</sub> θ f / b ' + DE() + ', so a large b slows diffusion as well as shrinking the dissolved pool. The share brought by mass flow is v<sub>0</sub> C(r<sub>0</sub>) / uptake ' + DE() + '. The shell edge is where the dip has shrunk to one tenth of its depth at the root, a definition chosen for this page ' + IL() + '.</p>' +
-      '<table class="nf-tab"><caption>Inputs, all ' + IL('No page level source verified.') + '</caption><thead><tr><th scope="col">nutrient</th><th scope="col">D<sub>l</sub>, cm² s<sup>−1</sup></th><th scope="col">b</th><th scope="col">C<sub>0</sub>, mM</th><th scope="col">I<sub>max</sub>, µmol cm<sup>−2</sup> s<sup>−1</sup></th><th scope="col">K<sub>m</sub>, mM</th></tr></thead><tbody>' +
-      ORDER.map(function (n) { var p = P[n]; return row(p.name, sci(p.Dl), String(p.b), String(p.C0), sci(p.Imax), String(p.Km)); }).join('') + '</tbody></table>' +
-      '<p>Also ' + IL() + ': root radius 0.2 mm; θ = 0.3; f = 0.3; v<sub>0</sub> from 0 to ' + sci(VMAX) + ' cm s<sup>−1</sup> as transpiration goes from 0 to 100 %; root hairs 0.3 to 0.7 mm long; root growth 3.5 mm per day; a 6 day run; a 20 mm wide, 24 mm deep block. Solved on 150 rings spaced evenly in log r out to 8 cm, in steps of 0.05 day, implicitly, so it is stable and fast. Each depth is treated as its own cylinder of the age of that piece of root; diffusion along the root is ignored, and so are neighbouring roots, which in a real soil soon share the same water.</p>' +
+      '<table class="nf-tab"><caption>Inputs, all ' + IL('No page level source verified.') + '</caption><thead><tr><th scope="col">nutrient</th><th scope="col">b</th><th scope="col">C<sub>0</sub>, mM</th><th scope="col">I<sub>max</sub>, µmol cm<sup>−2</sup> s<sup>−1</sup></th><th scope="col">K<sub>m</sub>, mM</th></tr></thead><tbody>' +
+      ORDER.map(function (n) { var p = P[n]; return row(p.name, String(p.b), String(p.C0), sci(p.Imax), String(p.Km)); }).join('') + '</tbody></table>' +
+      '<p>The buffer powers b of potassium and phosphate are tuned to the review scale, as said above. Diffusion coefficients are not listed: how fast each nutrient spreads is shown here by the depletion distances instead.</p>' +
+      '<p>Also ' + IL() + ': root radius 0.2 mm; θ = 0.3; f = 0.3; v<sub>0</sub> from 0 to ' + sci(VMAX) + ' cm s<sup>−1</sup> as transpiration goes from 0 to 100 %; root hairs drawn shorter than 1 mm, and in this model they take up nothing; root growth 3.5 mm per day; a 6 day run; a 20 mm wide, 24 mm deep block. Solved on 150 rings spaced evenly in log r out to 8 cm, in steps of 0.05 day, implicitly, so it is stable and fast. Each depth is treated as its own cylinder of the age of that piece of root; diffusion along the root is ignored, and so are neighbouring roots, which in a real soil soon share the same water.</p>' +
       '<p>What is robust: the order of the shells (nitrate wide and shallow, potassium in between, phosphate narrow and deep) and the fact that mass flow can meet nitrate demand but not phosphate demand. The exact widths and percentages depend on the inputs above and should not be quoted as measurements.</p>' +
       '</details>';
   }
 
   /* ============================================================ the plate panel */
-  var host0 = null, phMod = null, chainHost = null, chainOn = false, alive = false;
+  var host0 = null, phMod = null, chainHost = null, chainOn = false, alive = false, hairMod = null;
   function mountPanel(host, st) {
     alive = true; host0 = host;
     var intro = document.createElement('div');
@@ -605,6 +717,7 @@
     host.appendChild(intro);
     dz = null;
     var dzHost = document.createElement('div'); dzHost.className = 'nf-dz'; host.appendChild(dzHost);
+    var hairHost = document.createElement('div'); hairHost.className = 'nf-hh'; host.appendChild(hairHost);
     var phHost = document.createElement('div'); phHost.className = 'nf-phh'; host.appendChild(phHost);
     chainHost = document.createElement('div'); chainHost.id = 'n-chain-host'; host.appendChild(chainHost);
 
@@ -612,6 +725,12 @@
     else dzHost.innerHTML = '<p class="wp-nut-wait">The depletion zone scene needs the workstation kit, which did not load.</p>';
     note(st);
 
+    /* root hair turnover panel (team roots helper, n_roots_hairs.js) */
+    N.load('roots_hairs', function (err) {
+      if (!alive) return;
+      if (err || !window.NR_HAIRS) { hairHost.innerHTML = '<p class="wp-nut-wait">The root hair panel could not load.</p>'; return; }
+      try { hairMod = window.NR_HAIRS.mount(hairHost); } catch (e) { console.error('root hair panel failed', e); }
+    });
     N.load('field_ph', function (err) {
       if (!alive) return;
       if (err || !window.NF_PH) { phHost.innerHTML = '<p class="wp-nut-wait">The pH scene could not load.</p>'; return; }
@@ -650,6 +769,8 @@
       dz = null;
       if (phMod && phMod.destroy) phMod.destroy();
       phMod = null;
+      if (hairMod && hairMod.destroy) hairMod.destroy();
+      hairMod = null;
       if (chainOn && window.WP_NCHAIN && typeof window.WP_NCHAIN.unmount === 'function') { try { window.WP_NCHAIN.unmount(chainHost); } catch (e) { console.error(e); } }
       chainOn = false; chainHost = null; host0 = null;
     }
@@ -669,6 +790,10 @@
 .ws .nf-sel{stroke-width:3}\
 .ws .nf-shell{fill:var(--accent);fill-opacity:.16}\
 .ws .nf-b{font-weight:600}\
+.ws .nf-rev{stroke:var(--warm);stroke-width:1.3;stroke-dasharray:1.5 3;opacity:.75}\
+.ws .nf-revon{stroke-width:2.2;opacity:1}\
+.ws text.nf-revt{font-size:10.5px;fill:var(--warm)!important}\
+.nf-hh:empty{display:none}\
 .nf-deep{margin:8px 0;border-left:3px solid var(--rule2);padding:2px 10px}\
 .nf-deep summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}\
 .nf-eq{font-family:var(--mono);font-size:13px;overflow-x:auto}\

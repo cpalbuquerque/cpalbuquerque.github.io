@@ -28,6 +28,14 @@
    ws.toggle({key, label})          controls bound to ws.state
    ws.say(html)                     the "What just happened" line (aria-live polite)
    ws.reset()  ws.pause(bool)  ws.step()  ws.kick()  ws.render()  ws.destroy()
+   Click to freeze: a click on the 3D view (pointer moved under 6 px, held under 450 ms, not on a slice handle,
+   not a pinch) toggles pause and play, in step with the Pause button; the camera stays live while frozen.
+   Space or Enter on the focused 3D view does the same.
+   ws.pick(obj3d, {name, html, priority}) -> off   make an object (and its children) clickable: a click on it opens a short
+                                    info panel (about 40 words) in the 3D pane and freezes the motion; a click on
+                                    empty space toggles freeze and closes the panel. Keyboard: I cycles the panels.
+                                    priority (default 0): a background object such as a membrane gets -1, so a
+                                    protein seen through it still wins the click.
    WS.badge(tag, title) -> HTML     tags MEASURED, DERIVED, SECONDARY, ILLUSTRATIVE, OPEN
    WS.token(name) -> '#rrggbb'      a CSS custom property of the current theme (name without --)
    WS.ramp([token names]) -> f(t)   colour ramp from tokens; f(t) 'rgb()', f.rgb(t) [r,g,b], f.css() gradient
@@ -193,12 +201,12 @@
         '<div class="ws-stick">' +
           '<figure class="ws-pane ws-3d" data-ws-part="thing">' +
             '<div class="ws-gl" tabindex="0" role="application" aria-roledescription="3D model" aria-describedby="' + id + '-keys" aria-label="' + esc((o.title || 'Model') + ', 3D view') + '"></div>' +
-            '<p class="vh" id="' + id + '-keys">Arrow keys turn the model. Shift and arrow keys move it. Plus and minus zoom. Page up and page down move the cut. Zero resets the view.</p>' +
+            '<p class="vh" id="' + id + '-keys">Arrow keys turn the model. Shift and arrow keys move it. Plus and minus zoom. Page up and page down move the cut. Zero resets the view. Space freezes or plays the motion. I names the parts one by one.</p>' +
             '<div class="ws-tools">' +
               '<button type="button" class="ws-btn ws-reset" title="Put the camera back where it started">Reset view</button>' +
               '<button type="button" class="ws-btn ws-pause" aria-pressed="false">Pause</button>' +
               '<button type="button" class="ws-btn ws-step" hidden title="Move the animation one step">Step</button>' +
-              '<span class="ws-hint">Drag to turn · scroll or pinch to zoom · right drag or two fingers to move</span>' +
+              '<span class="ws-hint">Drag to turn · click to freeze · scroll or pinch to zoom · right drag or two fingers to move</span>' +
             '</div>' +
             '<figcaption><b>The thing itself.</b> ' + (o.thing || '') + '</figcaption>' +
           '</figure>' +
@@ -337,7 +345,7 @@
         var lim = home.dist; S.target.clampLength(0, lim);
         apply();
       }
-      var surf = renderer.domElement, ptrs = {}, mode = null, last = null, pinch0 = 0, mid0 = null, slicing = null;
+      var surf = renderer.domElement, ptrs = {}, mode = null, last = null, pinch0 = 0, mid0 = null, slicing = null, tap = null;
       surf.style.touchAction = 'none';
       function pt(e) { var r = surf.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, w: r.width, h: r.height }; }
       function count() { return Object.keys(ptrs).length; }
@@ -352,7 +360,9 @@
           if (slicing) { mode = 'slice'; slicing.start(p); root.classList.add('ws-dragging'); }
           else mode = (e.button === 2 || e.shiftKey || e.ctrlKey || e.metaKey) ? 'pan' : 'rot';
           last = p;
+          tap = (!slicing && !(e.button > 0)) ? { id: e.pointerId, x: p.x, y: p.y, t: Date.now() } : null;
         } else if (count() === 2) {
+          tap = null;
           if (slicing) { slicing.end(); slicing = null; }
           mode = 'pinch'; var m = mid(); pinch0 = m.d; mid0 = m;
         }
@@ -363,10 +373,11 @@
         var p = pt(e);
         if (!ptrs[e.pointerId]) {
           var over = false; for (var i = 0; i < sliceObjs.length; i++) if (sliceObjs[i].hit(p)) over = true;
-          surf.style.cursor = over ? 'ns-resize' : 'grab';
+          surf.style.cursor = over ? 'ns-resize' : (picks.length && pickAt(p) ? 'pointer' : 'grab');
           return;
         }
         ptrs[e.pointerId] = p;
+        if (tap && Math.hypot(p.x - tap.x, p.y - tap.y) > 6) tap = null;
         if (mode === 'slice' && slicing) { slicing.move(p); return; }
         if (mode === 'pinch' && count() === 2) {
           var m = mid();
@@ -379,6 +390,10 @@
         else if (mode === 'rot') { S.theta -= dx * 0.0085; S.phi -= dy * 0.0085; apply(); }
       });
       function up(e) {
+        var tp = tap; tap = null;
+        if (tp && e.type === 'pointerup' && tp.id === e.pointerId && count() === 1 && Date.now() - tp.t < 450) {
+          var pu = pt(e); if (Math.hypot(pu.x - tp.x, pu.y - tp.y) <= 6) setTimeout(function () { onTap(pu); }, 0);
+        }
         delete ptrs[e.pointerId];
         if (mode === 'slice' && slicing) { slicing.end(); slicing = null; root.classList.remove('ws-dragging'); }
         if (count() === 0) { mode = null; last = null; }
@@ -400,6 +415,9 @@
         else if (e.key === '-' || e.key === '_') { S.dist /= 0.88; apply(); }
         else if (e.key === '0' || e.key === 'Home') reset();
         else if ((e.key === 'PageUp' || e.key === 'PageDown') && sliceObjs.length) sliceObjs[0].nudge(e.key === 'PageUp' ? 1 : -1);
+        else if ((e.key === ' ' || e.key === 'Enter') && frames.length) freeze();
+        else if ((e.key === 'i' || e.key === 'I') && picks.length) { pickI = (pickI + 1) % picks.length; showInfo(picks[pickI]); }
+        else if (e.key === 'Escape' && infoOpen()) hideInfo();
         else used = false;
         if (used) e.preventDefault();
       });
@@ -407,6 +425,51 @@
       apply();
       return { S: S, apply: apply, reset: reset };
     }
+
+    /* ---- click to freeze, and clickable parts with a short info panel */
+    var picks = [], pickI = -1, pickRay = null, pickNdc = null, infoEl = null, chipEl = null;
+    function visibleChain(ob) { for (; ob; ob = ob.parent) if (!ob.visible) return false; return true; }
+    function pickAt(p) {
+      if (!picks.length || !renderer) return null;
+      if (!pickRay) { pickRay = new T.Raycaster(); pickNdc = new T.Vector2(); pickRay.params.Line = { threshold: 0.03 }; pickRay.params.Points = { threshold: 0.05 }; }
+      pickNdc.set(p.x / p.w * 2 - 1, -(p.y / p.h) * 2 + 1); pickRay.setFromCamera(pickNdc, camera);
+      var hits = pickRay.intersectObjects(picks.map(function (k) { return k.obj; }), true), best = null;
+      for (var i = 0; i < hits.length; i++) {
+        if (!visibleChain(hits[i].object)) continue;
+        for (var ob = hits[i].object, k = null; ob && !k; ob = ob.parent) for (var j = 0; j < picks.length; j++) if (picks[j].obj === ob) k = picks[j];
+        if (k && (!best || k.pri > best.pri)) best = k;   // nearest wins, unless a later hit has a higher priority
+      }
+      return best;
+    }
+    function infoOpen() { return !!(infoEl && !infoEl.hidden); }
+    function showInfo(k) {
+      if (!infoEl) {
+        infoEl = document.createElement('div'); infoEl.className = 'ws-info'; infoEl.setAttribute('role', 'note'); infoEl.setAttribute('aria-live', 'polite');
+        infoEl.innerHTML = '<p class="ws-info-n"></p><p class="ws-info-t"></p><button type="button" class="ws-info-x" aria-label="Close this note">×</button>';
+        infoEl.querySelector('.ws-info-x').addEventListener('click', function () { hideInfo(); glHost.focus({ preventScroll: true }); });
+        glHost.appendChild(infoEl);
+      }
+      infoEl.querySelector('.ws-info-n').textContent = k.name;
+      infoEl.querySelector('.ws-info-t').innerHTML = k.html;
+      infoEl.hidden = false; pickI = picks.indexOf(k);
+      if (playing && frames.length) ws.pause(true);
+    }
+    function hideInfo() { if (infoEl) infoEl.hidden = true; }
+    function freeze() { if (frames.length) ws.pause(playing); }
+    function onTap(p) {
+      if (dead) return;
+      var k = pickAt(p);
+      if (k) { showInfo(k); return; }
+      if (infoOpen()) hideInfo();
+      freeze();
+    }
+    ws.pick = function (obj, info) {
+      info = info || {};
+      var k = { obj: obj, name: info.name || '', html: info.html || '', pri: info.priority || 0 };
+      picks.push(k);
+      return function () { var i = picks.indexOf(k); if (i >= 0) picks.splice(i, 1); if (infoEl && pickI === i) hideInfo(); };
+    };
+    ws.info = function (html, name) { showInfo({ obj: null, name: name || '', html: html }); };
 
     /* ---- the slice plane */
     ws.slice = function (so) {
@@ -523,6 +586,11 @@
       pauseB.setAttribute('aria-pressed', playing ? 'false' : 'true');
       pauseB.textContent = playing ? 'Pause' : 'Play';
       pauseB.title = playing ? 'Stop the motion' : (reduced() ? 'Reduce motion is on: press to animate anyway, or use Step' : 'Start the motion');
+      if (renderer) {
+        if (!chipEl) { chipEl = document.createElement('p'); chipEl.className = 'ws-frz'; chipEl.setAttribute('aria-hidden', 'true'); glHost.appendChild(chipEl); }
+        chipEl.hidden = !has || playing;
+        chipEl.textContent = 'Frozen · click the view to play';
+      }
     }
     ws.pause = function (on) { playing = on === undefined ? !playing : !on; tPrev = 0; syncPlay(); ws.kick(); return !playing; };
     ws.step = function () { runFrames(0.25); ws.invalidate(); };
@@ -622,6 +690,13 @@
 .ws-glc{display:block;width:100%;height:100%;cursor:grab}\
 .ws-dragging .ws-glc{cursor:ns-resize}\
 .ws-nogl .ws-glc{cursor:default}\
+.ws-frz{position:absolute;right:8px;top:8px;margin:0;font:600 12px var(--ui);color:var(--ink);background:var(--wall);border:1px solid var(--rule);padding:2px 8px;border-radius:10px;pointer-events:none;opacity:.94}\
+.ws-info{position:absolute;left:8px;bottom:8px;max-width:min(330px,calc(100% - 16px));margin:0;padding:8px 34px 8px 10px;background:var(--wall);color:var(--ink);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:3px;box-shadow:0 4px 12px -6px rgba(0,0,0,.45);font-size:13px;line-height:1.4;z-index:3}\
+.ws-info[hidden],.ws-frz[hidden]{display:none}\
+.ws-info-n{margin:0 0 2px;font-weight:600;font-size:13.5px}\
+.ws-info-t{margin:0}\
+.ws-info-x{position:absolute;right:2px;top:2px;min-width:32px;min-height:32px;border:0;background:transparent;color:var(--ink);font:600 18px var(--ui);cursor:pointer;border-radius:3px}\
+.ws-info-x:focus-visible{outline:3px solid var(--accent)}\
 .ws-nogl-n{position:absolute;left:8px;bottom:6px;right:8px;margin:0;font-size:12px;color:var(--ink2);background:var(--wall);padding:3px 6px;border-radius:3px}\
 .ws-3d{position:relative}\
 .ws-ctl,.ws-scan,.ws-plot{scroll-margin-top:calc(var(--ws-top,0px) + var(--ws-stick-h,0px) + 8px)}\
@@ -682,6 +757,8 @@
 .ws-3d{padding:6px;gap:4px}\
 .ws-gl{min-height:180px}\
 .ws-3d figcaption,.ws-hint{display:none}\
+.ws-info{font-size:12px;padding:6px 32px 6px 8px;max-height:calc(100% - 16px);overflow:auto}\
+.ws-frz{font-size:11px;padding:1px 6px}\
 .ws-tools{justify-content:flex-end;gap:6px}\
 .ws-tools .ws-btn{min-height:44px;padding:4px 10px}\
 .ws-live{padding:6px 8px}\

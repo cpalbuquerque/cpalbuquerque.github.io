@@ -1,5 +1,6 @@
 /* The Water Path v8: n_membrane.js (nutrient path, Plate V Membrane)
-   Opening: the aquaporin is joined by a transporter. Then two linked workstations, each in its own file:
+   Opening: the aquaporin is joined by a transporter. Then three linked workstations, each in its own file:
+     n_membrane_pump.js   the pump and its riders: the H+ pump, AKT1 and HAK5, nitrate and ammonium, root surface pH
      n_membrane_iron.js   the two iron strategies (Strategy I and II, and the cadmium sting through IRT1)
      n_membrane_nrt.js    the transceptor NRT1.1 (CHL1): uptake and sensing, the T101 switch
    This file holds the opening text and figure, the shared 3D helpers (WPNM.lib: a lipid bilayer, the aquaporin
@@ -231,14 +232,14 @@
 @media (max-width:699px){.nm-open{grid-template-columns:1fr}.nm-lead{font-size:19px}.nm-h{font-size:23px}.nm-quote{font-size:18px}}';
 
   /* ============================================================ mount */
-  var S = { host: null, token: 0, iron: null, nrt: null, intro: null, note: null };
+  var S = { host: null, token: 0, pump: null, iron: null, nrt: null, intro: null, note: null };
 
   function soluteNote(sol) {
     var nm = N.soluteName(sol);
-    if (sol === 'nitrate') return 'You are following <b>nitrate</b>. The second workstation below is about nitrate itself: the carrier that also senses it.';
-    if (sol === 'cadmium') return 'You are following <b>cadmium</b>. In the first workstation cadmium is switched on: watch it slip in through IRT1, the iron carrier.';
-    if (sol === 'potassium') return 'You are following <b>potassium</b>. This plate follows iron and nitrate, but the idea of two uptake systems, one for low and one for high concentration, was resolved for potassium in barley roots (see the second workstation).';
-    return 'You are following <b>' + esc(nm) + '</b>. This plate follows iron and nitrate, two nutrients whose transporters show what a carrier can do. Change the nutrient under Conditions.';
+    if (sol === 'nitrate') return 'You are following <b>nitrate</b>. The first workstation shows nitrate riding in with protons; the last one is about the carrier that also senses it.';
+    if (sol === 'cadmium') return 'You are following <b>cadmium</b>. In the iron workstation cadmium is switched on: watch it slip in through IRT1, the iron carrier.';
+    if (sol === 'potassium') return 'You are following <b>potassium</b>. The first workstation shows K⁺ entering by the channel AKT1 and the carrier HAK5, both powered by the proton pump.';
+    return 'You are following <b>' + esc(nm) + '</b>. This plate follows the proton pump, potassium, nitrate and iron, whose transporters show what a carrier can do. Change the nutrient under Conditions.';
   }
 
   function mount(host, st) {
@@ -249,15 +250,21 @@
     intro.innerHTML = '<div><p class="nm-k">Nutrient path · Plate V, Membrane</p>' +
       '<h3 class="nm-h">A pore next to a carrier</h3>' +
       '<p class="nm-lead">The aquaporin is joined by a transporter. A pore for water, next to a carrier that picks its ion.</p>' +
-      '<p class="nm-body">On the water plate, water crosses the membrane through the <b>aquaporin</b>, a pore that lets water through and keeps ions out. Mineral nutrients reach the root as <b>ions</b>, small charged particles, and most cross through <b>transporters</b>: carrier proteins that bind an ion, change shape and let it go on the other side (some ions also pass through ion channels). Below, two transporters show what that means: two ways to get iron, and a nitrate carrier that is also a sensor.</p>' +
+      '<p class="nm-body">On the water plate, water crosses the membrane through the <b>aquaporin</b>, a pore that lets water through and keeps ions out. Mineral nutrients reach the root as <b>ions</b>, small charged particles, and most cross through <b>transporters</b>: carrier proteins that bind an ion, change shape and let it go on the other side (some ions also pass through ion channels). Below, first the proton pump that powers most of this uptake, then two transporters: two ways to get iron, and a nitrate carrier that is also a sensor.</p>' +
       '<p class="nm-note" aria-live="polite"></p></div>' +
       '<div>' + poreCarrierSVG() + '</div>';
     host.appendChild(intro);
     S.intro = intro; S.note = intro.querySelector('.nm-note');
     S.note.innerHTML = soluteNote(st.solute);
-    var slotA = document.createElement('div'); slotA.className = 'nm-ws-slot'; host.appendChild(slotA);
-    var slotB = document.createElement('div'); slotB.className = 'nm-ws-slot'; host.appendChild(slotB);
+    var slot0 = document.createElement('div'); slot0.className = 'nm-ws-slot'; host.appendChild(slot0);
+    var slotA = document.createElement('div'); slotA.className = 'nm-ws-slot'; slotA.id = 'nm-ws-iron'; host.appendChild(slotA);
+    var slotB = document.createElement('div'); slotB.className = 'nm-ws-slot'; slotB.id = 'nm-ws-nrt'; host.appendChild(slotB);
     if (!window.WS || !window.WS.create) { slotA.innerHTML = '<p class="wp-nut-wait">The workstations could not start in this browser.</p>'; return; }
+    N.load('membrane_pump', function (err0) {
+      if (tok !== S.token) return;
+      if (err0 || !NM.pump) { slot0.innerHTML = '<p class="wp-nut-wait">The proton pump workstation could not load.</p>'; return; }
+      try { S.pump = NM.pump(slot0, L, WP.state); } catch (e) { console.error('n_membrane pump', e); slot0.innerHTML = '<p class="wp-nut-wait">The proton pump workstation failed to start.</p>'; }
+    });
     N.load('membrane_iron', function (err) {
       if (tok !== S.token) return;
       if (err || !NM.iron) { slotA.innerHTML = '<p class="wp-nut-wait">The iron workstation could not load.</p>'; return; }
@@ -275,14 +282,16 @@
     update: function (st) {
       if (S.note) S.note.innerHTML = soluteNote(st.solute);
       if (S.iron && S.iron.solute) S.iron.solute(st.solute);
+      if (S.pump && S.pump.ws) S.pump.ws.kick();
       if (S.iron && S.iron.ws) S.iron.ws.kick();
       if (S.nrt && S.nrt.ws) S.nrt.ws.kick();
     },
     unmount: function () {
       S.token++;
+      if (S.pump && S.pump.ws) S.pump.ws.destroy();
       if (S.iron && S.iron.ws) S.iron.ws.destroy();
       if (S.nrt && S.nrt.ws) S.nrt.ws.destroy();
-      S.iron = S.nrt = S.intro = S.note = S.host = null;
+      S.pump = S.iron = S.nrt = S.intro = S.note = S.host = null;
     }
   });
 })();

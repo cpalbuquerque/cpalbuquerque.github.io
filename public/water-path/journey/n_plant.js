@@ -192,7 +192,7 @@
   }
 
   /* ------------------------------------------------------------ the workstation */
-  var card = null, ws = null, WS = null;
+  var card = null, ws = null, WS = null, arb = null;
   var B = function (t, tip) { return WS.badge(t, tip); };
 
   function build(host) {
@@ -216,7 +216,7 @@
       camera: { dist: 15.5, theta: 0.62, phi: 1.12, target: [0, -0.3, 0], minDist: 5, maxDist: 34 }
     });
     var S = ws.state;
-    ws.range({ key: 'hair', label: 'Root hair reach', min: 0.1, max: 2, step: 0.05, fmt: function (v) { return (+v).toFixed(2) + ' mm'; }, hint: 'Illustrative, an order of magnitude' });
+    ws.range({ key: 'hair', label: 'Root hair reach', min: 0.1, max: 1, step: 0.05, fmt: function (v) { return (+v).toFixed(2) + ' mm'; }, hint: 'Root hairs here are drawn up to 1 mm long, as a rough size only' });
     ws.range({ key: 'hyph', label: 'Hyphal reach', min: 0.5, max: 12, step: 0.1, fmt: function (v) { return (+v).toFixed(1) + ' cm'; }, hint: 'Illustrative, an order of magnitude' });
     ws.range({ key: 'cost', label: 'Carbon paid to the fungus', min: 0, max: 10, step: 0.5, fmt: function (v) { return (+v).toFixed(1) + ' units'; }, hint: 'Illustrative units of carbon from photosynthesis' });
     ws.choice({ key: 'view', label: '3D zoom', options: [['net', 'Whole network (cm)'], ['hair', 'Root hairs (mm)']] });
@@ -257,6 +257,14 @@
     ws.paintScan(drawScan);
     ws.paintPlot(drawPlot);
     ws.render();
+
+    /* the arbuscule close up (team roots helper, n_roots_arb.js), a compact panel under the workstation */
+    var arbHost = document.createElement('div'); arbHost.className = 'np-arbh'; host.appendChild(arbHost);
+    N.load('roots_arb', function (err) {
+      if (!ws) return;
+      if (err || !window.NR_ARB) { arbHost.innerHTML = '<p class="wp-nut-wait">The arbuscule panel could not load.</p>'; return; }
+      try { arb = window.NR_ARB.mount(arbHost); } catch (e) { console.error('arbuscule panel failed', e); }
+    });
   }
 
   function sayFor(s, m, prev) {
@@ -280,8 +288,9 @@
     var W = window.WS;
     return '<p><b>Why reach squared.</b> The soil a root can draw from is a cylinder around it. A cylinder of soil 1 cm long with radius r has a volume of π × r² × 1 cm. Make the radius 100 times larger, 1 mm to 10 cm, and the volume grows 100 × 100 = 10,000 times ' + W.badge('DERIVED', 'From the cylinder volume formula.') + '. Counting the root’s own width (a radius of 0.1 mm, an illustrative value ' + W.badge('ILLUSTRATIVE', 'A typical order of magnitude for a fine root, not a measurement.') + ') the gain for the same two reaches is about 8,350 times ' + W.badge('DERIVED', '(10.01² − 0.01²) / (0.11² − 0.01²), in mm squared.') + ': still close to four orders of magnitude.</p>' +
       '<p><b>Within reach is not the same as taken up.</b> Hyphae are thin and spread out, so they do not empty all the soil in that cylinder. The volume is the soil they can draw from, an upper limit. Phosphate moves so little that a root alone can only empty a thin shell around itself; hyphae carry the uptake out to where the phosphate is.</p>' +
-      '<p><b>How far hyphae reach.</b> In one experiment, hyphae of the fungus <i>Acaulospora laevis</i> growing from subterranean clover roots kept a constant density up to 11 cm from the roots after 47 days ' + W.badge('MEASURED', 'Jakobsen, Abbott and Robson 1992.') + ' (Jakobsen, Abbott and Robson 1992, New Phytologist 120: 371, <a href="https://doi.org/10.1111/j.1469-8137.1992.tb01077.x" target="_blank" rel="noopener">doi 10.1111/j.1469-8137.1992.tb01077.x</a>). Root hair lengths in the slider are an order of magnitude only ' + W.badge('ILLUSTRATIVE', 'No source checked for root hair length.') + '.</p>' +
-      '<p><b>The rent.</b> The plant pays the fungus with carbon from photosynthesis. If the rent is high, the plant can grow no better than one without the fungus. The surprise is what happens to phosphate: the fungus can be the main route of phosphate into the plant even when growth, or total phosphate uptake, does not differ from plants without the fungus (Smith, Smith and Jakobsen 2003, Plant Physiology 133: 16, <a href="https://doi.org/10.1104/pp.103.024380" target="_blank" rel="noopener">doi 10.1104/pp.103.024380</a>). A later review by the same group concludes that the fungal route may dominate phosphate uptake even in plants that do not grow better (Smith, Jakobsen, Grønlund and Smith 2011, Plant Physiology 156: 1050, <a href="https://doi.org/10.1104/pp.111.174581" target="_blank" rel="noopener">doi 10.1104/pp.111.174581</a>). So a growth response is not a measure of the fungus’s contribution.</p>' +
+      '<p><b>How far hyphae reach.</b> In one experiment, hyphae of the fungus <i>Acaulospora laevis</i> growing from subterranean clover roots were found at the same density all the way out to 7 cm from the roots after 28 days, and to 11 cm after 47 days, spreading about 3.1 mm per day; two other fungi spread only 0.7 to 0.8 mm per day ' + W.badge('MEASURED', 'Jakobsen, Abbott and Robson 1992; the 3.1 mm per day is for A. laevis only.') + ' (Jakobsen, Abbott and Robson 1992, New Phytologist 120: 371, <a href="https://doi.org/10.1111/j.1469-8137.1992.tb01077.x" target="_blank" rel="noopener">doi 10.1111/j.1469-8137.1992.tb01077.x</a>). That is one fungus in one experiment, not a general speed. Root hairs here are drawn up to 1 mm long, as a rough size only ' + W.badge('ILLUSTRATIVE', 'No source checked for root hair length.') + '.</p>' +
+      '<p><b>How far the drained zone reaches.</b> White clover in a calcareous soil (a chalky, alkaline soil), with and without the fungus <i>Glomus mosseae</i>: without the fungus, phosphate was drained about <b>1 cm</b> from the roots; with it, the drained zone reached <b>11.7 cm</b>, the full length of the side chamber that only hyphae could enter, so at least that far. The hyphae delivered <b>76 %</b> (low phosphorus soil) and <b>79 %</b> (high phosphorus soil) of the plant’s phosphate ' + W.badge('MEASURED', 'Li, George and Marschner 1991, Plant and Soil 136: 41 to 48; abstract read.') + ' (Li, George and Marschner 1991, Plant and Soil 136: 41, <a href="https://doi.org/10.1007/BF02465218" target="_blank" rel="noopener">doi 10.1007/BF02465218</a>). Distances depend on the soil, the time and the set up, which is why this is not the few millimetres quoted for one root on Plate I.</p>' +
+      '<p><b>The rent.</b> The plant pays the fungus with carbon from photosynthesis, as sugars and as fats (fatty acids; see the arbuscule panel below). If the rent is high, the plant can grow no better than one without the fungus. The surprise is what happens to phosphate: the fungus can be the main route of phosphate into the plant even when growth, or total phosphate uptake, does not differ from plants without the fungus (Smith, Smith and Jakobsen 2003, Plant Physiology 133: 16, <a href="https://doi.org/10.1104/pp.103.024380" target="_blank" rel="noopener">doi 10.1104/pp.103.024380</a>). A later review by the same group concludes that the fungal route may dominate phosphate uptake even in plants that do not grow better (Smith, Jakobsen, Grønlund and Smith 2011, Plant Physiology 156: 1050, <a href="https://doi.org/10.1104/pp.111.174581" target="_blank" rel="noopener">doi 10.1104/pp.111.174581</a>). So a growth response is not a measure of the fungus’s contribution.</p>' +
       '<p><b>Why the total can stay the same.</b> In a colonised root, the plant’s own uptake through its skin and hairs can be turned down, so the fungal route replaces it rather than adding to it (reviewed in Smith et al. 2011). The model here keeps 25 % of the root’s own uptake when the fungus is present ' + W.badge('ILLUSTRATIVE', 'An invented share.') + '.</p>' +
       '<p><b>What the model is.</b> Each route collects phosphate that rises with its soil volume and levels off (half supply at 0.1 cm³ for the root, 5 cm³ for the fungus); growth rises with phosphate and levels off; each carbon unit costs a fixed slice of growth. All of these are invented to show the direction ' + W.badge('ILLUSTRATIVE', 'Not fitted to data.') + '. When the growth difference falls below zero, that is the model’s arithmetic, not a result from the papers cited here. Only the volumes come from exact arithmetic.</p>';
   }
@@ -596,7 +605,7 @@
       if (card && card.setSolute) card.setSolute(st.solute);
       if (ws) ws.kick();
     },
-    unmount: function () { if (ws) ws.destroy(); ws = null; card = null; }
+    unmount: function () { if (arb && arb.destroy) arb.destroy(); arb = null; if (ws) ws.destroy(); ws = null; card = null; }
   });
   /* exposed for tests only */
   N._plantModel = M;
