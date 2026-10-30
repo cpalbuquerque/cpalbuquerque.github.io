@@ -38,9 +38,10 @@ function serve() {
 const INDEX_ROUTES = ['map', 'anatomy', 'turgor', 'growth', 'demand', 'embolism', 'fail', 'leaf', 'field', 'quiz', 'symbols', 'feedback', 'sources'];
 const TITLE_ONLY = { quiz: 1, feedback: 1 };
 const JOURNEY = ['field', 'plant', 'organ', 'tissue', 'membrane', 'species', 'afternoon', 'library'];
-const LIGHT = ['sun', 'leaf', 'thylakoid', 'stroma', 'tradeoff'];
+const LIGHT = ['sun', 'leaf', 'thylakoid', 'stroma', 'tradeoff', 'c3c4cam'];
 const PHLOEM = ['source', 'sieve', 'xylem', 'sinks', 'stress'];
-const GROUPS = { m: 'The map and its stops', r: 'Symbols and sources', t: 'Turgor module', j: 'Water journey', n: 'Nutrient journey', l: 'Light to sugar', p: 'Sugar on the move' };
+const CURIOUS = ['index', 'resurrection', 'aerenchyma'];   /* curious/<page>.html, one page per plate */
+const GROUPS = { m: 'The map and its stops', r: 'Symbols and sources', t: 'Turgor module', j: 'Water journey', n: 'Nutrient journey', l: 'Light to sugar', p: 'Sugar on the move', c: 'Curious things' };
 
 /* Course and term words never ship in visible text; an entry that carries one is dropped. */
 const COURSE = /\b(bio|332|csumb|class|classes|course|courses|semester|lecture|lectures|student|students|week|weeks|due|canvas)\b/i;
@@ -227,6 +228,11 @@ function dashFree(s) { return String(s || '').replace(/\s+[–—]\s+/g, ', ').r
     await load(dir + '/index.html#' + list[0]);
     for (const h of list) { await hash('#' + h, 1600); raw.push({ g, site: dir, plate: h, res: await page.evaluate(harvest, { root: '#wp-stage' }) }); }
   }
+  /* curious things: one page per plate */
+  for (const pg of CURIOUS) {
+    await load('curious/' + pg + '.html');
+    raw.push({ g: 'c', site: 'curious', page: pg, res: await page.evaluate(harvest, { root: '#cq-main', whereSel: '#cq-main h2' }) });
+  }
   await browser.close(); server.close();
 
   /* ---- assemble entries ---- */
@@ -240,6 +246,7 @@ function dashFree(s) { return String(s || '').replace(/\s+[–—]\s+/g, ', ').r
       return 'index.html' + (fk ? '?find=' + encodeURIComponent(fk) : '') + '#/' + R.route;
     }
     if (R.site === 'turgor') { const q = it ? findQ() : ''; return 'turgor.html' + (q ? '?' + q : ''); }
+    if (R.site === 'curious') { const q = it ? findQ() : ''; return 'curious/' + R.page + '.html' + (q ? '?' + q : ''); }
     const q = [R.cargo === 'nutrient' ? 'cargo=nutrient' : '', it ? findQ() : ''].filter(Boolean).join('&');
     return R.site + '/index.html' + (q ? '?' + q : '') + '#' + R.plate;
   }
@@ -262,7 +269,7 @@ function dashFree(s) { return String(s || '').replace(/\s+[–—]\s+/g, ', ').r
     else where = res.where || R.plate;
     /* the page or plate itself */
     const ptitle = R.site === 'index' ? (R.route === 'map' ? 'The Water Path map' : R.meta.title) : R.site === 'turgor' ? (R.meta.h1 || 'Turgor through a Salinas day').trim() : where;
-    const pw = R.site === 'index' ? (R.route === 'map' || R.g === 'r' ? 'The map' : where) : R.site === 'journey' ? (R.cargo === 'nutrient' ? 'Journey, nutrient mode' : 'Journey, water mode') : R.site === 'light' ? 'Light to sugar' : R.site === 'phloem' ? 'Sugar on the move' : 'Turgor module';
+    const pw = R.site === 'index' ? (R.route === 'map' || R.g === 'r' ? 'The map' : where) : R.site === 'journey' ? (R.cargo === 'nutrient' ? 'Journey, nutrient mode' : 'Journey, water mode') : R.site === 'light' ? 'Light to sugar' : R.site === 'phloem' ? 'Sugar on the move' : R.site === 'curious' ? 'Curious things' : 'Turgor module';
     push({ k: 'p', g: R.g, t: ptitle, w: pw, u: urlFor(R, null), s: cutN(R.meta && R.meta.dek ? R.meta.dek : res.intro, 120), bag: res.pageBag + ' ' + (R.meta ? R.meta.h1 : '') }, R);
     for (const it of res.items) {
       if (it.k === 's') { const sk = it.doi || norm(it.t); if (seenSrc[sk]) continue; seenSrc[sk] = 1; }

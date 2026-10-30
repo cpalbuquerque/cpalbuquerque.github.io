@@ -1,9 +1,9 @@
 /* Light to Sugar: page shell (L1 owner).
-   Tabs (#sun #leaf #thylakoid #stroma #tradeoff), depth tiers, theme, reduce motion, presentation mode, conditions strip,
+   Tabs (#sun #leaf #thylakoid #stroma #tradeoff #c3c4cam), depth tiers, theme, reduce motion, presentation mode, conditions strip,
    live readout rail, evidence drawers, How to measure cards, per plate sources and the footer.
 
    API for plate files (L1 and L2 code against this):
-     LP.panels.push({ id:'sun'|'leaf'|'thylakoid'|'stroma'|'tradeoff', mount(el), update(state, res), show(), hide() })
+     LP.panels.push({ id:'sun'|'leaf'|'thylakoid'|'stroma'|'tradeoff'|'c3c4cam', mount(el), update(state, res), show(), hide() })
        mount runs once, the first time the plate is opened; update runs after every LP solve while mounted.
      LP.ui.ev(key)            -> HTML for an evidence chip; LP.evidence[key] = {claim, cite, doi, doi2, measured, value, badge, note}
      LP.ui.badge(kind)        -> HTML badge: VERIFIED | DERIVED | ILLUSTRATIVE | UNVERIFIED | PREPRINT | OPEN QUESTION
@@ -360,7 +360,8 @@
     { id: 'leaf', rn: 'II', name: 'The Leaf', short: 'Leaf', sub: 'a leaf as an optical device' },
     { id: 'thylakoid', rn: 'III', name: 'The Thylakoid', short: 'Thylakoid', sub: 'electrons, protons and the rotary motor' },
     { id: 'stroma', rn: 'IV', name: 'The Stroma', short: 'Stroma', sub: 'spending ATP and NADPH on carbon' },
-    { id: 'tradeoff', rn: 'V', name: 'Water for carbon', short: 'Water', sub: 'every CO₂ costs water' }
+    { id: 'tradeoff', rn: 'V', name: 'Water for carbon', short: 'Water', sub: 'every CO₂ costs water' },
+    { id: 'c3c4cam', rn: 'VI', name: 'Three ways to fix carbon', short: 'C3 C4 CAM', sub: 'C3, C4 and CAM leaves' }
   ];
   ui.META = META;
   var sections = {}, current = null;
@@ -405,7 +406,8 @@
         leaf: 'The water side of this plate: the palisade and spongy cells that trap light are the cells water crosses on its way to the stomata on the lower surface. <a href="../journey/index.html#tissue">Water journey, Water IV, Tissue</a>',
         thylakoid: 'Arriving from the water journey? Your molecule can end here: a small share of the water a leaf handles, about 1 in 60 to 1 in 100 (Light V shows the live number), is split at the Mn₄CaO₅ cluster of PSII; its electrons go on to NADPH and its oxygen leaves as O₂. The rest leaves as vapour. <a href="../journey/index.html#plant">Water journey, Water II, the Plant</a>',
         stroma: 'The water side of this plate: when a drying leaf closes its stomata, less CO₂ reaches Rubisco and more of its work goes to O₂. <a href="../journey/index.html#organ">Water journey, Water III, the Organ: leaf water potential and the stomata</a>',
-        tradeoff: 'The water side of this plate: the water each CO₂ costs comes up the whole path you followed. <a href="../journey/index.html#membrane">Water journey, Water V, the Membrane</a> · <a href="../journey/index.html#afternoon">Your Salinas afternoon</a>'
+        tradeoff: 'The water side of this plate: the water each CO₂ costs comes up the whole path you followed. <a href="../journey/index.html#membrane">Water journey, Water V, the Membrane</a> · <a href="../journey/index.html#afternoon">Your Salinas afternoon</a>',
+        c3c4cam: 'The water side of this plate: a CAM plant opens its stomata in the cool of the night, so each CO₂ costs less of the water that came up from the soil. <a href="#tradeoff">Light V, Water for carbon</a> · <a href="../journey/index.html#field">Water journey, Water I, the Field</a>'
       };
       var nw = s.body.querySelector('.wp-now');
       if (WL[id] && nw && !s.body.querySelector('.lx-water')) { var wl = document.createElement('p'); wl.className = 'lx-water'; wl.innerHTML = WL[id]; nw.parentNode.insertBefore(wl, nw.nextSibling); }

@@ -424,7 +424,7 @@
     /* U7L (unifier r7): one order for the whole site. Water journey (Field to Afternoon) comes first, then Light to sugar I to V, then back to the Water Path map. */
     s.sec.querySelector('.wp-next').innerHTML =
       (pv ? '<a class="prev" href="#' + pv.id + '">&#8592; Sugar ' + pv.rn + ', ' + esc(pv.name) + '</a>' : '<a class="prev" href="../light/index.html#stroma">&#8592; Before this: Light to sugar, Light IV, the Stroma, where the sugar is made</a>') +
-      (nx ? '<a href="#' + nx.id + '">Next: Sugar ' + nx.rn + ', ' + esc(nx.name) + ' &#8594;</a>' : '<a href="../index.html#/map">Back to the Water Path map &#8594;</a><a class="prev" href="../journey/index.html#plant">See both pipes in one tree: Water II, the Plant</a>');
+      (nx ? '<a href="#' + nx.id + '">Next: Sugar ' + nx.rn + ', ' + esc(nx.name) + ' &#8594;</a>' : '<a href="../index.html#/map">Back to the Water Path map &#8594;</a><a class="prev" href="../journey/index.html#plant">See both pipes in one tree: Water II, the Plant</a><a class="prev" href="../curious/index.html">Or try Curious things: plants that break the rules</a>');
   }
   ui.platesources = renderPlateSources;
 
