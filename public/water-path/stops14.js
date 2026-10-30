@@ -75,9 +75,11 @@
   }
   function wirePause(box, Ts) {
     var b = box.querySelector('[data-u7="pause"]'); if (!b) return;
-    if (reduced()) { b.textContent = 'Still frame'; b.disabled = true; return; }
     if (window.PlaySpeed && !box.querySelector('[data-ps="chip"]')) b.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), b.nextSibling); // speed chip beside Pause
     b.addEventListener('click', function () { var p; Ts.forEach(function (T) { if (T) p = T.pause(); }); b.setAttribute('aria-pressed', p ? 'true' : 'false'); b.textContent = p ? 'Play' : 'Pause'; });
+    /* v19: reduced motion starts on a still frame and Play runs it; a still click on the view freezes or plays */
+    var T0 = Ts.filter(function (T) { return T; })[0];
+    if (window.WPFreeze && T0) Ts.forEach(function (T) { if (T) WPFreeze.attach(T.canvas, { paused: function () { return T0.paused; }, button: b }); });
   }
   /* predict then check, same markup and feel as the v7 .ptc boxes; prediction kept in this browser only */
   function predict(host, key, q, opts, answer, revealHTML) {

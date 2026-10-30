@@ -2595,7 +2595,7 @@ window.WP_QUIZ_LIGHT_BANK = {
 "o": [
 [
 "A few hundred",
-"Right. With E about 2.6 mmol and A about 14 µmol per m² per second, the ratio is near 190, and it climbs in dry air."
+"Right. With E about 2.2 mmol and A about 12 µmol per m² per second, the ratio is near 190, and it climbs in dry air."
 ],
 [
 "About one",

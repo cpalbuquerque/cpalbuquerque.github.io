@@ -47,9 +47,10 @@
     c.restore();
   };
   KIT.proton = function (c, x, y, r) { c.fillStyle = KIT.COL.hp; c.strokeStyle = 'rgba(120,90,0,.8)'; c.lineWidth = 1; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); c.stroke(); };
-  KIT.water = function (c, x, y, r) {
-    c.fillStyle = '#f7f4ee'; c.beginPath(); c.arc(x - r * 0.8, y - r * 0.55, r * 0.55, 0, TAU); c.arc(x + r * 0.8, y - r * 0.55, r * 0.55, 0, TAU); c.fill();
-    c.fillStyle = KIT.COL.wat; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill();
+  KIT.water = function (c, x, y, r) { // v19: atoms in water's identity colours (molcolor.js)
+    var W = window.WPMolColor, dk = W ? W.isDark() : false;
+    c.fillStyle = W ? W.atom('h2o', 'H', dk) : '#f7f4ee'; c.beginPath(); c.arc(x - r * 0.8, y - r * 0.55, r * 0.55, 0, TAU); c.arc(x + r * 0.8, y - r * 0.55, r * 0.55, 0, TAU); c.fill();
+    c.fillStyle = W ? W.atom('h2o', 'O', dk) : KIT.COL.wat; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill();
   };
   KIT.pill = function (c, x, y, text, dark, size) {
     var fs = size || 11; c.save(); c.font = '600 ' + fs + 'px "IBM Plex Sans",system-ui,sans-serif';
@@ -600,7 +601,7 @@
 
       '<figure class="fig lx-fig" id="ps-live"><div class="fighead"><h3>1.1 Three ways in</h3><p>From the cell that made the sugar to the sieve element that carries it away. Pick how the leaf loads.</p></div>' +
       '<div class="lx-frame ps-theatre" id="ps-th"></div>' +
-      '<div class="ps-legend" aria-hidden="true">' + leg(KIT.COL.suc, 'sucrose') + leg(KIT.COL.sor, 'sorbitol') + leg(KIT.COL.raf, 'raffinose (polymer trap)') + leg(KIT.COL.hp, 'H⁺') + leg('#d9402f', 'H₂O') + leg('#8a5cc4', 'SWEET') + leg('#1f9e93', 'SUT') + '</div>' +
+      '<div class="ps-legend" aria-hidden="true">' + leg(KIT.COL.suc, 'sucrose') + leg(KIT.COL.sor, 'sorbitol') + leg(KIT.COL.raf, 'raffinose (polymer trap)') + leg(KIT.COL.hp, 'H⁺') + leg('#1d4aa5', 'H₂O (blue)') + leg('#8a5cc4', 'SWEET') + leg('#1f9e93', 'SUT') + '</div>' +
       '<div class="ps-ctrls">' +
       '<div class="ctl"><span class="ctl-l">How the leaf loads</span><div class="ps-sw" role="group" aria-label="Loading type">' + chipRow('data-load', [['apo', 'Active, through the wall'], ['sym', 'Passive, plasmodesmata'], ['trap', 'Polymer trap']], st.load) + '</div><div class="hint">most herbs load actively; many trees passively</div></div>' +
       '<div class="ctl"><span class="ctl-l">What the leaf exports</span><div class="ps-sw" role="group" aria-label="Sugar exported">' + chipRow('data-sugar', [['sucrose', 'Sucrose'], ['rosaceae', 'Sucrose and sorbitol']], st.sugar) + '</div><div class="hint">sorbitol: almond, peach, apple and their family</div></div>' +
@@ -659,6 +660,7 @@
     A1 = ui.anim(el.querySelector('#ps-th'), { height: function (w) { return w < 600 ? 400 : 380; }, label: 'Drawing of five cells side by side, from a mesophyll cell to a sieve element, with sugar molecules moving between them through plasmodesmata or, in active loading, out through SWEET into the cell wall and back in through SUT with a proton; bars above each cell show how much sugar it holds.', draw: drawTheatre });
     var pb = el.querySelector('#ps-pause');
     pb.addEventListener('click', function () { var p = !A1.paused(); A1.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    if (A1.freeze) A1.freeze.bind(pb); // v19: click the view to freeze, in step with Pause
     if (window.PlaySpeed) pb.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), pb.nextSibling);
     el.addEventListener('click', function (e) {
       var b = e.target.closest('[data-load]'); if (b) { PP.set({ load: b.getAttribute('data-load') }); return; }

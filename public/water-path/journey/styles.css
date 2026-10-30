@@ -61,7 +61,7 @@
 html{background:var(--paper)}
 body{background:var(--paper);color:var(--ink);font-family:var(--text);font-size:18px;line-height:1.5;margin:0;
   -webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
-.wp{max-width:1360px;margin:0 auto;padding:0 16px 40px}
+.wp{max-width:none;margin:0 auto;padding:0 clamp(16px,2.5vw,48px) 40px}   /* full width: fills the window on wide screens */
 .wp a{color:var(--accent);text-underline-offset:2px;overflow-wrap:anywhere}
 .wp :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:2px}
 .wp sub,.wp sup{font-size:.72em;line-height:0}

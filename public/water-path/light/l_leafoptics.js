@@ -764,8 +764,11 @@ if (typeof module !== 'undefined') module.exports = LOSIM;
     ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.fill();
     ctx.strokeStyle = dark ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.35)'; ctx.lineWidth = 0.7; ctx.stroke();
   }
-  function drawCO2(ctx, x, y, dark) { ctx.strokeStyle = dark ? '#ccc' : '#555'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - 6, y); ctx.lineTo(x + 6, y); ctx.stroke(); ball(ctx, x - 6, y, 3.2, '#d8312a', dark); ball(ctx, x + 6, y, 3.2, '#d8312a', dark); ball(ctx, x, y, 3.6, dark ? '#9aa3ad' : '#2a2a2a', dark); }
-  function drawO2(ctx, x, y, dark) { ctx.strokeStyle = dark ? '#ccc' : '#555'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - 3.5, y); ctx.lineTo(x + 3.5, y); ctx.stroke(); ball(ctx, x - 3.5, y, 3.2, '#e0453a', dark); ball(ctx, x + 3.5, y, 3.2, '#e0453a', dark); }
+  /* v19 identity colours (molcolor.js): atoms coloured by their molecule. CO2 a dark grey C between lighter grey O,
+     O2 two crimson O */
+  function idAtom(kind, el, dark) { var W = window.WPMolColor; return (W && W.atom && W.atom(kind, el, dark)) || ({ co2: dark ? { C: '#8a9098', O: '#d9dce0' } : { C: '#4f5359', O: '#a7aaaf' }, o2: { O: dark ? '#dd3c3c' : '#981b30' } }[kind][el]); }
+  function drawCO2(ctx, x, y, dark) { ctx.strokeStyle = dark ? '#ccc' : '#555'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - 6, y); ctx.lineTo(x + 6, y); ctx.stroke(); ball(ctx, x - 6, y, 3.2, idAtom('co2', 'O', dark), dark); ball(ctx, x + 6, y, 3.2, idAtom('co2', 'O', dark), dark); ball(ctx, x, y, 3.6, idAtom('co2', 'C', dark), dark); }
+  function drawO2(ctx, x, y, dark) { ctx.strokeStyle = dark ? '#ccc' : '#555'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - 3.5, y); ctx.lineTo(x + 3.5, y); ctx.stroke(); ball(ctx, x - 3.5, y, 3.2, idAtom('o2', 'O', dark), dark); ball(ctx, x + 3.5, y, 3.2, idAtom('o2', 'O', dark), dark); }
   function hexagon(ctx, x, y, r, dark) { ctx.beginPath(); for (var i = 0; i < 6; i++) { var a = Math.PI / 6 + i * Math.PI / 3; ctx[i ? 'lineTo' : 'moveTo'](x + r * Math.cos(a), y + r * Math.sin(a)); } ctx.closePath(); ctx.fillStyle = dark ? '#7fe07a' : '#3e9a3a'; ctx.fill(); ctx.strokeStyle = dark ? '#d6ffd0' : '#1f5a1c'; ctx.lineWidth = 1; ctx.stroke(); }
 
   /* ------------------------------------------------------------ 2.4 blue light and leaf build (Hogewoning et al. 2010, Table 1) */
@@ -963,12 +966,14 @@ if (typeof module !== 'undefined') module.exports = LOSIM;
     var pb = el.querySelector('#lo-pause');
     if (window.PlaySpeed) pb.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), pb.nextSibling);
     pb.addEventListener('click', function () { var p = !TH.anim.paused(); TH.anim.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    if (TH.anim.freeze) TH.anim.freeze.bind(pb); // v19: click the view to freeze, in step with Pause
 
     /* light response */
     var sl = el.querySelector('#lo-ppfd');
     sl.value = Math.round(+LP.state.ppfd || 0);
     sl.addEventListener('input', function () { LP.set({ ppfd: +sl.value }); });
     group(el.querySelector('#lo-leaf2'), function (v) { LP.set({ leaf: v }); });
+if (window.WPMolColor) { var mk3 = el.querySelector('#lo-gx'); if (mk3) mk3.insertAdjacentHTML('afterend', WPMolColor.key(['co2', 'o2'])); } // v19: the site wide molecule key
     GX.anim = ui.anim(el.querySelector('#lo-gx'), { height: function (w) { return w < 560 ? 300 : 320; }, label: 'CO2 entering a stoma on the lower surface, O2 leaving and sugars moving to a vein, at the model rate', draw: drawGX });
 
     /* blue */

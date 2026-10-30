@@ -70,7 +70,7 @@
     g.add(new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 2.0, 8, 1, true), poreM));
     /* water in single file: red O, two white H */
     var oG = new T.SphereGeometry(0.075, 10, 7), hG = new T.SphereGeometry(0.042, 8, 6);
-    var oM = new T.MeshStandardMaterial({ color: 0xd8452e, roughness: 0.3 }), hM = new T.MeshStandardMaterial({ color: 0xf2f2f2, roughness: 0.3 });
+    var MC = window.WPMolColor, oM = new T.MeshStandardMaterial({ color: MC ? MC.atomInt('h2o', 'O') : 0x1d4aa5, roughness: 0.3 }), hM = new T.MeshStandardMaterial({ color: MC ? MC.atomInt('h2o', 'H') : 0x8fb8ee, roughness: 0.3 });   /* molecule colours (molcolor.js): water is blue */
     var ws = [];
     for (var i = 0; i < 5; i++) {
       var w = new T.Group(); w.add(new T.Mesh(oG, oM));
@@ -80,7 +80,7 @@
     }
     g.userData.water = function (t) { ws.forEach(function (w, i) { var u = ((t * 0.18 + i / 5) % 1); w.position.set(0, 1.25 - u * 2.5, 0); w.rotation.y = u * 6 + i; w.visible = Math.abs(w.position.y) < 1.2; }); };
     g.userData.water(0);
-    g.userData.theme = function (dark) { shellM.opacity = dark ? 0.5 : 0.42; };
+    g.userData.theme = function (dark) { shellM.opacity = dark ? 0.5 : 0.42; if (MC) { oM.color.set(MC.atomInt('h2o', 'O', dark)); hM.color.set(MC.atomInt('h2o', 'H', dark)); } };
     return g;
   };
 
@@ -208,7 +208,7 @@
 .nm-o-head{fill:var(--w4);stroke:var(--w2);stroke-width:1}\
 .nm-o-tail{stroke:var(--rule);stroke-width:1;fill:none}\
 .nm-o-aqp{fill:var(--w5);stroke:var(--w2);stroke-width:1.6;opacity:.95}\
-.nm-o-ox{fill:#d8452e}.nm-o-hy{fill:#ffffff;stroke:#9a9a9a;stroke-width:.6}\
+.nm-o-ox{fill:var(--mol-h2o,#1d4aa5)}.nm-o-hy{fill:var(--mol-h2o-h,#8fb8ee);stroke:var(--mol-rim,#555);stroke-width:.6}\
 .nm-o-car{fill:var(--sun);stroke:var(--warm);stroke-width:1.6}\
 .nm-o-ion{fill:var(--leaf3);stroke:var(--ink);stroke-width:1.2}\
 .nm-o-arr{stroke:var(--ink);stroke-width:1.6;fill:none}\

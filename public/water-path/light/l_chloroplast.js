@@ -41,7 +41,7 @@
     'chl.photoresp': { claim: 'Rubisco, the enzyme that fixes CO2, can also grab O2 instead. That side reaction uses O2 and makes a product the plant must recycle (photorespiration).', cite: 'Bauwe H, Hagemann M, Fernie AR (2010) Trends Plant Sci 15:330 to 336', doi: '10.1016/j.tplants.2010.03.006', measured: 'review (abstract read)', badge: 'VERIFIED', note: 'Plate IV models it. The O2 drawn here leaves; this scene does not show Rubisco taking it.' },
     'chl.perco2': { claim: 'ATP and NADPH per CO2 fixed by Rubisco = (3 + 3.5 φ) and (2 + 2 φ), where φ = O2 reactions per CO2 reaction (vo/vc). With φ = 0 this is the 3 ATP and 2 NADPH of the cycle alone; the extra pays for recycling the product of Rubisco reacting with O2.', cite: 'Farquhar GD, von Caemmerer S, Berry JA (1980) Planta 149:78 to 90 (stoichiometry used by the engine); Bauwe et al. (2010) for photorespiration', doi: '10.1007/BF00386231', doi2: '10.1016/j.tplants.2010.03.006', measured: 'stoichiometry; φ from the engine at the current conditions', badge: 'DERIVED', note: 'φ itself is a model value (Light IV shows it).' },
     'chl.membrane': { claim: 'Membrane amount here scales the photosystems (light caught) and the electron transport and ATP synthase capacity (Jmax, the top rate of electron transport) together; Rubisco in the stroma is unchanged. Only this workstation uses it; other plates keep the full membrane.', cite: 'Teaching model on the Plate engine (LP.solve on a copy of the leaf state)', measured: 'none', value: 'ppfd × f, Jmax25 × f', badge: 'ILLUSTRATIVE', note: '' },
-    'chl.beads': { claim: 'Each bead stands for many molecules: one bead per second stands for 16 µmol m−2 s−1 of leaf. Bead speed follows the engine rates, so the bead counts keep the engine ratios: the cycle itself needs 3 ATP and 2 NADPH per CO2, and photorespiration adds more (about 4 ATP and 2.6 NADPH per CO2 at full sun in normal air in this model).', cite: 'Drawing scale', measured: 'none', value: '16 µmol m−2 s−1 per bead s−1', badge: 'ILLUSTRATIVE', note: 'Not to scale: proteins are drawn hundreds of times larger than the chloroplast would allow, and one Rubisco stands for very many.' }
+    'chl.beads': { claim: 'Each bead stands for many molecules: one bead per second stands for 16 µmol m−2 s−1 of leaf. Bead speed follows the engine rates, so the bead counts keep the engine ratios: the cycle itself needs 3 ATP and 2 NADPH per CO2, and photorespiration adds more (about 4.2 ATP and 2.7 NADPH per CO2 at full sun in normal air in this model, with its mesophyll conductance).', cite: 'Drawing scale', measured: 'none', value: '16 µmol m−2 s−1 per bead s−1', badge: 'ILLUSTRATIVE', note: 'Not to scale: proteins are drawn hundreds of times larger than the chloroplast would allow, and one Rubisco stands for very many.' }
   };
   Object.keys(EV).forEach(function (k) { if (!LP.evidence[k]) LP.evidence[k] = EV[k]; });
   [['10.1105/tpc.105.035030', 'Shimoni et al. 2005, Plant Cell 17:2580'], ['10.1104/pp.110.170647', 'Austin and Staehelin 2011, Plant Physiol 155:1601'],
@@ -127,6 +127,7 @@
 .chl-key{position:absolute;z-index:6;left:10px;bottom:8px;font:500 11px/1.3 var(--ui);color:#dfe8d3;background:rgba(12,18,14,.7);border-radius:8px;padding:4px 8px;max-width:calc(100% - 20px)}\
 .chl-key i{display:inline-block;width:9px;height:9px;margin:0 3px 0 8px;vertical-align:-1px}\
 .chl-key i:first-child{margin-left:0}\
+.chl-3d .wp-molkey{--mol-h2o:#80dfff;--mol-co2:#cfd3d8;--mol-o2:#dd3c3c;--mol-h2o-h:#b3e9ff;--mol-co2-c:#8a9098;--mol-co2-o:#d9dce0;--mol-rim:rgba(0,0,0,.55);margin:0;padding:2px 12px 10px;color:#dfe8d3}.chl-3d .wp-molkey b,.chl-3d .wp-molkey-l{color:#f4f1e8}\
 .chl-panel{position:absolute;z-index:8;left:8px;right:8px;top:8px;max-height:30%;overflow:auto;background:#faf6ec;color:#2a231c;border:1px solid #c4b597;border-radius:10px;padding:10px 12px 11px;font:400 12.5px/1.38 var(--ui);box-shadow:0 10px 30px -12px rgba(0,0,0,.6)}\
 .chl-panel h4{display:inline;margin:0 8px 0 0;font:600 14.5px/1.25 var(--ui)}\
 .chl-panel.B{top:auto;bottom:8px}\
@@ -187,12 +188,13 @@
       '<p class="chl-todo"><b>What to do:</b> the <b>LIGHT</b>, <b>CARBON</b> and <b>BOTH</b> buttons show one half of the machine or both. Press <b>BOTH</b>, then <b>Follow one ATP</b> and watch it go round. Then turn the light down. Click a part to read what it is. Click empty space to pause the motion; click again to restart.</p>' +
       '<div class="chl-grid">' +
       '<div class="chl-3d"><div class="chl-stage" id="chl-stage"><div class="chl-gl mh-gl" role="img" aria-label="A chloroplast cut open: grana stacks joined by sheets, starch grains and the Calvin cycle in the stroma"></div><div class="chl-tags" aria-hidden="true"></div>' +
-      '<p class="chl-frz" hidden>Frozen. Turn and zoom still work. Click again to resume.</p>' +
-      '<p class="chl-key" aria-hidden="true"><i style="background:#ffad3a;border-radius:50%"></i>ATP (big) / ADP (small, pale) <i style="background:#4fd6c8;transform:rotate(45deg)"></i>NADPH / NADP⁺ <i style="background:#ff6a5a;border-radius:50%"></i>O₂ from split water <i style="background:#cfd6dc;border-radius:50%"></i>CO₂ <i style="background:#ffe08a;border-radius:50%"></i>H⁺</p>' +
+      '<p class="chl-frz" hidden>Frozen · click the view to play</p>' +
+      '<p class="chl-key" aria-hidden="true"><i style="background:#ffad3a;border-radius:50%"></i>ATP (big) / ADP (small, pale) <i style="background:#2fb3a6;transform:rotate(45deg)"></i>NADPH / NADP⁺ <i style="background:#dd3c3c;border-radius:50%"></i>O₂ from split water <i style="background:#cfd3d8;border-radius:50%"></i>CO₂ <i style="background:#ffe08a;border-radius:50%"></i>H⁺</p>' +
       '<div class="chl-panel" role="region" aria-live="polite" hidden></div></div>' +
-      '<div class="chl-bar"><button type="button" class="chl-b" data-a="freeze" aria-pressed="false">Freeze</button><button type="button" class="chl-b" data-a="step" hidden>Step</button>' +
+      '<div class="chl-bar"><button type="button" class="chl-b" data-a="freeze" aria-pressed="false">Pause</button><button type="button" class="chl-b" data-a="step" hidden>Step</button>' +
       '<button type="button" class="chl-b" data-a="fatp" aria-pressed="false">Follow one ATP</button><button type="button" class="chl-b" data-a="fnad" aria-pressed="false">Follow one NADPH</button>' +
-      '<button type="button" class="chl-b" data-a="names" aria-pressed="true">Names</button></div></div>' +
+      '<button type="button" class="chl-b" data-a="names" aria-pressed="true">Names</button></div>' +
+      (window.WPMolColor ? WPMolColor.key(['co2', 'o2']) : '') + '</div>' + // v19: the site wide molecule key
       '<div class="chl-side">' +
       '<div class="chl-modes" role="group" aria-label="Show which half"><button type="button" data-m="light" aria-pressed="false">LIGHT</button><button type="button" data-m="carbon" aria-pressed="false">CARBON</button><button type="button" data-m="both" aria-pressed="true">BOTH</button></div>' +
       '<div class="chl-c"><label for="chl-ppfd">Light on the leaf <output id="chl-ppfd-o"></output></label><input type="range" id="chl-ppfd" min="0" max="2000" step="10"><div class="h">Light, in µmol of photons per m² per second. This is the same light setting used across this page; changing it here changes it on every plate.</div></div>' +
@@ -216,13 +218,13 @@
       '<p class="cap">Turn the light down: ATP made and CO₂ fixed fall together, because the Calvin cycle runs on the carriers the membranes charge. Engine values ' + badge('ILLUSTRATIVE') + '</p></div>' +
       '</div>' +
       '<details class="chl-why"><summary>Why does this happen?</summary><ul>' +
-      '<li><b>One machine, one pool of carriers.</b> ATP and NADPH are not made in the stroma. The membranes charge ADP (spent ATP) into ATP and NADP⁺ (spent NADPH) into NADPH; the Calvin cycle spends them and hands back ADP and NADP⁺. In a steady leaf, ATP made equals ATP spent, and in this model the two counters match. The exception is a leaf blocked with DCMU (Light III): the little cyclic flow left still makes some ATP, but no CO₂ is fixed, so the model counts that ATP as made and not spent. Per CO₂ the cycle alone needs 3 ATP and 2 NADPH; photorespiration adds more, which is why the counters show about 4 and 2.6 in full sun. Dim the light and fewer carriers are charged, so the cycle slows: it is starved, not broken. ' + ev('chl.beads', 'Bead scale') + '</li>' +
+      '<li><b>One machine, one pool of carriers.</b> ATP and NADPH are not made in the stroma. The membranes charge ADP (spent ATP) into ATP and NADP⁺ (spent NADPH) into NADPH; the Calvin cycle spends them and hands back ADP and NADP⁺. In a steady leaf, ATP made equals ATP spent, and in this model the two counters match. The exception is a leaf blocked with DCMU (Light III): the little cyclic flow left still makes some ATP, but no CO₂ is fixed, so the model counts that ATP as made and not spent. Per CO₂ the cycle alone needs 3 ATP and 2 NADPH; photorespiration adds more, which is why the counters show about 4.2 and 2.7 in full sun. Dim the light and fewer carriers are charged, so the cycle slows: it is starved, not broken. ' + ev('chl.beads', 'Bead scale') + '</li>' +
       '<li><b>A lot of membrane around one thin space.</b> A proton gradient needs a closed space. In the chloroplast that space is one continuous lumen inside a single folded membrane network; stacks (grana) and the sheets that join them are connected ' + ev('chl.network', 'Shimoni 2005; Austin 2011') + '. The lumen is only about 4.7 nm wide in the dark and about 9.2 nm in light ' + badge('MEASURED') + ' ' + ev('chl.width', 'Kirchhoff 2011') + '. Such a thin space holds little water per membrane area, so pumped protons change its pH quickly, although lumen proteins buffer part of the change ' + ev('chl.volarea', 'Geometry') + ' ' + ev('chl.buffer', 'Wille 1988') + '.</li>' +
       '<li><b>What pH means.</b> pH is a scale for how many free protons (H⁺) there are; each step down means ten times more. In light the lumen pH falls; the model keeps it inside the range measured in living leaves, about 7.5 to 5.7 ' + badge('MEASURED') + ' ' + ev('lumen_ph', 'Takizawa 2007') + '.</li>' +
       '<li><b>Less membrane, less ATP.</b> Fewer square metres of membrane hold fewer photosystems and ATP synthases, so less light is caught and fewer protons can be pumped and used. A granum holds about 5 to 15 discs in sun plants and up to about 100 in deep shade plants ' + badge('SECONDARY') + ' ' + ev('chl.granum', 'Austin 2011') + '.</li>' +
       '<li class="tier-2"><b>The motor.</b> The rotor has 14 subunits, so one turn moves 14 protons and makes 3 ATP, about 4.7 protons per ATP ' + badge('DERIVED') + '. Measurements give a slightly lower value, about 3.9 ± 0.3 ' + badge('MEASURED') + ' ' + ev('c_ring_14', 'Seelert 2000') + ' ' + ev('chl.hatp', 'Vollmar 2009; Petersen 2012') + '.</li>' +
       '<li class="tier-2"><b>Counting turns.</b> Three turns of the cycle fix 3 CO₂ onto 3 RuBP and make 6 triose P (a small three carbon sugar); 1 leaves the cycle and 5 are rebuilt into 3 RuBP. That costs 9 ATP and 6 NADPH ' + badge('DERIVED') + ' ' + ev('chl.calvin', 'Stoichiometry') + '. One triose P holds 3 carbons, one from each CO₂, so 9 ATP and 6 NADPH per triose P is the same as 3 ATP and 2 NADPH per CO₂. Rubisco is the enzyme; RuBP is the sugar it puts CO₂ on.</li>' +
-      '<li class="tier-2"><b>The O₂ leaves.</b> The red O₂ beads come from splitting water at photosystem II; O₂ is a by-product and diffuses out of the leaf. Rubisco can also take up O₂ instead of CO₂ (photorespiration). The scene does not draw that use of O₂, but the counters include it, with its extra ATP and NADPH cost. <a href="#stroma">Light IV models it</a> ' + ev('chl.photoresp', 'Bauwe 2010') + '.</li>' +
+      '<li class="tier-2"><b>The O₂ leaves.</b> The crimson O₂ beads come from splitting water at photosystem II; O₂ is a by-product and diffuses out of the leaf. Rubisco can also take up O₂ instead of CO₂ (photorespiration). The scene does not draw that use of O₂, but the counters include it, with its extra ATP and NADPH cost. <a href="#stroma">Light IV models it</a> ' + ev('chl.photoresp', 'Bauwe 2010') + '.</li>' +
       '<li class="tier-3">Model: ATP made = H⁺ into the lumen ÷ 4.67; ATP spent = min(ATP made, ATP the cycle and photorespiration demand); NADPH made = linear electrons ÷ 2; CO₂ fixed = Rubisco carboxylation v<sub>c</sub>. The membrane slider runs the same engine with light caught and J<sub>max</sub> (the top rate of electron transport) both × the membrane share. Grana and junctions are drawn as a sketch; there is no measured count of grana per chloroplast behind it. ' + ev('chl.slits', 'Junction slits') + '</li>' +
       '</ul></details>' +
       '</section>';
@@ -338,7 +340,7 @@
     catp.frustumCulled = cnad.frustumCulled = false;
     root.add(catp); root.add(cnad);
     for (hp = 0; hp < NA; hp++) catp.setColorAt(hp, new T.Color(0xffad3a));
-    for (hp = 0; hp < NN; hp++) cnad.setColorAt(hp, new T.Color(0x4fd6c8));
+    for (hp = 0; hp < NN; hp++) cnad.setColorAt(hp, new T.Color(0x2fb3a6));
     /* particles */
     var dot = (function () { var c = document.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 2, 32, 32, 30); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.45, 'rgba(255,255,255,.9)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); var t = new T.CanvasTexture(c); return t; })();
     function pool(n, col, size) {
@@ -368,7 +370,8 @@
         }
       };
     }
-    var PO = { o2: pool(40, 0xff6a5a, 0.2), e: pool(40, 0x9dff7a, 0.12), co2: pool(24, 0xcfd6dc, 0.18), tri: pool(16, 0xffd98a, 0.2) };
+    var IDK = function (k, d) { return window.WPMolColor ? WPMolColor.int(k, true) : d; }; // v19: identity colours (molcolor.js, dark set: this stage is always dark)
+    var PO = { o2: pool(40, IDK('o2', 0xdd3c3c), 0.2), e: pool(40, 0x9dff7a, 0.12), co2: pool(24, IDK('co2', 0xcfd3d8), 0.18), tri: pool(16, 0xffd98a, 0.2) };
     /* protons in the cut lumen faces (static positions, count follows lumen pH) */
     var HPN = 160, hpG = new T.BufferGeometry(), hpPos = new Float32Array(HPN * 3), hpCol = new Float32Array(HPN * 3);
     hpG.setAttribute('position', new T.BufferAttribute(hpPos, 3)); hpG.setAttribute('color', new T.BufferAttribute(hpCol, 3));
@@ -464,7 +467,7 @@
       return bez(cq, cr, m, w, out);
     }
     function bez(a, c, b, u, out) { var w0 = (1 - u) * (1 - u), w1 = 2 * u * (1 - u), w2 = u * u; out.set(a.x * w0 + c.x * w1 + b.x * w2, a.y * w0 + c.y * w1 + b.y * w2, a.z * w0 + c.z * w1 + b.z * w2); return out; }
-    var colA = new T.Color(0xffad3a).convertSRGBToLinear(), colADP = new T.Color(0x9c8b70).convertSRGBToLinear(), colN = new T.Color(0x4fd6c8).convertSRGBToLinear(), colNP = new T.Color(0x5f8582).convertSRGBToLinear(), tmpC = new T.Color();
+    var colA = new T.Color(0xffad3a).convertSRGBToLinear(), colADP = new T.Color(0x9c8b70).convertSRGBToLinear(), colN = new T.Color(0x2fb3a6).convertSRGBToLinear(), colNP = new T.Color(0x5f8582).convertSRGBToLinear(), tmpC = new T.Color();
     function placeCarriers() {
       var ia = 0, inn = 0;
       for (var i = 0; i < C.length; i++) {
@@ -679,7 +682,7 @@
       stroma: P ? P.stroma : (dk ? '#0c1912' : '#eef1df'), mem: dk ? '#4f9a3e' : '#5c9a46', memD: dk ? '#2e5c24' : '#3d7a2e',
       lumen: P ? P.lumen : (dk ? '#0b1420' : '#eef0f3'), acid: P ? P.lumenAcid : (dk ? '#4a2a06' : '#f7dc94'),
       hp: P ? P.Hp : '#f2c230', hpInk: '#3a2a00', atp: P ? P.atp : '#e8891a', nad: P ? P.nadph : '#1f9e93', psii: P ? P.psii : '#3d8f7c', psi: P ? P.psi : '#4a7cc4',
-      syn: P ? P.syn : '#6b8fc9', synA: P ? P.synA : '#a9c3ea', O: P ? P.O : '#d2392b', e: P ? P.e : '#3f9a2a', ring: dk ? '#d8c27a' : '#9a7a20', rub: dk ? '#e09a3c' : '#b8641a', pick: dk ? '#ffd479' : '#b07a00'
+      syn: P ? P.syn : '#6b8fc9', synA: P ? P.synA : '#a9c3ea', O: window.WPMolColor ? WPMolColor.atom('o2', 'O', dk) : (P ? P.O : '#d2392b'), /* v19: O2 crimson */ e: P ? P.e : '#3f9a2a', ring: dk ? '#d8c27a' : '#9a7a20', rub: dk ? '#e09a3c' : '#b8641a', pick: dk ? '#ffd479' : '#b07a00'
     };
   }
   function mixHex(a, b, t) {
@@ -869,7 +872,7 @@
       surf.addEventListener('pointerdown', function (e) { down = { x: e.clientX, y: e.clientY, t: performance.now() }; });
       surf.addEventListener('pointerup', function (e) {
         if (!down) return; var d = Math.hypot(e.clientX - down.x, e.clientY - down.y), dt = performance.now() - down.t; down = null;
-        if (d > 6 || dt > 650 || (e.button != null && e.button > 0)) return;
+        if (d > 6 || dt >= 450 || (e.button != null && e.button > 0) || e.isPrimary === false) return; // v19: the site wide still click rule (freeze.js)
         click3D(e.clientX, e.clientY);
       });
       surf.addEventListener('pointercancel', function () { down = null; });
@@ -936,7 +939,7 @@
   function step() { var n = 10; for (var i = 0; i < n; i++) { if (G) G.advance(0.05); else advance2D(0.05); } kickAll(); say('One step: half a second of model time.'); }
   function setFrozen(on, quiet) {
     S.frozen = !!on;
-    var b = EL.bar.querySelector('[data-a="freeze"]'); b.setAttribute('aria-pressed', S.frozen ? 'true' : 'false'); b.textContent = S.frozen ? 'Resume' : 'Freeze';
+    var b = EL.bar.querySelector('[data-a="freeze"]'); b.setAttribute('aria-pressed', S.frozen ? 'true' : 'false'); b.textContent = S.frozen ? 'Play' : 'Pause'; // v19: the same Pause / Play label as every animated view
     EL.bar.querySelector('[data-a="step"]').hidden = !S.frozen;
     EL.frz.hidden = !S.frozen || !G;
     if (!quiet) say(S.frozen ? 'Frozen. You can still turn and zoom, and click parts to read about them.' : 'Running again.');

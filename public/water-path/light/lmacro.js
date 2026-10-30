@@ -23,7 +23,7 @@
    LP.macro.superEllipsoid(rx, ry, rz, e, ws, hs)   rounded "pillow" cell geometry
    LP.macro.glass(THREE, color, o)                    glassy translucent MeshPhysicalMaterial
    LP.macro.merge(THREE, parts)                       merge geometries into one with vertex colours
-   LP.macro.waterGeo(THREE, r)                        one H2O (red O, two white H, 104.5 degrees)
+   LP.macro.waterGeo(THREE, r)                        one H2O (104.5 degrees; atoms in water's identity colours, v19)
    LP.macro.halos(THREE, n, color, size)              additive glow points (cheap bloom)
    LP.macro.envMap(renderer, THREE, warm)             soft studio environment for wet highlights
 
@@ -207,12 +207,47 @@
   M.waterGeo = function (T, r, lo) {
     r = r || 0.12;
     var o = lo ? new T.SphereGeometry(1, 8, 6) : new T.SphereGeometry(1, 10, 8), h = lo ? new T.SphereGeometry(1, 6, 4) : new T.SphereGeometry(1, 8, 6), a = 52.25 * Math.PI / 180, d = r * 1.05;
+    /* v19: atoms in water's identity colours (molcolor.js, the page theme when built): blue O, lighter blue H */
     var g = M.merge(T, [
-      { geo: o, color: 0xd9402f, pos: [0, 0, 0], scale: r },
-      { geo: h, color: 0xf7f4ee, pos: [Math.sin(a) * d, Math.cos(a) * d, 0], scale: r * 0.6 },
-      { geo: h, color: 0xf7f4ee, pos: [-Math.sin(a) * d, Math.cos(a) * d, 0], scale: r * 0.6 }
+      { geo: o, color: M.atomColor('h2o', 'O'), pos: [0, 0, 0], scale: r },
+      { geo: h, color: M.atomColor('h2o', 'H'), pos: [Math.sin(a) * d, Math.cos(a) * d, 0], scale: r * 0.6 },
+      { geo: h, color: M.atomColor('h2o', 'H'), pos: [-Math.sin(a) * d, Math.cos(a) * d, 0], scale: r * 0.6 }
     ]);
     o.dispose(); h.dispose();
+    return g;
+  };
+  /* v19 identity colours for 3D: the same values as molcolor.js (site root), picked by the page theme */
+  M.idColor = function (kind, dark) {
+    var W = window.WPMolColor, dk = dark == null ? (W ? W.isDark() : false) : dark;
+    if (W) return W.int(kind, dk);
+    return ({ h2o: [0x1d4aa5, 0x80dfff], co2: [0x77797d, 0xcfd3d8], o2: [0x981b30, 0xdd3c3c] }[kind] || [0x888888, 0x888888])[dk ? 1 : 0];
+  };
+  M.atomColor = function (kind, el, dark) {
+    var W = window.WPMolColor, dk = dark == null ? (W ? W.isDark() : false) : dark;
+    if (W && W.atomInt) return W.atomInt(kind, el, dk);
+    var A = { h2o: { O: [0x1d4aa5, 0x80dfff], H: [0x8fb8ee, 0xb3e9ff] }, co2: { C: [0x4f5359, 0x8a9098], O: [0xa7aaaf, 0xd9dce0] }, o2: { O: [0x981b30, 0xdd3c3c] } };
+    return ((A[kind] || {})[el] || [0x888888, 0x888888])[dk ? 1 : 0];
+  };
+  /* v19: CO2 (linear O=C=O) and O2 (an O pair), atoms in identity colours, same scale rule as waterGeo (r = O radius) */
+  M.co2Geo = function (T, r, lo) {
+    r = r || 0.12;
+    var s = lo ? new T.SphereGeometry(1, 8, 6) : new T.SphereGeometry(1, 10, 8);
+    var g = M.merge(T, [
+      { geo: s, color: M.atomColor('co2', 'O'), pos: [-r * 1.75, 0, 0], scale: r * 0.9 },
+      { geo: s, color: M.atomColor('co2', 'C'), pos: [0, 0, 0], scale: r },
+      { geo: s, color: M.atomColor('co2', 'O'), pos: [r * 1.75, 0, 0], scale: r * 0.9 }
+    ]);
+    s.dispose();
+    return g;
+  };
+  M.o2Geo = function (T, r, lo) {
+    r = r || 0.12;
+    var s = lo ? new T.SphereGeometry(1, 8, 6) : new T.SphereGeometry(1, 10, 8);
+    var g = M.merge(T, [
+      { geo: s, color: M.atomColor('o2', 'O'), pos: [-r * 0.8, 0, 0], scale: r },
+      { geo: s, color: M.atomColor('o2', 'O'), pos: [r * 0.8, 0, 0], scale: r }
+    ]);
+    s.dispose();
     return g;
   };
   var glowTex = null;
@@ -726,6 +761,12 @@
     // reduced motion: start on a still frame; Play is an explicit opt in
     if (ctx.reduced) { ctx.paused = true; open(true); }
     if (ctx.setPauseUI) ctx.setPauseUI();
+    /* v19: click the view to freeze (freeze.js), the same rule as the WS workstations; a drag still turns the camera,
+       which stays live while frozen. A scene with clickable parts sets ctx.picked() true for the tap it used, and may
+       call ctx.setPaused(true) itself. */
+    ctx.setPaused = function (p) { if (!!p !== !!ctx.paused && pauseB) pauseB.click(); };
+    if (gl && pauseB && window.WPFreeze) WPFreeze.attach(stage, { paused: function () { return !!ctx.paused; }, button: pauseB, label: false, chip: 'tc', keyEl: glHost,
+      picked: function () { return !!(ctx.picked && ctx.picked()); } });
 
     var io = null, ro = null;
     function seen(on) {

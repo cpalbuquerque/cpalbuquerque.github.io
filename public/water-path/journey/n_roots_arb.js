@@ -239,6 +239,12 @@
     var btnPlay = root.querySelector('.nra-play');
     function syncPlay() { btnPlay.textContent = S.playing ? 'Pause' : 'Play'; btnPlay.setAttribute('aria-pressed', S.playing ? 'true' : 'false'); }
     btnPlay.addEventListener('click', function () { S.playing = !S.playing; syncPlay(); last = 0; if (S.playing && !raf) raf = requestAnimationFrame(loop); });
+    /* v19: a still click on empty drawing freezes or plays (freeze.js); a click on a labelled part opens its note and
+       freezes the motion, as on the WS workstations */
+    var onPart = false;
+    svg.addEventListener('pointerdown', function (e) { onPart = !!(e.target.closest && e.target.closest('[data-part]')); }, true);
+    if (window.WPFreeze) WPFreeze.attach(svg, { paused: function () { return !S.playing; }, button: btnPlay, label: false,
+      picked: function () { var p = onPart; onPart = false; if (p && S.playing) btnPlay.click(); return p; } });
 
     function sayHTML() {
       var off = S.pt4 === 'off', f = S.follow, s;

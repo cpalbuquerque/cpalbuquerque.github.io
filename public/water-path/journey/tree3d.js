@@ -28,7 +28,7 @@
    - Explore in 3D: the shared WP.macro.orbit controller (zoom, pan, tilt, Reset view) through the macro hero, with
      Look closer chips Trunk inside, Xylem, Phloem, Leaf, Root. A chip opens the cut view, picks the block and flies
      the camera to it; Phloem also turns on + Sugars. The tree's own drag to turn was removed (the orbit does it); a tap
-     still opens a card; Enter still cuts it open. The tree stops drifting while the user drives the camera. */
+     still opens a card (and freezes the motion, v19); Enter still cuts it open; a tap on empty space or Space freezes or plays. The tree stops drifting while the user drives the camera. */
 (function () {
   'use strict';
   var BASE = (document.currentScript && document.currentScript.src || '').replace(/[^\/]*$/, '');
@@ -179,6 +179,8 @@
 .t3-bar{background:#141c16;color:#f2efe4;padding:10px 12px 12px;border-top:1px solid rgba(214,232,190,.22);font:400 14px/1.4 var(--ui,system-ui,sans-serif)}\
 .t3-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}\
 .t3-row+.t3-row{margin-top:9px}\
+.t3-dw{background:var(--mol-h2o,#4aa0ec)!important}.t3-dc{background:var(--mol-co2,#9aa0a6)!important}\
+.t3-key{margin:0;color:#e9e4d6}.t3-key b{color:#f4f1e8}.t3-key .wp-molkey-i{background:#f4f1e8;border-radius:8px;padding:1px 2px}.t3-co2n{display:block;margin:0 0 4px;color:#e9e4d6}\
 .t3-grp{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center}\
 .t3-k{font:600 11.5px var(--ui,system-ui,sans-serif);letter-spacing:.06em;text-transform:uppercase;color:#cfe3b0;margin-right:2px}\
 .t3-b{min-height:44px;min-width:44px;padding:6px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.06);color:#f4f1e8;font:600 14px var(--ui,system-ui,sans-serif);cursor:pointer;display:inline-flex;align-items:center;gap:7px}\
@@ -452,7 +454,7 @@
     if (!T3.supported()) return null;
     injectCSS();
     var context = opts.context === 'map' ? 'map' : 'plant';
-    var S = { layer: 1, cut: false, dry: false, cutK: 0, yaw: -0.35, drag: null, lastUser: -1e9, focus: 'trunk', card: null, res: solve(false), built: false, ctx: null, host: host };
+    var S = { gas: 'water', layer: 1, cut: false, dry: false, cutK: 0, yaw: -0.35, drag: null, lastUser: -1e9, focus: 'trunk', card: null, res: solve(false), built: false, ctx: null, host: host };
     var ctl = {
       state: S,
       update: function () { S.res = solve(S.dry); refresh(); },
@@ -529,6 +531,12 @@
         '<button type="button" class="t3-b" role="radio" data-l="3" aria-checked="false"><span class="t3-dot" style="background:#b98cff"></span>+ Signals</button></div>' +
         '<div class="t3-grp"><button type="button" class="t3-b t3-cut" aria-pressed="false">Cut it open</button>' +
         '<button type="button" class="t3-b t3-dry" aria-pressed="false" title="A what if for this scene only: soil at −1.50 MPa">Dry the soil</button></div></div>' +
+      /* v19: which gas to show at the leaves, in the spirit of the chloroplast LIGHT / CARBON / BOTH */
+      '<div class="t3-row"><div class="t3-grp t3-gas" role="radiogroup" aria-label="Gas at the leaves"><span class="t3-k">At the leaves</span>' +
+        '<button type="button" class="t3-b" role="radio" data-gas="water" aria-checked="true"><span class="t3-dot t3-dw"></span>Water out</button>' +
+        '<button type="button" class="t3-b" role="radio" data-gas="co2" aria-checked="false" tabindex="-1"><span class="t3-dot t3-dc"></span>CO₂ in</button>' +
+        '<button type="button" class="t3-b" role="radio" data-gas="both" aria-checked="false" tabindex="-1">Both</button></div>' +
+        (window.WPMolColor ? WPMolColor.key(['h2o', 'co2'], { cls: 't3-key' }) : '') + '</div>' +
       '<div class="t3-row t3-in" hidden><div class="t3-grp" role="group" aria-label="Look inside"><span class="t3-k">Look inside</span>' +
         '<button type="button" class="t3-b" data-f="trunk" aria-pressed="true">Trunk</button><button type="button" class="t3-b" data-f="leaf" aria-pressed="false">Leaf</button><button type="button" class="t3-b" data-f="root" aria-pressed="false">Root</button></div></div>' +
       '<div class="t3-row"><div class="t3-psi" aria-live="polite"></div></div>' +
@@ -556,7 +564,7 @@
     var psiEl = bar.querySelector('.t3-psi'), cutB = bar.querySelector('.t3-cut'), dryB = bar.querySelector('.t3-dry'), inRow = bar.querySelector('.t3-in');
     var glDiv = wrap.querySelector('.mh-gl');
     glDiv.classList.add('t3-gl'); glDiv.setAttribute('tabindex', '0');
-    glDiv.setAttribute('aria-label', 'Almond tree. Arrow keys turn it; Enter cuts it open or closes it.');
+    glDiv.setAttribute('aria-label', 'Almond tree. Arrow keys turn it; Enter cuts it open or closes it; Space freezes or plays the motion.');
     S.wrap = wrap;
 
     function tier() {
@@ -587,7 +595,7 @@
     S.showCard = showCard;
     function psiRow() {
       var P = S.res.psi, items = [['Soil', P.soil], ['Root', P.root], ['Stem', P.stem], ['Leaf', P.leafOut], ['Air', P.air]];
-      psiEl.innerHTML = '<span class="t3-k">Ψ, almond</span>' + items.map(function (it) { return '<span class="t3-pc"><i style="background:' + rgbCss(psiRGB(it[1])) + '"></i>' + it[0] + ' ' + psiTxt(it[1]) + '</span>'; }).join('') +
+      psiEl.innerHTML = (S.gas !== 'water' ? '<span class="t3-pc t3-co2n">CO₂ beads follow how open the stomata are; no CO₂ rate is modelled on this plate: drawn, not to scale <span class="t3-tb">ILLUSTRATIVE</span></span> ' : '') + '<span class="t3-k">Ψ, almond</span>' + items.map(function (it) { return '<span class="t3-pc"><i style="background:' + rgbCss(psiRGB(it[1])) + '"></i>' + it[0] + ' ' + psiTxt(it[1]) + '</span>'; }).join('') +
         ' <span class="t3-tb" title="' + (S.res.snap ? 'Snapshot of the journey engine at its default afternoon, crop almond' : 'Journey engine, crop almond, at the conditions of this page') + '">MODEL</span>' + (S.dry ? ' <span class="t3-tb">WHAT IF</span>' : '') + (S.note ? '<span class="t3-hint" style="flex-basis:100%">' + S.note + '</span>' : '');
     }
     function cropNote() {
@@ -598,6 +606,7 @@
       var r = S.res, open = Math.round(openFrac() * 100), nb = ' ';
       var parts = ['<span style="white-space:nowrap">almond, model</span>', '<span style="white-space:nowrap">E ' + num(r.E, 2) + nb + 'mmol' + nb + 'm⁻²' + nb + 's⁻¹</span>', '<span style="white-space:nowrap">stomata ' + open + nb + '% open</span>'];
       if (S.layer >= 3) parts.push('<span style="white-space:nowrap">ABA ' + (abaK() > 0.5 ? 'high' : abaK() > 0 ? 'rising' : 'low') + '</span>');
+      if (S.gas !== 'water') parts.push('<span style="white-space:nowrap">CO₂ in: drawn, not to scale</span>');
       ctx.setLive(parts.join(' · '));
     }
     function caption() {
@@ -618,6 +627,7 @@
           L.push({ id: 'xy', text: 'xylem: water up', tier: 2, obj: G.tree, pos: G.trunkTop.clone(), side: 'right' });
           L.push({ id: 'rt', text: 'roots in soil', tier: 2, obj: G.tree, pos: G.rootAnchor.clone() });
         }
+        if (S.gas !== 'water') L.push({ id: 'ci', text: S.gas === 'both' ? 'CO₂ in, water vapour out' : 'CO₂ in from the air', tier: 1, obj: G.tree, pos: G.leafAnchor.clone().add(V(0.9, -1.0, 0.6)), side: 'right' });
         // T4 (fix round): at + Signals the ABA label has the stage; the bar hint already says how to cut it open
         if (S.layer < 3) L.push({ id: 'tk', text: 'tap the trunk to cut it open', tier: 1, obj: G.tree, pos: V(0.18, 0.62, 0.1), side: 'right' });
       } else {
@@ -653,6 +663,7 @@
     S.setLabels = setLabels;
     function sync() {
       bar.querySelectorAll('[data-l]').forEach(function (b) { b.setAttribute('aria-checked', +b.getAttribute('data-l') === S.layer ? 'true' : 'false'); b.tabIndex = +b.getAttribute('data-l') === S.layer ? 0 : -1; });
+      bar.querySelectorAll('[data-gas]').forEach(function (b) { var on = b.getAttribute('data-gas') === S.gas; b.setAttribute('aria-checked', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; });
       cutB.setAttribute('aria-pressed', S.cut ? 'true' : 'false'); cutB.textContent = S.cut ? 'Close it up' : 'Cut it open';
       dryB.setAttribute('aria-pressed', S.dry ? 'true' : 'false'); dryB.textContent = S.dry ? 'Water it again' : 'Dry the soil';
       inRow.hidden = !S.cut;
@@ -669,6 +680,7 @@
       var b = e.target.closest('button'); if (!b) return;
       S.lastUser = ctx.t;
       if (b.hasAttribute('data-l')) { S.layer = +b.getAttribute('data-l'); }
+      else if (b.hasAttribute('data-gas')) { S.gas = b.getAttribute('data-gas'); }
       else if (b === cutB) { S.cut = !S.cut; S.zoom = null; if (ctx.orbit && ctx.orbit.engaged) ctx.resetView(); }
       else if (b === dryB) { S.dry = !S.dry; S.res = solve(S.dry); }
       else if (b.hasAttribute('data-f')) {
@@ -678,6 +690,12 @@
       }
       else return;
       sync();
+    });
+    bar.querySelector('.t3-gas').addEventListener('keydown', function (e) {
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(e.key) < 0) return;
+      var order = ['water', 'co2', 'both'], i = order.indexOf(S.gas);
+      e.preventDefault(); S.gas = order[(i + (e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? 2 : 1)) % 3]; sync();
+      var nb = bar.querySelector('[data-gas="' + S.gas + '"]'); if (nb) nb.focus();
     });
     bar.querySelector('[role="radiogroup"]').addEventListener('keydown', function (e) {
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(e.key) < 0) return;
@@ -694,15 +712,17 @@
       var d = S.drag; if (!d || d.id !== e.pointerId) return;
       if (Math.hypot(e.clientX - d.x, e.clientY - d.y) > 6) d.moved = true;
     });
+    ctx.picked = function () { var p = S.pickedNow; S.pickedNow = false; return !!p; }; // v19: a tap that opened a card does not also toggle the freeze
     function endDrag(e) {
-      var d = S.drag; S.drag = null;
+      var d = S.drag; S.drag = null; S.pickedNow = false;
       if (!d || d.moved || e.type === 'pointercancel' || (e.button != null && e.button > 0)) return;
       pick(e.clientX, e.clientY);
     }
     glDiv.addEventListener('pointerup', endDrag); glDiv.addEventListener('pointercancel', endDrag);
     glDiv.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); S.cut = !S.cut; S.zoom = null; if (ctx.orbit && ctx.orbit.engaged) ctx.resetView(); sync(); }
-    });
+      /* v19: Enter cuts the tree open; Space is left to the click to freeze rule (freeze.js), as on every animated view */
+      if (e.key === 'Enter') { e.preventDefault(); e.stopImmediatePropagation(); S.cut = !S.cut; S.zoom = null; if (ctx.orbit && ctx.orbit.engaged) ctx.resetView(); sync(); }
+    }, true);
     function pick(cx, cy) {
       if (!S.built) return;
       var T = ctx.THREE; ray = ray || new T.Raycaster(); mv = mv || new T.Vector2();
@@ -711,6 +731,7 @@
       ray.setFromCamera(mv, ctx.camera);
       var hits = ray.intersectObjects(S.g.pick.filter(function (o) { return o.visible && visibleUp(o); }), false);
       if (!hits.length) return;
+      S.pickedNow = true; if (ctx.setPaused) ctx.setPaused(true); // v19: as on the WS workstations, opening a part's card freezes the motion
       var h = hits[0];
       if (h.object.userData.part === 'soil') { for (var i = 1; i < hits.length; i++) if (hits[i].object.userData.part !== 'soil' && hits[i].distance - h.distance < 2.5) { h = hits[i]; break; } }
       // 14 Oct: a tap on the glass sapwood, cambium or phloem picks the vessel, ray, sieve tube, plate or companion cell
@@ -912,11 +933,13 @@
 
     /* particles */
     G.water = beads(T, M, 150, 0x4aa8ff, 0.2); tree.add(G.water.obj); ctx.disp.push(G.water.geo, G.water.mat, G.water.glow);
-    G.vap = beads(T, M, 60, 0xf2f8ff, 0.17); G.vap.mat.opacity = 0.55; tree.add(G.vap.obj); ctx.disp.push(G.vap.geo, G.vap.mat);
+    G.vap = beads(T, M, 60, M.idColor ? M.idColor('h2o') : 0xf2f8ff, 0.24); G.vap.mat.opacity = 0.55; tree.add(G.vap.obj); ctx.disp.push(G.vap.geo, G.vap.mat); // v19: water's identity colour
+    G.co2 = beads(T, M, 60, M.idColor ? M.idColor('co2') : 0x9aa0a6, 0.36); G.co2.mat.opacity = 1; tree.add(G.co2.obj); ctx.disp.push(G.co2.geo, G.co2.mat); // v19: CO2 in from the air
     G.sug = beads(T, M, 90, 0xffbf3a, 0.19); tree.add(G.sug.obj); ctx.disp.push(G.sug.geo, G.sug.mat);
     G.aba = beads(T, M, 50, 0xb07cff, 0.22); tree.add(G.aba.obj); ctx.disp.push(G.aba.geo, G.aba.mat);
     G.wB = []; for (var w = 0; w < 150; w++) G.wB.push({ r: w % G.routes.length, s: rnd() * G.routes[w % G.routes.length].poly.total, k: 0.85 + rnd() * 0.3 });
     G.vB = []; for (var v = 0; v < 60; v++) G.vB.push({ l: Math.floor(rnd() * n), s: rnd(), dx: (rnd() - 0.5) * 0.4, dz: (rnd() - 0.5) * 0.4 });
+    G.cB = []; for (var cq = 0; cq < 60; cq++) G.cB.push({ l: Math.floor(rnd() * n), s: rnd(), dx: (rnd() - 0.5) * 0.7, dz: (rnd() - 0.5) * 0.7 });
     G.sB = []; for (var s2 = 0; s2 < 90; s2++) { var toFruit = s2 % 3 === 0; G.sB.push({ r: s2 % G.routes.length, s: rnd(), fruit: toFruit, f: Math.floor(rnd() * FN) }); }
     G.aB = []; for (var a3 = 0; a3 < 50; a3++) G.aB.push({ l: Math.floor(rnd() * n), s: rnd(), ph: rnd() * 6 });
 
@@ -1120,7 +1143,9 @@
     var chl = []; for (var c = 0; c < 70; c++) { var cx = -0.6 + rnd() * 1.2, cy = rnd() < 0.7 ? 0.0 + rnd() * 0.13 : -0.13 + rnd() * 0.1; chl.push([cx, cy, 0.18 + rnd() * 0.08]); }
     var chP = M.balls(T, chl, 0x2f8a2a, 0.035); lc.add(chP); ctx.disp.push(chP.geometry, chP.material);
     G.lcW = beads(T, M, 30, 0x4aa8ff, 0.09); lc.add(G.lcW.obj); ctx.disp.push(G.lcW.geo, G.lcW.mat);
-    G.lcV = beads(T, M, 30, 0xf2f8ff, 0.1); G.lcV.mat.opacity = 0.6; lc.add(G.lcV.obj); ctx.disp.push(G.lcV.geo, G.lcV.mat);
+    G.lcV = beads(T, M, 30, M.idColor ? M.idColor('h2o') : 0xf2f8ff, 0.1); G.lcV.mat.opacity = 0.6; lc.add(G.lcV.obj); ctx.disp.push(G.lcV.geo, G.lcV.mat);
+    G.lcC = beads(T, M, 24, M.idColor ? M.idColor('co2') : 0x9aa0a6, 0.13); G.lcC.mat.opacity = 0.9; lc.add(G.lcC.obj); ctx.disp.push(G.lcC.geo, G.lcC.mat); // v19: CO2 in through the stomata
+    G.lcCB = []; for (var lq = 0; lq < 24; lq++) G.lcCB.push({ st: lq % 2, s: rnd(), j: (rnd() - 0.5) * 0.08, dz: 0.1 + rnd() * 0.16 });
     G.lcA = beads(T, M, 20, 0xb07cff, 0.1); lc.add(G.lcA.obj); ctx.disp.push(G.lcA.geo, G.lcA.mat);
     G.lcS = beads(T, M, 12, 0xffbf3a, 0.08); lc.add(G.lcS.obj); ctx.disp.push(G.lcS.geo, G.lcS.mat);
     G.lcWB = []; for (var lw = 0; lw < 30; lw++) G.lcWB.push({ st: lw % 2, s: rnd(), dz: 0.12 + rnd() * 0.14, j: (rnd() - 0.5) * 0.06 });
@@ -1295,13 +1320,22 @@
     });
     A.commit();
     // vapour out of the leaf undersides, more when E is high
-    var nV = Math.round(60 * clamp(E / 4, 0.08, 1)), Vp = G.vap;
+    var nV = S.gas === 'co2' ? 0 : Math.round(60 * clamp(E / 4, 0.08, 1)), Vp = G.vap;
     G.vB.forEach(function (b, i) {
       if (i >= nV) { Vp.hide(i); return; }
       if (dt > 0) { b.s += dt * (0.25 + 0.1 * E); if (b.s > 1) { b.s -= 1; b.l = (b.l + 37) % G.leafPts.length; } }
       var lp = G.leafPts[b.l]; Vp.set(i, lp[0] + b.dx * b.s, lp[1] - 0.05 - 0.5 * b.s, lp[2] + b.dz * b.s);
     });
     Vp.commit();
+    /* v19: CO2 from the air into the leaf undersides, while water leaves. No CO2 rate on this plate: the count follows
+       how open the stomata are (model gs), drawn, not to scale (ILLUSTRATIVE) */
+    var openK = S.openFrac ? S.openFrac() : 0.5, nC = S.gas === 'water' ? 0 : Math.round(60 * clamp(openK, 0.06, 1)), Cp = G.co2;
+    G.cB.forEach(function (b, i) {
+      if (i >= nC) { Cp.hide(i); return; }
+      if (dt > 0) { b.s += dt * 0.32; if (b.s > 1) { b.s -= 1; b.l = (b.l + 41) % G.leafPts.length; } }
+      var lp = G.leafPts[b.l], u = 1 - b.s, e = u * u; Cp.set(i, lp[0] + b.dx * e, lp[1] - 0.06 - 1.05 * u, lp[2] + b.dz * e);
+    });
+    Cp.commit();
     // sugars down, to the roots and to the fruit
     if (S.layer >= 2) {
       G.sB.forEach(function (b, i) {
@@ -1388,9 +1422,20 @@
       if (dt > 0) { b.s += dt * (0.08 + 0.05 * E); if (b.s > 1) { b.s -= 1; } }
       var sx = G.lcSt[b.st], x, y;
       if (b.s < 0.6) { var u = b.s / 0.6; x = lerp(0.05, sx, u) + b.j; y = lerp(-0.03, -0.15, u) + 0.05 * Math.sin(u * Math.PI); G.lcW.set(i, x, y, b.dz); G.lcV.hide(i); }
-      else { var u2 = (b.s - 0.6) / 0.4; G.lcW.hide(i); if (open < 0.08) { G.lcV.hide(i); } else G.lcV.set(i, sx + b.j * 2 * u2, -0.2 - 0.32 * u2, 0.14 + b.j); }
+      else { var u2 = (b.s - 0.6) / 0.4; G.lcW.hide(i); if (open < 0.08 || S.gas === 'co2') { G.lcV.hide(i); } else G.lcV.set(i, sx + b.j * 2 * u2, -0.2 - 0.32 * u2, 0.14 + b.j); }
     });
     G.lcW.commit(); G.lcV.commit();
+    if (G.lcC) { // v19: CO2 up through the same pores into the air spaces, toward the chloroplasts (drawn, not to scale)
+      G.lcCB.forEach(function (b, i) {
+        if (S.gas === 'water' || open < 0.08) { G.lcC.hide(i); return; }
+        if (dt > 0) { b.s += dt * (0.1 + 0.08 * open); if (b.s > 1) b.s -= 1; }
+        var sx2 = G.lcSt[b.st], x2, y2;
+        if (b.s < 0.45) { var a2 = b.s / 0.45; x2 = sx2 - 0.12 + b.j + 0.12 * a2; y2 = -0.55 + 0.35 * a2; }
+        else { var a3 = (b.s - 0.45) / 0.55; x2 = sx2 + b.j * 3 * a3; y2 = -0.2 + 0.32 * a3; }
+        G.lcC.set(i, x2, y2, b.dz);
+      });
+      G.lcC.commit();
+    }
     if (S.layer >= 2) { G.lcSB.forEach(function (b, i) { if (dt > 0) { b.s += dt * 0.15; if (b.s > 1) b.s -= 1; } G.lcS.set(i, lerp(b.x0, 0.05, b.s), lerp(b.y0, -0.08, b.s), 0.24); }); G.lcS.commit(); }
     if (S.layer >= 3) {
       var nA = Math.round(20 * aK);
@@ -1448,7 +1493,11 @@
     if (m.core) m.core.opacity = d ? 0.85 : 0.62;
     if (m.shadow) m.shadow.opacity = d ? 0.85 : 0.7;
     if (S.g && S.g.water) { S.g.vap.mat.opacity = d ? 0.75 : 0.6; }
-    if (S.g) ['water', 'sug', 'aba', 'tcW', 'tcS', 'lcW', 'lcA', 'lcS', 'rcW'].forEach(function (k) { if (S.g[k] && S.g[k].glow) S.g[k].glow.opacity = d ? 0.45 : 0; });
+    if (S.g && S.g.co2 && window.WP.macro.idColor) { // v19: identity colours follow the theme
+      var M2 = window.WP.macro, T2 = ctx.THREE;
+      [['vap', 'h2o'], ['lcV', 'h2o'], ['co2', 'co2'], ['lcC', 'co2']].forEach(function (p) { var bd = S.g[p[0]]; if (bd && bd.mat) { bd.mat.map = M2.ballTexture(T2, M2.idColor(p[1], d)); bd.mat.needsUpdate = true; } });
+    }
+    if (S.g) ['water', 'sug', 'aba', 'tcW', 'tcS', 'lcW', 'lcA', 'lcS', 'rcW', 'co2', 'lcC'].forEach(function (k) { if (S.g[k] && S.g[k].glow) S.g[k].glow.opacity = d ? (k === 'co2' || k === 'lcC' ? 0.6 : 0.45) : 0; }); // v19: CO2 beads glow in the dark theme
     if (m.wood) m.wood.emissiveIntensity = d ? 0.9 : 0.6;
     if (m.farGround) { m.farGround.color.setHex(d ? 0x1c2016 : 0x8a7a4c).convertSRGBToLinear(); m.farLeaf.color.setHex(d ? 0x1f3418 : 0x5f8a3a).convertSRGBToLinear(); m.farWood.color.setHex(d ? 0x221810 : 0x5a4028).convertSRGBToLinear(); }
   }

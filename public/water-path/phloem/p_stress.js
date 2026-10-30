@@ -210,7 +210,7 @@
           ['It never helps', false, 'In a drought, some extra sugar restores the push.']] }) +
       '</section>' +
       ui.quiz('stress');
-    A1 = ui.anim(el.querySelector('#pt-th'), { height: function (w) { return w < 600 ? 380 : 400; }, label: 'Map of model sap speed with xylem water potential across and sap sugar up. A grey hatched zone at the dry, low sugar corner marks lost turgor; colours rise from teal to amber where flow is fast; a solid white line marks the sugar needed for the morning speed, rising toward the dry side, and a dotted line marks sap twice as thick as water. A ring marks the present leaf.', draw: draw1 });
+    A1 = ui.anim(el.querySelector('#pt-th'), { freeze: false /* v19: a still map; a click on it sets the conditions */, height: function (w) { return w < 600 ? 380 : 400; }, label: 'Map of model sap speed with xylem water potential across and sap sugar up. A grey hatched zone at the dry, low sugar corner marks lost turgor; colours rise from teal to amber where flow is fast; a solid white line marks the sugar needed for the morning speed, rising toward the dry side, and a dotted line marks sap twice as thick as water. A ring marks the present leaf.', draw: draw1 });
     A1.canvas.addEventListener('click', setFromMap);
     el.querySelector('#pt-reset').addEventListener('click', function () { PP.reset(); });
     el.querySelector('#pt-cal').addEventListener('click', function () { PP.set({ callose: !S().callose }); });

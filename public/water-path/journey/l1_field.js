@@ -327,7 +327,7 @@
      at a rate set by the model E (drawing scale: 4 molecules s⁻¹ per mmol m⁻² s⁻¹ over the whole scene, ILLUSTRATIVE),
      rise, drift downwind with the wind slider and fade as they mix into the air. A rounded tag reads E live.
      Draws only while the scene is on screen; reduced motion shows a still, settled frame. */
-  var fv = { E: 0, wind: 2, mols: [], raf: 0, t0: 0, vis: false, acc: 0, svg: null, seed: 7 };
+  var fv = { E: 0, wind: 2, mols: [], raf: 0, t0: 0, vis: false, acc: 0, svg: null, seed: 7, paused: null, rm: null, fz: null }; // v19: paused (click the view to freeze; reduced motion starts paused)
   var FV_RATE = 4;
   function fvRnd() { fv.seed = (fv.seed * 16807) % 2147483647; return (fv.seed - 1) / 2147483646; }
   function fvSpawn(age) {
@@ -359,12 +359,14 @@
     }
     // how many molecules are in flight at steady state: rate × mean life
     var want = Math.round(clamp(FV_RATE * fv.E * 5.5, 0, 90));
-    if (fv.mols.length === 0 || ui.reducedMotion()) {
+    if (fv.mols.length === 0 || (ui.reducedMotion() && fv.paused)) {
       fv.mols = []; for (var i = 0; i < want; i++) fv.mols.push(fvSpawn(fvRnd() * 5.5));
       fvPaint(true);
     }
     var t = refs.svg.querySelector('#f1-vtag');
     if (t) t.innerHTML = MS.tag(VPX, HZ + 26, 'vapour leaving: ' + num(fv.E, 2) + ' mmol m⁻² s⁻¹', { anchor: 'middle' });
+    if (fv.paused == null) fv.rm = fv.paused = ui.reducedMotion();
+    if (!fv.fz && window.WPFreeze && refs.scene) fv.fz = WPFreeze.attach(refs.scene, { paused: function () { return fv.paused; }, set: function (p) { fv.paused = !!p; if (!p) fvRun(); } });
     fvRun();
   }
   function fvPaint(rebuild) {
@@ -383,7 +385,7 @@
   }
   if (window.MolNames) window.MolNames.on(function () { if (fv.nm) { fv.nm.dirty(); fvPaint(false); } });
   function fvFrame(t) {
-    if (!fv.vis || ui.reducedMotion() || document.hidden) { fv.raf = 0; return; }
+    if (!fv.vis || fv.paused || document.hidden) { fv.raf = 0; return; }
     var dt = fv.t0 ? Math.min(0.1, (t - fv.t0) / 1000) : 0; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1); fv.t0 = t;
     fv.acc += FV_RATE * fv.E * dt;
     fv.mols = fv.mols.filter(function (m) { fvMove(m, dt); return m.age < m.life; });
@@ -392,7 +394,7 @@
     fv.raf = requestAnimationFrame(fvFrame);
   }
   function fvRun() {
-    if (fv.raf || !fv.vis || ui.reducedMotion()) return;
+    if (fv.raf || !fv.vis || fv.paused) return;
     fv.t0 = 0; fv.raf = requestAnimationFrame(fvFrame);
   }
   document.addEventListener('visibilitychange', function () { if (!document.hidden) fvRun(); });
@@ -590,7 +592,7 @@
       '<div class="f1-grid">' +
       '<figure class="fig f1-scene" style="margin:0"><div data-r="scene"></div>' +
       '<div class="f1-capstrip"><span><svg viewBox="0 0 170 26" role="img" aria-label="Scale bar, 10 m at the front row"><rect x="2" y="12" width="40" height="6" fill="var(--ink)"/><rect x="42" y="12" width="40" height="6" fill="var(--paper)" stroke="var(--ink)"/><rect x="82" y="12" width="40" height="6" fill="var(--ink)"/><rect x="122" y="12" width="40" height="6" fill="var(--paper)" stroke="var(--ink)"/><text x="2" y="9" font-size="10" fill="var(--ink)">0</text><text x="162" y="9" font-size="10" text-anchor="end" fill="var(--ink)">10 m</text></svg> at the front row</span><span data-r="windnote"></span><span>Drawn for this exhibit; not to scale in depth.</span></div>' +
-      '<figcaption class="f1-cap"><b data-r="cropname"></b>. The sun moves with the time scrubber, the marine layer thickens as humidity rises, and the water molecules rising off the crop (red oxygen, two white hydrogens) leave at the model transpiration rate and drift with the wind. Drawn for this exhibit.<span class="tier-3"> Drawing scale: 4 molecules s⁻¹ per mmol m⁻² s⁻¹ over the whole scene (ILLUSTRATIVE).</span></figcaption></figure>' +
+      '<figcaption class="f1-cap"><b data-r="cropname"></b>. The sun moves with the time scrubber, the marine layer thickens as humidity rises, and the water molecules rising off the crop (coloured blue, as water is on every page: colours show the molecule, not the atom) leave at the model transpiration rate and drift with the wind. Drawn for this exhibit.<span class="tier-3"> Drawing scale: 4 molecules s⁻¹ per mmol m⁻² s⁻¹ over the whole scene (ILLUSTRATIVE).</span></figcaption></figure>' +
       '<div class="f1-side"><div class="fighead"><h3>The sky sets the pull</h3><p>VPD and air water potential, worked from the conditions strip ' + ev1('l1.vpd') + ev1('l1.psiair') + '</p></div>' +
       '<div class="tiles" data-r="tiles"></div>' +
       '<div class="card f1-deriv tier-3" data-r="deriv"></div></div>' +
@@ -671,7 +673,7 @@
     });
     ui.stops(root, ['1a', '1b']);
     fhInit(refs.hero);
-    ui.onPrefs(function () { if (WP.state) update(WP.state, WP.result); if (FH.ctx && FH.ctx.retheme) FH.ctx.retheme(); });
+    ui.onPrefs(function () { var rmv = ui.reducedMotion(); if (fv.paused != null && rmv !== fv.rm) { fv.rm = rmv; fv.paused = rmv; fvRun(); } if (WP.state) update(WP.state, WP.result); if (FH.ctx && FH.ctx.retheme) FH.ctx.retheme(); });
   }
 
   function update(st, res) {

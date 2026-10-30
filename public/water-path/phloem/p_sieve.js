@@ -434,6 +434,7 @@
     A2 = ui.anim(el.querySelector('#pv-th'), { height: function (w) { return w < 600 ? 360 : 330; }, label: 'Drawing of one sieve tube from the leaf on the left to the root on the right, made of sieve elements tinted by their turgor and separated by sieve plates, with companion cells above and a xylem vessel below. Sugar molecules flow to the right, water enters from the xylem near the leaf and leaves near the root, and a line graph below shows turgor falling along the path.', draw: draw2 });
     var pb = el.querySelector('#pv-pause');
     pb.addEventListener('click', function () { var p = !A2.paused(); A2.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    if (A2.freeze) A2.freeze.bind(pb); // v19: click the view to freeze, in step with Pause
     if (window.PlaySpeed) pb.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), pb.nextSibling);
     el.querySelector('#pv-reset').addEventListener('click', function () { PP.reset(); });
     el.querySelector('#pv-cal').addEventListener('click', function () { PP.set({ callose: !S().callose }); });

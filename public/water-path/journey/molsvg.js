@@ -1,9 +1,9 @@
 /* The Water Path v8: molsvg.js, the molecular template for the older SVG figures (unifier round 7, 12 Oct 2026).
-   The canvas theatres (mol.js) draw water as a red O with two white H, Ca2+ as a green ball, gas as a dark bubble,
+   The canvas theatres (mol.js) draw water as a blue O with two light blue H (v19 identity colours), Ca2+ as a green ball, gas as a dark bubble,
    labels as small rounded tags. This file gives the SVG figures of the Field, Plant, Organ and Afternoon plates the
    same glyphs, so one molecule looks the same on every plate:
      WP.molsvg.ensure()                 injects one hidden <svg> of gradients and symbols (idempotent)
-     WP.molsvg.use(kind, cls)           '<use href="#wpm-h2o" .../>' markup; kind 'h2o' | 'ca' | 'gas' | 'vap'
+     WP.molsvg.use(kind, cls)           '<use href="#wpm-h2o" .../>' markup; kind 'h2o' | 'ca' | 'gas' | 'vap' | 'co2' | 'o2' (v19)
      WP.molsvg.place(el, x, y, rot, s)  moves a glyph (transform), rot in degrees, s = scale (1 = 9 px wide)
      WP.molsvg.tag(x, y, text, o)       a rounded label tag (rect + text) as markup; o {anchor:'start'|'middle'|'end', cls}
    Colours come from CSS custom properties that follow the page theme (museum plate by day, glow at night).
@@ -15,19 +15,19 @@
   var M = WP.molsvg = {};
   var CSS = '\
 :root{--wpm-O:#d2392b;--wpm-Ohi:#f3a79f;--wpm-Olo:#7a1d15;--wpm-H:#ffffff;--wpm-Hlo:#b8afa2;--wpm-Hrim:rgba(40,30,20,.5);\
---wpm-Ca:#2f8a57;--wpm-Cahi:#bfe8cf;--wpm-Calo:#17492d;--wpm-gas:#3a3a3a;--wpm-gashi:#9a9a9a;\
+--wpm-Ca:#2f8a57;--wpm-Cahi:#bfe8cf;--wpm-Calo:#17492d;--wpm-gas:#3a3a3a;--wpm-gashi:#9a9a9a;--wpm-C:#4a4f57;\
 --wpm-tagbg:rgba(250,246,236,.94);--wpm-tagink:#2a231c;--wpm-tagrule:rgba(138,122,98,.75)}\
 :root[data-theme="dark"]{--wpm-O:#ff5a4a;--wpm-Ohi:#ffc2ba;--wpm-Olo:#8c2219;--wpm-H:#f4f4f4;--wpm-Hlo:#9aa3ad;--wpm-Hrim:rgba(0,0,0,0);\
---wpm-Ca:#7fe0a8;--wpm-Cahi:#e4fff0;--wpm-Calo:#2c6b48;--wpm-gas:#0b0f14;--wpm-gashi:#56606b;\
+--wpm-Ca:#7fe0a8;--wpm-Cahi:#e4fff0;--wpm-Calo:#2c6b48;--wpm-gas:#0b0f14;--wpm-gashi:#56606b;--wpm-C:#8d95a0;\
 --wpm-tagbg:rgba(20,26,34,.88);--wpm-tagink:#ece6da;--wpm-tagrule:rgba(201,165,106,.6)}\
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wpm-O:#ff5a4a;--wpm-Ohi:#ffc2ba;--wpm-Olo:#8c2219;--wpm-H:#f4f4f4;--wpm-Hlo:#9aa3ad;--wpm-Hrim:rgba(0,0,0,0);\
---wpm-Ca:#7fe0a8;--wpm-Cahi:#e4fff0;--wpm-Calo:#2c6b48;--wpm-gas:#0b0f14;--wpm-gashi:#56606b;\
+--wpm-Ca:#7fe0a8;--wpm-Cahi:#e4fff0;--wpm-Calo:#2c6b48;--wpm-gas:#0b0f14;--wpm-gashi:#56606b;--wpm-C:#8d95a0;\
 --wpm-tagbg:rgba(20,26,34,.88);--wpm-tagink:#ece6da;--wpm-tagrule:rgba(201,165,106,.6)}}\
 .wpm-defs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}\
 .wpm-tag rect{fill:var(--wpm-tagbg);stroke:var(--wpm-tagrule);stroke-width:.8}\
 .wpm-tag text{fill:var(--wpm-tagink);font:500 11px "IBM Plex Sans",system-ui,sans-serif;dominant-baseline:central}\
-:root[data-theme="dark"] .wpm-glow{filter:drop-shadow(0 0 2.5px rgba(255,120,100,.75))}\
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wpm-glow{filter:drop-shadow(0 0 2.5px rgba(255,120,100,.75))}}\
+:root[data-theme="dark"] .wpm-glow{filter:drop-shadow(0 0 2.5px rgba(128,223,255,.7))}\
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wpm-glow{filter:drop-shadow(0 0 2.5px rgba(128,223,255,.7))}}\
 :root[data-theme="dark"] .wpm-glow-ca{filter:drop-shadow(0 0 3px rgba(127,224,168,.85))}\
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wpm-glow-ca{filter:drop-shadow(0 0 3px rgba(127,224,168,.85))}}';
 
@@ -45,15 +45,21 @@
     var hx = 2.45 * Math.sin(0.912), hy = -2.45 * Math.cos(0.912);
     s.innerHTML = '<defs>' + grad('wpmO', '--wpm-Ohi', '--wpm-O', '--wpm-Olo') + grad('wpmH', '--wpm-H', '--wpm-H', '--wpm-Hlo') +
       grad('wpmCa', '--wpm-Cahi', '--wpm-Ca', '--wpm-Calo') + grad('wpmGas', '--wpm-gashi', '--wpm-gas', '--wpm-gas') + '</defs>' +
+      /* v19 identity colours (molcolor.js, --mol-* on :root): atoms coloured by their molecule, water blue, CO2 grey,
+         O2 crimson, with a faint rim for contrast; colours show the molecule, not the atom */
       '<symbol id="wpm-h2o" viewBox="-5 -5 10 10" overflow="visible">' +
-      '<circle cx="' + (-hx).toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="1.6" fill="url(#wpmH)" style="stroke:var(--wpm-Hrim)" stroke-width=".45"/>' +
-      '<circle cx="' + hx.toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="1.6" fill="url(#wpmH)" style="stroke:var(--wpm-Hrim)" stroke-width=".45"/>' +
-      '<circle r="2.6" fill="url(#wpmO)"/></symbol>' +
+      '<circle cx="' + (-hx).toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="1.6" style="fill:var(--mol-h2o-h,#8fb8ee);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/>' +
+      '<circle cx="' + hx.toFixed(2) + '" cy="' + hy.toFixed(2) + '" r="1.6" style="fill:var(--mol-h2o-h,#8fb8ee);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/>' +
+      '<circle r="2.6" style="fill:var(--mol-h2o,#1d4aa5);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/></symbol>' +
       '<symbol id="wpm-ca" viewBox="-5 -5 10 10" overflow="visible"><circle r="3" fill="url(#wpmCa)"/></symbol>' +
-      '<symbol id="wpm-gas" viewBox="-5 -5 10 10" overflow="visible"><circle r="2.8" fill="url(#wpmGas)" opacity=".9"/></symbol>';
+      '<symbol id="wpm-gas" viewBox="-5 -5 10 10" overflow="visible"><circle r="2.8" fill="url(#wpmGas)" opacity=".9"/></symbol>' +
+      '<symbol id="wpm-co2" viewBox="-5 -5 10 10" overflow="visible"><circle cx="-3.5" r="2.05" style="fill:var(--mol-co2-o,#a7aaaf);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/>' +
+      '<circle cx="3.5" r="2.05" style="fill:var(--mol-co2-o,#a7aaaf);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/><circle r="2.35" style="fill:var(--mol-co2-c,#4f5359);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/></symbol>' +
+      '<symbol id="wpm-o2" viewBox="-5 -5 10 10" overflow="visible"><circle cx="-1.75" r="2.2" style="fill:var(--mol-o2,#981b30);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/>' +
+      '<circle cx="1.75" r="2.2" style="fill:var(--mol-o2,#981b30);stroke:var(--mol-rim,rgba(30,25,20,.45))" stroke-width=".4"/></symbol>';
     (document.body || document.documentElement).appendChild(s);
   };
-  var HREF = { h2o: '#wpm-h2o', vap: '#wpm-h2o', ca: '#wpm-ca', gas: '#wpm-gas' };
+  var HREF = { h2o: '#wpm-h2o', vap: '#wpm-h2o', ca: '#wpm-ca', gas: '#wpm-gas', co2: '#wpm-co2', o2: '#wpm-o2' };
   M.use = function (kind, cls) {
     return '<use href="' + (HREF[kind] || HREF.h2o) + '" x="-5" y="-5" width="10" height="10" class="wpm ' +
       (kind === 'ca' ? 'wpm-glow-ca ' : (kind === 'gas' ? '' : 'wpm-glow ')) + (cls || '') + '"/>';
@@ -73,9 +79,12 @@
   /* M.flow(svg, layer, reduce): water molecules that follow drawn SVG paths. ctl.set([{el, v, gap, halo, kind}])
      el = a path element already in the svg, v = speed in viewBox units per second (from the model), gap = spacing,
      halo = an optional route colour (Okabe Ito, as in the routes theatre). One rAF per figure, only while on screen;
-     reduce() true gives a still frame. */
+     reduce() true starts on a still frame; a still click on the figure freezes or plays (v19). */
   M.flow = function (svg, layer, reduce) {
     var ctl = { routes: [], raf: 0, t0: 0, vis: !('IntersectionObserver' in window) };
+    /* v19: click the figure to freeze (freeze.js); reduced motion starts paused and a click plays */
+    ctl.rm = !!(reduce && reduce()); ctl.paused = ctl.rm;
+    if (window.WPFreeze) WPFreeze.attach(svg, { paused: function () { return ctl.paused; }, set: function (p) { ctl.paused = !!p; if (!p) run(); } });
     var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) { ctl.vis = es[0].isIntersecting; run(); }) : null;
     if (io) io.observe(svg);
     function at(R, o) {
@@ -139,12 +148,12 @@
     }
     if (window.MolNames) window.MolNames.on(function () { NM.chk = 0; names(); });
     function frame(t) {
-      if (!ctl.vis || (reduce && reduce()) || document.hidden) { ctl.raf = 0; return; }
+      if (!ctl.vis || ctl.paused || document.hidden) { ctl.raf = 0; return; }
       var dt = ctl.t0 ? Math.min(0.1, (t - ctl.t0) / 1000) : 0; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1); ctl.t0 = t;
       ctl.routes.forEach(function (R) { R.m.forEach(function (q) { q.o = (q.o + R.v * dt) % R.len; q.r = (q.r + R.v * dt * 3) % 360; }); });
       paint(); ctl.raf = requestAnimationFrame(frame);
     }
-    function run() { if (ctl.raf || !ctl.vis || (reduce && reduce())) return; ctl.t0 = 0; ctl.raf = requestAnimationFrame(frame); }
+    function run() { var rmv = !!(reduce && reduce()); if (rmv !== ctl.rm) { ctl.rm = rmv; ctl.paused = rmv; } if (ctl.raf || !ctl.vis || ctl.paused) return; ctl.t0 = 0; ctl.raf = requestAnimationFrame(frame); }
     ctl.set = function (list) {
       layer.innerHTML = ''; ctl.routes = []; NM.g = null; NM.R = -1;
       (list || []).forEach(function (r) {

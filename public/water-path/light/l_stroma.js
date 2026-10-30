@@ -371,7 +371,7 @@
     });
     ST.fx.forEach(function (e) {
       var k = e.t / e.dur;
-      if (e.k === 'ring') { c.strokeStyle = e.col === 'o2' ? P.O : P.e; c.globalAlpha = 1 - k; c.lineWidth = 2.2; c.beginPath(); c.arc(e.x, e.y, 6 + 18 * k, 0, TAU); c.stroke(); c.globalAlpha = 1; }
+      if (e.k === 'ring') { c.strokeStyle = e.col === 'o2' ? (m.atomColor ? m.atomColor('o2', 'O', P.dark) : P.O) : P.e; c.globalAlpha = 1 - k; c.lineWidth = 2.2; c.beginPath(); c.arc(e.x, e.y, 6 + 18 * k, 0, TAU); c.stroke(); c.globalAlpha = 1; }
       else if (e.k === 'org') { c.strokeStyle = P.dark ? '#ffc08a' : '#b5523a'; c.globalAlpha = 0.8 * (1 - k); c.lineWidth = 2; c.beginPath(); c.arc(e.x, e.y, 8 + 10 * k, 0, TAU); c.stroke(); c.globalAlpha = 1; }
       else { c.fillStyle = e.col === 'atp' ? P.atp : P.nadph; c.globalAlpha = 0.5 * (1 - k); c.beginPath(); c.arc(e.x, e.y, 3 + 6 * k, 0, TAU); c.fill(); c.globalAlpha = 1; }
     });
@@ -597,7 +597,7 @@
       /* 4.1 */
       '<figure class="fig lx-fig" id="str-live"><div class="fighead"><h3>4.1 The Calvin Benson cycle, live</h3><p>Fix, reduce, regenerate: three CO₂ in, one sugar unit out, paid for in ATP and NADPH.</p></div>' +
       '<div class="lx-frame str-theatre" id="str-th"></div>' +
-      '<div class="str-legend" aria-hidden="true">' + leg('#4a4f57', 'carbon (grey) in RuBP, 3‑PGA, G3P') + leg('#8a5cc4', 'phosphate') + leg('#d2392b', 'CO₂ and O₂ (red O)') + leg('#e8891a', 'ATP') + leg('#1f9e93', 'NADPH') + leg('#3f9a4a', 'G3P exported') + '</div>' +
+      '<div class="str-legend" aria-hidden="true">' + leg('#4a4f57', 'carbon (grey) in RuBP, 3‑PGA, G3P') + leg('#8a5cc4', 'phosphate') + leg('#77797d', 'CO₂ (grey)') + leg('#981b30', 'O₂ (crimson)') + leg('#e8891a', 'ATP') + leg('#1f9e93', 'NADPH') + leg('#3f9a4a', 'G3P exported') + '</div>' +
       '<div class="str-ctrls">' +
       '<div class="ctl"><label for="str-T">Leaf temperature <output id="str-T-o"></output></label><input type="range" id="str-T" min="5" max="45" step="0.5"><div class="hint">heat favours O₂ at Rubisco</div></div>' +
       '<div class="ctl"><label for="str-Ca">CO₂ in the air <output id="str-Ca-o"></output></label><input type="range" id="str-Ca" min="100" max="1500" step="10"><div class="hint">today about 420 ppm</div></div>' +
@@ -678,7 +678,7 @@
       '<div class="lx-tw"><table class="lx-tab"><thead><tr><th>Quantity</th><th>Value</th><th>Status</th></tr></thead><tbody>' +
       LP.PARAMS.filter(function (p) { return /Vcmax|Jmax|Rd|Kc|k\(T\)|high T|Aj|Ci/.test(p.sym); }).map(function (p) { return row(p.sym + ', ' + p.what, p.v + (p.u ? ' ' + p.u : ''), p.badge, p.ev); }).join('') +
       '</tbody></table></div>' +
-      '<div class="card lx-open"><p class="lx-ck">' + ui.badge('OPEN QUESTION') + ' How much CO₂ actually reaches Rubisco?</p><p>This model sets the CO₂ at Rubisco equal to Ci. Real leaves have a mesophyll conductance, so CO₂ drops again on its way through cell walls, membranes and stroma, more in thick or tough leaves. Fitting an A versus Ci curve without it makes Vcmax look smaller and photorespiration look smaller. In tobacco mesophyll conductance rose with temperature (Q10 about 2.2) but not fast enough: its share of the limitation inside the leaf grew from 0.10 at 10 °C to 0.22 at 40 °C, so the Ci = Cc shortcut of this page is worst in heat. Do aquaporins in mesophyll membranes, the same family that carries water on the Membrane plate of The Water Path, also carry part of this CO₂? ' + E('str.gm2002') + ' ' + E('eng.gm') + ' ' + E('fvcb_fitting') + '</p></div>' +
+      '<div class="card lx-open"><p class="lx-ck">' + ui.badge('OPEN QUESTION') + ' How much CO₂ actually reaches Rubisco?</p><p>Real leaves have a mesophyll conductance, so CO₂ drops again on its way from the air spaces through cell walls, membranes and stroma, more in thick or tough leaves. This model now includes it (one fixed value, set and switched off on Plate V, 5.4), but the A versus Ci curve on this plate is still drawn against Ci, the way gas exchange systems report it. Fitting an A versus Ci curve without it makes Vcmax look smaller and photorespiration look smaller. In tobacco mesophyll conductance rose with temperature (Q10 about 2.2) but not fast enough: its share of the limitation inside the leaf grew from 0.10 at 10 °C to 0.22 at 40 °C, so assuming Ci = Cc is worst in heat, and a single fixed gm, as in this model, misses that. Do aquaporins in mesophyll membranes, the same family that carries water on the Membrane plate of The Water Path, also carry part of this CO₂? ' + E('str.gm2002') + ' ' + E('eng.gm') + ' ' + E('fvcb_fitting') + '</p></div>' +
       '<div class="card lx-open"><p class="lx-ck">' + ui.badge('OPEN QUESTION') + ' Is photorespiration only waste?</p><p>It loses carbon, yet it recovers three of every four carbons that oxygenation would otherwise throw away (two phosphoglycolates, four carbons, give back one 3‑PGA), and it keeps ATP and NADPH being used when stomata are shut. The engineered shortcut in tobacco says the native route can be beaten in a field. Would the same hold for a heat stressed lettuce bed or a chaparral shrub in drought? ' + E('str.south') + ' ' + E('photorespiration_yield') + '</p></div>' +
       ui.design({ title: 'heat, oxygen and lettuce', question: 'How much of the carbon a lettuce leaf loses in heat is photorespiration, and how much is something else (stomata, Rubisco activase)?',
         treat: 'Leaf temperature 20 and 35 °C in the gas exchange chamber, each at 21 % and 2 % O₂, on the same leaves (four combinations, order randomised), CO₂ and light held at 420 ppm and 1,500 µmol m⁻² s⁻¹.',
@@ -711,6 +711,7 @@
       '</section>' + (ui.quiz ? ui.quiz('stroma') : '') +
       '<p class="lx-water">Where the sugar goes next: G3P leaves the chloroplast and the leaf exports it as sucrose (and, in almond and its family, sorbitol). <a href="../phloem/index.html#source">Sugar leaves the chloroplast: Sugar on the move</a></p>';  /* phloem builder A, 14 Oct 2026: one line link */
 
+if (window.WPMolColor) { var mk0 = el.querySelector('#str-th'); if (mk0) mk0.insertAdjacentHTML('afterend', WPMolColor.key(['co2', 'o2'])); } // v19: the site wide molecule key
     A1 = ui.anim(el.querySelector('#str-th'), {
       height: function (w) { return w < 560 ? 540 : 590; },
       label: 'Calvin Benson cycle wheel: CO2 and O2 reach Rubisco, 3‑PGA is reduced with ATP and NADPH, RuBP is regenerated, G3P leaves; oxygenation sends phosphoglycolate to the photorespiration loop, which releases CO2',
@@ -723,6 +724,7 @@
     var pb = el.querySelector('#str-pause');
     if (window.PlaySpeed) pb.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), pb.nextSibling);
     pb.addEventListener('click', function () { var p = !A1.paused(); A1.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    if (A1.freeze) A1.freeze.bind(pb); // v19: click the view to freeze, in step with Pause
     el.querySelector('#str-reset').addEventListener('click', function () { LP.set({ T: 25, Ca: 420, O2: 21, ppfd: 1500, Vcmax25: null, Jmax25: null }); });
     el.addEventListener('click', function (e) {
       var o = e.target.closest('[data-o2]'); if (o) { LP.set({ O2: +o.dataset.o2 }); return; }
@@ -804,7 +806,7 @@
     return 'Rubisco fixes ' + num(r.vc, 1) + ' CO₂ and grabs ' + num(r.vo, 1) + ' O₂ per m² per second (µmol). Photorespiration gives back ' + num(loss, 0) + ' % of the fixed CO₂; net uptake is ' + num(r.A, 1) + ' µmol m⁻² s⁻¹.';
   }
   function capText(st, r, loss) {
-    if (ui.tier() === 1) return 'Grey chains are carbon skeletons. Each CO₂ that joins at Rubisco makes two small pieces; ATP (stars) and NADPH (pills) turn them into sugar units; most are rebuilt into RuBP and one in six leaves. When an O₂ sneaks in instead (red pairs), a broken piece goes to the left and some carbon is lost.';
+    if (ui.tier() === 1) return 'Grey chains are carbon skeletons. Each CO₂ that joins at Rubisco makes two small pieces; ATP (stars) and NADPH (pills) turn them into sugar units; most are rebuilt into RuBP and one in six leaves. When an O₂ sneaks in instead (crimson pairs), a broken piece goes to the left and some carbon is lost.';
     var lim = r.limit === 'Rubisco' ? 'Rubisco limits now: more CO₂ would help at once.' : (r.limit === 'RuBP regeneration' ? 'Light limits now: RuBP is rebuilt only as fast as ATP and NADPH arrive.' : (r.limit === 'ATP' ? 'ATP limits now: cyclic flow on Plate III is set too low.' : ''));
     return lim + ' One G3P leaves for every three CO₂ fixed (net). ' + (loss > 25 ? 'With this much photorespiration the wheel spends a large part of its ATP recycling phosphoglycolate.' : '');
   }
@@ -906,8 +908,8 @@
 
   /* ================================================================== LB14 (14 Oct): Light IV macro hero, Rubisco and the cycle
      Three.js r128 through LP.macro (lmacro.js). A glassy Rubisco (8 large subunits in two rings, 4 small caps above and
-     below) sits on a glowing Calvin Benson ring. CO2 (dark C, two red O) drifts in and is fixed at the model carboxylation
-     rate vc; O2 (two red O) is taken at the model oxygenation rate vo and leaves as a red two carbon packet toward
+     below) sits on a glowing Calvin Benson ring. CO2 (dark grey C, two light grey O) drifts in and is fixed at the model carboxylation
+     rate vc; O2 (two crimson O) is taken at the model oxygenation rate vo and leaves as a red two carbon packet toward
      photorespiration; ATP (orange) and NADPH (teal) arrive from the thylakoids above; three carbon packets ride the top of
      the ring, five carbon RuBP the bottom, at a speed set by the model cycle turns; G3P (green hexagons) leaves at net A / 3.
      ONE drawing scale (KS per µmol m⁻² s⁻¹) for every flux, so on screen ratios are model ratios. */
@@ -1035,8 +1037,9 @@
     /* molecules */
     var sphG = new T.SphereGeometry(1, 8, 6);
     S.dummy = new T.Object3D();
-    var co2G = MM.merge(T, [{ geo: sphG, color: 0x4a4f57, pos: [0, 0, 0], scale: 0.16 }, { geo: sphG, color: 0xd9402f, pos: [0.26, 0, 0], scale: 0.14 }, { geo: sphG, color: 0xd9402f, pos: [-0.26, 0, 0], scale: 0.14 }]);
-    var o2G = MM.merge(T, [{ geo: sphG, color: 0xd9402f, pos: [0.11, 0, 0], scale: 0.14 }, { geo: sphG, color: 0xd9402f, pos: [-0.11, 0, 0], scale: 0.14 }]);
+    /* v19: CO2 and O2 with their identity rings (lmacro co2Geo / o2Geo, colours from molcolor.js) */
+    var co2G = MM.co2Geo ? MM.co2Geo(T, 0.155) : MM.merge(T, [{ geo: sphG, color: 0x4a4f57, pos: [0, 0, 0], scale: 0.16 }, { geo: sphG, color: 0xd9402f, pos: [0.26, 0, 0], scale: 0.14 }, { geo: sphG, color: 0xd9402f, pos: [-0.26, 0, 0], scale: 0.14 }]);
+    var o2G = MM.o2Geo ? MM.o2Geo(T, 0.14) : MM.merge(T, [{ geo: sphG, color: 0xd9402f, pos: [0.11, 0, 0], scale: 0.14 }, { geo: sphG, color: 0xd9402f, pos: [-0.11, 0, 0], scale: 0.14 }]);
     var vmat = function () { return MM.lin(new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.3 })); };
     function im(geo, mat, n) { var x = new T.InstancedMesh(geo, mat, n); x.frustumCulled = false; root.add(x); return x; }
     S.co2M = im(co2G, vmat(), 16); S.o2M = im(o2G, vmat(), 12);

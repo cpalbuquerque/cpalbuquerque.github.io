@@ -127,7 +127,7 @@ C.CAP.v=C.TAU.v*C.KMAX.v*3600;
 
 var SITES={
   salinas:{name:"Salinas (Municipal Airport)",lat:36.664,lon:-121.608,Tmax:21.5,Tmin:12.8,Tdew:12.8,
-    src:"July 1991 to 2020 normals 70.7/55.0 degF (NOAA via Wikipedia climate box; MEDIUM). Dew point = Tmin by FAO-56 Eq. 48 (no RH normals for Salinas): ESTIMATE; replace with CIMIS #116 e_a"},
+    src:"July 1991 to 2020 normals 70.7/55.0 degF (NOAA NCEI 1991 to 2020 monthly normals, station USW00023233 Salinas Municipal AP, checked 29 Oct 2026). Dew point = Tmin by FAO-56 Eq. 48 (no RH normals for Salinas): ESTIMATE; replace with CIMIS #116 e_a"},
   fresno:{name:"Fresno (FAT)",lat:36.776,lon:-119.719,Tmax:36.5,Tmin:20.7,Tdew:10.6,
     src:"July 1991 to 2020 normals 97.7/69.3 degF (NWS Hanford fat07nrm). Dew point 10.6 degC from July afternoon RH 21 % at Tmax (NOAA CCD relhum18; MEDIUM)"}
 };

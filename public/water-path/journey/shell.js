@@ -699,6 +699,7 @@
     bar.innerHTML = '<button type="button" class="btn small mol-pause" aria-pressed="false">Pause</button>' + (o.extra || '') + (o.caption ? '<span class="mol-cap">' + o.caption + '</span>' : '');
     host.appendChild(bar);
     bar.querySelector('.mol-pause').addEventListener('click', function (e) { var pz = T.pause(); e.currentTarget.setAttribute('aria-pressed', pz ? 'true' : 'false'); e.currentTarget.textContent = pz ? 'Play' : 'Pause'; });
+    if (window.WPFreeze) WPFreeze.attach(T.canvas, { paused: function () { return T.paused; }, button: bar.querySelector('.mol-pause') }); // v19: click the view to freeze
     ui.onPrefs(function () { T.setTheme(ui.isDark()); T.setReduce(ui.reducedMotion()); });
     return T;
   };

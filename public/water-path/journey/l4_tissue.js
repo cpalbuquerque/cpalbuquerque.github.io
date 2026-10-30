@@ -14,7 +14,7 @@
   WP.levels = WP.levels || [];
   var MINUS = '−';
   var ui, el, refs = {}, local = { routes: { apo: true, sym: true, tm: true, vap: true }, lig: false, callose: false, oa: false, eps: 10, pio: -1.5, pv: 'hofler' };
-  var anim = { raf: 0, last: 0, phase: { apo: 0, sym: 0, tm: 0, vap: 0 }, timer: 0 };
+  var anim = { raf: 0, last: 0, phase: { apo: 0, sym: 0, tm: 0, vap: 0 }, timer: 0, paused: null, rm: null }; // v19: paused (click the section to freeze)
   var lastRes = null, lastSt = null;
 
   function num(x, d) { return WP.fmt.num(x, d); }
@@ -634,7 +634,7 @@
   function visible() { return el && el.offsetParent !== null && !document.hidden; }
   function tick(t) {
     anim.raf = 0;
-    if (!visible() || ui.reducedMotion()) { anim.last = 0; return; }
+    if (!visible() || anim.paused) { anim.last = 0; return; }
     var dt = anim.last ? Math.min(0.1, (t - anim.last) / 1000) : 0; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1);
     anim.last = t;
     var E = lastRes ? lastRes.E : 0;
@@ -648,7 +648,11 @@
   }
   function startAnim() {
     if (anim.raf || !el) return;
-    if (ui.reducedMotion()) { placeParticles(); return; }
+    if (anim.paused == null) {
+      anim.rm = anim.paused = ui.reducedMotion(); // v19: reduced motion starts paused; a click on the section plays it
+      if (window.WPFreeze && refs.xs) WPFreeze.attach(refs.xs, { paused: function () { return anim.paused; }, set: function (p) { anim.paused = !!p; if (!p) startAnim(); } });
+    }
+    if (anim.paused) { placeParticles(); return; }
     anim.last = 0;
     anim.raf = requestAnimationFrame(tick);
   }
@@ -1139,7 +1143,7 @@
     w.addEventListener('click', onClick);
     w.querySelector('#t4-pio').addEventListener('input', function (e) { local.pio = +e.target.value; refresh(); });
     w.querySelector('#t4-eps').addEventListener('input', function (e) { local.eps = +e.target.value; syncEpsChips(); refresh(); });
-    ui.onPrefs(function () { refresh(); if (!ui.reducedMotion()) startAnim(); molPrefs(); if (HT.ctx && HT.ctx.retheme) HT.ctx.retheme(); });
+    ui.onPrefs(function () { var rmv = ui.reducedMotion(); if (anim.paused != null && rmv !== anim.rm) { anim.rm = rmv; anim.paused = rmv; } refresh(); if (!anim.paused) startAnim(); molPrefs(); if (HT.ctx && HT.ctx.retheme) HT.ctx.retheme(); });
     mountMol(w);
     mountAirseed(w);
     mountOX(w); // 13 Oct: xylem only vs outside xylem, recovery, hydraulic signal
@@ -1152,7 +1156,7 @@
       if (lastSt && lastRes) lossNow(lastSt, lastRes);
     });
     // restart the particles when the plate is shown again without a state change
-    anim.timer = setInterval(function () { if (!anim.raf && visible() && !ui.reducedMotion()) startAnim(); }, 800);
+    anim.timer = setInterval(function () { if (!anim.raf && visible() && !anim.paused) startAnim(); }, 800);
     document.addEventListener('visibilitychange', function () { if (!document.hidden) startAnim(); });
   }
 
@@ -1267,6 +1271,7 @@
     MOLT.C = M.Theatre(w.querySelector('[data-r="cellstage"]'), M.scenes.cell(), { height: function (cw) { return cw < 560 ? 600 : 450; }, dark: dark, reduce: rm,
       label: 'Animated leaf cell: solutes accumulate in the vacuole during osmotic adjustment and water molecules cross the membrane as the vacuole swells or shrinks' });
     spdChip(w.querySelector('[data-act="tmpause"]'));
+    if (window.WPFreeze) [MOLT.R, MOLT.C].forEach(function (T) { WPFreeze.attach(T.canvas, { paused: function () { return MOLT.R.paused; }, button: w.querySelector('[data-act="tmpause"]') }); }); // v19: click the view to freeze
     w.querySelector('#t4-bkpm').addEventListener('input', function (e) { WP.set({ bkPm: +e.target.value }); });
     w.querySelector('#t4-bkdt').addEventListener('input', function (e) { WP.set({ bkDT: +e.target.value }); });
     w.querySelector('#t4-oad').addEventListener('input', function (e) { MOLT.oaDays = +e.target.value; refresh(); });

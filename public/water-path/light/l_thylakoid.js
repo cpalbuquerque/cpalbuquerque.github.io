@@ -61,22 +61,30 @@
     g.addColorStop(0, hi || '#ffffff'); g.addColorStop(0.35, col); g.addColorStop(1, lo || col);
     c.globalAlpha = a == null ? 1 : a; c.fillStyle = g; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); c.globalAlpha = 1;
   };
+  /* v19 identity colours, from molcolor.js at the site root (the same values as journey/mol.js): atoms coloured by
+     their molecule. Water blue (O) with lighter blue H, CO2 a dark grey C between lighter grey O, O2 two crimson O. */
+  var IDA = { light: { h2o: { O: '#1d4aa5', H: '#8fb8ee' }, co2: { C: '#4f5359', O: '#a7aaaf' }, o2: { O: '#981b30' } },
+    dark: { h2o: { O: '#80dfff', H: '#b3e9ff' }, co2: { C: '#8a9098', O: '#d9dce0' }, o2: { O: '#dd3c3c' } } };
+  M.atomColor = function (kind, el, dark) { var W = window.WPMolColor; return (W && W.atom && W.atom(kind, el, dark)) || IDA[dark ? 'dark' : 'light'][kind][el]; };
+  M.idColor = function (kind, dark) { var W = window.WPMolColor; return (W && W.get(kind, dark)) || M.atomColor(kind, kind === 'co2' ? 'C' : 'O', dark); };
+  function atomBall(c, P, x, y, r, col, a) {
+    M.ball(c, x, y, r, col, shade(col, 0.55), shade(col, -0.4), a);
+    if (r >= 2.2) { c.globalAlpha = (a == null ? 1 : a) * (P.dark ? 0.5 : 0.45); c.strokeStyle = P.dark ? 'rgba(0,0,0,.6)' : 'rgba(30,25,20,.6)'; c.lineWidth = 0.7; c.beginPath(); c.arc(x, y, r, 0, TAU); c.stroke(); c.globalAlpha = 1; }
+  }
   M.water = function (c, P, x, y, r, ang, a) {
-    var hr = r * 0.62, d = r * 0.95, h1 = ang - 0.912, h2 = ang + 0.912;
-    M.ball(c, x + Math.cos(h1) * d, y + Math.sin(h1) * d, hr, P.H, '#ffffff', P.dark ? '#9aa3ad' : '#c9c2b6', a);
-    M.ball(c, x + Math.cos(h2) * d, y + Math.sin(h2) * d, hr, P.H, '#ffffff', P.dark ? '#9aa3ad' : '#c9c2b6', a);
-    M.ball(c, x, y, r, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
+    var hr = r * 0.62, d = r * 0.95, h1 = ang - 0.912, h2 = ang + 0.912, cH = M.atomColor('h2o', 'H', P.dark);
+    atomBall(c, P, x + Math.cos(h1) * d, y + Math.sin(h1) * d, hr, cH, a);
+    atomBall(c, P, x + Math.cos(h2) * d, y + Math.sin(h2) * d, hr, cH, a);
+    atomBall(c, P, x, y, r, M.atomColor('h2o', 'O', P.dark), a);
   };
   M.o2 = function (c, P, x, y, r, ang, a) {
-    var dx = Math.cos(ang) * r * 0.8, dy = Math.sin(ang) * r * 0.8;
-    M.ball(c, x - dx, y - dy, r, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
-    M.ball(c, x + dx, y + dy, r, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
+    var dx = Math.cos(ang) * r * 0.8, dy = Math.sin(ang) * r * 0.8, col = M.atomColor('o2', 'O', P.dark);
+    atomBall(c, P, x - dx, y - dy, r, col, a); atomBall(c, P, x + dx, y + dy, r, col, a);
   };
   M.co2 = function (c, P, x, y, r, ang, a) {
-    var dx = Math.cos(ang) * r * 1.55, dy = Math.sin(ang) * r * 1.55;
-    M.ball(c, x - dx, y - dy, r * 0.85, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
-    M.ball(c, x + dx, y + dy, r * 0.85, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
-    M.ball(c, x, y, r, P.C, shade(P.C, 0.6), shade(P.C, -0.5), a);
+    var dx = Math.cos(ang) * r * 1.55, dy = Math.sin(ang) * r * 1.55, cO = M.atomColor('co2', 'O', P.dark);
+    atomBall(c, P, x - dx, y - dy, r * 0.85, cO, a); atomBall(c, P, x + dx, y + dy, r * 0.85, cO, a);
+    atomBall(c, P, x, y, r, M.atomColor('co2', 'C', P.dark), a);
   };
   M.proton = function (c, P, x, y, r, a) {
     if (P.glow) { c.save(); c.shadowColor = P.Hp; c.shadowBlur = P.glow * 0.7; }
@@ -858,6 +866,7 @@
       var L = TH.lay, p = pt(ev), tp = trayPos(L), q = { x: L.lin[2][0] + 4, y: L.lin[2][1] };
       var onPill = LP.state.dcmu ? near(p, q, 22) : near(p, tp, 34);
       if (!onPill) return;
+      DRAG.tapped = true;
       if (ev.pointerType === 'touch') { fly(LP.state.dcmu ? 'tray' : 'q'); return; }
       DRAG.on = true; DRAG.x = p.x; DRAG.y = p.y; DRAG.from = LP.state.dcmu ? 'q' : 'tray';
       try { cv.setPointerCapture(ev.pointerId); } catch (e) { /* ignore */ }
@@ -1203,7 +1212,7 @@
       '<figure class="fig lx-fig" id="thy-live"><div class="fighead"><h3>3.1 The membrane, live</h3><p>Light pushes electrons; electrons pump protons; protons turn a motor that makes ATP.</p></div>' +
       '<div class="thy-sw thy-view" role="group" aria-label="View"><span class="thy-vl">View</span><button type="button" class="chip" data-view="mem" aria-pressed="true">Membrane</button><button type="button" class="chip" data-view="z" aria-pressed="false">Energy ladder (Z scheme)</button></div>' +
       '<div class="lx-frame thy-theatre" id="thy-th"></div>' +
-      '<div class="thy-legend" aria-hidden="true">' + leg('#3f9a2a', 'electron') + leg('#f2c230', 'proton, H⁺') + leg('#d2392b', 'water and O₂ (red O)') + leg('#e8891a', 'ATP') + leg('#1f9e93', 'NADPH') + '<span class="tier-2">' + '<i style="background:#d9661c"></i>heat (NPQ)</span><span class="tier-2"><i style="background:#d2232b"></i>fluorescence</span></div>' +
+      '<div class="thy-legend" aria-hidden="true">' + leg('#3f9a2a', 'electron') + leg('#f2c230', 'proton, H⁺') + leg('#1d4aa5', 'water (blue)') + leg('#981b30', 'O₂ (crimson)') + leg('#e8891a', 'ATP') + leg('#1f9e93', 'NADPH') + '<span class="tier-2">' + '<i style="background:#d9661c"></i>heat (NPQ)</span><span class="tier-2"><i style="background:#d2232b"></i>fluorescence</span></div>' +
       '<div class="thy-ctrls">' +
       '<div><div class="ctl"><label for="thy-ppfd">Light on the leaf <output id="thy-ppfd-o"></output></label><input type="range" id="thy-ppfd" min="0" max="2000" step="10"><div class="hint">PPFD, the same slider as Conditions</div></div>' +
       '<div class="ctl tier-2"><label for="thy-fr">Add far red <output id="thy-fr-o"></output></label><input type="range" id="thy-fr" min="0" max="45" step="1"><div class="hint">share of 400 to 750 nm photons; PAR stays the same. One leaf absorbs little far red; a canopy of several leaf layers catches much more ' + EVb('thy.farredCanopy', 'Leaf vs canopy') + '</div></div>' +
@@ -1348,6 +1357,7 @@
       '</section>' + (ui.quiz ? ui.quiz('thylakoid') : '');
 
     /* theatre */
+if (window.WPMolColor) { var mk2 = el.querySelector('#thy-th'); if (mk2) mk2.insertAdjacentHTML('afterend', WPMolColor.key(['h2o', 'o2'])); } // v19: the site wide molecule key
     A1 = ui.anim(el.querySelector('#thy-th'), {
       height: function (w) { return w < 560 ? 530 : 580; }, label: A1LABEL,
       draw: function (c, w, h, t, dt, info) {
@@ -1355,12 +1365,14 @@
         draw(c, w, h, t, dt, info);
       },
       settle: function () { if (!TH.lay) return; TH.e = []; TH.h = []; TH.ph = []; TH.sy = []; prewarm(5); },
-      resize: function () { TH.lay = null; TH.cache = null; }
+      resize: function () { TH.lay = null; TH.cache = null; },
+      picked: function () { var p = DRAG.tapped; DRAG.tapped = false; return !!p; } // v19: a press on the DCMU pill is a drag, never a freeze
     });
     hookDrag(A1.canvas);
     A3 = ui.anim(el.querySelector('#thy-sort'), { height: function (w) { return w < 560 ? 370 : 330; }, label: 'Photon sorter: photons arrive at the photosystem II antenna and leave as electrons to the chain, as heat (NPQ), as fluorescence or as other heat, in the shares of the model', draw: drawSorter, settle: function () { SO.tally = []; }, resize: function () { SO.lay = null; SO.tally = []; } });
     Array.prototype.forEach.call(el.querySelectorAll('[data-sortppfd]'), function (b) { b.addEventListener('click', function () { LP.set({ ppfd: +b.dataset.sortppfd }); }); });
     var sp = el.querySelector('#thy-sortpause'); if (sp) sp.addEventListener('click', function () { A3.pause(!A3.paused()); sp.textContent = A3.paused() ? 'Play' : 'Pause'; });
+    if (sp && A3.freeze) A3.freeze.bind(sp); // v19: click the view to freeze, in step with Pause
     /* slow and named: a speed chip beside each Pause button (one tap steps 1× → ¾× → ½× → ¼× → ⅒×) */
     if (window.PlaySpeed) {
       [sp, el.querySelector('#thy-pause')].forEach(function (b) { if (b && b.parentNode) { var ch = window.PlaySpeed.chip('ps-light'); ch.style.marginLeft = '6px'; ch.style.verticalAlign = 'middle'; b.parentNode.insertBefore(ch, b.nextSibling); } });
@@ -1400,6 +1412,7 @@
     });
     var pb = el.querySelector('#thy-pause');
     pb.addEventListener('click', function () { var p = !A1.paused(); A1.pause(p); A2.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    [A1, A2].forEach(function (A) { if (A && A.freeze) A.freeze.bind(pb); }); // v19: click either view to freeze both, in step with Pause
     el.addEventListener('click', function (e) {
       var cb = e.target.closest('[data-col]');
       if (cb) { LP.set({ spectrum: COLS[cb.dataset.col] }); return; }
@@ -1791,7 +1804,8 @@
     S.atpGlow = MM.halos(T, 24, 0xffad3a, 0.9); root.add(S.atpGlow.obj);
     S.nadMesh = inst(16, 0x5fd3c7, 0x1f9e93);
     S.wMesh = new T.InstancedMesh(MM.waterGeo(T, 0.13), MM.lin(new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.3 })), 12); S.wMesh.frustumCulled = false; root.add(S.wMesh);
-    S.o2Mesh = new T.InstancedMesh(MM.merge(T, [{ geo: sphG, color: 0xd9402f, pos: [-0.09, 0, 0], scale: 0.12 }, { geo: sphG, color: 0xd9402f, pos: [0.09, 0, 0], scale: 0.12 }]), MM.lin(new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.3 })), 8); S.o2Mesh.frustumCulled = false; root.add(S.o2Mesh);
+    S.o2Mesh = new T.InstancedMesh(MM.merge(T, [{ geo: sphG, color: MM.atomColor ? MM.atomColor('o2', 'O') : 0xd9402f, pos: [-0.09, 0, 0], scale: 0.12 }, { geo: sphG, color: MM.atomColor ? MM.atomColor('o2', 'O') : 0xd9402f, pos: [0.09, 0, 0], scale: 0.12 }]), // v19: crimson O2
+      MM.lin(new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.3 })), 8); S.o2Mesh.frustumCulled = false; root.add(S.o2Mesh);
     // photons: coloured glow points
     var phG = new T.BufferGeometry(), phP = new Float32Array(30 * 3), phC = new Float32Array(30 * 3);
     for (var q = 0; q < 30; q++) phP[q * 3 + 1] = 1e4;

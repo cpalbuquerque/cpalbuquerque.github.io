@@ -56,24 +56,35 @@
     return 'rgb(' + n.join(',') + ')';
   }
   MOL.shade = shade;
-  // water: red O with two white H at 104.5 degrees
-  D.water = function (c, P, x, y, r, ang, a) {
-    var hr = r * 0.62, d = r * 0.95, h1 = ang - 0.912, h2 = ang + 0.912;
-    D.ball(c, x + Math.cos(h1) * d, y + Math.sin(h1) * d, hr, P.H, '#ffffff', P.dark ? '#9aa3ad' : '#b8afa2', a);
-    D.ball(c, x + Math.cos(h2) * d, y + Math.sin(h2) * d, hr, P.H, '#ffffff', P.dark ? '#9aa3ad' : '#b8afa2', a);
-    if (!P.dark && r >= 2.5) { // light theme: a thin rim so the white H atoms read on cream paper
-      c.globalAlpha = (a == null ? 1 : a) * 0.6; c.strokeStyle = 'rgba(40,30,20,.55)'; c.lineWidth = 0.8;
-      c.beginPath(); c.arc(x + Math.cos(h1) * d, y + Math.sin(h1) * d, hr, 0, TAU); c.stroke();
-      c.beginPath(); c.arc(x + Math.cos(h2) * d, y + Math.sin(h2) * d, hr, 0, TAU); c.stroke();
-      c.globalAlpha = 1;
-    }
-    D.ball(c, x, y, r, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
+  /* v19 identity colours (molcolor.js at the site root, one definition for the whole site): the ATOMS are coloured by
+     the molecule they belong to, so water reads blue, CO2 grey and O2 crimson at a glance (colours show the molecule,
+     not the atom). Shapes unchanged. A faint dark rim keeps each atom readable on busy backgrounds. Fallbacks equal
+     molcolor.js. */
+  var IDA = { light: { h2o: { O: '#1d4aa5', H: '#8fb8ee' }, co2: { C: '#4f5359', O: '#a7aaaf' }, o2: { O: '#981b30' } },
+    dark: { h2o: { O: '#80dfff', H: '#b3e9ff' }, co2: { C: '#8a9098', O: '#d9dce0' }, o2: { O: '#dd3c3c' } } };
+  MOL.atomColor = function (kind, el, dark) { var W = window.WPMolColor; return (W && W.atom && W.atom(kind, el, dark)) || IDA[dark ? 'dark' : 'light'][kind][el]; };
+  MOL.idColor = function (kind, dark) { var W = window.WPMolColor; return (W && W.get(kind, dark)) || { h2o: MOL.atomColor('h2o', 'O', dark), co2: dark ? '#cfd3d8' : '#77797d', o2: MOL.atomColor('o2', 'O', dark) }[kind]; };
+  function atomBall(c, P, x, y, r, col, a) {
+    D.ball(c, x, y, r, col, shade(col, 0.55), shade(col, -0.4), a);
+    if (r >= 2.2) { c.globalAlpha = (a == null ? 1 : a) * (P.dark ? 0.5 : 0.45); c.strokeStyle = P.dark ? 'rgba(0,0,0,.6)' : 'rgba(30,25,20,.6)'; c.lineWidth = 0.7; c.beginPath(); c.arc(x, y, r, 0, TAU); c.stroke(); c.globalAlpha = 1; }
+  }
+  // O2: two O atoms, both crimson
+  D.o2 = function (c, P, x, y, r, ang, a) {
+    var dx = Math.cos(ang || 0) * r * 0.78, dy = Math.sin(ang || 0) * r * 0.78, col = MOL.atomColor('o2', 'O', P.dark);
+    atomBall(c, P, x - dx, y - dy, r * 0.88, col, a); atomBall(c, P, x + dx, y + dy, r * 0.88, col, a);
   };
+  // water: blue O with two lighter blue H at 104.5 degrees
+  D.water = function (c, P, x, y, r, ang, a) {
+    var hr = r * 0.62, d = r * 0.95, h1 = ang - 0.912, h2 = ang + 0.912, cH = MOL.atomColor('h2o', 'H', P.dark), cO = MOL.atomColor('h2o', 'O', P.dark);
+    atomBall(c, P, x + Math.cos(h1) * d, y + Math.sin(h1) * d, hr, cH, a);
+    atomBall(c, P, x + Math.cos(h2) * d, y + Math.sin(h2) * d, hr, cH, a);
+    atomBall(c, P, x, y, r, cO, a);
+  };
+  // CO2: a dark grey C between two lighter grey O, in a line
   D.co2 = function (c, P, x, y, r, ang, a) {
-    var dx = Math.cos(ang) * r * 1.55, dy = Math.sin(ang) * r * 1.55;
-    D.ball(c, x - dx, y - dy, r * 0.85, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
-    D.ball(c, x + dx, y + dy, r * 0.85, P.O, shade(P.O, 0.55), shade(P.O, -0.45), a);
-    D.ball(c, x, y, r, P.C, shade(P.C, 0.6), shade(P.C, -0.5), a);
+    var dx = Math.cos(ang) * r * 1.55, dy = Math.sin(ang) * r * 1.55, cO = MOL.atomColor('co2', 'O', P.dark);
+    atomBall(c, P, x - dx, y - dy, r * 0.85, cO, a); atomBall(c, P, x + dx, y + dy, r * 0.85, cO, a);
+    atomBall(c, P, x, y, r, MOL.atomColor('co2', 'C', P.dark), a);
   };
   D.ion = function (c, P, x, y, r, col, label, a) {
     D.ball(c, x, y, r, col, shade(col, 0.6), shade(col, -0.45), a);
@@ -369,7 +380,7 @@
   MOL.live = [];
   MOL.Theatre = function (host, scene, opts) {
     opts = opts || {};
-    var T = { scene: scene, paused: false, visible: true, raf: 0, last: 0, t: 0, dark: !!opts.dark, reduce: !!opts.reduce };
+    var T = { scene: scene, paused: !!opts.reduce, visible: true, raf: 0, last: 0, t: 0, dark: !!opts.dark, reduce: !!opts.reduce }; // v19: reduced motion starts paused; Play (or a click on the view) runs it
     var cv = document.createElement('canvas');
     cv.className = 'mol-canvas';
     cv.setAttribute('role', 'img');
@@ -397,21 +408,21 @@
     }
     function loop(ts) {
       T.raf = 0;
-      if (!T.visible || document.hidden || T.paused || T.reduce) return;
+      if (!T.visible || document.hidden || T.paused) return;
       var dt = T.last ? Math.min(0.05, (ts - T.last) / 1000) : 0.016; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1); T.last = ts; T.t += dt;
       draw(dt);
       T.raf = requestAnimationFrame(loop);
     }
     T.kick = function () {
-      if (T.reduce || T.paused) { size(); draw(0); return; } // one still frame
+      if (T.paused) { size(); draw(0); return; } // one still frame
       if (!T.raf && T.visible && !document.hidden) { T.last = 0; T.raf = requestAnimationFrame(loop); }
     };
     T.redraw = function () { size(); draw(0); };
     if (window.MolNames) window.MolNames.on(function () { if (T.canvas && T.canvas.isConnected) T.redraw(); });
-    T.set = function (p) { if (scene.set) scene.set(p); if (T.reduce) T.still(); if (T.reduce || T.paused || !T.raf) T.redraw(); T.kick(); };
+    T.set = function (p) { if (scene.set) scene.set(p); if (T.reduce && T.paused) T.still(); if (T.paused || !T.raf) T.redraw(); T.kick(); };
     T.setTheme = function (dark) { T.dark = !!dark; T.redraw(); };
     T.still = function () { if (scene.settle) scene.settle(); T.prewarm(6); };
-    T.setReduce = function (r) { var was = T.reduce; T.reduce = !!r; if (T.reduce && !was) T.still(); T.kick(); };
+    T.setReduce = function (r) { var was = T.reduce; T.reduce = !!r; if (T.reduce && !was) { T.paused = true; T.still(); } else if (!T.reduce && was) T.paused = false; T.kick(); };
     T.pause = function (p) { T.paused = p == null ? !T.paused : !!p; if (!T.paused) T.kick(); else T.redraw(); return T.paused; };
     T.destroy = function () { if (T.raf) cancelAnimationFrame(T.raf); if (T.io) T.io.disconnect(); if (T.ro) T.ro.disconnect(); cv.remove(); };
     if ('IntersectionObserver' in window) {
@@ -1516,7 +1527,8 @@
       S.gas.forEach(function (m) {
         var x = G.aX0 + 10 + m.u * (G.aX1 - G.aX0 - 20), y = G.y0 + 10 + m.v * (G.y1 - G.y0 - 20), dx = Math.cos(m.a) * G.r * 0.75, dy = Math.sin(m.a) * G.r * 0.75;
         var col = m.o2 ? P.O : (P.dark ? '#8fa3b8' : '#7d8ea0');
-        D.ball(c, x - dx, y - dy, G.r * 0.85, col, shade(col, 0.5), shade(col, -0.4)); D.ball(c, x + dx, y + dy, G.r * 0.85, col, shade(col, 0.5), shade(col, -0.4));
+        if (m.o2) D.o2(c, P, x, y, G.r * 0.97, m.a); // v19: O2 on its crimson halo; N2 stays a plain grey pair
+        else { D.ball(c, x - dx, y - dy, G.r * 0.85, col, shade(col, 0.5), shade(col, -0.4)); D.ball(c, x + dx, y + dy, G.r * 0.85, col, shade(col, 0.5), shade(col, -0.4)); }
         if (NM) NM.add(m.o2 ? 'O2' : 'N2', m, x, y, G.r * 1.2, m.o2 ? 'O₂' : 'N₂', { q: 1 });
       });
       // water in B, cohesive: hydrogen bond dashes stretch with tension; molecules leave as the bubble grows
@@ -1690,99 +1702,244 @@
     return S;
   };
 
-  /* ============================================================ scene: starve or thirst (journey builder, 13 Oct)
+  /* ============================================================ scene: starve or thirst (journey builder, 13 Oct; v19 zoom)
      One stoma on the lower surface. CO2 drifts in from the air below, up through the pore, to the chloroplasts; water
-     vapour leaves through the same pore. set({ open: 0..1 pore width, co2: drawn CO2 molecules s−1, h2o: drawn water
-     molecules s−1, ratio: text for the tag }). The caller sets both drawn rates from model rates with fixed scale factors
-     and states them; the theatre invents none. Every sixth CO2 fixed pops a sugar hexagon at a chloroplast. */
+     vapour leaves through the same pore; in the light, O2 made by splitting water leaves by the same pore too.
+     set({ open: 0..1 pore width, co2: drawn CO2 molecules s−1, h2o: drawn water molecules s−1, o2: drawn O2 molecules
+     s−1 (0 in the dark), ratio: text for the tag, zoom: 'leaf' | 'stoma' | 'pore' }). The caller sets every drawn rate
+     from model rates with fixed scale factors and states them; the theatre invents none. Every sixth CO2 fixed pops a
+     sugar hexagon at a chloroplast.
+     v19 zoom: three levels with a smooth zoom between them. 'leaf' is the lower leaf surface seen from below (many
+     stomata among the skin cells; molecules sink into and rise out of the pores); 'stoma' is one stoma cut through (the
+     13 Oct drawing); 'pore' zooms into the gap between the two guard cells, where all three gases share one opening.
+     The same model rates drive every level. Motion is smooth (a slow sway, no per frame jitter). */
   MOL.scenes.stomagas = function () {
-    var S = { p: { open: 0.5, co2: 3, h2o: 6, ratio: '' }, open: 0.5, c: [], w: [], s: [], aC: 0, aW: 0, fixed: 0, R: rng(29), g: null, cnt: MOL.Counter(5), t: 0 };
-    var R = S.R;
+    var S = { p: { open: 0.5, co2: 3, h2o: 6, o2: 0, ratio: '', zoom: 'stoma' }, open: 0.5, c: [], w: [], o: [], s: [], aC: 0, aW: 0, aO: 0, fixed: 0, R: rng(29), g: null, cnt: MOL.Counter(5), t: 0,
+      z: 1, lf: { c: [], w: [], o: [], aC: 0, aW: 0, aO: 0 }, pl: { c: [], w: [], o: [], aC: 0, aW: 0, aO: 0, N: 3 } };
+    var R = S.R, ZT = { leaf: 0, stoma: 1, pore: 2 };
     S.set = function (p) { for (var k in p) S.p[k] = p[k]; };
-    S.settle = function () { S.open = S.p.open; S.c = []; S.w = []; S.s = []; S.aC = 0; S.aW = 0; };
+    S.settle = function () { S.open = S.p.open; S.c = []; S.w = []; S.o = []; S.s = []; S.aC = 0; S.aW = 0; S.aO = 0; S.z = ZT[S.p.zoom] == null ? 1 : ZT[S.p.zoom]; S.lf.c = []; S.lf.w = []; S.lf.o = []; S.pl.c = []; S.pl.w = []; S.pl.o = []; S.pl.aC = S.pl.aW = S.pl.aO = 0; };
     S.layout = function (w, h) {
       var G = { w: w, h: h, narrow: w < 560 };
-      G.yLe = Math.round(h * 0.52); G.yL = Math.round(h * 0.66); G.sx = w * 0.5;
+      G.yLe = Math.round(h * 0.52); G.yL = Math.round(h * 0.66); G.sx = w * 0.5; G.cy = (G.yLe + G.yL) / 2;
       G.chl = []; var n = G.narrow ? 4 : 6;
       for (var i = 0; i < n; i++) { var x = (i + 0.5) * w / n; if (Math.abs(x - G.sx) < 40) x += (x < G.sx ? -30 : 30); G.chl.push({ x: x, y: h * (0.16 + 0.12 * (i % 2)) }); }
+      /* leaf surface: a loose grid of stomata among pavement cells (drawing, not a measured density) */
+      var lr = rng(71); G.st = [];
+      var cols = G.narrow ? 3 : 5, rows = 3, cw = w / cols, rh = (h - 60) / rows;
+      for (var r = 0; r < rows; r++) for (var q = 0; q < cols; q++) G.st.push({ x: (q + 0.5) * cw + (lr() - 0.5) * cw * 0.35, y: 44 + (r + 0.5) * rh + (lr() - 0.5) * rh * 0.3, a: (lr() - 0.5) * 1.2 });
+      G.cells = []; for (var k = 0; k < (G.narrow ? 26 : 44); k++) G.cells.push({ x: lr() * w, y: 30 + lr() * (h - 30), r: 26 + lr() * 22, a: lr() * TAU });
       S.g = G;
     };
+    function sway(m, amp, f) { return Math.sin(S.t * (f || 1.1) + m.ph0) * amp; }
     S.step = function (dt) {
       var G = S.g, p = S.p; if (!G) return; S.t += dt;
       S.open += (p.open - S.open) * Math.min(1, dt * 3);
-      var gap = 3 + 22 * S.open;
+      var zt = ZT[p.zoom] == null ? 1 : ZT[p.zoom]; S.z += (zt - S.z) * Math.min(1, dt * 2.4); if (Math.abs(zt - S.z) < 0.002) S.z = zt;
+      var slow = 0.35 + 0.65 * S.open, shut = S.open <= 0.04;
+      /* one stoma, cut through */
       S.aC += Math.max(0, p.co2) * dt;
-      while (S.aC >= 1) { S.aC -= 1; S.c.push({ x: R() * G.w, y: G.h + 8, ph: 0, a: R() * TAU, tgt: G.chl[Math.floor(R() * G.chl.length)] }); }
+      while (S.aC >= 1) { S.aC -= 1; S.c.push({ x: R() * G.w, y: G.h + 8, ph: 0, a: R() * TAU, ph0: R() * TAU, tgt: G.chl[Math.floor(R() * G.chl.length)] }); }
       S.aW += Math.max(0, p.h2o) * dt;
-      while (S.aW >= 1) { S.aW -= 1; S.w.push({ x: G.sx + (R() - 0.5) * 30, y: G.yLe - 20 - R() * 30, ph: 0, a: R() * TAU, vx: 0, vy: 0, life: 0 }); }
-      var slow = 0.35 + 0.65 * S.open;
+      while (S.aW >= 1) { S.aW -= 1; S.w.push({ x: G.sx + (R() - 0.5) * 30, y: G.yLe - 20 - R() * 30, ph: 0, a: R() * TAU, ph0: R() * TAU, vx: 0, vy: 0, life: 0 }); }
+      S.aO += Math.max(0, p.o2 || 0) * dt;
+      while (S.aO >= 1) { S.aO -= 1; var src = G.chl[Math.floor(R() * G.chl.length)]; S.o.push({ x: src.x, y: src.y, ph: 0, a: R() * TAU, ph0: R() * TAU, vx: 0, vy: 0, life: 0 }); }
       S.c.forEach(function (m) {
-        m.a += dt * 1.5;
-        if (m.ph === 0) { // drift toward the pore mouth
+        m.a += dt * 1.2;
+        if (m.ph === 0) { // drift toward the pore mouth, with a slow sway
           var dx = G.sx - m.x, dy = (G.yL + 10) - m.y, d = Math.hypot(dx, dy) || 1;
-          m.x += dx / d * 55 * dt + (R() - 0.5) * 20 * dt; m.y += dy / d * 55 * dt;
-          if (d < 12) m.ph = S.open > 0.04 ? 1 : 3;
-        } else if (m.ph === 1) { // through the pore
-          m.x += (G.sx - m.x) * dt * 4; m.y -= 90 * slow * dt; if (m.y < G.yLe - 8) m.ph = 2;
+          m.x += dx / d * 55 * dt + sway(m, 14) * dt; m.y += dy / d * 55 * dt;
+          if (d < 12) m.ph = shut ? 3 : 1;
+        } else if (m.ph === 1) { // through the pore, in the left half of the gap
+          m.x += (G.sx - (3 + 22 * S.open) * 0.24 - m.x) * dt * 4; m.y -= 80 * slow * dt; if (m.y < G.yLe - 8) m.ph = 2; // left lane of the gap
         } else if (m.ph === 2) { // to a chloroplast
           var ex = m.tgt.x - m.x, ey = m.tgt.y - m.y, e = Math.hypot(ex, ey) || 1;
           m.x += ex / e * 70 * dt; m.y += ey / e * 70 * dt;
           if (e < 10) { m.dead = true; S.fixed++; S.cnt.add(S.t, 'c'); if (S.fixed % 6 === 0) S.s.push({ x: m.tgt.x, y: m.tgt.y, life: 0, a: R() * TAU }); }
-        } else { m.y += 30 * dt; m.x += (R() - 0.5) * 40 * dt; if (m.y > G.h + 10) m.dead = true; } // pore shut: wander off
+        } else { m.y += 30 * dt; m.x += sway(m, 20, 0.7) * dt; if (m.y > G.h + 10) m.dead = true; } // pore shut: wander off
       });
-      S.w.forEach(function (m) {
-        m.life += dt; m.a += dt * 2;
-        if (m.y < G.yL + 4) { m.x += (G.sx - m.x) * dt * 3; m.y += (S.open > 0.04 ? 70 * slow : 4) * dt; if (m.y >= G.yL + 4) S.cnt.add(S.t, 'w'); }
-        else { if (!m.fan) { m.fan = 1; m.vx = (R() - 0.5) * 130; m.vy = 40 + R() * 40; } m.x += m.vx * dt; m.y += m.vy * dt; m.vx *= (1 - 0.6 * dt); }
-        if (m.y > G.h + 10 || m.life > 12) m.dead = true;
-      });
+      function out(m, lane) { // water and O2 leave the same way: to the pore, down through it, then spread into the air
+        m.life += dt; m.a += dt * 1.6;
+        if (m.ph === 0) { // inside the leaf: drift to the top of the pore
+          var dx = G.sx + lane - m.x, dy = (G.yLe - 6) - m.y, d = Math.hypot(dx, dy) || 1;
+          if (d > 6) { m.x += dx / d * 60 * dt + sway(m, 8) * dt; m.y += dy / d * 60 * dt; } else m.ph = 1;
+        } else if (m.y < G.yL + 4) { m.x += (G.sx + lane - m.x) * dt * 3; m.y += (shut ? 4 : 70 * slow) * dt; if (m.y >= G.yL + 4) S.cnt.add(S.t, 'w'); }
+        else { if (!m.fan) { m.fan = 1; m.vx = (R() - 0.5) * 120; m.vy = 40 + R() * 40; } m.x += m.vx * dt; m.y += m.vy * dt; m.vx *= (1 - 0.6 * dt); }
+        if (m.y > G.h + 10 || m.life > 14) m.dead = true;
+      }
+      var gp = 3 + 22 * S.open; // lanes inside the gap: CO2 left, water middle, O2 right (drawing only)
+      S.w.forEach(function (m) { out(m, gp * 0.06); });
+      S.o.forEach(function (m) { out(m, gp * 0.3); });
       S.s.forEach(function (m) { m.life += dt; m.y -= 12 * dt; m.a += dt; if (m.life > 3) m.dead = true; });
-      S.c = S.c.filter(function (m) { return !m.dead; }); S.w = S.w.filter(function (m) { return !m.dead; }); S.s = S.s.filter(function (m) { return !m.dead; });
-      if (S.w.length > 220) S.w.splice(0, S.w.length - 220); if (S.c.length > 160) S.c.splice(0, S.c.length - 160);
-      if (S.w.length > 40 && S.open < 0.04) S.w.splice(0, S.w.length - 40);
+      S.c = S.c.filter(function (m) { return !m.dead; }); S.w = S.w.filter(function (m) { return !m.dead; }); S.o = S.o.filter(function (m) { return !m.dead; }); S.s = S.s.filter(function (m) { return !m.dead; });
+      if (S.w.length > 220) S.w.splice(0, S.w.length - 220); if (S.c.length > 160) S.c.splice(0, S.c.length - 160); if (S.o.length > 120) S.o.splice(0, S.o.length - 120);
+      if (shut) { if (S.w.length > 40) S.w.splice(0, S.w.length - 40); if (S.o.length > 20) S.o.splice(0, S.o.length - 20); }
+      /* the pore close up: three lanes, CO2 up on the left, H2O down in the middle, O2 down on the right. The same rates,
+         thinned by one factor N for all three (so their ratio stays true): each lane holds at most PCAP molecules, they
+         enter at regular intervals and move at one slow speed, so they never overlap. N is shown on the drawing. */
+      var Q = S.pl, PV = 30, travel = (G.h + 60) / PV, PCAP = Math.max(5, Math.floor(G.h / 42));
+      var rmax = Math.max(p.co2 || 0, p.h2o || 0, p.o2 || 0), Nn = Math.max(1, Math.ceil(rmax * travel / PCAP));
+      if (Nn !== Q.N && (Nn > Q.N || Nn < Q.N - 1)) Q.N = Nn;
+      [['c', 'aC', p.co2], ['w', 'aW', p.h2o], ['o', 'aO', p.o2 || 0]].forEach(function (L2) {
+        if (!shut) { Q[L2[1]] += Math.max(0, L2[2]) / Q.N * dt; if (Q[L2[1]] > 1.5) Q[L2[1]] = 1.5; }
+        while (Q[L2[1]] >= 1) { Q[L2[1]] -= 1; Q[L2[0]].push({ u: 0, ph0: R() * TAU }); }
+        Q[L2[0]].forEach(function (m) { m.u += dt / travel; });
+        Q[L2[0]] = Q[L2[0]].filter(function (m) { return m.u < 1; });
+      });
+      /* leaf surface: the same rates shared among the visible pores; a molecule sinks into a pore (CO2) or rises out (H2O, O2) */
+      var L = S.lf, nst = G.st.length;
+      function emit(arr, rate, key, kind) {
+        L[key] += Math.max(0, rate) * dt * (shut ? 0.05 : 1);
+        while (L[key] >= 1) { L[key] -= 1; var st = G.st[Math.floor(R() * nst)], ang = R() * TAU, dd = kind === 'c' ? 34 + R() * 20 : 0;
+          arr.push({ st: st, u: 0, ang: ang, d0: dd, a: R() * TAU, ph0: R() * TAU }); }
+      }
+      emit(L.c, p.co2, 'aC', 'c'); emit(L.w, p.h2o, 'aW', 'w'); emit(L.o, p.o2 || 0, 'aO', 'o');
+      [L.c, L.w, L.o].forEach(function (arr) { arr.forEach(function (m) { m.u += dt / 2.6; m.a += dt; }); });
+      L.c = L.c.filter(function (m) { return m.u < 1; }); L.w = L.w.filter(function (m) { return m.u < 1; }); L.o = L.o.filter(function (m) { return m.u < 1; });
+      if (L.w.length > 160) L.w.splice(0, L.w.length - 160); if (L.c.length > 120) L.c.splice(0, L.c.length - 120); if (L.o.length > 120) L.o.splice(0, L.o.length - 120);
     };
-    S.draw = function (c, P, w, h, t, T) {
-      var G = S.g; if (!G) return;
-      var NM = T && T.names;
-      var gap = 3 + 22 * S.open, fs = G.narrow ? 10.5 : 11.5;
-      // mesophyll
+    function drawSection(c, P, w, h, NM, k) {
+      var G = S.g, gap = 3 + 22 * S.open;
       var gm = c.createLinearGradient(0, 0, 0, G.yLe); gm.addColorStop(0, P.dark ? '#14201a' : '#e9edd6'); gm.addColorStop(1, P.cav);
-      c.fillStyle = gm; c.fillRect(0, 0, w, G.yLe);
+      c.fillStyle = gm; c.fillRect(-w, -h, w * 3, G.yLe + h);
       G.chl.forEach(function (q) {
         var g = c.createRadialGradient(q.x - 6, q.y - 5, 2, q.x, q.y, 26);
         g.addColorStop(0, P.dark ? '#b8e6a0' : '#d6efc4'); g.addColorStop(1, P.dark ? '#3f6a32' : '#6f9a52');
         c.fillStyle = g; c.beginPath(); c.ellipse(q.x, q.y, 26, 14, 0.2, 0, TAU); c.fill();
-        c.strokeStyle = P.dark ? 'rgba(200,240,180,.35)' : 'rgba(60,90,50,.45)'; c.lineWidth = 1; c.stroke();
+        c.strokeStyle = P.dark ? 'rgba(200,240,180,.35)' : 'rgba(60,90,50,.45)'; c.lineWidth = 1 / k; c.stroke();
       });
-      // lower epidermis with the stoma
       var cellW = G.narrow ? 62 : 84;
-      for (var x = -14; x < w; x += cellW) {
+      for (var x = -14 - cellW * 3; x < w + cellW * 3; x += cellW) {
         if (x + cellW > G.sx - 40 - gap / 2 && x < G.sx + 40 + gap / 2) continue;
         var ge = c.createLinearGradient(0, G.yLe, 0, G.yL); ge.addColorStop(0, P.epiHi); ge.addColorStop(1, P.epi);
         c.fillStyle = ge; rrect(c, x + 2, G.yLe, cellW - 4, G.yL - G.yLe, 9); c.fill();
-        c.strokeStyle = P.dark ? 'rgba(160,200,150,.35)' : 'rgba(90,110,70,.45)'; c.lineWidth = 1.2; c.stroke();
+        c.strokeStyle = P.dark ? 'rgba(160,200,150,.35)' : 'rgba(90,110,70,.45)'; c.lineWidth = 1.2 / k; c.stroke();
       }
-      c.fillStyle = P.cut; c.fillRect(0, G.yL - 3, G.sx - gap / 2 - 36, 5); c.fillRect(G.sx + gap / 2 + 36, G.yL - 3, w, 5);
+      c.fillStyle = P.cut; c.fillRect(-w, G.yL - 3, w + G.sx - gap / 2 - 36, 5); c.fillRect(G.sx + gap / 2 + 36, G.yL - 3, w * 2, 5);
       [-1, 1].forEach(function (sg) {
-        var cx = G.sx + sg * (gap / 2 + 18), cy = (G.yLe + G.yL) / 2, ry = (G.yL - G.yLe) * 0.46;
+        var cx = G.sx + sg * (gap / 2 + 18), cy = G.cy, ry = (G.yL - G.yLe) * 0.46;
         var gg = c.createRadialGradient(cx - sg * 4, cy - ry * 0.4, 3, cx, cy, 28); gg.addColorStop(0, P.guardHi); gg.addColorStop(1, P.guard);
         c.fillStyle = gg; c.beginPath(); c.ellipse(cx, cy, 18, ry, 0, 0, TAU); c.fill();
-        c.strokeStyle = P.dark ? 'rgba(200,240,180,.4)' : 'rgba(60,90,50,.5)'; c.lineWidth = 1.2; c.stroke();
+        c.strokeStyle = P.dark ? 'rgba(200,240,180,.4)' : 'rgba(60,90,50,.5)'; c.lineWidth = 1.2 / k; c.stroke();
       });
-      // air below
       var ga = c.createLinearGradient(0, G.yL, 0, h); ga.addColorStop(0, P.air); ga.addColorStop(1, P.dark ? '#0a121b' : '#f6f2e6');
-      c.fillStyle = ga; c.fillRect(0, G.yL + 2, w, h - G.yL - 2);
-      // flux arrows, width set by the drawn rates
-      D.flux(c, P, G.sx - 70, h - 10, G.sx - 14, G.yL + 6, 6 + 3 * Math.min(6, S.p.co2), 0.14);
-      D.flux(c, P, G.sx + 14, G.yLe + 4, G.sx + 70, h - 8, 6 + 1.5 * Math.min(12, S.p.h2o), 0.14);
-      S.s.forEach(function (m) { D.sugar(c, P, m.x, m.y, 7, m.a, Math.max(0, 1 - m.life / 3)); if (NM && m.life < 2.2) NM.add('sug', m, m.x, m.y, 7, 'sugar', { all: true }); });
-      S.w.forEach(function (m) { D.water(c, P, m.x, m.y, 4.6, m.a, 0.9); if (NM && m.fan) NM.add('w', m, m.x, m.y, 4.6, 'H₂O'); });
-      S.c.forEach(function (m) { D.co2(c, P, m.x, m.y, 4.4, m.a, 0.95); if (NM) NM.add('co2', m, m.x, m.y, 5.5, 'CO₂'); });
-      D.tag(c, P, 8, 13, G.narrow ? 'Mesophyll: chloroplasts fix CO₂' : 'Mesophyll: chloroplasts fix CO₂ into sugar', { size: fs });
-      D.tag(c, P, 8, h - 13, G.narrow ? 'CO₂ in' : 'Air below the leaf: CO₂ in', { size: fs });
-      D.tag(c, P, w - 8, h - 13, 'water vapour out', { size: fs, align: 'right' });
-      D.tag(c, P, G.sx, G.yLe - 12, S.open < 0.04 ? 'stoma shut' : 'one pore, two jobs', { size: fs - 0.5, align: 'center' });
-      if (S.p.ratio) D.tag(c, P, w - 8, 13, S.p.ratio, { size: fs, align: 'right' });
+      c.fillStyle = ga; c.fillRect(-w, G.yL + 2, w * 3, h * 2);
+      if (k < 1.3) { // flux arrows, width set by the drawn rates (the stoma level only)
+        D.flux(c, P, G.sx - 70, h - 10, G.sx - 14, G.yL + 6, 6 + 3 * Math.min(6, S.p.co2), 0.14);
+        D.flux(c, P, G.sx + 14, G.yLe + 4, G.sx + 70, h - 8, 6 + 1.5 * Math.min(12, S.p.h2o), 0.14);
+      }
+      var mr = k > 1.3 ? 1.55 / k : 1; // at the pore the view is magnified, molecules a little less, so the lanes stay apart
+      S.s.forEach(function (m) { D.sugar(c, P, m.x, m.y, 7, m.a, Math.max(0, 1 - m.life / 3)); if (NM && k < 1.3 && m.life < 2.2) NM.add('sug', m, m.x, m.y, 7, 'sugar', { all: true }); });
+      S.w.forEach(function (m) { D.water(c, P, m.x, m.y, 4.6 * mr, m.a, 0.92); });
+      S.o.forEach(function (m) { D.o2(c, P, m.x, m.y, 4.0 * mr, m.a, 0.95); });
+      S.c.forEach(function (m) { D.co2(c, P, m.x, m.y, 4.4 * mr, m.a, 0.95); });
+    }
+    function drawSurface(c, P, w, h) {
+      var G = S.g, L = S.lf;
+      c.fillStyle = P.dark ? '#18261a' : '#dfe8c8'; c.fillRect(0, 0, w, h);
+      /* pavement cells: soft lobed outlines */
+      c.strokeStyle = P.dark ? 'rgba(170,210,160,.28)' : 'rgba(80,105,60,.35)'; c.lineWidth = 1.2;
+      G.cells.forEach(function (q) {
+        c.beginPath();
+        for (var i = 0; i <= 18; i++) { var t = i / 18 * TAU, rr = q.r * (1 + 0.13 * Math.sin(5 * t + q.a)); c[i ? 'lineTo' : 'moveTo'](q.x + Math.cos(t) * rr, q.y + Math.sin(t) * rr * 0.8); }
+        c.stroke();
+      });
+      var gap = 1 + 3.2 * S.open;
+      G.st.forEach(function (st) {
+        c.save(); c.translate(st.x, st.y); c.rotate(st.a);
+        [-1, 1].forEach(function (sg) {
+          var gg = c.createRadialGradient(sg * 4, -3, 1, sg * (gap + 4), 0, 11); gg.addColorStop(0, P.guardHi); gg.addColorStop(1, P.guard);
+          c.fillStyle = gg; c.beginPath(); c.ellipse(sg * (gap / 2 + 4.6), 0, 5, 12, 0, 0, TAU); c.fill();
+          c.strokeStyle = P.dark ? 'rgba(200,240,180,.45)' : 'rgba(60,90,50,.55)'; c.lineWidth = 1; c.stroke();
+        });
+        c.fillStyle = P.dark ? '#05090d' : '#2e3a28'; c.beginPath(); c.ellipse(0, 0, Math.max(0.6, gap / 2), 8.5, 0, 0, TAU); c.fill();
+        c.restore();
+      });
+      L.c.forEach(function (m) { var e = m.u * m.u * (3 - 2 * m.u), d = m.d0 * (1 - e); D.co2(c, P, m.st.x + Math.cos(m.ang) * d, m.st.y + Math.sin(m.ang) * d, 3.6 * (1 - 0.6 * e), m.a, Math.min(1, (1 - m.u) * 4)); });
+      L.w.forEach(function (m) { var d = 6 + m.u * 36; D.water(c, P, m.st.x + Math.cos(m.ang) * d, m.st.y + Math.sin(m.ang) * d, 2.4 + 1.4 * m.u, m.a, Math.min(1, m.u * 6, (1 - m.u) * 3)); });
+      L.o.forEach(function (m) { var d = 6 + m.u * 32; D.o2(c, P, m.st.x + Math.cos(m.ang + 1.3) * d, m.st.y + Math.sin(m.ang + 1.3) * d, 2.4 + 1.3 * m.u, m.a, Math.min(1, m.u * 6, (1 - m.u) * 3)); });
+    }
+    /* the pore close up, drawn on its own (drawn wider than scale so three lanes fit; the tag says so) */
+    function poreGeo(w, h) {
+      var cx = w / 2, shutP = S.open <= 0.04, gap = shutP ? 10 : 86 + 110 * S.open, Rx = Math.min(w * 0.2, 130), Ry = h * 0.3, cy = h * 0.5;
+      return { cx: cx, cy: cy, gap: gap, Rx: Rx, Ry: Ry, xC: cx - gap * 0.3, xW: cx + gap * 0.02, xO: cx + gap * 0.32, shut: shutP };
+    }
+    function drawPore(c, P, w, h, NM, fs) {
+      var Q = S.pl, g = poreGeo(w, h), r = S.g.narrow ? 5 : 5.6;
+      var gm = c.createLinearGradient(0, 0, 0, h); gm.addColorStop(0, P.cav); gm.addColorStop(0.5, P.dark ? '#14201a' : '#e9edd6'); gm.addColorStop(0.5, P.air); gm.addColorStop(1, P.dark ? '#0a121b' : '#f6f2e6');
+      c.fillStyle = gm; c.fillRect(0, 0, w, h);
+      c.fillStyle = P.cut; var yc = g.cy + g.Ry * 0.82;
+      c.fillRect(0, yc - 3, g.cx - g.gap / 2 - g.Rx * 1.6, 6); c.fillRect(g.cx + g.gap / 2 + g.Rx * 1.6, yc - 3, w, 6);
+      [-1, 1].forEach(function (sg) {
+        var ex = g.cx + sg * (g.gap / 2 + g.Rx);
+        var gg = c.createRadialGradient(ex - sg * g.Rx * 0.25, g.cy - g.Ry * 0.4, 4, ex, g.cy, g.Rx * 1.2); gg.addColorStop(0, P.guardHi); gg.addColorStop(1, P.guard);
+        c.fillStyle = gg; c.beginPath(); c.ellipse(ex, g.cy, g.Rx, g.Ry, 0, 0, TAU); c.fill();
+        c.strokeStyle = P.dark ? 'rgba(200,240,180,.45)' : 'rgba(60,90,50,.55)'; c.lineWidth = 1.4; c.stroke();
+      });
+      if (g.shut) return g;
+      /* faint lane guides in each molecule's colour */
+      var lanes = [[g.xC, 'co2', -1], [g.xW, 'h2o', 1]]; if (S.p.o2 > 0 || Q.o.length) lanes.push([g.xO, 'o2', 1]);
+      lanes.forEach(function (L) {
+        c.save(); c.globalAlpha = 0.35; c.strokeStyle = MOL.idColor(L[1], P.dark); c.lineWidth = 1.5; c.setLineDash([3, 6]);
+        c.beginPath(); c.moveTo(L[0], 26); c.lineTo(L[0], h - 30); c.stroke(); c.setLineDash([]);
+        var ay = L[2] < 0 ? 30 : h - 34; c.beginPath(); c.moveTo(L[0] - 5, ay + 6 * L[2] * -1); c.lineTo(L[0], ay); c.lineTo(L[0] + 5, ay + 6 * L[2] * -1); c.stroke(); c.restore();
+      });
+      var y0 = -30, y1 = h + 30, wob = function (m) { return Math.sin(S.t * 0.9 + m.ph0) * 1.4; };
+      Q.c.forEach(function (m, i) { var y = y1 + (y0 - y1) * m.u, a = Math.min(1, m.u * 8, (1 - m.u) * 8); D.co2(c, P, g.xC + wob(m), y, r * 0.9, Math.PI / 2 + Math.sin(S.t * 0.6 + m.ph0) * 0.12, a); if (NM && i === 0 && m.u > 0.3 && m.u < 0.8) NM.add('co2', m, g.xC, y, r * 2, 'CO₂', { q: 1 }); });
+      Q.w.forEach(function (m, i) { var y = y0 + (y1 - y0) * m.u, a = Math.min(1, m.u * 8, (1 - m.u) * 8); D.water(c, P, g.xW + wob(m), y, r, Math.PI / 2 + Math.sin(S.t * 0.7 + m.ph0) * 0.35, a); if (NM && i === 0 && m.u > 0.3 && m.u < 0.8) NM.add('w', m, g.xW, y, r, 'H₂O', { q: 1 }); });
+      Q.o.forEach(function (m, i) { var y = y0 + (y1 - y0) * m.u, a = Math.min(1, m.u * 8, (1 - m.u) * 8); D.o2(c, P, g.xO + wob(m), y, r, Math.PI / 2 + Math.sin(S.t * 0.6 + m.ph0) * 0.12, a); if (NM && i === 0 && m.u > 0.3 && m.u < 0.8) NM.add('o2', m, g.xO, y, r, 'O₂', { q: 1 }); });
+      return g;
+    }
+    S.draw = function (c, P, w, h, t, T) {
+      var G = S.g; if (!G) return;
+      var NM = T && T.names, fs = G.narrow ? 10.5 : 11.5;
+      if (t === S.tDraw) S.z = ZT[S.p.zoom] == null ? 1 : ZT[S.p.zoom]; S.tDraw = t; // paused: a zoom change shows at once
+      var z = S.z;
+      /* zoom between the levels: 0 leaf surface, 1 one stoma, 2 the pore */
+      var aSurf = z < 1 ? 1 - z : 0, aSec = z < 1 ? z : 1, k = z <= 1 ? 1 : 1 + 1.6 * (z - 1), aPore = z > 1 ? z - 1 : 0;
+      if (aSec > 0.01 && aPore < 0.99) {
+        c.save(); c.globalAlpha = 1;
+        var kz = z < 1 ? 0.55 + 0.45 * z : k; // from the surface the cut grows into view
+        c.translate(G.sx, G.cy); c.scale(kz, kz); c.translate(-G.sx, -G.cy);
+        drawSection(c, P, w, h, NM, kz);
+        c.restore();
+      }
+      if (aSurf > 0.01) {
+        c.save(); c.globalAlpha = aSurf; var ks = 1 + 2.2 * (1 - aSurf); c.translate(w / 2, h / 2); c.scale(ks, ks); c.translate(-w / 2, -h / 2);
+        drawSurface(c, P, w, h); c.restore(); c.globalAlpha = 1;
+      }
+      var pg = null;
+      if (aPore > 0.01) { c.save(); c.globalAlpha = aPore; pg = drawPore(c, P, w, h, aPore > 0.9 ? NM : null, fs); c.restore(); c.globalAlpha = 1; }
+      /* labels in screen space, so they never scale or collide with the zoom */
+      var lvl = z < 0.5 ? 'leaf' : (z < 1.5 ? 'stoma' : 'pore'), lit = S.p.o2 > 0;
+      if (lvl === 'leaf') {
+        D.tag(c, P, 8, 14, G.narrow ? 'Lower leaf surface, from below' : 'The lower leaf surface from below: each pair of guard cells is one stoma', { size: fs });
+        D.tag(c, P, 8, h - 13, G.narrow ? 'CO₂ sinks in' : 'CO₂ sinks into the pores', { size: fs });
+        D.tag(c, P, w - 8, h - 13, lit ? (G.narrow ? 'H₂O and O₂ rise out' : 'water vapour and O₂ rise out') : 'water vapour rises out', { size: fs, align: 'right' });
+      } else if (lvl === 'stoma') {
+        D.tag(c, P, 8, 13, G.narrow ? 'Mesophyll: chloroplasts fix CO₂' : 'Mesophyll: chloroplasts fix CO₂ into sugar', { size: fs });
+        D.tag(c, P, 8, h - 13, G.narrow ? 'CO₂ in' : 'Air below the leaf: CO₂ in', { size: fs });
+        D.tag(c, P, w - 8, h - 13, lit ? 'water vapour and O₂ out' : 'water vapour out', { size: fs, align: 'right' });
+        D.tag(c, P, G.sx, G.yLe - 12, S.open < 0.04 ? 'stoma shut' : 'one pore, two jobs', { size: fs - 0.5, align: 'center' });
+        if (S.p.ratio) D.tag(c, P, w - 8, 13, S.p.ratio, { size: fs, align: 'right' });
+      } else {
+        var g2 = pg || poreGeo(w, h);
+        D.tag(c, P, 8, 13, G.narrow ? 'The pore, close up' : 'The pore, close up: one gap between two guard cells', { size: fs });
+        if (!g2.shut) D.tag(c, P, w - 8, 13, G.narrow ? '1 in ' + S.pl.N + ' shown' : 'Drawn 1 in ' + S.pl.N + ', pore widened', { size: fs, align: 'right' });
+        D.tag(c, P, 8, h - 13, G.narrow ? '↑ CO₂ in' : '↑ CO₂ in, left lane', { size: fs });
+        D.tag(c, P, w - 8, h - 13, lit ? (G.narrow ? 'H₂O, O₂ out ↓' : 'H₂O and O₂ out, right lanes ↓') : 'H₂O out ↓', { size: fs, align: 'right' });
+        D.tag(c, P, g2.cx - g2.gap / 2 - g2.Rx, g2.cy, 'guard cell', { size: fs - 1, align: 'center' });
+        D.tag(c, P, g2.cx + g2.gap / 2 + g2.Rx, g2.cy, 'guard cell', { size: fs - 1, align: 'center' });
+        if (g2.shut) D.tag(c, P, g2.cx, 40, 'shut: almost nothing passes', { size: fs, align: 'center' });
+      }
+      if (NM) {
+        var kk = z < 1 ? 0.55 + 0.45 * z : k, map = function (x, y) { return [G.sx + (x - G.sx) * kk, G.cy + (y - G.cy) * kk]; };
+        if (aSec > 0.6 && aPore < 0.4) {
+          S.w.forEach(function (m) { if (m.fan || lvl === 'pore') { var q = map(m.x, m.y); NM.add('w', m, q[0], q[1], 4.6 * kk, 'H₂O'); } });
+          S.o.forEach(function (m) { var q = map(m.x, m.y); NM.add('o2', m, q[0], q[1], 4.6 * kk, 'O₂'); });
+          S.c.forEach(function (m) { var q = map(m.x, m.y); NM.add('co2', m, q[0], q[1], 5.5 * kk, 'CO₂'); });
+        }
+      }
     };
     return S;
   };

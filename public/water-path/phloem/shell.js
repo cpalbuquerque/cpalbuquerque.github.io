@@ -299,7 +299,7 @@
     cv.setAttribute('aria-label', o.label || 'Animation');
     host.appendChild(cv);
     var ctx = cv.getContext('2d');
-    var W = 0, H = 0, dpr = 1, raf = 0, last = 0, t = 0, visible = true, paused = !!o.paused, alive = true;
+    var W = 0, H = 0, dpr = 1, raf = 0, last = 0, t = 0, visible = true, paused = !!o.paused || ui.reducedMotion(), alive = true, lastR = ui.reducedMotion(); // v19: reduced motion starts paused; Play runs it
     function resize() {
       var r = host.getBoundingClientRect();
       var w = Math.max(200, Math.round(r.width));
@@ -318,7 +318,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       try { o.draw(ctx, W, H, t, dt, info()); } catch (e) { console.error(e); }
     }
-    function running() { return alive && visible && !paused && !ui.reducedMotion() && document.visibilityState !== 'hidden' && host.offsetParent !== null; }
+    function running() { return alive && visible && !paused && document.visibilityState !== 'hidden' && host.offsetParent !== null; }
     function loop(ts) {
       raf = 0;
       if (!running()) { last = 0; return; }
@@ -327,7 +327,7 @@
       raf = requestAnimationFrame(loop);
     }
     function kick() {
-      if (ui.reducedMotion()) { if (o.settle) o.settle(); drawOnce(0); return; }
+      if (ui.reducedMotion() && paused) { if (o.settle) o.settle(); drawOnce(0); return; }
       if (!raf && running()) raf = requestAnimationFrame(loop);
       else if (!running()) drawOnce(0);
     }
@@ -338,11 +338,14 @@
     else window.addEventListener('resize', resize);
     railWatch(cv);
     document.addEventListener('visibilitychange', kick);
-    ui.onPrefs(function () { drawOnce(0); kick(); });
+    ui.onPrefs(function () { var r = ui.reducedMotion(); if (r !== lastR) { lastR = r; paused = r; last = 0; } drawOnce(0); kick(); });
     if (window.MolNames) window.MolNames.on(function () { if (cv.isConnected) drawOnce(0); });
     resize(); kick();
+    /* v19: click the view to freeze (freeze.js); a scene binds its own Pause button with api.freeze.bind(button) */
+    var fz = (o.freeze !== false && window.WPFreeze) ? WPFreeze.attach(cv, { paused: function () { return paused; }, set: function (p) { paused = !!p; last = 0; kick(); }, ignore: o.freezeIgnore, picked: o.picked }) : null;
     return {
       canvas: cv,
+      freeze: fz,
       redraw: function () { drawOnce(0); },
       pause: function (p) { paused = !!p; last = 0; kick(); },
       paused: function () { return paused; },

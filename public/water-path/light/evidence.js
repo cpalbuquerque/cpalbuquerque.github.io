@@ -220,7 +220,7 @@
 "cite": "Zhen S, Bugbee B (2020) Plant Cell Environ 43:1259 to 1272",
 "doi": "10.1111/pce.13730",
 "doi2": "",
-"measured": "14 diverse crop species; canopy and single leaf gas exchange, LEDs",
+"measured": "14 crop species; canopy and single leaf gas exchange, LEDs",
 "value": "equal to PAR photons when combined canopy net CO2 uptake",
 "badge": "VERIFIED",
 "note": "The 2020 paper added far red up to 40 % of a shorter wavelength background; the 2021 paper states the limit as about 30 % of the 400 to 750 nm total. Same idea, two denominators.",

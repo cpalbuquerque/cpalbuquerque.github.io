@@ -616,6 +616,7 @@
     var pb = el.querySelector('#sun-pause');
     if (window.PlaySpeed) pb.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), pb.nextSibling);
     pb.addEventListener('click', function () { var p = !TH.anim.paused(); TH.anim.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    if (TH.anim.freeze) TH.anim.freeze.bind(pb); // v19: click the view to freeze, in step with Pause
 
     /* pick a photon */
     var lam = el.querySelector('#sun-lam');
@@ -861,7 +862,9 @@
     /* U7L (unifier r7): photons leaking out through the glass, coloured by the recipe's channels, at a rate set by the
        LED photon flux (1 drawn per 25 µmol m⁻² s⁻¹, ILLUSTRATIVE scale). Far red is drawn faint: the eye barely sees it. */
     GH.p = []; GH.acc = 0;
-    GH.anim = ui.anim(host.querySelector('.gh-cv'), { height: function (w) { return Math.round(w * 0.6); }, label: 'Photons escaping through the greenhouse glass', draw: drawGHp, settle: function () { GH.p = []; } });
+    GH.anim = ui.anim(host.querySelector('.gh-cv'), { freeze: false /* v19: the canvas lets clicks through; the wrap takes them, below */, height: function (w) { return Math.round(w * 0.6); }, label: 'Photons escaping through the greenhouse glass', draw: drawGHp, settle: function () { GH.p = []; } });
+    var ghw = host.querySelector('.gh-wrap') || GH.svg.parentNode; // v19: click the greenhouse to freeze or play its photons
+    if (window.WPFreeze && ghw) WPFreeze.attach(ghw, { paused: function () { return GH.anim.paused(); }, set: function (p) { GH.anim.pause(p); } });
   }
   var GH_COL = { white: ['#fff6dc', 1], blue: ['#4f74ff', 1], green: ['#3fd06a', 1], red: ['#ff3b30', 1], farred: ['#a0182c', 0.35] };
   function ghPick() {

@@ -526,6 +526,7 @@
     A2 = ui.anim(el.querySelector('#px-th2'), { height: function (w) { return w < 600 ? 320 : 300; }, label: 'Graph of sap speed against sugar concentration for wet, present and dry xylem. Each curve rises to a peak and then falls; the peak shifts to higher sugar and lower speed as the xylem dries.', draw: draw2 });
     var pb = el.querySelector('#px-pause');
     pb.addEventListener('click', function () { var p = !A1.paused(); A1.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    if (A1.freeze) A1.freeze.bind(pb); // v19: click the view to freeze, in step with Pause
     if (window.PlaySpeed) pb.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), pb.nextSibling);
     el.querySelector('#px-reset').addEventListener('click', function () { PP.reset(); });
     SLD.forEach(function (x) { var i = el.querySelector('#' + x[0]); i.addEventListener('input', function () { var o = {}; o[x[1]] = +i.value; PP.set(o); }); });

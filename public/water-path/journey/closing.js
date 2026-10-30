@@ -230,7 +230,7 @@
      ILLUSTRATIVE), every sixth particle is a Ca²⁺ ion (the same 1 to 6 drawing ratio as the theatre below). At the leaf end
      water leaves as vapour on the outer leaves, and calcium stays: it parks at the tip, so the outer tips fill with
      calcium and the inner tips stay nearly bare. Still frame under reduced motion; draws only while on screen. */
-  var HP = { paths: [], parts: [], dep: [], vap: [], Eo: 0, Ei: 0, raf: 0, t0: 0, vis: false, io: null };
+  var HP = { paths: [], parts: [], dep: [], vap: [], Eo: 0, Ei: 0, raf: 0, t0: 0, vis: false, io: null, paused: null, rm: null }; // v19: paused (click the drawing to freeze)
   /* 13 Oct (slow and named, water heroes builder): WP.svgNames(svg, layer), molecule names in the older SVG figures under
      the ANTI CLUTTER RULE. Identical copy in l1_field.js, l2_plant.js, l3_organ.js and closing.js (first loaded wins).
      Each frame: nm.frame([{k: kind, key: object, x, y, r, t: text, q}]) in viewBox units (r = drawn radius). Per kind:
@@ -321,6 +321,8 @@
     if (lg) { var u = document.createElementNS(NSv, 'g'); u.innerHTML = MS.use('ca', ''); u.firstChild.setAttribute('transform', 'translate(24,410) scale(1.4)'); lg.parentNode.replaceChild(u.firstChild, lg); }
     if (!HP.io && 'IntersectionObserver' in window) HP.io = new IntersectionObserver(function (es) { HP.vis = es[0].isIntersecting; hpRun(); });
     if (HP.io) { HP.io.disconnect(); HP.io.observe(svg); } else HP.vis = true;
+    if (HP.paused == null) HP.rm = HP.paused = ui.reducedMotion(); // v19: reduced motion starts paused; a click plays it
+    if (window.WPFreeze) WPFreeze.attach(svg, { paused: function () { return HP.paused; }, set: function (p) { HP.paused = !!p; if (!p) hpRun(); } });
     hpPaint();
   }
   function hpAt(P, o) {
@@ -368,7 +370,7 @@
   }
   if (window.MolNames) window.MolNames.on(function () { if (HP.nm) { HP.nm.dirty(); hpPaint(); } });
   function hpFrame(t) {
-    if (!HP.vis || ui.reducedMotion() || document.hidden) { HP.raf = 0; return; }
+    if (!HP.vis || HP.paused || document.hidden) { HP.raf = 0; return; }
     var dt = HP.t0 ? Math.min(0.1, (t - HP.t0) / 1000) : 0; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1); HP.t0 = t;
     HP.parts.forEach(function (q) {
       var P = HP.paths[q.p], v = clamp(14 * (P.outer ? HP.Eo : HP.Ei), 0, 90);
@@ -385,7 +387,7 @@
     hpPaint();
     HP.raf = requestAnimationFrame(hpFrame);
   }
-  function hpRun() { if (HP.raf || !HP.vis || ui.reducedMotion() || !HP.parts.length) return; HP.t0 = 0; HP.raf = requestAnimationFrame(hpFrame); }
+  function hpRun() { if (HP.raf || !HP.vis || HP.paused || !HP.parts.length) return; HP.t0 = 0; HP.raf = requestAnimationFrame(hpFrame); }
   document.addEventListener('visibilitychange', function () { if (!document.hidden) hpRun(); });
 
   function mount(root) {
@@ -453,7 +455,7 @@
     mystery(root);
     ui.stops(root, ['6']);
     ahInit(refs.hero);
-    ui.onPrefs(function () { if (WP.state && WP.state.level === 6) update(WP.state, WP.result); if (AH.ctx && AH.ctx.retheme) AH.ctx.retheme(); });
+    ui.onPrefs(function () { var rmv = ui.reducedMotion(); if (HP.paused != null && rmv !== HP.rm) { HP.rm = rmv; HP.paused = rmv; hpRun(); } if (WP.state && WP.state.level === 6) update(WP.state, WP.result); if (AH.ctx && AH.ctx.retheme) AH.ctx.retheme(); });
     markChips();
   }
 
@@ -565,7 +567,7 @@
 
   /* ============================================================ FP14 (14 Oct 2026, field+plant builder): Afternoon macro hero
      Two leaves of one romaine head: a large outer leaf open to the field air and a pale, cupped inner leaf held in the
-     still, humid air inside the head. Water molecules (red O, two white H) and calcium ions (green, Ca2+) climb each
+     still, humid air inside the head. Water molecules (blue O, two light blue H) and calcium ions (green, Ca2+) climb each
      midrib at a speed set by that leaf's transpiration: outer = model E, inner = outer × the ILLUSTRATIVE ratio of this
      plate (0.15 still, 0.35 with air moved into the head). At the end of a vein the water leaves as vapour and the
      calcium stays behind in the leaf (glowing deposits). Drawing scale as in the theatre below: 3 molecules s-1 per

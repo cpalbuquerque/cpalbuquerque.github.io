@@ -567,7 +567,7 @@
     var s = '<svg viewBox="0 0 460 580" role="img" aria-labelledby="m5-ot m5-od"><title id="m5-ot">One aquaporin pore cut open, seen from the side, with its gate</title><desc id="m5-od" data-r="odesc"></desc>' +
       '<defs><pattern id="m5-bil1" width="14" height="150" patternUnits="userSpaceOnUse"><rect width="14" height="150" fill="var(--m5-core)"/><circle cx="7" cy="8" r="5.5" fill="var(--m5-head)" stroke="var(--m5-headS)" stroke-width=".8"/><path d="M5,14 V68 M9,14 V66 M5,82 V136 M9,84 V136" stroke="var(--m5-headS)" stroke-width=".6"/><circle cx="7" cy="142" r="5.5" fill="var(--m5-head)" stroke="var(--m5-headS)" stroke-width=".8"/></pattern>' +
       '<pattern id="m5-h1" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--m5-helix2)"/><path d="M0,2.5 H5" stroke="var(--ink)" stroke-width=".5" opacity=".5"/></pattern>' +
-      '<g id="m5-w"><circle r="6.2" fill="#d9402f" stroke="#5a160e" stroke-width=".7"/><circle cx="5" cy="-4" r="3.3" fill="#f7f4ee" stroke="#6b6152" stroke-width=".5"/><circle cx="-5" cy="-4" r="3.3" fill="#f7f4ee" stroke="#6b6152" stroke-width=".5"/></g>' +
+      '<g id="m5-w"><circle cx="5" cy="-4" r="3.3" style="fill:var(--mol-h2o-h,#8fb8ee);stroke:var(--mol-rim,#3a3a3a)" stroke-width=".5"/><circle cx="-5" cy="-4" r="3.3" style="fill:var(--mol-h2o-h,#8fb8ee);stroke:var(--mol-rim,#3a3a3a)" stroke-width=".5"/><circle r="6.2" style="fill:var(--mol-h2o,#1d4aa5);stroke:var(--mol-rim,#3a3a3a)" stroke-width=".7"/></g>' +
       '<g id="m5-hp"><circle r="5.4" fill="#ffd23a" stroke="#7a5a00" stroke-width=".7"/><path d="M-2.6,0 H2.6 M0,-2.6 V2.6" stroke="#5a4000" stroke-width="1.3"/></g>' +
       '<clipPath id="m5-oc"><rect x="0" y="30" width="460" height="452"/></clipPath></defs>' +
       '<text x="16" y="22" font-size="14" class="sc">Fig. a  one water pore, cut open</text>' +
@@ -700,7 +700,7 @@
   }
 
   /* ============================================================ animation loop for the drawing (only while visible) */
-  var anim = { raf: 0, t: 0, paused: false };
+  var anim = { raf: 0, t: 0, paused: false, rm: null }; // v19: reduced motion starts paused (set at mount); Play or a click on the drawing runs it
   function plateVisible() {
     if (!el || document.hidden) return false;
     if (!el.offsetParent && el.getClientRects().length === 0) return false;
@@ -712,10 +712,10 @@
     if (!plateVisible() || !lastRes) return;
     var dt = anim.t ? Math.min(0.05, (ts - anim.t) / 1000) : 0; anim.t = ts;
     dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1);
-    if (anim.paused || reduced()) dt = 0; else { if (dt > 0 && (!HM.ctx || HM.ctx.fallback)) armIntro(); gsTick(); }
+    if (anim.paused) dt = 0; else { if (dt > 0 && (!HM.ctx || HM.ctx.fallback)) armIntro(); gsTick(); }
     var tg = targets(lastSt, lastRes);
     drawOne(tg, dt); updTop(tg);
-    if (!anim.paused && !reduced()) anim.raf = requestAnimationFrame(frame);
+    if (!anim.paused) anim.raf = requestAnimationFrame(frame);
   }
 
   /* ============================================================ readouts */
@@ -873,6 +873,7 @@
     MT.B = M.Theatre(hB, M.scenes.cuticle(), { height: function (cw) { return cw < 560 ? 370 : 400; }, dark: isDark(), reduce: reduced(),
       label: 'Animated leaf surface: water vapour leaving through a stoma and, slowly, through the cuticle', prewarm: 8 });
     var mpb = w.querySelector('[data-mol="pause"]');
+    if (window.WPFreeze && mpb) [MT.A, MT.B].forEach(function (T) { WPFreeze.attach(T.canvas, { paused: function () { return MT.A.paused; }, button: mpb }); }); // v19: click the view to freeze
     if (mpb && window.PlaySpeed) { var ch = window.PlaySpeed.chip('ps-light'); ch.style.marginLeft = '6px'; ch.style.verticalAlign = 'middle'; mpb.parentNode.insertBefore(ch, mpb.nextSibling); }
     w.addEventListener('click', function (e) {
       var b = e.target.closest('[data-mm]');
@@ -1023,7 +1024,7 @@
       '<div class="m5-molstage" data-r="molA"></div>' +
       '<p class="m5-molnow" aria-live="polite" data-r="molAtxt"></p>' +
       '<details class="m5-molkey"><summary>Key to the drawing</summary><ul>' +
-      '<li><b>Water</b>: red oxygen, two white hydrogens. In the pore they line up in single file, because the pore narrows to about 3 Å.</li>' +
+      '<li><b>Water</b>: one oxygen and two hydrogens, coloured blue as water is on every page (colours show the molecule, not the atom). In the pore they line up in single file, because the pore narrows to about 3 Å.</li>' +
       '<li><b>Loop D</b> (rust): swings across the cytosolic mouth to cap a pore. Its histidine tip turns gold when protonated at low cytosolic pH.</li>' +
       '<li><b>P</b> (orange bead): a phosphorylated serine. Fewer beads, more capped pores.</li>' +
       '<li class="tier-2"><b>Ca²⁺</b> (green): bridges the N terminus to loop D when raised (direction from purified membranes).</li>' +
@@ -1143,6 +1144,8 @@
     refs.svgTop.innerHTML = topSVG(); refs.svgTop = refs.svgTop.firstChild;
     refs.in = { phos: w.querySelector('#m5-phos'), ph: w.querySelector('#m5-ph') };
     var pb = w.querySelector('[data-act="pause"]');
+    anim.rm = reduced(); if (anim.rm) anim.paused = true;
+    if (pb && window.WPFreeze) [refs.svgOne, refs.svgTop].forEach(function (sv) { if (sv) WPFreeze.attach(sv, { paused: function () { return anim.paused; }, button: pb }); }); // v19: click the drawing to freeze
     if (pb && window.PlaySpeed) { var ch = window.PlaySpeed.chip('ps-light'); ch.style.marginLeft = '6px'; ch.style.verticalAlign = 'middle'; pb.parentNode.insertBefore(ch, pb.nextSibling); }
     if (ui.predict) {
       var acid = w.querySelector('[data-pre="acid"]'), kob = w.querySelector('[data-act="ko"]');
@@ -1187,6 +1190,7 @@
       var n = sib[(i + sib.length) % sib.length]; n.focus(); n.click(); e.preventDefault();
     });
     if (ui.onPrefs) ui.onPrefs(function () {
+      var rmv = reduced(); if (rmv !== anim.rm) { anim.rm = rmv; anim.paused = rmv; kick(); }
       if (lastRes) gsSet(activity(lastRes));
       refresh();
       if (HM.ctx && HM.ctx.retheme) HM.ctx.retheme();

@@ -76,7 +76,7 @@
       measured: 'Evaporative flux method on Cabernet Sauvignon leaves, with gas exchange and microCT of the same cultivars.', fig: 'Fig. 6 fit and Table 2, redrawn from the equation.', badge: 'MEASURED' },
     'lh.optical': { claim: 'Within a leaf, vulnerability to embolism rose with vein size: the first embolism always appeared in the largest vein (the midrib) and the minor veins failed last.',
       cite: 'Brodribb, Bienaimé & Marmottant 2016, PNAS 113: 4865', doi: '10.1073/pnas.1522569113',
-      measured: 'Optical vulnerability method (light transmitted through the veins of drying leaves) in architecturally diverse species, a fern among them.', fig: 'Abstract', badge: 'MEASURED' },
+      measured: 'Optical vulnerability method (light transmitted through the veins of drying leaves) in species with very different leaf architecture, a fern among them.', fig: 'Abstract', badge: 'MEASURED' },
     'lh.optical2': { claim: 'Embolism in the leaf veins tracked the decline of Kleaf and came after stomatal closure, under severe water stress.',
       cite: 'Brodribb et al. 2016, New Phytologist 209: 1403', doi: '10.1111/nph.13846',
       measured: 'Optical method in four angiosperm species.', fig: 'Abstract', badge: 'MEASURED' },

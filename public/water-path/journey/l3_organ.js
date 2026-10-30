@@ -788,7 +788,7 @@
      A real outline per crop with every vein order drawn, and water moving through petiole, midrib or primaries,
      secondaries and the minor vein mesh, then in dashes through the bundle sheath and spongy mesophyll to the
      stomata on the lower surface. Dot speed ∝ local flux ÷ drawn width; dots park in an embolised petiole. */
-  var LP = { crop: '', paths: [], dots: [], raf: 0, on: false, t0: 0, sig: '' };
+  var LP = { crop: '', paths: [], dots: [], raf: 0, on: false, t0: 0, sig: '', paused: null, rm: null }; // v19: paused (click the leaf to freeze)
   var LMS = WP.molsvg || null;
   function sampleLine(pts) {
     var S = [], L = 0, i;
@@ -1032,8 +1032,14 @@
     };
     return nm;
   };
-  function lpFrame(t) { if (!LP.on) return; var dt = LP.t0 ? Math.min(0.1, (t - LP.t0) / 1000) : 0; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1); LP.t0 = t; lpPlace(dt); LP.raf = requestAnimationFrame(lpFrame); }
-  function lpStart() { LP.on = true; cancelAnimationFrame(LP.raf); LP.t0 = 0; if (ui.reducedMotion()) { lpPlace(0); return; } LP.raf = requestAnimationFrame(lpFrame); }
+  function lpFrame(t) { if (!LP.on || LP.paused) return; var dt = LP.t0 ? Math.min(0.1, (t - LP.t0) / 1000) : 0; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1); LP.t0 = t; lpPlace(dt); LP.raf = requestAnimationFrame(lpFrame); }
+  function lpFreeze() {
+    if (LP.paused != null) return;
+    LP.rm = LP.paused = ui.reducedMotion(); // v19: reduced motion starts paused; a click on the leaf plays it
+    var sv = root && root.querySelector('#o3-leafsvg');
+    if (sv && window.WPFreeze) WPFreeze.attach(sv, { paused: function () { return LP.paused; }, set: function (p) { LP.paused = !!p; if (!p && LP.on) lpStart(); } });
+  }
+  function lpStart() { lpFreeze(); LP.on = true; cancelAnimationFrame(LP.raf); LP.t0 = 0; if (LP.paused) { lpPlace(0); return; } LP.raf = requestAnimationFrame(lpFrame); }
   function lpStop() { LP.on = false; cancelAnimationFrame(LP.raf); LP.raf = 0; }
   function leafUpdate(st, res) {
     var el = root.querySelector('#o3-leaf'); if (!el) return;
@@ -1048,7 +1054,7 @@
       root.querySelector('#o3-leafname').textContent = nm + '.';
     }
     lpState(res);
-    if (LP.on && !ui.reducedMotion() && !LP.raf) lpStart();
+    if (LP.on && !LP.paused && !LP.raf) lpStart();
   }
 
   /* ------------------------------------------------------------ captions */
@@ -1080,7 +1086,7 @@
       '<p class="o3-q">Where does the water go once it reaches the leaf?</p>' +
       '<figure><svg class="o3-svg" id="o3-leafsvg" viewBox="0 0 760 470" role="img" aria-labelledby="o3-leaf-t"><title id="o3-leaf-t">The leaf</title>' +
         '<defs><pattern id="o3-lh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><rect width="5" height="5" style="fill:var(--leaf)"/><path d="M0,2.5 H5" stroke="var(--ink)" stroke-opacity=".18" stroke-width=".7"/></pattern></defs><g id="o3-leaf"></g></svg>' +
-        '<figcaption class="o3-cap"><b id="o3-leafname"></b> Water enters through the petiole, spreads through the major veins into the minor vein mesh, then leaves the veins and crosses the bundle sheath and the spongy mesophyll (orange dashes) to the stomata on the lower surface. The water molecules (red oxygen, two white hydrogens; an amber halo once they leave the veins) slow as the stomata close. A charcoal lane in the petiole is a vessel filled with air, and holds only still gas bubbles. Drawn for this exhibit; vein density is not to scale.</figcaption></figure>' +
+        '<figcaption class="o3-cap"><b id="o3-leafname"></b> Water enters through the petiole, spreads through the major veins into the minor vein mesh, then leaves the veins and crosses the bundle sheath and the spongy mesophyll (orange dashes) to the stomata on the lower surface. The water molecules (blue, as water is on every page; an amber halo once they leave the veins) slow as the stomata close. A charcoal lane in the petiole is a vessel filled with air, and holds only still gas bubbles. Drawn for this exhibit; vein density is not to scale.</figcaption></figure>' +
       '<h3 class="o3-sec"><span class="no">3a</span>The root’s gate</h3>' +
       '<p class="o3-q">Where does every drop of water have to pass through a living membrane?</p>' +
       '<div class="o3-grid">' +
@@ -1210,7 +1216,7 @@
     mountCT(el.querySelector('#o3-ct'));
     mountVC(el); // 13 Oct: leaf vulnerability chooser and the optical method
     mountDay(el); // 14 Oct: One leaf's day (3e)
-    ui.onPrefs(function () { if (WP.state) { LP.sig = ''; update(WP.state, WP.result); if (LP.on) lpStart(); } dayDraw(); });
+    ui.onPrefs(function () { var rmv = ui.reducedMotion(); if (LP.paused != null && rmv !== LP.rm) { LP.rm = rmv; LP.paused = rmv; } if (WP.state) { LP.sig = ''; update(WP.state, WP.result); if (LP.on) lpStart(); } dayDraw(); });
     var lastW = vbW(), tmr = 0;
     window.addEventListener('resize', function () { clearTimeout(tmr); tmr = setTimeout(function () { var w2 = vbW(); if (w2 !== lastW && root.offsetParent) { lastW = w2; update(WP.state, WP.result); } else lastW = w2; }, 150); });
   }
@@ -1263,6 +1269,7 @@
     RM.T = M.Theatre(host.querySelector('[data-r="rootmol"]'), M.scenes.root(), { height: function (cw) { return cw < 560 ? 310 : 360; }, dark: ui.isDark(), reduce: ui.reducedMotion(), prewarm: 16, // 13 Oct: about 24 % taller
       label: 'Animated root radial path: water molecules move from soil along cortex walls and through cells, cross membranes at the endodermis where the Casparian strip seals the walls, and enter a xylem vessel' });
     var rpb = host.querySelector('[data-rm="pause"]'); if (rpb && window.PlaySpeed) rpb.insertAdjacentElement('afterend', window.PlaySpeed.chip('ps-light'));
+    if (window.WPFreeze) WPFreeze.attach(RM.T.canvas, { paused: function () { return RM.T.paused; }, button: rpb }); // v19: click the view to freeze
     host.addEventListener('click', function (e) {
       var b = e.target.closest('[data-rm]'); if (!b) return;
       var k = b.dataset.rm;
@@ -1619,7 +1626,7 @@
     if (!heroAnimated()) heroDraw(0);
     heroKick();
   }
-  function heroAnimated() { return !ui.reducedMotion() && !HERO.paused; }
+  function heroAnimated() { return !HERO.paused; } // v19: reduced motion sets HERO.paused at the start; Play or a click on the view runs it
   function heroKick() {
     if (!HERO.built || !HERO.visible || !HERO.shown || document.hidden) return;
     if (!HERO.gl && !HERO.glPending) glStart(); // lazy build, and rebuild after a plate hide or a lost context
@@ -1675,6 +1682,9 @@
     if (HERO.built || !HERO.host) return;
     HERO.built = true;
     var box = HERO.host.querySelector('.o3h'), stage = HERO.host.querySelector('.o3h-stage'); HERO.stage = stage;
+    HERO.rm = HERO.paused = ui.reducedMotion() || HERO.paused; // v19: click the view to freeze; reduced motion starts paused
+    if (window.WPFreeze) WPFreeze.attach(box, { paused: function () { return !!HERO.paused; }, button: HERO.host.querySelector('[data-h="pause"]'), keyEl: stage, chip: 'tc',
+      ignore: function (e) { return !!(e.target.closest && e.target.closest('.o3h-q,.o3h-cr')); } });
     var c2 = document.createElement('canvas'); c2.style.cssText = 'position:absolute;inset:0;width:100%;height:100%'; stage.appendChild(c2); HERO.c2 = c2;
     HERO.bg = box.querySelector('.o3h-bg'); HERO.fg = box.querySelector('.o3h-fg');
     HERO.tags = {}; Array.prototype.forEach.call(box.querySelectorAll('.o3h-tag'), function (t) { HERO.tags[t.getAttribute('data-t')] = t; });
@@ -1686,12 +1696,12 @@
     HERO.vap = []; for (var j = 0; j < 22; j++) HERO.vap.push({ x: -9 + 18 * R(), r: Math.sqrt(R()) * 0.8, a: R() * Math.PI * 2, s: 0.05 + 0.1 * R() });
     HERO.bok = []; for (var k = 0; k < 9; k++) HERO.bok.push({ x: R(), y: R(), r: 0.05 + 0.09 * R(), h: R() });
     heroSize(); heroBg();
-    ui.onPrefs(function () { heroBg(); if (HERO.gl) glTheme(); heroPauseBtn(); heroKick(); if (!heroAnimated()) heroDraw(0); });
+    ui.onPrefs(function () { var rmv = ui.reducedMotion(); if (rmv !== HERO.rm) { HERO.rm = rmv; HERO.paused = rmv; } heroBg(); if (HERO.gl) glTheme(); heroPauseBtn(); heroKick(); if (!heroAnimated()) heroDraw(0); });
     heroPauseBtn();
     heroDraw(0); // the 2D drawing shows at once; the 3D scene is built in idle time and replaces it when ready
     glStart();
   }
-  function heroPauseBtn() { var b = HERO.host && HERO.host.querySelector('[data-h="pause"]'); if (b) b.hidden = ui.reducedMotion(); }
+  function heroPauseBtn() { var b = HERO.host && HERO.host.querySelector('[data-h="pause"]'); if (b) { b.hidden = false; b.textContent = HERO.paused ? 'Play' : 'Pause'; b.setAttribute('aria-pressed', HERO.paused ? 'true' : 'false'); } }
   function idle3(f) { if (window.requestIdleCallback) requestIdleCallback(f, { timeout: 500 }); else setTimeout(f, 40); }
   function glStart() {
     if (HERO.gl || HERO.glPending || HERO.glFails > 2 || !HERO.stage || !threeOK3()) return;
@@ -1973,6 +1983,9 @@
     var hIM = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.05, 0), hM, N * 2);
     oIM.instanceMatrix.setUsage(THREE.DynamicDrawUsage); hIM.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     root.add(oIM); root.add(hIM); o.oIM = oIM; o.hIM = hIM;
+    /* v19: atoms in water's identity colours (molcolor.js): blue O, lighter blue H, following the theme */
+    o.oM = oM; o.hM = hM; o.idCol = function () { if (!window.WPMolColor || !WPMolColor.atomInt) return; o.oM.color.setHex(WPMolColor.atomInt('h2o', 'O')); o.hM.color.setHex(WPMolColor.atomInt('h2o', 'H')); o.hM.emissive.setHex(WPMolColor.atomInt('h2o', 'H')); o.hM.emissiveIntensity = 0.12; };
+    o.idCol();
     var vIM = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.03, 0), vapM, HERO.vap.length); vIM.instanceMatrix.setUsage(THREE.DynamicDrawUsage); root.add(vIM); o.vIM = vIM;
     o.tmp = { m: new THREE.Matrix4(), q: new THREE.Quaternion(), e: new THREE.Euler(), s: new THREE.Vector3(), p: new THREE.Vector3(), v: new THREE.Vector3(), h1: new THREE.Vector3(0.075, 0.058, 0), h2: new THREE.Vector3(-0.075, 0.058, 0) };
     var tri = 0; root.traverse(function (ob) { if (ob.isMesh && ob.geometry) { var g = ob.geometry, n2 = g.index ? g.index.count / 3 : g.attributes.position.count / 3; tri += n2 * (ob.isInstancedMesh ? ob.count : 1); } });
@@ -2036,6 +2049,7 @@
       T.v.copy(T.h2).applyQuaternion(T.q).add(T.p); T.m.compose(T.v, T.q, T.s); o.hIM.setMatrixAt(2 * i + 1, T.m);
     }
     o.oIM.instanceMatrix.needsUpdate = true; o.hIM.instanceMatrix.needsUpdate = true;
+    if (o.idCol) o.idCol();
     for (var j = 0; j < HERO.vap.length; j++) { var w = HERO.vap[j]; T.q.identity(); T.s.setScalar(1); T.p.set(w.x, o.YB + w.r * 0.85 * Math.sin(w.a + t * 0.1), o.ZB + w.r * 0.85 * Math.cos(w.a + t * 0.1)); T.m.compose(T.p, T.q, T.s); o.vIM.setMatrixAt(j, T.m); }
     o.vIM.instanceMatrix.needsUpdate = true;
     o.renderer.render(o.scene, cam);

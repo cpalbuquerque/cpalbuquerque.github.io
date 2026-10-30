@@ -437,6 +437,7 @@
     A2 = ui.anim(el.querySelector('#pk-th2'), { height: function (w) { return w < 600 ? 560 : 330; }, label: 'Two drawings side by side. Left, a root tip: sugar moves down a sieve element, through funnel plasmodesmata into pericycle cells and on into growing cells, while violet protein beads cross in pulses and stay in the pericycle. Right, apple fruit: sugar leaves the sieve element into the cell wall space and is taken into fruit flesh cells by transporters together with protons.', draw: draw2 });
     var pb = el.querySelector('#pk-pause');
     pb.addEventListener('click', function () { var p = !A1.paused(); A1.pause(p); A2.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    [A1, A2].forEach(function (A) { if (A && A.freeze) A.freeze.bind(pb); }); // v19: click either view to freeze both, in step with Pause
     if (window.PlaySpeed) pb.parentNode.insertBefore(window.PlaySpeed.chip('ps-light'), pb.nextSibling);
     el.querySelector('#pk-reset').addEventListener('click', function () { SK.leaf = SK.fruit = SK.root = 0.59; PP.reset(); });
     SLD.forEach(function (x) { var i = el.querySelector('#' + x[0]); i.addEventListener('input', function () { var o = {}; o[x[1]] = +i.value; setSink(o); }); });

@@ -28,7 +28,7 @@
   /* ================================================================== evidence */
   var EV = LP.evidence;
   EV['tr.scale'] = { claim: 'In the stoma theatre a dark CO2 bead stands for 1/0.6 = 1.7 µmol of CO2 per m2 of leaf per second, and a water bead stands for 100 times as many molecules (167 µmol of water). So the ratio of water beads to CO2 beads on screen is the model ratio E/A divided by 100. The floating molecules are drawn in proportion to concentration: CO2 to Ci and Ca, vapour to the vapour pressure inside (saturated at leaf temperature) and outside.', cite: 'Drawing convention of this page; rates from the engine.', measured: 'none', value: '1 CO2 bead = 1.7 µmol m−2 s−1; 1 water bead = 100 × that', badge: 'DERIVED', note: 'Without the factor of 100 the screen would need a few hundred water beads for every CO2 bead.' };
-  EV['tr.diff'] = { claim: 'Water vapour diffuses about 1.6 times faster than CO2 through the stomatal pore, so the conductance to CO2 is gs ÷ 1.6. With CO2 in at A = (gs / 1.6)(Ca − Ci) and water out at E = gs × VPD / P, the water cost of carbon depends only on Ci/Ca, Ca and VPD: A / E = Ca (1 − Ci/Ca) P / (1.6 VPD).', cite: 'Ratio of binary diffusivities of H2O and CO2 in air; algebra of the two flux equations.', measured: 'physics', value: '1.6', badge: 'DERIVED', note: 'Leaf temperature is set equal to air temperature and the boundary layer is ignored, as on the Field plate of The Water Path.' };
+  EV['tr.diff'] = { claim: 'Water vapour diffuses about 1.6 times faster than CO2 through the stomatal pore, so the conductance to CO2 is gs ÷ 1.6. With CO2 in at A = (gs / 1.6)(Ca − Ci) and water out at E = gs × VPD / P, the water cost of carbon depends only on Ci/Ca, Ca and VPD: A / E = Ca (1 − Ci/Ca) P / (1.6 VPD).', cite: 'Ratio of the molecular diffusivities of H2O and CO2 in air, reviewed by Massman WJ (1998) Atmos Environ 32:1111 to 1127; the flux equations for A, E, gs and Ci are those of von Caemmerer S, Farquhar GD (1981) Planta 153:376 to 387.', doi: '10.1016/S1352-2310(97)00391-9', doi2: '10.1007/BF00384257', measured: 'physics', value: '1.6', badge: 'DERIVED', note: 'Leaf temperature is set equal to air temperature and the boundary layer is ignored, as on the Field plate of The Water Path. The same 1.6 appears in the CO2 path workstation below (5.4).' };
   EV['tr.vpd'] = { claim: 'Afternoon presets: Salinas morning fog 15 °C and 0.15 kPa; a Salinas July afternoon 21 °C and 1.0 kPa; an inland Southern California valley afternoon (Riverside area) 34 °C and 3.6 kPa; a Santa Ana wind day 33 °C and 4.5 kPa; a Fresno July afternoon 37 °C and 4.5 kPa.', cite: 'Teaching values chosen to be physically consistent (each VPD is below the saturation vapour pressure at that temperature).', measured: 'none', value: '', badge: 'ILLUSTRATIVE', note: 'For real numbers use CIMIS station records or NOAA normals for the site and hour; the Field plate of The Water Path uses NOAA July normals for Salinas.' };
   EV['tr.speedy'] = { claim: 'Stomata respond to changes in light and VPD over minutes, much more slowly than photosynthesis. In fluctuating light that lag costs carbon when they open late and water when they close late, so the speed of stomata is a target for improving water use efficiency.', cite: 'Lawson T, Vialet-Chabrand S (2018) New Phytol 221:93 to 98.', doi: '10.1111/nph.15330', measured: 'review', value: 'qualitative', badge: 'VERIFIED', note: 'This plate shows steady states only; the lag is a reason real leaves sit off the curves.' };
   EV['tr.day'] = { claim: 'Water lost per m2 of leaf over a 10 hour day at the current rate = E × 18 g mol−1 × 36,000 s.', cite: 'Arithmetic (molar mass of water 18.02 g mol−1).', measured: 'calculation', value: '', badge: 'DERIVED', note: 'A real day has changing light, VPD and stomata; this is the current rate held for 10 hours.' };
@@ -390,7 +390,8 @@
 
       '<section class="tier-3 lx-expert" aria-label="Expert"><h3 class="lx-h3">Equations and assumptions</h3>' +
       '<div class="card eq">A = g<sub>c</sub> (C<sub>a</sub> − C<sub>i</sub>),  g<sub>c</sub> = g<sub>s</sub> / 1.6    (supply)<br>' +
-      'A = min(A<sub>c</sub>, A<sub>j</sub>) − R<sub>d</sub> at C<sub>i</sub>    (demand, Plate IV); fixed g<sub>s</sub>: C<sub>i</sub> solved where supply = demand<br>' +
+      'A = g<sub>m</sub> (C<sub>i</sub> − C<sub>c</sub>)    (mesophyll, 5.4)<br>' +
+      'A = min(A<sub>c</sub>, A<sub>j</sub>) − R<sub>d</sub> at C<sub>c</sub>    (demand, Plate IV); fixed g<sub>s</sub>: C<sub>i</sub> and C<sub>c</sub> solved where all three agree<br>' +
       'E = g<sub>s</sub> × VPD / P<sub>atm</sub>    (leaf temperature = air temperature; no boundary layer)<br>' +
       'WUE = A / E = C<sub>a</sub> (1 − C<sub>i</sub>/C<sub>a</sub>) P<sub>atm</sub> / (1.6 VPD)    intrinsic WUE = A / g<sub>s</sub> = C<sub>a</sub> (1 − C<sub>i</sub>/C<sub>a</sub>) / 1.6<br>' +
       'water molecules per CO₂ = 1000 E / A</div>' +
@@ -420,6 +421,7 @@
         '<p>A/gs = Ca (1 − Ci/Ca) / 1.6 removes VPD, which changes from day to day and hour to hour, so differences in A/gs reflect how the leaf balances stomata against photosynthetic capacity. It still depends on Ca and on mesophyll conductance, and it ignores leaf temperature effects on VPD, so report the conditions.</p>') + '</div>' +
       '</section>' + (ui.quiz ? ui.quiz('tradeoff') : '');
 
+if (window.WPMolColor) { var mk1 = el.querySelector('#tr-th'); if (mk1) mk1.insertAdjacentHTML('afterend', WPMolColor.key(['h2o', 'co2'])); } // v19: the site wide molecule key
     A1 = ui.anim(el.querySelector('#tr-th'), {
       height: function (w) { return w < 560 ? 500 : 550; },
       label: 'Leaf cross section: CO2 molecules diffuse in through a stoma on the lower surface to the chloroplasts, water vapour diffuses out through the same pore; guard cells open with stomatal conductance',
@@ -430,6 +432,7 @@
     var pb = el.querySelector('#tr-pause');
     if (window.PlaySpeed) pb.parentNode.appendChild(window.PlaySpeed.chip('ps-light'));
     pb.addEventListener('click', function () { var p = !A1.paused(); A1.pause(p); pb.setAttribute('aria-pressed', p ? 'true' : 'false'); pb.textContent = p ? 'Play' : 'Pause'; });
+    if (A1.freeze) A1.freeze.bind(pb); // v19: click the view to freeze, in step with Pause
     var gs = el.querySelector('#tr-gs'); gs.addEventListener('input', function () { LP.set({ stomata: 'fixed', gs: +gs.value }); });
     var vp = el.querySelector('#tr-vpd'); vp.addEventListener('input', function () { LP.set({ vpd: +vp.value }); });
     var ca = el.querySelector('#tr-Ca'); ca.addEventListener('input', function () { LP.set({ Ca: +ca.value }); });
@@ -526,7 +529,7 @@
         ['It stays the same, because the stomata did not change', 'The pore is the same, but the gradient across it is steeper.']], a: 0 },
     { id: 'tr-k-ratio', t: 1, plate: 'tradeoff', b: 'DERIVED', src: [],
       q: 'On a typical bright afternoon, roughly how many water molecules does a C3 leaf lose for each CO₂ it fixes?',
-      o: [['A few hundred', 'Right. With E about 2.6 mmol and A about 14 µmol per m² per second, the ratio is near 190, and it climbs in dry air.'],
+      o: [['A few hundred', 'Right. With E about 2.2 mmol and A about 12 µmol per m² per second, the ratio is near 190, and it climbs in dry air.'],
         ['About one', 'Water diffuses out much faster and down a much steeper gradient than CO₂ comes in.'],
         ['About ten thousand', 'That would be an extremely dry day with nearly shut stomata; typical values are in the hundreds.']], a: 0 },
     { id: 'tr-k-close', t: 1, plate: 'tradeoff', b: 'DERIVED', src: [],

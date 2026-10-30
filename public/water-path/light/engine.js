@@ -13,6 +13,8 @@
      dcmu       true blocks QA to QB          uncoupler  true collapses the proton motive force
      stomata    'ratio' (Ci = ciRatio × Ca, default 0.7) | 'fixed' (gs given, Ci solved from supply = demand)
      gs         stomatal conductance to water, mol m−2 s−1 (used when stomata = 'fixed')
+     gm         mesophyll conductance to CO2, mol m−2 s−1 (v19, default 0.26, the median crop value compiled by
+                Knauer et al. 2022); gmInf true restores the older Cc = Ci model (Expert switch on Plate V)
      vpd        leaf to air vapour pressure deficit, kPa (for transpiration and water use efficiency)
      Vcmax25, Jmax25  optional overrides, µmol m−2 s−1 at 25 °C (Expert sliders)
 
@@ -21,13 +23,20 @@
      balance {psii, psi, ratio, emerson}, phiPSII, etr (Genty estimate), J (light limited capacity), Jused (actual linear flow),
      Jmax, Vcmax, Rd, Kc, Ko, Gstar, Ac, Aj, A, Agross, limit 'Rubisco'|'RuBP regeneration'|'dark'|'blocked',
      vc, vo, phi (vo/vc), photorespiration (CO2 released, µmol m−2 s−1), Ci, gs, E (mmol m−2 s−1), wue (µmol mol−1),
+     Cc (CO2 at Rubisco), gm (null when infinite), gmInf, gsc (gs/1.6), gtot, dropStoma (Ca − Ci), dropMeso (Ci − Cc),
+     lim3 {s, m, b} (stomatal, mesophyll, biochemical shares of the limitation, Grassi and Magnani 2005 form), dAdCc,
+     lmRel (1 − A / A with Cc = Ci at the same Ci, the relative mesophyll limitation used by Knauer et al. 2022),
      cyclic (cyclic electron flow), hPlus (H+ into lumen), atpRate, nadphRate, atpDemand, nadphDemand, atpPerNadph,
      pmf (mV), dpH, lumenPH, stromaPH, rotorTurns (µmol turns m−2 s−1), rotorHz (per synthase), calvinTurns,
      o2Rate, waterSplit, fluor (relative), npq (share of PSII excitation dissipated as heat), alpha (quantum yield), warnings[]
 
    MODEL (Expert tier shows all of this; badges in LP.PARAMS)
      FvCB: A = min(Ac, Aj) − Rd. Ac = Vcmax (C − Γ*) / (C + Kc (1 + O/Ko)); Aj = J (C − Γ*) / (4 C + 8 Γ*) (NADPH basis,
-       Farquhar et al. 1980). C = Ci = Cc: no mesophyll conductance in this model (stated on the page).
+       Farquhar et al. 1980). v19: C = Cc, the CO2 at Rubisco. Three equations hold at once: A = (gs/1.6)(Ca − Ci)
+       (stomata), A = gm (Ci − Cc) (mesophyll, Flexas et al. 2008 definition) and A = FvCB(Cc). For any Ci, Cc is
+       found by bisection (gm (Ci − Cc) − A(Cc) falls as Cc rises); with fixed gs, Ci is then found by bisection on
+       supply = demand. gm does not change with temperature, CO2 or light here (see the CONTESTED notes on Plate V).
+       state.gmInf = true gives the pre v19 model, Cc = Ci.
      Temperature: Kc, Ko, Γ*, Vcmax, Rd from Bernacchi et al. 2001, k = exp(c − ΔHa / (R Tk)) (constants UNVERIFIED,
        self consistent). Vcmax and Jmax get a high temperature decline (peaked Arrhenius) that is ILLUSTRATIVE.
      J: non rectangular hyperbola θ J² − (I2 + Jmax) J + I2 Jmax = 0, θ = 0.8 (ILLUSTRATIVE).
@@ -82,6 +91,7 @@
     VcmaxHd: 200000, VcmaxS: 635,
     JmaxHa: 50000, JmaxHd: 200000, JmaxS: 650,
     ciRatio: 0.7,                    /* Ci/Ca for a well watered C3 leaf, ILLUSTRATIVE */
+    gm: 0.26,                        /* mesophyll conductance, mol m−2 s−1: median of crops, Knauer et al. 2022 (MEASURED, compiled) */
     synthasePerArea: 0.5,            /* µmol ATP synthase m−2 leaf, ILLUSTRATIVE (about 1 per 800 chlorophylls) */
     pmfMax: 200, pmfK: 150,          /* mV; µmol H+ m−2 s−1 at half of pmfMax, ILLUSTRATIVE */
     dpHshare: 0.6,                   /* share of pmf held as ΔpH, ILLUSTRATIVE */
@@ -216,20 +226,25 @@
        Depends only on Ci (through φ = 2 Γ* ÷ Ci), so it is known before J. Both flows use PSI photons. */
     var Cguess = Ca * (st.stomata === 'fixed' ? 0.6 : clamp(fin(+st.ciRatio, P.ciRatio), 0.05, 1));
     if (+st.ciFixed > 0) Cguess = +st.ciFixed;
-    var cPer = cyclicPerLinear(Cguess > 0 ? 2 * Gs / Cguess : 0, hATP);
-    var split = psiiSplit(effPAR, absFR, Math.max(1, fCyc) * cPer);
-    var E2 = split * effPAR, E1 = (1 - split) * effPAR + absFR;
-    /* forcing extra cyclic flow steals PSI photons from linear flow; forcing less does not free them, because the extra
-       NADPH would have nowhere to go (the acceptor side of PSI is already full) */
-    var I2 = Math.min(P.phi2max * E2, P.phi1 * E1 / (1 + Math.max(1, fCyc) * cPer));   /* linear electrons per m2 s if nothing else limits */
-    var J = dcmu ? 0 : nrh(I2, Jmax, P.theta);
-    var Jtransient = J;
-    if (unc && !dcmu) {
-      /* first seconds: photosynthetic control released, electrons race (ILLUSTRATIVE 1.6 × Jmax);
-         steady state: no ATP, no Calvin Benson cycle, NADP+ used up, so only O2 and minor sinks take electrons */
-      Jtransient = nrh(Math.min(P.phi2max * E2, P.phi1 * E1), 1.6 * Jmax, P.theta);
-      J = P.uncSink * J;
+    var cPer, split, E2, E1, I2, J, Jtransient;
+    /* v19: the light side is set from a guess of the CO2 at Rubisco; with a finite gm it is set again from the solved Cc */
+    function lightSide(Cg) {
+      cPer = cyclicPerLinear(Cg > 0 ? 2 * Gs / Cg : 0, hATP);
+      split = psiiSplit(effPAR, absFR, Math.max(1, fCyc) * cPer);
+      E2 = split * effPAR; E1 = (1 - split) * effPAR + absFR;
+      /* forcing extra cyclic flow steals PSI photons from linear flow; forcing less does not free them, because the extra
+         NADPH would have nowhere to go (the acceptor side of PSI is already full) */
+      I2 = Math.min(P.phi2max * E2, P.phi1 * E1 / (1 + Math.max(1, fCyc) * cPer));   /* linear electrons per m2 s if nothing else limits */
+      J = dcmu ? 0 : nrh(I2, Jmax, P.theta);
+      Jtransient = J;
+      if (unc && !dcmu) {
+        /* first seconds: photosynthetic control released, electrons race (ILLUSTRATIVE 1.6 × Jmax);
+           steady state: no ATP, no Calvin Benson cycle, NADP+ used up, so only O2 and minor sinks take electrons */
+        Jtransient = nrh(Math.min(P.phi2max * E2, P.phi1 * E1), 1.6 * Jmax, P.theta);
+        J = P.uncSink * J;
+      }
     }
+    lightSide(Cguess);
 
     function rates(C) {
       C = Math.max(0, C);
@@ -243,36 +258,53 @@
       return { Wc: Wc, Wj: Wj, Wa: Wa, W: W, Ac: (C > 0 ? Wc * (1 - Gs / C) : 0) - Rd, Aj: (C > 0 ? Wj * (1 - Gs / C) : 0) - Rd, A: (C > 0 ? Ag : 0) - Rd };
     }
 
+    /* v19 mesophyll: CO2 at Rubisco for a given Ci. gm (Ci − Cc) − A(Cc) falls as Cc rises: bisect. In the dark A < 0,
+       so respired CO2 diffuses out and Cc sits above Ci. */
+    var gmInf = !!st.gmInf || st.gm === 'inf';
+    var gm = gmInf ? Infinity : clamp(fin(+st.gm, P.gm), 0.005, 10);
+    function ccAt(ci) {
+      if (!isFinite(gm)) return ci;
+      var a = 0, b = Math.max(0, ci) + Rd / gm + 5;
+      for (var k = 0; k < 48; k++) { var m = 0.5 * (a + b); if (gm * (ci - m) - rates(m).A > 0) a = m; else b = m; }
+      return 0.5 * (a + b);
+    }
+    function atCi(ci) { var cc = ccAt(ci), q = rates(cc); q.Cc = cc; return q; }
+
     /* stomata */
     var mode = (+st.ciFixed > 0) ? 'ciFixed' : (st.stomata === 'fixed' ? 'fixed' : 'ratio');
     /* supply = demand at a given conductance: supply gc (Ca − Ci) minus demand A(Ci) falls as Ci rises, so bisect */
-    function ciAtGs(g, hiMul) { var gcx = g / 1.6, a = 0, b = Math.max(Ca, 1) * hiMul; for (var k = 0; k < 60; k++) { var m = 0.5 * (a + b); if (gcx * (Ca - m) - rates(m).A > 0) a = m; else b = m; } return 0.5 * (a + b); }
+    function ciAtGs(g, hiMul) { var gcx = g / 1.6, a = 0, b = Math.max(Ca, 1) * hiMul; for (var k = 0; k < 60; k++) { var m = 0.5 * (a + b); if (gcx * (Ca - m) - atCi(m).A > 0) a = m; else b = m; } return 0.5 * (a + b); }
     var GS_FLOOR = 0.02;                                             /* night floor, mol m−2 s−1, ILLUSTRATIVE */
     var vpd = clamp(fin(+st.vpd, 1.5), 0, 8);
     var Ci, gs, r;
-    if (mode === 'ciFixed') {
-      /* A versus Ci: Ci imposed directly (as a gas exchange system does by changing the reference CO2) */
-      Ci = +st.ciFixed; r = rates(Ci);
-      gs = (r.A > 0 && Ca > Ci) ? Math.max(GS_FLOOR, 1.6 * r.A / (Ca - Ci)) : GS_FLOOR;
-    } else if (mode === 'ratio') {
-      Ci = Ca * clamp(fin(+st.ciRatio, P.ciRatio), 0.05, 1);
-      r = rates(Ci);
-      gs = r.A > 0 && Ca > Ci ? 1.6 * r.A / (Ca - Ci) : 0;          /* mol H2O m−2 s−1 */
-      if (!(gs >= GS_FLOOR)) {
-        /* weak light, dark or blocked: stomata cannot close below their floor, so CO2 inside rises toward (and in the
-           dark above) Ca; Ci comes from supply = demand at the floor. Continuous with the ratio rule where they meet. */
-        gs = GS_FLOOR; Ci = ciAtGs(gs, 3); r = rates(Ci);
+    function stomata() {
+      if (mode === 'ciFixed') {
+        /* A versus Ci: Ci imposed directly (as a gas exchange system does by changing the reference CO2) */
+        Ci = +st.ciFixed; r = atCi(Ci);
+        gs = (r.A > 0 && Ca > Ci) ? Math.max(GS_FLOOR, 1.6 * r.A / (Ca - Ci)) : GS_FLOOR;
+      } else if (mode === 'ratio') {
+        Ci = Ca * clamp(fin(+st.ciRatio, P.ciRatio), 0.05, 1);
+        r = atCi(Ci);
+        gs = r.A > 0 && Ca > Ci ? 1.6 * r.A / (Ca - Ci) : 0;          /* mol H2O m−2 s−1 */
+        if (!(gs >= GS_FLOOR)) {
+          /* weak light, dark or blocked: stomata cannot close below their floor, so CO2 inside rises toward (and in the
+             dark above) Ca; Ci comes from supply = demand at the floor. Continuous with the ratio rule where they meet. */
+          gs = GS_FLOOR; Ci = ciAtGs(gs, 3); r = atCi(Ci);
+        }
+      } else {
+        gs = Math.max(0, fin(+st.gs, 0.3));
+        Ci = ciAtGs(gs, 1.5);
+        if (gs <= 0) Ci = Math.max(Ci, 0);
+        r = atCi(Ci);
       }
-    } else {
-      gs = Math.max(0, fin(+st.gs, 0.3));
-      Ci = ciAtGs(gs, 1.5);
-      if (gs <= 0) Ci = Math.max(Ci, 0);
-      r = rates(Ci);
     }
+    stomata();
+    if (isFinite(gm) && r.Cc > 0 && Math.abs(r.Cc - Cguess) > 1) { lightSide(r.Cc); stomata(); }   /* one refinement of the light side at the solved Cc */
+    var Cc = r.Cc;
     var A = r.A;
     var lim = unc ? 'blocked' : (dcmu || ppfd + fr <= 0 ? (dcmu ? 'blocked' : 'dark') : (r.Wa < Math.min(r.Wc, r.Wj) - 1e-9 ? 'ATP' : (r.Wc <= r.Wj ? 'Rubisco' : 'RuBP regeneration')));
-    var vc = Ci > 0 ? r.W : 0;
-    var phi = Ci > 0 ? 2 * Gs / Ci : 0;
+    var vc = Cc > 0 ? r.W : 0;
+    var phi = Cc > 0 ? 2 * Gs / Cc : 0;
     if (!isFinite(phi)) phi = 0;
     var vo = phi * vc;
     var photoresp = 0.5 * vo;
@@ -324,7 +356,7 @@
 
     /* quantum yield at this state (absorbed PAR basis), the low light slope of A */
     var I2c = Math.min(P.phi2max * E2, P.phi1 * E1 / (1 + cPer));
-    var alpha = (absPAR > 0 && !dcmu && !unc && Ci > Gs) ? (I2c / absPAR) * (Ci - Gs) / (4 * Ci + 8 * Gs) : 0;
+    var alpha = (absPAR > 0 && !dcmu && !unc && Cc > Gs) ? (I2c / absPAR) * (Cc - Gs) / (4 * Cc + 8 * Gs) : 0;
     /* Emerson enhancement: linear drive with this far red over the same PAR without it */
     var s0 = psiiSplit(effPAR, 0, cPer);
     var I2noFR = Math.min(P.phi2max * s0 * effPAR, P.phi1 * (1 - s0) * effPAR / (1 + cPer));
@@ -335,6 +367,21 @@
     var wue = E > 0 ? A / E : 0;                                      /* µmol CO2 per mmol H2O = mmol mol−1 */
     var iwue = gs > 0 ? A / gs : 0;                                   /* intrinsic WUE, µmol CO2 per mol H2O conductance */
     var nadphExcess = unc ? 0 : Math.max(0, Jused / 2 - nadphDemand);   /* uncoupled: the pool is simply full (nadphRate 0) */
+
+    /* v19: the CO2 path. Serial conductances air to Rubisco, 1/gtot = 1.6/gs + 1/gm. Limitation split in the form of
+       Grassi and Magnani (2005), as used by Tomás et al. (2013): ls = (gtot/gsc) d/(gtot + d), lm = (gtot/gm) d/(gtot + d),
+       lb = gtot/(gtot + d), d = dA/dCc at the operating point (numerical, one sided below the kink). They sum to 1. */
+    var gsc = gs / 1.6;
+    var gtot = gsc > 0 ? (isFinite(gm) ? 1 / (1 / gsc + 1 / gm) : gsc) : 0;
+    var dA = 0;
+    if (Cc > 1 && A > 0 && !unc) { var h1 = Math.max(0.5, Cc * 0.002); dA = Math.max(0, (rates(Cc).A - rates(Cc - h1).A) / h1); }
+    var lim3 = null;
+    if (A > 0 && gtot > 0 && dA > 0) {
+      var den = gtot + dA;
+      lim3 = { s: (gtot / gsc) * dA / den, m: isFinite(gm) ? (gtot / gm) * dA / den : 0, b: gtot / den };
+    }
+    var Ainf = isFinite(gm) ? rates(Ci).A : A;
+    var lmRel = (isFinite(gm) && Ainf > 0 && A > 0) ? clamp(1 - A / Ainf, 0, 1) : 0;
 
     if (cycSet && fCyc < 1 && lim === 'ATP') warn.push('Too little cyclic flow: ATP runs short, NADPH piles up and the Calvin Benson cycle slows.');
     if (fNPQ < 0.5 && E2 > 0 && phiPSII < 0.4) warn.push('Little NPQ: excess excitation stays on PSII, the risk of photodamage rises.');
@@ -356,6 +403,8 @@
       Ac: r.Ac, Aj: unc ? -Rd : r.Aj, A: A, Agross: Agross, limit: lim,
       vc: vc, vo: vo, phi: phi, photorespiration: photoresp,
       Ci: Ci, Ca: Ca, gs: gs, stomata: mode, vpd: vpd, E: E, wue: wue, iwue: iwue,
+      Cc: Cc, gm: isFinite(gm) ? gm : null, gmInf: !isFinite(gm), gsc: gsc, gtot: gtot, dropStoma: Ca - Ci, dropMeso: Ci - Cc,
+      lim3: lim3, dAdCc: dA, lmRel: lmRel, Ainf: Ainf,
       Wc: r.Wc, Wj: r.Wj, Wa: isFinite(r.Wa) ? r.Wa : null, cyclicScale: fCyc, npqScale: fNPQ, nadphExcess: nadphExcess, protonSurplus: protonSurplus,
       pressure: E2 > 0 ? Math.max(0, 1 - phiPSII - npq) : 0,
       cyclic: cyclic, psiSpare: psiSpare, hPlus: hPlus, atpRate: atpRate, nadphRate: nadphRate,
@@ -374,7 +423,7 @@
   var DEFAULTS = {
     ppfd: 1500, spectrum: { blue: P.sun.blue, green: P.sun.green, red: P.sun.red, farred: P.sun.farred },
     T: 25, Ca: 420, O2: 21, leaf: 'sun', dcmu: false, uncoupler: false, crop: 'lettuce',
-    stomata: 'ratio', gs: 0.3, vpd: 1.5
+    stomata: 'ratio', gs: 0.3, vpd: 1.5, gm: 0.26, gmInf: false
   };
   function copyDefaults() { var o = JSON.parse(JSON.stringify(DEFAULTS)); return o; }
   LP.DEFAULTS = DEFAULTS;
@@ -447,7 +496,7 @@
   LP.range = function (a, b, n) { var o = []; for (var i = 0; i < n; i++) o.push(a + (b - a) * i / (n - 1)); return o; };
   LP.constants = constants;
   LP.cyclicPerLinear = cyclicPerLinear;
-  LP.engine = { version: 'L2 r5, 12 Oct 2026', psiiSplit: psiiSplit, H_PER_E_LINEAR: H_PER_E_LINEAR, H_PER_E_CYCLIC: H_PER_E_CYCLIC, C_RING: C_RING, H_PER_ATP: H_PER_ATP, ATP_PER_TURN: ATP_PER_TURN, SUNQ: SUNQ, normSpectrum: normSpectrum };
+  LP.engine = { version: 'L2 r6 (v19 mesophyll conductance), 29 Oct 2026', psiiSplit: psiiSplit, H_PER_E_LINEAR: H_PER_E_LINEAR, H_PER_E_CYCLIC: H_PER_E_CYCLIC, C_RING: C_RING, H_PER_ATP: H_PER_ATP, ATP_PER_TURN: ATP_PER_TURN, SUNQ: SUNQ, normSpectrum: normSpectrum };
 
   /* ------------------------------------------------------------------ parameter table for the Expert tier */
   LP.PARAMS = [
@@ -464,8 +513,8 @@
     { sym: 'H⁺ per ATP, switch', v: '14/3 (structure) or 4.0 (thermodynamics)', u: '', badge: 'VERIFIED', ev: 'thy.turina', what: 'Expert toggle on Plate III' },
     { sym: 'spectral weights', v: 'red 1.0, green 0.9, blue 0.8', u: '', badge: 'VERIFIED', ev: 'mccree_red_green_blue', what: 'relative quantum yield per incident photon (ranking)' },
     { sym: 'Aj basis', v: 'J (C − Γ*) / (4 C + 8 Γ*)', u: '', badge: 'VERIFIED', ev: 'fvcb_model', what: 'NADPH limited form; 4.5 and 10.5 on an ATP basis' },
-    { sym: 'Ci = Cc', v: 'no mesophyll conductance', u: '', badge: 'ILLUSTRATIVE', ev: 'eng.gm', what: 'Cc is lower than Ci in real leaves' },
-    { sym: 'Ci / Ca', v: '0.7', u: '', badge: 'ILLUSTRATIVE', ev: 'eng.ci', what: 'a well watered C3 leaf' },
+    { sym: 'gm', v: '0.26 (Expert: infinite, Cc = Ci)', u: 'mol m⁻² s⁻¹', badge: 'MEASURED', ev: 'eng.gm', what: 'mesophyll conductance, median of crops (compilation); constant with T, CO₂ and light here' },
+    { sym: 'Ci / Ca', v: '0.7', u: '', badge: 'ILLUSTRATIVE', ev: 'eng.ci', what: 'a well watered C3 leaf (teaching value)' },
     { sym: 'H⁺ per e⁻', v: '3 linear, 2 cyclic', u: '', badge: 'VERIFIED', ev: 'thy.sacksteder', what: '3 per linear e⁻ in steady state (Sacksteder et al. 2000); 2 per cyclic e⁻ on the PGR5 route' },
     { sym: 'H⁺ per ATP', v: '14 / 3 = 4.67', u: '', badge: 'VERIFIED', ev: 'thy.turina', what: 'c14 ring, three ATP per turn (structural ratio)' },
     { sym: 'ATP synthase density', v: '0.5', u: 'µmol m⁻²', badge: 'ILLUSTRATIVE', ev: 'eng.synthase', what: 'sets the rotor speed per enzyme' },
@@ -482,8 +531,8 @@
   ev('eng.theta', { claim: 'J rises with absorbed light along a non rectangular hyperbola with curvature θ = 0.8.', cite: 'A teaching value inside the usual fitted range.', measured: 'none', value: '0.8', badge: 'ILLUSTRATIVE', note: 'Fitted θ values for real leaves usually fall between about 0.7 and 0.9.' });
   ev('eng.abs', { claim: 'The model leaf absorbs 84 % of PAR photons and 30 % of far red photons.', cite: '0.84 is the assumption built into the Genty ETR equation; 0.30 for 700 to 750 nm is chosen to show that a single leaf absorbs little far red.', measured: 'none', value: '0.84; 0.30', badge: 'ILLUSTRATIVE', note: 'Real absorptance changes with chlorophyll, thickness and wavelength. Measure it with an integrating sphere.' });
   ev('eng.balance', { claim: 'Linear flow needs one photon at PSII and one at PSI per electron, and PSI also has to power the cyclic flow that tops up ATP. The model leaf splits absorbed PAR between the photosystems so both keep up (PSII share s between 0.40 and 0.55; about 0.50 in sunlight, 0.47 under red and blue LEDs); far red excites only PSI. PSI photochemistry runs at 0.95, PSII at most at Fv/Fm 0.80. Far red therefore lets PSII take a bigger share, and the gain stops when s reaches 0.55 (near a third of the photons as far red).', cite: 'Teaching model after Hogewoning et al. (2012), who showed that leaves acclimate their photosystem composition and excitation balance to the growth spectrum (key thy.hoge2012), and the Emerson enhancement (Emerson, Chalmers and Cederstrand 1957).', measured: 'none', value: 's = 0.40 to 0.55; ΦPSI 0.95', badge: 'ILLUSTRATIVE', note: 'With this split ΦPSII at 100 µmol m−2 s−1 red and blue light is 0.74, inside the 0.74 to 0.77 Hogewoning et al. (2010) measured; with a fixed 50:50 split it was 0.55.' });
-  ev('eng.gm', { claim: 'The model treats CO2 at Rubisco (Cc) as equal to CO2 in the leaf air spaces (Ci).', cite: 'A simplification: real leaves have a finite mesophyll conductance, so Cc is lower than Ci.', measured: 'none', value: '', badge: 'ILLUSTRATIVE', note: 'Fitting FvCB to real A versus Ci curves without gm makes Vcmax look smaller than it is.' });
-  ev('eng.ci', { claim: 'With "stomata follow the leaf", Ci stays at 0.7 of the CO2 in the air, a typical value for a well watered C3 leaf.', cite: 'Teaching value.', measured: 'none', value: '0.7', badge: 'ILLUSTRATIVE', note: 'Drought, high VPD and ABA lower Ci/Ca; switch to fixed conductance to see the leaf run short of CO2.' });
+  ev('eng.gm', { claim: 'After the stomata, CO2 still has to cross the air spaces, the cell wall, membranes and the watery inside of the cell to reach Rubisco. That second path is the mesophyll conductance, gm, from the air spaces (Ci) to the sites of carboxylation (Cc). The model uses gm = 0.26 mol m−2 s−1, the median for crops in a compilation of 563 studies and 617 species (unstressed leaves, gm standardised to 25 °C). At that gm the compilation finds photosynthesis held 20.9 % below what it would be with no mesophyll resistance (95 % CI 17.6 to 24.2 %).', cite: 'Knauer J, Cuntz M, Evans JR, Niinemets Ü, Tosens T, Veromann Jürgenson LL, Werner C, Zaehle S (2022) New Phytol 236:357 to 368 (full text read); definition from Flexas J et al. (2008) Plant Cell Environ 31:602 to 621', doi: '10.1111/nph.18363', doi2: '10.1111/j.1365-3040.2007.01757.x', measured: 'compiled gm of unstressed leaves from published studies, standardised to 25 °C', value: '0.26 mol m−2 s−1 (median, crops); 20.9 % limitation', badge: 'MEASURED', note: 'In this model gm is one number: it does not change with temperature, CO2 or light. With gm = 0.26 the model leaf is held about 15 % below its no mesophyll value (DERIVED, it depends on Vcmax). The Expert switch on Plate V sets gm to infinite, Cc = Ci, the older form of this model. Fitting FvCB to A versus Ci curves without gm makes Vcmax look smaller than it is.' });
+  ev('eng.ci', { claim: 'With "stomata follow the leaf", Ci stays at 0.7 of the CO2 in the air, a value often used for a well watered C3 leaf; the stomata open as far as they must to hold it.', cite: 'Teaching value. It has not been matched to a measured value on this site, so it is labelled as a teaching value.', measured: 'none', value: '0.7', badge: 'ILLUSTRATIVE', note: 'Drought, high VPD and ABA lower Ci/Ca; switch to fixed conductance to see the leaf run short of CO2. With a finite mesophyll conductance the CO2 at Rubisco (Cc) is lower again than Ci.' });
   ev('eng.synthase', { claim: 'Rotor speed per enzyme = ATP made per second ÷ 3 ATP per turn ÷ the number of ATP synthases (0.5 µmol per m2 of leaf in this model).', cite: 'The 3 ATP per turn follows from the three catalytic sites; the enzyme density is a teaching value.', measured: 'none', value: '0.5 µmol m−2', badge: 'ILLUSTRATIVE', note: 'Halve the density and each rotor must spin twice as fast for the same ATP.' });
   ev('eng.unc', { claim: 'With an uncoupler the leaf makes no ATP, so the Calvin Benson cycle stops and NADPH is not used. Within seconds NADP+ is all reduced and linear flow falls to what O2 (the Mehler reaction) and other minor sinks accept: 15 % of the coupled flow in this model.', cite: 'Teaching value. The classic speed up of electron flow by uncouplers was measured on isolated thylakoids given an artificial electron acceptor.', measured: 'none', value: '0.15', badge: 'ILLUSTRATIVE', note: 'res.Jtransient is the first few seconds; res.Jused is the steady state.' });
   ev('eng.pmf', { claim: 'Proton motive force rises with proton pumping and saturates; 60 % of it is held as ΔpH and the rest as a membrane voltage. Lumen pH = stroma pH − ΔpH, kept between 5.7 and 7.5.', cite: 'A shape chosen for teaching. The lumen pH it gives is kept inside the in vivo range measured in Arabidopsis, about 7.5 to about 5.7 (Takizawa et al. 2007, key lumen_ph).', measured: 'none', value: '', badge: 'ILLUSTRATIVE', note: 'Measured with electrochromic shift (ECS) and dark interval relaxation kinetics.' });

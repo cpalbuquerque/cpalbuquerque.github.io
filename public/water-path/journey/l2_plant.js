@@ -10,7 +10,7 @@
   var WP = window.WP = window.WP || {};
   WP.levels = WP.levels || [];
   var MINUS = '−';
-  var ui, root, refs = {}, exp = 0, lastCrop = '', anim = { on: false, raf: 0, t0: 0, s: 0, pathEl: null, len: 0 }, lastRes = null;
+  var ui, root, refs = {}, exp = 0, lastCrop = '', anim = { on: false, raf: 0, t0: 0, s: 0, pathEl: null, len: 0, paused: null, rm: null } /* v19: paused, click the circuit to freeze */, lastRes = null;
 
   function num(x, d) { return WP.fmt.num(x, d); }
   function psi(x, d) { return WP.fmt.psi(x, d); }
@@ -974,7 +974,7 @@
         '<figure class="fig"><div class="fighead"><h3>The plant as one circuit</h3><p id="p2-latin"></p></div>' +
           '<svg class="p2-svg" id="p2-plant" viewBox="0 0 520 600" role="img" aria-labelledby="p2-plant-t"><title id="p2-plant-t">The plant drawn as a hydraulic circuit</title>' + defs() + '<g id="p2-art"></g><g id="p2-dyn"></g></svg>' +
           '<ol class="p2-key" id="p2-key" aria-label="Key to the plate"></ol>' +
-          '<figcaption class="p2-cap ev-host"><b>Read the drawing.</b> The blue line is the water path, numbered 1 to 6 from soil to the end of the path outside the xylem; its ink darkens toward 0 MPa and pales as the tension rises. Water molecules (red oxygen, two white hydrogens) move through every root, shoot, petiole and vein at a speed set by the local flow (E × the leaf area that conduit feeds) ÷ its drawn width; they slow as the stomata close, and a conduit filled with air (charcoal) holds only gas bubbles. Faint wisps beside the pore are water leaving through the cuticle. Each box is a resistance, drawn larger when it holds a larger share of the total. ' + ev('l2.split') + '</figcaption>' +
+          '<figcaption class="p2-cap ev-host"><b>Read the drawing.</b> The blue line is the water path, numbered 1 to 6 from soil to the end of the path outside the xylem; its ink darkens toward 0 MPa and pales as the tension rises. Water molecules (blue, as water is on every page) move through every root, shoot, petiole and vein at a speed set by the local flow (E × the leaf area that conduit feeds) ÷ its drawn width; they slow as the stomata close, and a conduit filled with air (charcoal) holds only gas bubbles. Faint wisps beside the pore are water leaving through the cuticle. Each box is a resistance, drawn larger when it holds a larger share of the total. ' + ev('l2.split') + '</figcaption>' +
         '</figure>' +
         '<figure class="fig"><div class="fighead"><h3>The water potential terraces</h3><p>Soil at the bottom, air at the top: each terrace is a place on the path, each riser a resistance</p></div>' +
           '<svg class="p2-svg" id="p2-stair" viewBox="0 0 560 490" role="img" aria-labelledby="p2-stair-t"><title id="p2-stair-t">Water potential terraces climbing from soil to air</title><defs><marker id="p2-arw2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="var(--warm)"/></marker><marker id="p2-aru" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="var(--w2)"/></marker></defs><g id="p2-st"></g><g id="p2-treads"></g></svg>' +
@@ -1077,7 +1077,9 @@
     ui.sources(src, ['10.1111/nph.19069', '10.1039/df9480300146', '10.1104/pp.41.1.119', '10.1093/jxb/eraa392', '10.3389/fpls.2022.974050', '10.1111/pce.13722', '10.1146/annurev.arplant.56.032604.144141', '10.1016/j.tplants.2017.11.002',
       '10.1111/nph.15395', '10.1093/jxb/47.12.1813', '10.1111/nph.71166', '10.1111/nph.20346', '10.1126/science.1197985', '10.1104/pp.16.00380', '10.1111/nph.15899', '10.1006/anbo.2000.1361', '10.21273/hortsci.38.4.547', '10.1111/nph.70052', '10.3791/4179'], 'Sources for this plate');
     treeInit(el.querySelector('[data-r="hero"]')); // gate and tree, 13 Oct: the 3D almond tree is the hero; the glassy stem hero is the fallback
-    ui.onPrefs(function () { if (WP.state) update(WP.state, WP.result); if (!ui.reducedMotion()) startAnim(); else stopAnim(true); if (PH.ctx && PH.ctx.retheme) PH.ctx.retheme(); if (T3C) T3C.retheme(); });
+    anim.rm = anim.paused = ui.reducedMotion(); // v19: reduced motion starts paused; a click on the circuit plays it
+    if (window.WPFreeze && refs.plant) WPFreeze.attach(refs.plant, { paused: function () { return anim.paused; }, set: function (p) { anim.paused = !!p; if (p) stopAnim(true); else if (anim.on) startAnim(); } });
+    ui.onPrefs(function () { var rmv = ui.reducedMotion(); if (rmv !== anim.rm) { anim.rm = rmv; anim.paused = rmv; } if (WP.state) update(WP.state, WP.result); if (!anim.paused) startAnim(); else stopAnim(true); if (PH.ctx && PH.ctx.retheme) PH.ctx.retheme(); if (T3C) T3C.retheme(); });
     document.addEventListener('visibilitychange', function () { if (document.hidden) stopAnim(); else if (anim.on) startAnim(); });
   }
 
@@ -1230,7 +1232,7 @@
   }
   if (window.MolNames) window.MolNames.on(function () { if (NET.nm) { NET.nm.dirty(); placeParticles(0); } });
   function frame(t) {
-    if (!anim.on) return;
+    if (!anim.on || anim.paused) return;
     var dt = anim.t0 ? Math.min(0.1, (t - anim.t0) / 1000) : 0; dt *= (window.PlaySpeed ? window.PlaySpeed.get() : 1);
     anim.t0 = t;
     placeParticles(dt);
@@ -1238,7 +1240,7 @@
   }
   function startAnim() {
     anim.on = true;
-    if (ui.reducedMotion()) { stopAnim(true); return; }
+    if (anim.paused) { stopAnim(true); return; }
     cancelAnimationFrame(anim.raf); anim.t0 = 0;
     anim.raf = requestAnimationFrame(frame);
   }
@@ -1374,13 +1376,17 @@
         CH.map(function (c, i) { return '<button type="button" class="chip" role="radio" aria-checked="false" data-why="' + i + '">' + c[0] + '</button>'; }).join('') + '</div>' +
         '<div data-r="whyans" aria-live="polite"></div></div>' +
       '<h4 style="margin:18px 0 4px">Starve or thirst: one pore, two jobs</h4>' +
-      '<p class="lh-cap" style="margin-top:0">Open the stoma and CO₂ flows in for photosynthesis, but water flows out faster. Close it and the leaf saves water but starves of CO₂. Slide the opening and watch both streams.</p>' +
+      '<p class="lh-cap" style="margin-top:0">Open the stoma and CO₂ flows in for photosynthesis, but water flows out faster. Close it and the leaf saves water but starves of CO₂. Slide the opening and watch both streams. Zoom from the leaf surface to one stoma to the pore itself: CO₂ comes in and water vapour goes out through the same gap, and in the light O₂ leaves that way too.</p>' +
       '<div class="lh-two">' +
-        '<div><div data-r="stmol" class="lh-mol"></div>' +
+        '<div><div class="chips p2-stz" role="group" aria-label="Zoom on the stoma" style="margin:0 0 6px"><span class="lab">Zoom:</span>' +
+          '<button type="button" class="chip" data-stz="leaf" aria-pressed="false">Leaf surface</button><button type="button" class="chip" data-stz="stoma" aria-pressed="true">One stoma</button><button type="button" class="chip" data-stz="pore" aria-pressed="false">The pore</button></div>' +
+          '<div data-r="stmol" class="lh-mol"></div>' +
+          (window.WPMolColor ? WPMolColor.key(['h2o', 'co2', 'o2']) : '') +
           '<div class="lh-sl"><label for="p2-st-gs">Stomatal opening, g<sub>s</sub></label><input type="range" id="p2-st-gs" min="0" max="0.6" step="0.01" value="0.30"><output id="p2-st-gso"></output></div>' +
           '<p class="lh-read" data-r="stread" aria-live="polite"></p></div>' +
         '<div><div class="tier-2" data-r="stchart"></div>' +
           '<p class="lh-cap tier-2">CO₂ in rises and then flattens as the chloroplasts, not the pore, become the limit; water out keeps rising in a straight line. So each extra bit of opening buys less carbon for more water. The weather sets the slope of the water line: try a hotter, drier afternoon in the conditions strip.</p>' +
+          '<p class="lh-cap tier-2"><b>Why O₂ leaves too.</b> In the light, chloroplasts split water and the oxygen leaves the leaf as O₂, by the same pores. Sugar making uses about one CO₂ for each O₂ released (CO₂ + H₂O gives sugar + O₂), so the drawing sends out one O₂ for each CO₂ taken in ' + LH.badge('DERIVED', 'Overall photosynthesis equation; photorespiration and respiration shift the real ratio a little.') + '. The pore is the only easy way through the waxy cuticle for all three gases.</p>' +
           '<div class="card tier-3"><h4 style="margin:0 0 6px">The toy’s equations</h4><p style="margin:0">E = g<sub>s</sub> × VPD ÷ P<sub>atm</sub> ' + LH.badge('DERIVED', 'The same equation the plate model uses.') + '. CO₂ in: A = (g<sub>s</sub> ÷ 1.6) × (C<sub>a</sub> − C<sub>i</sub>), with 1.6 the ratio of the diffusivities of water vapour and CO₂ in air, solved against a simple demand A = V (C<sub>i</sub> − Γ) ÷ (C<sub>i</sub> + K) with C<sub>a</sub> 420 ppm, Γ 40 ppm, V 30 µmol m⁻² s⁻¹ and K 300 ppm ' + LH.badge('ILLUSTRATIVE', 'Constants chosen to give a plausible C3 leaf; not fitted to any species.') + '. Leaf Ψ = soil Ψ − E ÷ K<sub>plant</sub>, with K<sub>plant</sub> from the plate model.</p>' +
             '<p style="margin:8px 0 0">The full photosynthesis model, with Rubisco, light and temperature, is on <a href="../light/index.html#tradeoff">Light V · Water for carbon</a>.</p></div>' +
         '</div></div>' +
@@ -1400,8 +1406,15 @@
     var gsIn = sec.querySelector('#p2-st-gs'), gsOut = sec.querySelector('#p2-st-gso');
     gsIn.addEventListener('input', function () { ST.gs = +gsIn.value; stUpdate(sec); });
     if (ui.molStage) ST.T = ui.molStage(sec.querySelector('[data-r="stmol"]'), 'stomagas', { height: function (cw) { return cw < 560 ? 380 : 400; }, prewarm: 5, // 13 Oct: 25 % taller
-      caption: 'Drawing scale: CO₂ at 0.25 molecules per second per µmol m⁻² s⁻¹ taken up; water at 1.2 per second per mmol m⁻² s⁻¹ lost.',
-      label: 'Animated stoma on the lower leaf surface: CO2 molecules drift in through the pore to the chloroplasts while water molecules leave through the same pore, at rates set by the opening slider' });
+      caption: 'Drawing scale: CO₂ at 0.25 molecules per second per µmol m⁻² s⁻¹ taken up, O₂ the same in the light; water at 1.2 per second per mmol m⁻² s⁻¹ lost. The pore view widens the pore and shows only 1 in N of these molecules (its tag gives N), so they never overlap. Drawn, not to scale.',
+      label: 'Animated stoma on the lower leaf surface: CO2 molecules drift in through the pore to the chloroplasts while water molecules, and in the light O2 molecules, leave through the same pore, at rates set by the opening slider. Zoom shows the leaf surface, one stoma or the pore.' });
+    /* v19: three zoom levels (leaf surface, one stoma, the pore), one model */
+    var stz = sec.querySelector('.p2-stz');
+    if (stz) stz.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-stz]'); if (!b) return; ST.zoom = b.getAttribute('data-stz');
+      Array.prototype.forEach.call(stz.querySelectorAll('[data-stz]'), function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      if (ST.T) ST.T.set({ zoom: ST.zoom });
+    });
     wpSpeedChip(sec.querySelector('[data-r="stmol"]'));
     ST.out = gsOut;
     if (WP.on) ST.unsub = WP.on(function () { stUpdate(sec); });
@@ -1417,7 +1430,8 @@
     rd.innerHTML = '<b>' + mood + '</b> CO₂ in <b>' + LH.num(a.A, 1) + '</b> µmol m⁻² s⁻¹; water out <b>' + LH.num(E, 1) + '</b> mmol m⁻² s⁻¹' +
       (ratio ? '; about <b>' + LH.num(Math.round(ratio / 10) * 10, 0) + '</b> water molecules lost per CO₂ taken in' : '') + ' ' + LH.badge('ILLUSTRATIVE', 'Toy model; E is DERIVED from the live VPD.') +
       '<span class="tier-2"> At this VPD (' + LH.num(VPD, 2) + ' kPa)' + (leaf !== null ? ' the leaf would sit near ' + LH.psi(leaf) + ' in this model' : '') + '.</span>';
-    if (ST.T) ST.T.set({ open: Math.min(1, gs / 0.5), co2: 0.25 * a.A, h2o: 1.2 * E, ratio: ratio ? '≈ ' + Math.round(ratio / 10) * 10 + ' H₂O per CO₂' : 'no CO₂ in' });
+    var lit = !(WP.state && WP.state.ppfd <= 0); // O2 leaves only in the light (v19)
+    if (ST.T) ST.T.set({ open: Math.min(1, gs / 0.5), co2: 0.25 * a.A, h2o: 1.2 * E, o2: lit ? 0.25 * Math.max(0, a.A) : 0, zoom: ST.zoom || 'stoma', ratio: ratio ? '≈ ' + Math.round(ratio / 10) * 10 + ' H₂O per CO₂' : 'no CO₂ in' });
     var ch = sec.querySelector('[data-r="stchart"]'); if (!ch) return;
     var W = LH.narrow(ch) ? 440 : 600, H = 306, L = 52, R = 52, T = 50, B = 44, n = 60, gmax = 0.6; /* QV13: legend and starve/thirst above the plot, no labels on the curves */
     var Emax = stE(gmax, VPD), Amax = stA(gmax).A, yE = Math.max(4, Math.ceil(Emax / 4) * 4), yA = Math.max(10, Math.ceil(Amax / 5) * 5);
@@ -1506,7 +1520,7 @@
     mats.fib = M.glass(T, 0x9c8a50, { opacity: 0.35, roughness: 0.3, emissive: 0x201a08, ei: 0.5, rimColor: 0xfff0c0, rimK: 0.5 });
     [[-1.45, 0.3], [-1.5, -1.1], [-0.35, -1.95], [0.7, -1.95], [1.65, -1.2], [1.6, 0.25], [-2.7, 0.7], [2.75, 0.75]].forEach(function (f) { var r = new T.Mesh(fG, mats.fib); r.position.set(f[0], 0, f[1]); ctx.root.add(r); });
     var dots = PH.farDots.map(function (d) { return [d.x, d.y, d.z]; });
-    PH.dotPts = M.balls(T, dots, 0xd9402f, 0.16); ctx.root.add(PH.dotPts); ctx.disp.push(PH.dotPts.geometry, PH.dotPts.material);
+    PH.dotPts = M.balls(T, dots, M.atomColor ? M.atomColor('h2o', 'O') : 0xd9402f, 0.16); // v19: water blue ctx.root.add(PH.dotPts); ctx.disp.push(PH.dotPts.geometry, PH.dotPts.material);
 
     // the hero vessel: glass wall, end walls with an open ring (simple perforation plate), bordered pits
     mats.hv = M.glass(T, 0xf2f8ff, { opacity: 0.26, roughness: 0.02, ccr: 0.0, emissive: 0x10202e, ei: 0.5, rimColor: 0xeaf6ff, rimK: 1.7, rimPow: 3.2, env: 1.0 });

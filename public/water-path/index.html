@@ -105,9 +105,10 @@ main{padding-inline:16px; padding-block:1.4rem calc(var(--bar-bottom) + env(safe
 @media (min-width:1024px){
   .tabbar{display:none}
   .layout{display:grid; grid-template-columns:230px minmax(0,1fr); max-width:84rem; margin:0 auto}
+  .layout{max-width:none}   /* full width on wide screens: the frame fills the window; reading text keeps its own line length */
   .rail{display:block; position:sticky; top:calc(var(--bar-top) + env(safe-area-inset-top,0px)); align-self:start;
     height:calc(100vh - var(--bar-top)); overflow:auto; padding:1.2rem 0 2rem 16px; border-right:1px solid var(--line)}
-  main{padding-block:2rem 4rem; padding-inline:2.2rem; margin:0; max-width:58rem}
+  main{padding-block:2rem 4rem; padding-inline:clamp(2.2rem,3vw,4rem); margin:0; max-width:none}
 }
 .rail ol{list-style:none; margin:0; padding:0; counter-reset:s}
 .rail a{display:flex; gap:.6rem; align-items:baseline; padding:.5rem .8rem .5rem 0; color:var(--ink-2);
@@ -648,7 +649,7 @@ fieldset.chips.stack .chip span{padding:.55rem .85rem; line-height:1.35; font-si
 <dt>kPa</dt><dd>Kilopascals. VPD is small numbers in kPa; water potential is in MPa. 1 MPa = 1000 kPa = 10 bar. A tensiometer's 30 cbar is 30 kPa, or −0.03 MPa.</dd>
 </dl>
 </details>
-<p class="start"><span class="label">Start here</span>Drag the temperature slider in Fig 5.1 and leave humidity alone. VPD grows even though the relative humidity never changed. That is why a warming climate dries plants out even when the air holds more water.</p>
+<p class="start"><span class="label">Start here</span>Drag the temperature slider in Fig 5.1 and leave humidity alone. VPD grows even though the relative humidity never changed. That is why warmer air dries plants out even when it holds more water.</p>
 <figure class="fig" data-fig="vpd" id="fig-demand-vpd">
 <div class="fighead"><div><span class="fn">Fig 5.1</span><h2>The VPD calculator</h2><p class="fq">How much harder does a Fresno afternoon pull than a Salinas afternoon?</p></div><div class="figtools"><button class="btn" data-act="reset" type="button">Reset</button><button class="btn" data-act="link" type="button">Link</button></div></div>
 <div class="chart" data-chart=""></div>
@@ -1799,7 +1800,7 @@ fieldset.chips.stack .chip span{padding:.55rem .85rem; line-height:1.35; font-si
 <ol class="stoplist" id="sheetList"></ol>
 </div>
 <div aria-label="Symbol" class="pop" hidden="" id="pop" role="dialog"></div>
-<script src="speed.js"></script><script src="trip_strip.js"></script>
+<script src="freeze.js"></script><script src="molcolor.js"></script><script src="speed.js"></script><script src="trip_strip.js"></script>
 <script src="journey/quiz_site.js"></script>
 <script src="light/quiz_site.js"></script>
 <script src="phloem/quiz_site.js"></script>
